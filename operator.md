@@ -1,107 +1,100 @@
-🔹 1. Basic Nature 
-Python → Interpreted, dynamically typed, scripting language.
+﻿
+# **Core Java Notes**
 
-Java → Compiled to bytecode, runs on JVM (platform independent).
+## **Table of Contents**
 
-C++ → Compiled directly to machine code (fast, but platform dependent unless recompiled).
+1. [Language Comparison](#language-comparison)
+2. [Access Modifiers](#access-modifiers)
+3. [Keywords & Concepts](#keywords--concepts)
+4. [Data Types](#data-types)
+5. [Operators](#operators)
+6. [Input Methods](#input-methods)
 
-🔹2. Syntax
+---
 
-Python → Simple, fewer lines, indentation-based.
+# **Language Comparison**
 
-Java → Verbose, everything inside a class, strict syntax.
+## **Python vs Java vs C++**
 
-C++ → Complex (mix of low-level + OOP), uses headers, pointers, manual memory handling.
+### **1. Basic Nature**
 
-🔹3. Typing System
+| Language | Nature |
+| -------- | ------ |
 
-Python → Dynamically typed (no need to declare variable type).
+# **Data Types**
 
+| Type    | Size    | Example           |
+|---------|---------|-------------------|
+| int     | 4 bytes | int x = 10;       |
+| float   | 4 bytes | float f = 2.3f;   |
+| double  | 8 bytes | double d = 3.14;  |
+| char    | 2 bytes | char c = 'A';     |
+| boolean | 1 bit   | boolean b = true; |
+- **Python**: Simple, fewer lines, indentation-based
+
+# **Operators**
+
+## **Arithmetic Operators**
+
+| Operator | Meaning        | Example   |
+|----------|---------------|-----------|
+| +        | Addition      | a + b     |
+| -        | Subtraction   | a - b     |
+| *        | Multiplication| a * b     |
+| /        | Division      | a / b     |
+| %        | Modulus       | a % b     |
 x = 10    # int
-x = "Hi"  # now string, allowed
 
+## **Relational Operators**
 
-Java → Statically typed (must declare variable type).
+| Operator | Meaning           | Example   |
+|----------|------------------|-----------|
+| ==       | Equal to         | a == b    |
+| !=       | Not equal to     | a != b    |
+| >        | Greater than     | a > b     |
+| <        | Less than        | a < b     |
+| >=       | Greater or equal | a >= b    |
+| <=       | Less or equal    | a <= b    |
+```
 
-int x = 10; 
-String y = "Hi";
+## **Logical Operators**
 
+| Operator | Meaning | Example   |
+|----------|---------|-----------|
+| &&       | AND     | a && b    |
+| ||       | OR      | a || b    |
+| !        | NOT     | !a        |
+| **Python** | Automatic (garbage collector) |
 
-C++ → Statically typed (must declare type, but has more control with pointers).
+# **Input Methods**
 
-int x = 10; 
-string y = "Hi";
+## **1. Using Scanner**
 
-🔹 4. Memory Management
+```java
+import java.util.Scanner;
 
-Python → Automatic (garbage collector).
-
-Java → Automatic (garbage collector in JVM).
-
-C++ → Manual (programmer must free memory with delete).
-
-🔹 5. Speed
-
-C++ → Fastest (compiled directly to machine code).
-
-Java → Slower than C++ (runs on JVM).
-
-Python → Slowest (interpreted, but easy to write).
-
-🔹 6. Paradigms
-
-Python → Multi-paradigm (procedural, OOP, functional).
-
-Java → Pure OOP (everything inside classes).
-
-C++ → Multi-paradigm (procedural + OOP + low-level features).
-
-🔹 7. Use Cases
-
-Python → AI/ML, Data Science, Web (Django, Flask), scripting, automation.
-
-Java → Enterprise apps, Android apps, banking systems, backend servers.
-
-C++ → System software, game engines, operating systems, embedded systems.
-
-🔹 8. Portability
-
-Python → Runs anywhere (need interpreter installed).
-
-Java → Write Once, Run Anywhere (via JVM).
-
-C++ → Must recompile for each OS (platform dependent).
-
-🔹 9. Example: Add Two Numbers
-
-🔹Python
-
-a = 5
-b = 3
-print("Sum:", a+b)
-
-
-🔹Java
-
-public class Add {
+public class InputExample {
     public static void main(String[] args) {
-        int a = 5, b = 3;
-        System.out.println("Sum: " + (a+b));
+        Scanner sc = new Scanner(System.in);
+        int x = sc.nextInt();
+        String s = sc.nextLine();
     }
 }
+```
 
+## **2. Using BufferedReader**
 
-🔹C++
+```java
+import java.io.*;
 
-#include <iostream>
-using namespace std;
-
-int main() {
-    int a = 5, b = 3;
-    cout << "Sum: " << a+b;
-    return 0;
+public class InputExample2 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int x = Integer.parseInt(br.readLine());
+        String s = br.readLine();
+    }
 }
-| Feature           | Python 🐍   | Java ☕              | C++ ⚡               |
+```
 | ----------------- | ----------- | ------------------- | ------------------- |
 | Typing            | Dynamic     | Static              | Static              |
 | Compilation       | Interpreted | Bytecode (JVM)      | Native Machine Code |
@@ -110,154 +103,82 @@ int main() {
 | Syntax            | Very simple | Verbose             | Complex             |
 | Use Cases         | AI, ML, Web | Android, Enterprise | Games, OS, Drivers  |
 
+---
 
-| Modifier                   | Accessible in Same Class | Same Package | Subclass | Other Packages      |
-| -------------------------- | ------------------------ | ------------ | -------- | ------------------- |
-| *public*                 | ✅                        | ✅            | ✅        | ✅                   |
-| *protected*              | ✅                        | ✅            | ✅        | ❌ (unless subclass) |
-| *default* (no keyword) | ✅                        | ✅            | ❌        | ❌                   |
-| *private*                | ✅                        | ❌            | ❌        | ❌                   |
-🔹 What is static?
+## Feature Comparison Table
 
-static is a keyword in Java.
 
-It means the member (variable, method, block, or nested class) belongs to the class itself, not to objects.
+# **Access Modifiers**
 
-So you can access it without creating an object.
-[06-10-2025 15:33] Harshad: 🔹 Where we use static?
-1. Static Variables
+| Modifier      | Same Class | Same Package | Subclass | Other Packages |
+|--------------|:----------:|:------------:|:--------:|:--------------:|
+| **public**   | ✅         | ✅           | ✅       | ✅             |
+| **protected**| ✅         | ✅           | ✅       | ❌             |
+| **default**  | ✅         | ✅           | ❌       | ❌             |
+| **private**  | ✅         | ❌           | ❌       | ❌             |
 
-Shared across all objects of the class.
+---
 
-Only one copy exists in memory.
-[06-10-2025 15:33] Harshad: 2. Static Methods
 
-Can be called without creating an object.
-[06-10-2025 15:34] Harshad: 3. Static Block
+# **Keywords & Concepts**
 
-Runs once when the class is loaded.
+## **static Keyword**
 
-Used for initialization.
+**static** means the member belongs to the class, not objects.
 
- ✅ In short:
+- **Static Variables**: Shared across all objects
+- **Static Methods**: Called without object creation
+- **Static Block**: Runs once when class loads
 
-static = belongs to the class, not to objects.
+## **void Return Type**
 
-Saves memory (one copy for all).
+**void** means method returns no value.
 
-Used for constants, utility methods, and program entry (main).
+## **main() Method**
 
-🔹 public in Java
-
-public is an access modifier.
-
-It controls the visibility (who can use/see the class, method, or variable).
-
-When something is marked as public → it is accessible from anywhere in the program (any class, any package).
-
-🔹 What does void mean?
-
-void is a return type in Java.
-
-It means the method does not return any value.
-
-If a method is declared void, you just call it for its effect (like printing, updating, etc.), not for getting a result.
-✅ Summary
-
-void = method returns nothing.
-
-Use when method just performs an action (like printing, updating data).
-
-If you want a result, replace void with the data type and use return.
-[06-10-2025 15:46] Harshad: Why is main method void?
+```java
 public static void main(String[] args)
+```
+
+| Component | Reason |
+| --------- | ------ |
+| **public** | Accessible by JVM |
+| **static** | Called without object |
+| **void** | No return value |
 
 
-JVM calls main() to start the program.
+---
 
-JVM doesn’t expect a return value (it only needs the code to run).
+## System.out.println in Java
 
-That’s why it is void.
- ✅ In short:
+Used to print output to the console.
 
-main = entry point of Java program.
+### Structure
 
-JVM searches for it to start execution.
+| Component | Description |
+| --------- | ----------- |
+| **System** | A predefined class in java.lang package. Provides access to system-level stuff (input, output, error, etc.) |
+| **out** | A static variable of type PrintStream inside System class. Represents the standard output stream (usually the console). |
+| **println()** | A method of PrintStream class. Prints text to the console and moves the cursor to the next line. |
 
-Must be public static void main(String[] args).
- Breakdown:
+# Data Types
 
-public
+## Primitive Data Types
 
-Must be accessible by JVM (which is outside your class).
+| Data Type | Size | Range |
+| --------- | ---- | ----- |
+| **byte** | 1 | -128 to 127 |
+| **short** | 2 | -32,768 to 32,767 |
+| **int** | 4 | -2.1B to 2.1B |
+| **long** | 8 | -2 to 2-1 |
+| **float** | 4 | 7 digits precision |
+| **double** | 8 | 15-16 digits precision |
+| **char** | 2 | Unicode character |
+| **boolean** | 1 bit | true/false |
 
-If not public, JVM cannot run it.
+---
 
-static
-
-JVM calls main without creating an object.
-
-So main must be static.
-
-void
-
-main does not return any value.
-
-JVM doesn’t expect results, it just executes code.
-
-main
-
-The name of the method (fixed keyword).
-
-JVM specifically looks for this name.
-
-String[] args
-
-Stores command-line arguments passed when running the program.
-🔹 System.out.println in Java
-
-It is used to print output to the console.
-
-Structure:
-
-System
-
-A predefined class in java.lang package.
-
-Provides access to system-level stuff (input, output, error, etc.).
-
-out
-
-A static variable of type PrintStream inside System class.
-
-Represents the standard output stream (usually the console).
-
-println()
-
-A method of PrintStream class.
-
-Prints text to the console and moves the cursor to the next line.
-| Data Type   | Size (in bytes) | Range / Notes                                                                                                                        |
-| ----------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| byte    | 1 byte          | -128 to 127                                                                                                                          |
-| short   | 2 bytes         | -32,768 to 32,767                                                                                                                    |
-| int     | 4 bytes         | -2,147,483,648 to 2,147,483,647                                                                                                      |
-| long    | 8 bytes         | -2⁶³ to 2⁶³-1                                                                                                                        |
-| float   | 4 bytes         | Approx. 7 decimal digits precision                                                                                                   |
-| double  | 8 bytes         | Approx. 15–16 decimal digits precision                                                                                               |
-| char    | 2 bytes         | Stores a Unicode character (0 to 65,535)                                                                                         |
-| boolean | JVM-dependent   | Only true / false (size not strictly defined; treated as 1 bit logically, but often 1 byte in practice for memory alignment) |
-| Data Type | Size                  | Default Value | Example              |
-| ----------| --------------------- | ------------- | -------------------- |
-| *byte*    | 1 byte                | 0             | byte b = 100;        |
-| *short*   | 2 bytes               | 0             | short s = 200;       |
-| *int*     | 4 bytes               | 0             | int x = 1000;        |
-| *long*    | 8 bytes               | 0L            | long l = 100000L;    |
-| *float*   | 4 bytes               | 0.0f          | float f = 3.14f;     |
-| *double*  | 8 bytes               | 0.0d          | double d = 99.99;    |
-| *char*    | 2 bytes (Unicode)     | '\u0000'      | char c = 'A';        |
-| *boolean* | 1 bit (JVM dependent) | false         | boolean flag = true; |
- ✅ B) Non-Primitive Data Types (Reference types)
+✅ B) Non-Primitive Data Types (Reference types)
 
 Created by programmers or from libraries.
 
@@ -271,142 +192,60 @@ Classes & Objects → Car myCar = new Car();
 
 Interfaces, Enums, etc.
 
-🔹 3. Examples
-Primitive Example
-public class DataTypesDemo {
-    public static void main(String[] args) {
-        int age = 21;
-        double price = 19.99;
-        char grade = 'A';
-        boolean passed = true;
+# Operators
 
-        System.out.println("Age: " + age);
-        System.out.println("Price: " + price);
-        System.out.println("Grade: " + grade);
-        System.out.println("Passed: " + passed);
+## Arithmetic Operators
+
+| Operator | Meaning | Example |
+| -------- | ------- | ------- |
+| + | Addition | 10 + 5 |
+| - | Subtraction | 10 - 5 |
+| * | Multiplication | 10 * 5 |
+| / | Division | 10 / 5 |
+| % | Modulus | 10 % 3 |
+
+## Relational Operators
+
+| Operator | Meaning | Example |
+| -------- | ------- | ------- |
+| == | Equal to | a == b |
+| != | Not equal | a != b |
+| > | Greater than | a > b |
+| < | Less than | a < b |
+
+## Logical Operators
+
+| Operator | Meaning |
+| -------- | ------- |
+| && | AND |
+| \|\| | OR |
+| ! | NOT |
+
+---
+
+# Input Methods
+
+## Method 1: Command Line Arguments
+
+\\\java
+public class Test {
+    public static void main(String[] args) {
+        int qty = Integer.parseInt(args[0]);
     }
 }
+\\\
 
+## Method 2: Scanner Class
 
-✅ Output:
+\\\java
+import java.util.*;
 
-Age: 21
-Price: 19.99
-Grade: A
-Passed: true
-
-Non-Primitive Example
-public class NonPrimitiveDemo {
+public class Test {
     public static void main(String[] args) {
-        String name = "Harsh";
-        int[] numbers = {1, 2, 3, 4};
-        
-        System.out.println("Name: " + name);
-        System.out.println("First number: " + numbers[0]);
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
     }
 }
+\\\
 
-
-✅ Output:
-
-Name: Harsh
-First number: 1
-1. What are Operators?
-
-Operators are symbols that perform operations on variables and values.
-[06-10-2025 16:41] Harshad: 2. Types of Operators in Java
-✅ A) Arithmetic Operators
-|Operator| Meaning                |Example| Result |
-| -------| ---------------------- | ------| ------ |
-| ++     | Increment by 1         | a++   | 11     |
-| --     | Decrement by 1         | b--   | 4      |
-| +      | Unary plus (no change) | +a    | 10     |
-| -      | Unary minus (negates)  | -a    | -10    |
-| !      | Logical NOT            | !true | false  |
-✅ C) Relational (Comparison) Operators
-
-Return true/false.
-|Operator| Meaning             | Example (a=10, b=5) | Result |
-| -------| ------------------- | ------------------- | ------ |
-| ==     | Equal to            | a == b              | false  |
-| !=     | Not equal to        | a != b              | true   |
-| >      | Greater than        | a > b               | true   |
-| <      | Less than           | a < b               | false  |
-| >=     | Greater or equal to | a >= 10             | true   |
-| <=     | Less or equal to    | b <= 5              | true   |
- ✅ D) Logical Operators
-
-Work on boolean values.
-Operator
-Meaning
-&&
-Logical AND : if all conditions are true then condition is true otherwise condition is false 
-||
-Logical OR : if any one condition is true then condition is true otherwise condition is false.
-!
-Logical NOT : if condition is true then false and if false then true.
-✅ E) Assignment Operators
-
-Used to assign values.
-| Operator | Example  | Equivalent To |
-| -------- | -------- | ------------- |
-| =        | x = 5    | x = 5         |
-| +=       | x += 3   | x = x + 3     |
-| -=       | x -= 2   | x = x - 2     |
-| *=       | x *= 4   | x = x * 4     |
-| /=       | x /= 2   | x = x / 2     |
-| %=       | x %= 3   | x = x % 3     |
- ✅ F) Bitwise Operators
-
-Work on bits (0s and 1s).
-| Operator | Meaning              | Example (a=5=0101, b=3=0011) | Result |          |       |   |
-| -------- | -------------------- | ---------------------------- | ------ | -------- | ----- | - |
-| &        | AND                  | a & b → 0101 & 0011          | 1      |          |       |   |
-| `        | `                    | OR                           | a      | b→0101   | 0011  | 7 |
-| ^        | XOR                  | a ^ b → 0101 ^ 0011          | 6      |          |       |   |
-| ~        | NOT (1’s comp)       | ~a                           | -6     |          |       |   |
-| <<       | Left shift           | a << 1 (0101 → 1010)         | 10     |          |       |   |
-| >>       | Right shift          | a >> 1 (0101 → 0010)         | 2      |          |       |   |
-| >>>      | Unsigned right shift | (fills with 0s)              | —      |          |       |   |
- ✅ G) Ternary Operator
-
-Shortcut for if-else.
-
-int a = 10, b = 20;
-int max = (a > b) ? a : b;
-System.out.println("Max = " + max); // 20
- How to input values from keyboard
-___________________________________________________________
-If we want to accept from keyboard using java we have two ways 
-
-Using command line argument 
-Using Scanner class.
-[06-10-2025 16:58] Harshad: Command line argument is a parameter present in the main function of string array type.
-[06-10-2025 17:10] Harshad: public class PIAPP
-{  public static void main(String x[])
-	{      
-	   int qty=Integer.parseInt(x[0]);
-	   int rate=Integer.parseInt(x[1]);
-	   int total=qty*rate;
-	   int gstAmt=total*18/100;
-	   total=total+gstAmt;
-	   System.out.printf("Total is %d\n",total);
-	}
-}
- Steps to work with Scanner class
-_____________________________________________________________
-Add java.util package
-Q. What is the package?
-Example with source 
-import java.util.*;//step1
-public class SAPP
-{
-   public static void main(String x[])
-   {  Scanner xyz= new Scanner(System.in);//step2
-        int a,b,c;
-	System.out.println("Enter two values");
-	a=xyz.nextInt(); //step3
-	b=xyz.nextInt();//step3
-	c=a+b;
-	System.out.printf("Addition is %d\n",c);  }
-}
+**Last Updated:** November 13, 2025

@@ -548,9 +548,9 @@ public class ConsPOJOAPP
  	     new Company(new Employee("ABC",1,10000)).show();
  	}
 }
--------------------------------------------------------------------------------
+-------------------------------------------------------------------------
 Q6. What is an overloaded constructor or what is constructor overloading?
--------------------------------------------------------------------------------
+-------------------------------------------------------------------------
 When multiple constructors have:
 
 Same name
@@ -673,14 +673,14 @@ class MyStack
         stack = new int[userChoice];   // Requirement 3: user size + custom increment
     }
 }
--------------------------------------------------------------------------------
+-------------------------------------------------------------------------
 Q9. Can a constructor have return type?
--------------------------------------------------------------------------------
+-------------------------------------------------------------------------
 No.
 If you add a return type → It becomes a method, not a constructor.
--------------------------------------------------------------------------------
+-------------------------------------------------------------------------
 Q10. Can a constructor be static?
--------------------------------------------------------------------------------
+-------------------------------------------------------------------------
 A constructor cannot be static because static members are loaded before objects are created,
 while constructors run only when an object is created.
 Their behaviors are opposite, so Java does not allow static constructors.

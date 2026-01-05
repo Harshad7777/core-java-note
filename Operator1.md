@@ -21,6 +21,7 @@ Features of OOP in Java:
 6. Dynamic Binding
 7. Message Passing
 
+
 Note:
 Java is not purely object-oriented; it is a programming language that implements OOP concepts.
 
@@ -340,6 +341,12 @@ Operators are symbols that perform operations on variables and values.
 2. Types of Operators in Java
 
 ✅ A) Arithmetic Operators
+✅ B) Assignment Operators
+✅ C) Relational (Comparison) Operators
+✅ D) Logical Operators
+✅ E) Increment and Decrement Operators
+
+
 Arithmetic operators are used to perform mathematical calculations.
 
 | Operator | Meaning             |
@@ -351,7 +358,6 @@ Arithmetic operators are used to perform mathematical calculations.
 | `%`      | Remainder / Modulus |
 
 ✅ B) Assignment Operators
-
 Used to assign values.
 | Operator | Example  | Equivalent To |
 | -------- | -------- | ------------- |

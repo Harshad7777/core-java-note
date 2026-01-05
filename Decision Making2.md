@@ -11,7 +11,7 @@ A decision making statement allows a program to take decisions based on certain 
 ------------------------------------------------------------------
 Types of Decision Making Statements
 ------------------------------------------------------------------
-1. Si1mple if statement
+1. Simple if statement
 2. If-else statement
 3. Nested if statement
 4. Else-if ladder

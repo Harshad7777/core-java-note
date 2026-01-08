@@ -713,15 +713,14 @@ public class DPAPP
         }
 
         // base case
-        if(n <= 1)//2<=1>
+        if(n <= 1)
         {
-            arr[n] = n;//1
+            arr[n] = n;
         }
         else
         {   
             arr[n] = fibo(n - 1, arr) + fibo(n - 2, arr); // If already stored in arr, it is returned directly
         }
-
         return arr[n];
     }
 

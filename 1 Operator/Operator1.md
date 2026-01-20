@@ -2,25 +2,72 @@
 
 Q. What is Java?
 Java is a high-level, object-oriented programming language.
+
+Features of Java
+1.Simple
+    Easy to learn and understand.
+    Syntax is similar to C and C++.
+    No complex features like pointers.
+
+2.Object-Oriented
+    Everything is based on objects and classes.
+    Supports OOP concepts:
+        Encapsulation
+        Inheritance
+        Polymorphism
+        Abstraction
+
+3.Platform Independent
+    Write Once, Run Anywhere.
+    Java programs run on JVM, not directly on hardware.
+ 
+4.Portable
+    Java bytecode can run on any system.
+    No system-dependent features.
+
+5.Secure
+    No use of pointers.
+    Uses bytecode verification.
+    Runs inside JVM sandbox.
+
+6.Robust
+    Strong memory management.
+    Automatic garbage collection.
+    Good exception handling.
+
+7.Multithreaded
+    Supports multiple threads.
+    Helps in faster execution and better performance.
+
+8.High Performance
+    Uses Just-In-Time (JIT) compiler.
+    Faster than traditional interpreted languages.
+
+9.Distributed
+    Supports distributed applications.
+    Uses technologies like RMI and Web Services.
+
+10.Dynamic
+    Classes are loaded at runtime.
+    Supports dynamic memory allocation.
  
 Q. What is Object-Oriented Programming (OOP)?
 OOP is a programming paradigm based on objects and classes.
 
 Pillars of OOP:
-1. Inheritance
-2. Polymorphism
-3. Abstraction
-4. Encapsulation
+    1. Inheritance
+    2. Polymorphism
+    3. Abstraction
+    4. Encapsulation
 
 Features of OOP in Java:
-1. Class
-2. Object
-3. Inheritance
-4. Polymorphism
-5. Abstraction & Encapsulation
-6. Dynamic Binding
-7. Message Passing
-
+    1. Class
+    2. Object
+    3. Inheritance
+    4. Polymorphism
+    5. Abstraction & Encapsulation
+    6. Dynamic Binding
+    7. Message Passing
 
 Note:
 Java is not purely object-oriented; it is a programming language that implements OOP concepts.
@@ -132,7 +179,7 @@ So you can access it without creating an object.
     2. Static Methods
     Can be called without creating an object.
 
-    3. Static Block
+    3. Static Block 
     Runs once when the class is loaded.
     Used for initialization.
 

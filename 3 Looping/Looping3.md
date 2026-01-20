@@ -2,7 +2,6 @@ LOOP in Java
 --------------------------------------------------------------------
 Q. What is a Loop?
 --------------------------------------------------------------------
-
 A loop is used when we want to perform a task repeatedly until a specific condition is satisfied.
 
 Example (Concept):
@@ -21,6 +20,7 @@ If false, the loop body is skipped.
 Types of Entry Control Loop:
 1. while
 2. for
+3. Nested Loop
 --------------------------------------------------------------------
 1️⃣ While Loop
 --------------------------------------------------------------------
@@ -61,8 +61,8 @@ public class TableAPP
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter number:");
         int no = sc.nextInt();
-        int i = 1;
 
+        int i = 1;
         while(i <= 10) 
         {
             System.out.println(no + " x " + i + " = " + (no * i));
@@ -95,7 +95,6 @@ public class PAPP
         System.out.println("Power is "+p);  
     }
 }
-
 
 Example: WAP to input number and check number is perfect or not?
 
@@ -248,7 +247,6 @@ public class SearchDigitAPP
 -----------------------------------------------
 2️⃣ For Loop
 -----------------------------------------------
-
 Entry control loop
 Suitable when number of iterations is known
 
@@ -748,8 +746,6 @@ public class DOAPP
         } while(i < 0);
     }
 }
-
-
 
 --------------------------------------------------------------------
 2️⃣ Exit Control Loop

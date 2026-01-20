@@ -94,8 +94,7 @@ System.out.println("ASCII of " + ch + " = " + ascii);
 	Used when there are multiple conditions.
 	Executes the first true condition block and ignores the rest.
 
-	Example: Find the greatest of three numbers.
-
+Example: Find the greatest of three numbers.
 import java.util.*;
 public class AAPP 
 {

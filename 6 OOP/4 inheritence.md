@@ -184,6 +184,9 @@ class A extends java.lang.object
 }
 -------------------------------------------------------------------------
 Defined Class → Object Class
+   Q. Why does Java provide an Object class as a parent class to every user defined class?
+____________________
+
 -------------------------------------------------------------------------
 What is Object Class?
  
@@ -815,4 +818,156 @@ public class DPAPP
 	  result = v.getResult();
 	  System.out.println("Multiplication is "+result);
   }
+}
+
+Example: we want to calculate area  and circum of circle and we have following class hierarchy 
+
+class Circle
+{
+    float radius;
+
+    void setRadius(float radius)
+    {
+        this.radius = radius;
+    }
+
+    float getResult()
+    {
+        return 0;
+    }
+}
+
+class Area extends Circle
+{
+    float getResult()
+    {
+        return radius * radius * 3.14f;
+    }
+}
+
+class Cirm extends Circle
+{
+    float getResult()
+    {
+        return radius * 2 * 3.14f;
+    }
+}
+
+public class CircleApplication
+{
+    public static void main(String x[])
+    {
+        Circle c = null;
+
+        c = new Area();          // parent reference → child object
+        c.setRadius(3.0f);
+        float result = c.getResult();   // calls Area.getResult()
+        System.out.println("Area " + result);
+
+        c = new Cirm();          // parent reference → different child
+        c.setRadius(4.0f);
+        result = c.getResult();  // calls Cirm.getResult()
+        System.out.println("Circumference " + result);
+    }
+}
+
+Q. What is the benefit of dynamic polymorphism with upcasting technique?
+
+Answer:
+The main benefit of dynamic polymorphism with upcasting is to achieve loose coupling.
+
+Using upcasting, a parent class reference can refer to different child class objects, and the method call is resolved at runtime.
+This allows us to write flexible and extensible code without depending on concrete implementations.
+
+-------------------------------------------------------------------
+Q. What is coupling in OOP?
+
+Answer:
+Coupling in Object-Oriented Programming refers to the degree of dependency between two classes.
+
+If one class depends heavily on another class to perform its operations, then those classes are said to be tightly coupled.
+
+In other words, when:
+    One class cannot work independently
+    Or one class directly creates or uses another class object
+    then coupling exists.
+
+Types of Classes in Coupling
+1️⃣ Target Class
+    A target class is the class whose object is created and which internally uses another class.
+    ➡ When an object of the target class is created, another class object gets used automatically.
+
+2️⃣ Dependent Class
+    A dependent class is the class that is used by the target class.
+    ➡ The dependent class cannot function independently and always works in association with the target class.
+
+class Parcel
+{
+    private int id;
+    private String name;
+    private int weight;
+
+    // setters
+    void setId(int id)
+    {
+        this.id = id;
+    }
+
+    void setName(String name)
+    {
+        this.name = name;
+    }
+
+    void setWeight(int weight)
+    {
+        this.weight = weight;
+    }
+
+    // getters
+    int getId()
+    {
+        return id;
+    }
+
+    String getName()
+    {
+        return name;
+    }
+
+    int getWeight()
+    {
+        return weight;
+    }
+}
+
+class Courier   // Target class
+{
+    private Parcel parcel;
+
+    void setParcel(Parcel parcel)
+    {
+        this.parcel = parcel;   // dependency injected
+    }
+
+    void show()
+    {
+        System.out.println("Parcel Id: " + parcel.getId());
+        System.out.println("Parcel Name: " + parcel.getName());
+        System.out.println("Parcel Weight: " + parcel.getWeight());
+    }
+}
+
+public class CoupApplication
+{
+    public static void main(String x[])
+    {
+        Parcel p = new Parcel();
+        p.setId(1);
+        p.setName("ABC");
+        p.setWeight(100);
+
+        Courier c = new Courier();
+        c.setParcel(p);   // object association
+        c.show();
+    }
 }

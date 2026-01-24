@@ -896,7 +896,7 @@ Types of Classes in Coupling
 1️⃣ Target Class
     A target class is the class whose object is created and which internally uses another class.
     ➡ When an object of the target class is created, another class object gets used automatically.
-
+  
 2️⃣ Dependent Class
     A dependent class is the class that is used by the target class.
     ➡ The dependent class cannot function independently and always works in association with the target class.
@@ -914,7 +914,7 @@ class Parcel
     }
 
     void setName(String name)
-    {
+    { 
         this.name = name;
     }
 
@@ -948,12 +948,12 @@ class Courier   // Target class
     {
         this.parcel = parcel;   // dependency injected
     }
-
+ 
     void show()
     {
         System.out.println("Parcel Id: " + parcel.getId());
         System.out.println("Parcel Name: " + parcel.getName());
-        System.out.println("Parcel Weight: " + parcel.getWeight());
+        System.out.println("Parcel Weight: " + parcel.getWeight()); 
     }
 }
 
@@ -971,3 +971,91 @@ public class CoupApplication
         c.show();
     }
 }
+output:
+Parcel Id: 1
+Parcel Name: ABC
+Parcel Weight: 100
+
+Types of Coupling
+
+1️⃣ Tight Coupling
+Definition:
+Tight coupling occurs when a target class  is completely dependent (100%) on a specific dependent class. Any change in the dependent class directly affects the target class.
+
+Key Points:
+    Direct object creation using new
+    Target class depends on concrete class
+    Hard to modify, test, or extend
+    Low reusability
+
+2️⃣ Loose Coupling
+Definition:
+Loose coupling occurs when a target class is partially dependent on another class, usually through a parent class reference  as parameter in target class.(interface or superclass).
+
+Key Points:
+    Uses interface or superclass reference
+    Object passed via constructor or method
+    Easy to change implementation
+    High flexibility and reusability
+
+example of Tight coupling?
+class Value 
+{
+    int x, y;
+
+    void setValue(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    int getResult()
+    {
+        return 0;
+    }
+}
+
+class Add extends Value
+{
+    int getResult()
+    {
+        return x + y;
+    }
+}
+
+class Mul extends Value
+{
+    int getResult()
+    {
+        return x * y;
+    }
+}
+
+class Calculator
+{
+    void performOperation(Value v)
+    {
+        int result = v.getResult();
+        System.out.println("Result is " + result);
+    }
+}
+
+public class CalcApplication
+{
+    public static void main(String x[])
+    {
+        Calculator c = new Calculator();
+
+        Add a = new Add();
+        a.setValue(10, 20);
+        c.performOperation(a);
+
+        Mul m = new Mul();
+        m.setValue(5, 4);
+        c.performOperation(m);
+    }
+}
+
+🖨️ Output
+Result is 30
+Result is 20

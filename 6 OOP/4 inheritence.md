@@ -975,7 +975,7 @@ output:
 Parcel Id: 1
 Parcel Name: ABC
 Parcel Weight: 100
-
+----------------------------------
 Types of Coupling
 
 1️⃣ Tight Coupling
@@ -999,6 +999,8 @@ Key Points:
     High flexibility and reusability
 
 example of Tight coupling?
+
+![alt text](image-1.png)
 class Value 
 {
     int x, y;
@@ -1033,7 +1035,7 @@ class Mul extends Value
 
 class Calculator
 {
-    void performOperation(Value v)
+    void performOperation(Add ad)
     {
         int result = v.getResult();
         System.out.println("Result is " + result);
@@ -1059,3 +1061,472 @@ public class CalcApplication
 🖨️ Output
 Result is 30
 Result is 20
+
+✅ Correct Explanation (Improved & Structured)
+
+In the given code, compile-time error occurs because the Calculator class contains the method:
+    performOperation(Add ad)
+This method accepts only an Add class reference.
+Now, from the main() method, we try to pass a Mul class object:
+    c.performOperation(m);   // m is Mul object
+This is not allowed, because:
+Mul is not of type Add
+Java does not support implicit conversion between sibling classes
+As a result, the compiler throws a compile-time error.
+
+❌ Why this is Tight Coupling
+    Calculator is directly dependent on the concrete class Add
+    performOperation(Add ad) cannot work with any other operation
+    If we want multiplication, subtraction, etc., we must change Calculator code
+
+📌 Key Points (Exam Friendly)
+    performOperation(Add ad) works only with Add objects
+    Cannot accept Mul, Sub, or any other class
+    Causes compile-time error
+    Violates polymorphism
+    Reduces reusability and flexibility
+
+If we want to resolve the problem of tight coupling we have two solutions or two ways 
+--------------------------------------------------------
+a.Using compile time polymorphism
+
+    🔹 Resolving tight coupling using Compile-Time Polymorphism (Method Overloading)
+
+    One way to reduce the tight coupling problem in the given program is by using compile-time polymorphism, i.e., method overloading.
+
+    In this approach, we overload the performOperation() method in the Calculator class:
+
+    One version accepts an Add object
+
+    Another version accepts a Mul object
+
+    This allows the Calculator class to work with both Add and Mul objects.
+-------------------------------------------------
+```java
+class Value
+{ 
+  int x,y;
+  void setValue(int x,int y)
+  {  
+    this.x=x;
+    this.y=y;
+  }
+  int getResult()
+  {  
+    return 0;
+  }
+}
+class Add extends Value 
+{
+   int getResult()
+   { 
+     return x+y;
+   }
+}
+class Mul extends Value
+{
+    int getResult()
+   { 
+     return x*y;
+   }
+}
+class Calculator 
+{
+   void performOperation(Add ad)
+   {  
+      int result=ad.getResult();
+      System.out.printf("Result is %d\n",result);
+   }
+    void performOperation(Mul m)
+   {  
+      int result = m.getResult();
+      System.out.printf("Result is %d\n",result);
+   }
+}
+public class CalcApplication
+{ 
+   public static void main(String x[])
+   {
+      Calculator c = new Calculator();
+	  Add ad = new Add();
+	  ad.setValue(10,20);
+	  c.performOperation(ad);
+	  Mul m = new Mul();
+	  m.setValue(5,4);
+	  c.performOperation(m);
+   }
+}
+
+🖨️ Output of the Program
+Result is 30
+Result is 20
+```
+
+✅ Limitation of Compile-Time Polymorphism (Method Overloading)
+
+Although we can resolve the tight coupling problem using compile-time polymorphism (method overloading), this approach has serious limitations.
+
+🔹 Problem Scenario
+Suppose:
+    The Calculator class supports 100 different operations
+    Add, Mul, Div, Sub, Pow, Square, etc.  
+    Each operation is implemented in a separate class
+    To support all operations using method overloading, the Calculator class must define:
+
+performOperation(Add a)
+performOperation(Mul m)
+performOperation(Div d)
+performOperation(Sub s)
+...
+// nearly 100 overloaded methods
+
+❌ Why this approach fails in real-world systems
+    Calculator becomes very bulky
+    High code duplication
+    Violates Open–Closed Principle
+    Every new operation requires
+    Modifying Calculator
+    Adding another overloaded method
+
+Not scalable
+Difficult to maintain and test
+
+👉 Hence, method overloading is not practical for large systems.
+
+✅ Why Dynamic Polymorphism is the Best Solution    
+To solve this limitation, we use dynamic (runtime) polymorphism.
+
+🔹 Key idea:
+    Use parent class reference to refer to child class objects
+    Use method overriding
+    Create one generic method that behaves like 100 methods
+    void performOperation(Value v)
+
+At runtime:
+    If v refers to Add → addition is performed
+    If v refers to Mul → multiplication is performed
+    If v refers to Div → division is performed
+    ✔ Method selection happens at runtime
+    ✔ Achieves true loose coupling
+----------------------------------------------
+class Circle
+{  
+   float radius;
+   void setRadius(float radius)
+   {    
+      this.radius = radius;
+   }
+   float getResult()
+   {  
+      return 0.0f;
+   }
+}
+class Area extends Circle 
+{
+   float getResult()
+   {
+      return radius*radius*3.14f;
+   }
+}
+class Cirm extends Circle 
+{
+   float getResult()
+   {
+      return 2*radius*3.14f;
+   }
+}
+class CircleCalculator
+{
+    void calResult(Circle c)
+	{  
+       float result = c.getResult();
+	   System.out.println("Result is "+result);
+	}
+}
+
+public class CircleCalculatorApplication
+{
+    public static void main(String x[])
+	{
+	   CircleCalculator cc = new CircleCalculator();
+	   Circle c = new Area();
+	   c.setRadius(3.0f);
+	   cc.calResult(c);// behave as circle area 
+	   c = new Cirm();
+	   c.setRadius(4.0f);
+	   cc.calResult(c);//behave as cirm 
+	}
+}
+Output:
+Result is 28.26
+Result is 25.12
+
+-------------------------------------------------------------------
+Q. Is method overriding beneficial or not?
+
+Answer:
+Some time is beneficial and some time not it is dependent on requirement of project 
+-----------------------------------------------------------------
+Q. How can we avoid method overriding or What is the goal of the final method ?
+
+We can avoid method overriding by declaring the parent class method as final.
+
+A final method cannot be overridden, so the child class cannot modify the logic of the parent class method.
+
+👉 The main goal of a final method is to protect the parent class logic from being changed by child classes.
+
+Class A
+{
+    final void show()
+    {
+        System.out.println("I am show in A");
+    }
+}
+class B extends A
+{
+    void show()
+    {
+        System.out.println("I am show in B");
+    }
+}
+public class InhConsApp
+{
+    public static void main(String x[])
+    {
+        B b1 = new B();
+        b1.show();
+    }
+}
+
+output:
+show() in B cannot override show() in A
+overridden method is final
+---------------------------------------------------------------
+❓ Q. What is a Final Class?
+
+    A final class is a class that cannot be inherited.
+    No other class can extend a final class.
+    Final class has no child class.
+
+🔹 Purpose / Goal
+    To create immutable classes
+    Immutable class → its state/value cannot be changed once assigned
+    To provide security
+    Prevents modification by inheritance
+    To ensure consistency
+    Useful when you want stable behavior that cannot be overridden
+
+If we think about JAVA API String class is final class so in java string is immutable class 
+
+final class A
+{
+    void show()
+    {
+        System.out.println("I am show method");
+    }
+}
+class B extend A
+{
+
+}
+public class FCAPP
+{
+    public static void main(String x[])
+    {
+        B b1 = new B();
+        b1.show();
+    }
+}
+
+output
+❌ Compile-time Errors You’ll Get
+cannot inherit from final A
+cannot find symbol: extend
+
+
+✅ Option 1: If you WANT inheritance → remove final
+✅ Option 2: If class MUST be final → no inheritance  allowed
+
+Note: final class is recommended in two cases 
+    1.When we avoid inheritance 
+    2.When developer want to create immutable classes in  JAVA
+---------------------------------------------------------
+Steps to create immutable class in java 
+✅ Steps to Create an Immutable Class in Java
+
+An immutable class is a class whose objects cannot be modified after creation.
+
+🔹 Step 1: Declare the class as final
+
+    This prevents inheritance, so no subclass can change the behavior.
+
+    final class Employee
+    {
+    }
+
+🔹 Step 2: Make all fields private and final
+
+    private → fields cannot be accessed directly
+    final → fields cannot be changed once initialized
+
+    final class Employee
+    {
+        private final int id;
+        private final String name;
+    }
+
+🔹 Step 3: Do NOT provide setter methods
+
+    Setters allow modification, which breaks immutability.
+    ❌ No setId()
+    ❌ No setName()
+
+🔹 Step 4: Initialize all fields using a constructor
+
+    All values must be assigned only once, during object creation.
+
+    final class Employee
+    {
+        private final int id;
+        private final String name;
+
+        public Employee(int id, String name)
+        {
+            this.id = id;
+            this.name = name;
+        }
+    }
+
+🔹 Step 5: Provide only getter methods
+
+    Getters allow read-only access to data.
+
+    final class Employee
+    {
+        private final int id;
+        private final String name;
+
+        public Employee(int id, String name)
+        {
+            this.id = id;
+            this.name = name;
+        }
+
+        public int getId()
+        {
+            return id;
+        }
+
+        public String getName()
+        {
+            return name;
+        }
+    }
+
+Q. What is the difference between final method and final class?
+________________________________________________________
+| Feature           | Final Method          | Final Class                     |
+| ----------------- | --------------------- | ------------------------------- |
+| Can be inherited  | ✅ Yes               | ❌ No                           |
+| Can be overridden | ❌ No                | ❌ No inheritance               |
+| Used to prevent   | Method overriding     | Class inheritance               |
+| Main purpose      | Protect method logic  | Provide security / immutability |
+| Example use       | Secure parent methods | `String` class                  |
+
+
+Q. What is the difference between static and final methods?
+
+Static Method vs Final Method in Java
+🔹 Static Method
+    A static method belongs to the class, not to the object.
+    Memory for a static method is allocated at class loading time, before any object of the class is created.
+    A static method can only access static variables and static methods directly.
+    It cannot access instance variables directly because instance variables belong to objects.
+
+Static Method & Overriding
+    Static methods cannot be overridden.
+    If a child class defines a static method with the same signature as the parent class, it is called method hiding, not method overriding.
+    There is no compile-time error, but runtime polymorphism does not work for static methods.
+    ✅ This is why static methods are said to support method hiding, not overriding.
+
+🔹 Final Method
+    A final method is used to prevent method overriding.
+    A final method cannot be overridden in the child class.
+    If we try to override a final method, we get a compile-time error.
+    A final method can be:
+        Static variables
+        Instance variables
+        (if the final method itself is not static)
+
+| Feature                        | Static Method                 | Final Method                            |
+| ------------------------------ | ----------------------------- | --------------------------------------- |
+| Belongs to                     | Class                         | Class Object                            |
+| Memory allocation              | At class loading time         | At object creation time (if non-static) |
+| Can access instance variables  | ❌ No                          | ✅ Yes (if non-static)                   |
+| Overriding                     | ❌ Not allowed (Method Hiding) | ❌ Not allowed                           |
+| Compile-time error on override | ❌ No                          | ✅ Yes                                   |
+| Polymorphism                   | ❌ No                          | ❌ No                                    |
+
+
+
+
+ class A
+ {
+    static void show()
+    {
+    }
+ }
+ class B extend A
+ {
+    static void show()
+    {
+    }
+ }
+
+ Note:it look like as overriding but it is method hiding concept and no compile time error
+
+ class A
+ {
+    final void show()
+    {
+    }
+ }
+ class B extends A
+ {
+    void show()
+    {
+    }
+ }
+
+ NOTE: we get compile time error because we try to override show() in child class B.
+
+ class A
+ {
+    static int m;
+    int n;
+    final void show()
+    {
+        System.out.println("M is "+m+"\t N is"+n);
+    }
+ }
+
+ Note: if we think about above code ther is no compile time error because final non static method can allow static as well as instance variable in his block
+
+ Note: if we think given code we get compile time error because we try to access instance variable instatic function block
+
+ class A
+ {
+    static int m;
+    int n;
+
+    static void show()
+    {
+        System.out.println("M is "+m+"\t N is "+n)
+    }
+ }
+ Note: you can use static and final keyword at same time with variable as well as method also 
+ 
+
+
+
+

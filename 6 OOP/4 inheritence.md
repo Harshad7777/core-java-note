@@ -1425,13 +1425,14 @@ An immutable class is a class whose objects cannot be modified after creation.
 
 Q. What is the difference between final method and final class?
 ________________________________________________________
-| Feature           | Final Method          | Final Class                     |
-| ----------------- | --------------------- | ------------------------------- |
-| Can be inherited  | ✅ Yes               | ❌ No                           |
-| Can be overridden | ❌ No                | ❌ No inheritance               |
-| Used to prevent   | Method overriding     | Class inheritance               |
-| Main purpose      | Protect method logic  | Provide security / immutability |
-| Example use       | Secure parent methods | `String` class                  |
+| Aspect                | **final method**                                             | **final class**                                       |
+| --------------------- | ------------------------------------------------------------ | ----------------------------------------------------- |
+| Meaning               | A method declared with `final` cannot be **overridden**      | A class declared with `final` cannot be **inherited** |
+| Purpose               | To prevent **method overriding**                             | To prevent **class inheritance**                      |
+| Effect on inheritance | Class can be inherited, but the final method stays unchanged | No subclass can be created at all                     |
+| Overriding            | ❌ Not allowed                                               | ❌ Not applicable (no child class)                     |
+| Use case              | When you want to fix the behavior of a specific method       | When you want to stop extending the class completely  |
+class                  |
 
 
 Q. What is the difference between static and final methods?
@@ -1458,16 +1459,15 @@ Static Method & Overriding
         Instance variables
         (if the final method itself is not static)
 
-| Feature                        | Static Method                 | Final Method                            |
-| ------------------------------ | ----------------------------- | --------------------------------------- |
-| Belongs to                     | Class                         | Class Object                            |
-| Memory allocation              | At class loading time         | At object creation time (if non-static) |
-| Can access instance variables  | ❌ No                          | ✅ Yes (if non-static)                   |
-| Overriding                     | ❌ Not allowed (Method Hiding) | ❌ Not allowed                           |
-| Compile-time error on override | ❌ No                          | ✅ Yes                                   |
-| Polymorphism                   | ❌ No                          | ❌ No                                    |
-
-
+| Aspect            | **static method**                              | **final method**                            |
+| ----------------- | ---------------------------------------------- | ------------------------------------------- |
+| Belongs to        | Class                                          | Object (instance)                           |
+| Memory allocation | Memory allocated at **class loading time**     | Memory allocated when **object is created** |
+| Overriding        | ❌ Cannot be overridden (method hiding happens) | ❌ Cannot be overridden                      |
+| Polymorphism      | ❌ Compile-time binding                         | ✔ Runtime binding (but not overridden)      |
+| Inheritance       | Can be inherited                               | Can be inherited                            |
+| Main purpose      | Common logic shared by all objects             | To prevent method overriding                |
+| Access            | Called using class name                        | Called using object reference               |
 
 
  class A
@@ -1512,7 +1512,6 @@ Static Method & Overriding
 
  Note: if we think about above code ther is no compile time error because final non static method can allow static as well as instance variable in his block
 
- Note: if we think given code we get compile time error because we try to access instance variable instatic function block
 
  class A
  {
@@ -1525,7 +1524,448 @@ Static Method & Overriding
     }
  }
  Note: you can use static and final keyword at same time with variable as well as method also 
- 
+ ------------------------------------------------------------------------------
+ Difference Between static and final keywords in Java
+
+| Aspect             | **static keywords**                        | **final keywords**                          |
+| ------------------ | ----- ------------------------------------- | ------------------------------------------- |
+| Meaning            | Belongs to the **class**                   | Makes something **constant / fixed**        | 
+| Purpose            | To share one copy among all objects        | To prevent modification                     |
+| Applies to         | Variables, methods, blocks, nested classes | Variables, methods, classes                 |
+| Memory             | Allocated at **class loading time**        | Allocated once and cannot be changed        |
+| Inheritance effect | Static members are inherited (with rules)  | Final restricts inheritance or modification |
+| Polymorphism       | Supports **method hiding**                 | Prevents overriding / inheritance           |
+-------------------------------------------------------------------------------------------
+Q. Can we override a static method?
+
+❌ No, static methods cannot be overridden.
+
+✔️ If a child class defines a static method with the same name and same parameters as a static method in the parent class, then method hiding occurs — not overriding.
+
+Why static methods cannot be overridden?
+    Overriding depends on runtime polymorphism
+    Static methods are bound at compile time
+    Static methods belong to the class, not to objects
+ So Java does not support overriding for static methods.
+---------------------------------------------------------------------------------
+Q. What is method hiding?
+
+What actually happens? 
+    ✔️ Method Hiding
+    Parent class static method is hidden by child class static method
+    Method call depends on reference type, not object type
+
+Example (method hiding)
+class Parent 
+{
+    static void show() 
+    {
+        System.out.println("Parent show");
+    }
+}
+
+class Child extends Parent 
+{
+    static void show() 
+    {
+        System.out.println("Child show");
+    }
+}
+
+public class Test 
+{
+    public static void main(String[] args) 
+    {
+        Parent p = new Child();
+        p.show();   // Parent show (method hiding)
+    }
+}
+
+output :
+Parent show
+
+Note:
+If we think about the above code, it indicates method hiding because we have a parent class reference, and the logic executed belongs to the parent class.
+
+This happens because static methods cannot be overridden. When a static method in the child class has the same signature as one in the parent class, it does not override the method—it hides it.
+
+Method selection for static methods is done at compile time based on the reference type, not the object type.
+Therefore, the parent class method is called, and this behavior is known as method hiding.
+
+💡 Key Point (easy to remember):
+
+Instance method → Runtime → Method Overriding
+Static method → Compile time → Method Hiding
+----------------------------------------------
+example (method overriding)
+class Parent 
+{
+    void show() 
+    {
+        System.out.println("Parent show");
+    }
+}
+
+class Child extends Parent 
+{
+    void show() 
+    {
+        System.out.println("Child show");
+    }
+}
+
+public class Test 
+{
+    public static void main(String[] args) 
+    {
+        Parent p = new Child();
+        p.show();   // Parent show (method overriding)
+    }
+}
+
+output:
+Child show
+
+Note:
+This code indicates the implementation of method overriding because we have a parent class reference pointing to a child class object.
+When we call the overridden method using the parent reference, the child class implementation is executed at runtime.
+This means the overridden logic of the child class is called, which is known as method overriding (runtime polymorphism).
+
+----------------------------------------------
+Q. What is Abstract Class & Abstract Method?
+
+Abstract Class:
+    An abstract class is a class whose object cannot be created.
+
+    It is used to achieve partial abstraction in Java.
+    An abstract class can contain:
+        Abstract methods (without logic)
+        Concrete methods (with logic)
+        Instance variables and constructors
+    To declare an abstract class, we use the abstract keyword.
+
+Abstract Method:
+    An abstract method is a method that does not have a body (logic).
+    It only contains the method declaration and ends with a semicolon.
+    The child class must override the abstract method and provide its implementation.
+
+---------------------------------------------
+abstrct class A
+{
+}
+public class MApplication
+{
+    public staic void main(String x[])
+    {
+        A a1 = new a();
+    }
+}
+output:
+A is abstract ; cannot be istantiated
+
+Note:
+❌ You cannot create an object of an abstract class
+---------------------------------------------
+abstract class A
+{
+    abstract void show()
+    {
+
+    }
+    public class MApllication
+    {
+        public staic void main(String x[])
+        {
+            
+        }
+    }
+}
+
+output:
+An abstract method canNOT have a body.
+
+Note:
+We get a compile-time error because we are trying to write the definition (body) of an abstract method, which is not allowed in Java.
+
+An abstract method must contain only the declaration, not the implementation.
+Its body is provided by the child class.
+--------------------------------------------
+Q. What is the purpose of abstract class and abstract methods?
+
+To achieve abstraction 
+To achieve dynamic polymorphism 
+To achieve loose coupling 
+
+---------------------------------------------
+Q. What is Abstraction?
+
+Abstraction means hiding implementation details from the end user at the design level and showing only the essential features.
+
+The end user knows what to do, but does not know how it is done internally.
+
+Goal of Abstraction
+
+    To hide implementation details from the end user at the design level
+    To expose only functionality, not internal logic
+    To support future flexibility in implementation
+
+When Abstraction is Recommended
+Abstraction is recommended when:
+    The developer knows what to do
+    But does not know how to do it yet
+    The implementation will be decided later based on requirements
+
+How Abstraction is Achieved in Java
+Abstraction is practically achieved using:
+    Abstract classes
+    Abstract methods
+
+An abstract method acts as a template/prototype:
+    The developer only declares the method
+    The logic is written later in the child class
+    This is done using method overriding
+
+Real-Time Example (HR Management System)
+Consider an HR Management System in a hiring portal.
+
+The goal is to:
+    Generate requirements
+    Post jobs
+    Hire suitable candidates
+
+When hiring a candidate:
+    The candidate must have skills
+    But the type of skill cannot be predicted
+    It depends on the job requirement or position
+
+So here:
+    What to do → Acquire skill
+    How to do → Depends on job requirement
+
+👉 Therefore, skill is an example of abstraction.
+
+Conclusion
+
+Abstraction focuses on what to do, not how to do, and in Java, it is implemented using abstract classes, abstract methods, and dynamic polymorphism (method overriding).
+
+example:
+Example : abstraction and dynamic polymorphism using abstract class 
+
+abstract class Employee 
+{
+    abstract void skill(); // abstraction
+}
+
+class Developer extends Employee 
+{
+    // abstraction implemented using method overriding
+    void skill()
+    {
+        System.out.println("Need good coding + communication + logic");
+    }
+}
+
+class Cook extends Employee 
+{
+    void skill() 
+    {
+        System.out.println("Need cooking skill");
+    }
+}
+
+public class AbsApplication 
+{
+    public static void main(String[] args) 
+    {
+
+        Employee e = new Developer();  // Dynamic polymorphism (upcasting)
+        e.skill();
+
+        e = new Cook();                // Dynamic polymorphism
+        e.skill();
+    }
+}
+
+🔥 Output
+Need good coding + communication + logic
+Need cooking skill
+-----------------------------------------------------------------------------
+Example of loose coupling using abstract class and abstract methods
+
+abstract class Employee 
+{
+    abstract void skill(); // abstraction
+}
+
+class Developer extends Employee 
+{
+    // abstraction implementation using overriding
+    void skill() 
+    {
+        System.out.println("Need good coding + communication + logic");
+    }
+}
+
+class Cook extends Employee 
+{
+    void skill() 
+    {
+        System.out.println("Need cooking skill");
+    }
+}
+
+class Hire 
+{
+    void hireEmployee(Employee e) //4️⃣ Loose Coupling (Best Practice)
+    {
+        e.skill(); // runtime polymorphism
+    }
+}
+
+public class AbsApplication 
+{
+    public static void main(String[] args) 
+    {
+
+        Hire h = new Hire();
+
+        Employee e = new Developer();
+        h.hireEmployee(e); // behaves as Developer
+
+        e = new Cook();
+        h.hireEmployee(e); // behaves as Cook
+    }
+}
+
+Output
+Need good coding + communication + logic
+Need cooking skill
+
+---------------------------------------------------------------------------
+Q1. Can we create an object of an abstract class?
+    ❌ No, we cannot create an object of an abstract class.
+    If we try to create an object of an abstract class, we get a compile-time error
+---------------------------------------------------------------------------
+Q2. Why can’t we create an object of an abstract class?
+
+An abstract class can contain:
+    Abstract methods (without body)
+    Non-abstract methods (with body)
+An abstract method does not have a method body (logic).
+
+If Java allowed us to create an object of an abstract class, then:[]
+    We could call an abstract method using that object
+    But abstract methods do not have implementations
+    A method cannot be executed without a definition
+
+👉 To avoid this situation, Java does not allow object creation of an abstract class.
+
+Abstract methods must be overridden in a subclass, and only then can they be executed through the subclass object.
+
+abstract class A
+{
+    abstract void show(); //abstract method
+    void display() //non abstract method
+    {
+        
+    }
+}
+public class AbsApp
+{
+    public static void main(String x[])
+    {
+        A a1 = new A();
+        a1.display();
+        a1.show();
+    }
+}
+
+output
+A a1 = new A();   // ❌ Compile-time error
+A is abstract → object creation is not allowed.
+
+------------------------------------------------------------------------------
+Q3. Can we declare abstract methods in a non-abstract class?
+
+    ❌ No, we cannot declare an abstract method in a non-abstract class.
+    If we try to do so, we get a compile-time error.
+
+Why?
+    A non-abstract class can create objects
+    Using that object, there is a possibility to call all its methods
+    An abstract method has no method body (implementation)
+    A method cannot be executed without implementation
+
+👉 To avoid calling a method without a definition, Java does not allow abstract methods inside non-abstract classes.
+
+Therefore:
+
+If a class contains at least one abstract method, the class itself must be declared abstract
+
+class T 
+{
+    abstract void show();
+}
+
+public class TestApp 
+{
+    public static void main(String[] args) 
+    {
+        // Cannot create object of abstract class
+    }
+}
+
+output:
+error: T is not abstract and does not override abstract method show() in T
+class T
+------------------------------------------------------------------------------
+Q4. Can we define non-abstract methods in an abstract class?
+
+✅ Yes, we can define non-abstract methods in an abstract class.
+
+Explanation
+An abstract class can contain:
+    Abstract methods (without body)
+    Non-abstract methods (with implementation)
+
+When another class inherits an abstract class:
+    It must implement all abstract methods
+    It automatically inherits non-abstract methods
+This allows code reuse and partial abstraction.
+
+⚠️ Important Correction (Interview Point)
+    A class that extends an abstract class and implements all abstract methods is called a concrete class,
+    NOT an interface implementer class.
+
+abstract class T 
+{
+    abstract void show();   // abstract method
+
+    void display()
+    {        // non-abstract method
+        // method body
+    }
+}
+public class TNApplication
+{
+    public static void main (String x[])
+    {
+
+    }
+}
+------------------------------------------------------------------------
+Q5. Can we declare a constructor in an abstract class?
+
+✅ Yes, we can declare a constructor in an abstract class.
+
+Explanation
+    Even though we cannot create objects of an abstract class,
+    Its constructor is still executed when:
+         A child class object is created
+
+👉 The constructor of an abstract class is used to:
+    Initialize common variables
+    Perform setup logic for subclasses
 
 
 

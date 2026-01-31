@@ -1961,12 +1961,98 @@ Q5. Can we declare a constructor in an abstract class?
 Explanation
     Even though we cannot create objects of an abstract class,
     Its constructor is still executed when:
-         A child class object is created
+        A child class object is created
 
 👉 The constructor of an abstract class is used to:
     Initialize common variables
     Perform setup logic for subclasses
 
+example
 
+abstract class T
+{
+    T()   // constructor name = class name
+    {
+        System.out.println("I am abstract class constructor");
+    }
+}
 
+class B extends T
+{
+    B()
+    {
+        System.out.println("I am child class constructor");
+    }
+}
 
+public class TNApplication
+{
+    public static void main(String x[])
+    {
+        B b = new B();
+    }
+}
+
+✅ Output
+I am abstract class constructor
+I am child class constructor
+----------------------------------------------
+Q6. What is the purpose of an abstract class constructor if we do not create its objects?
+
+Abstract class constructor normally call when we create object of its child class 
+And the purpose of abstract class constructor is initialize members or variables declared within abstract class.
+
+example
+
+abstract class Circle
+{
+    protected float PI, radius;
+
+    Circle()
+    {
+        PI = 3.14f;
+    }
+
+    void setRadius(float radius)
+    {
+        this.radius = radius;
+    }
+    abstract float getResult();
+}
+
+class Area extends Circle
+{
+    float getResult()
+    {
+        return PI * radius * radius;
+    }
+}
+
+class Cirm extends Circle
+{
+    float getResult()
+    {
+        return 2 * PI * radius;
+    }
+}
+
+public class TNApplication
+{
+    public static void main(String x[])
+    {
+        Area a = new Area();
+        a.setRadius(3.0f);
+        float aresult = a.getResult();
+
+        Cirm cm = new Cirm();
+        cm.setRadius(4.0f);
+        float cmresult = cm.getResult();
+
+        System.out.println("Area of circle is " + aresult);
+        System.out.println("Circumference of circle is " + cmresult);
+    }
+}
+
+✅ Output
+Area of circle is 28.26
+Circumference of circle is 25.12

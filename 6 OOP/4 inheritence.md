@@ -2056,3 +2056,385 @@ public class TNApplication
 ✅ Output
 Area of circle is 28.26
 Circumference of circle is 25.12
+----------------------------------------------
+Q7. Can we declare abstract methods as private? Explain with reason.
+ 
+❌ No, we cannot declare an abstract method as private.
+Reason:
+An abstract method must be overri dden in a child (sub) class.
+Method overriding requires inheritance.
+But a private method does NOT participate in inheritance (it is accessible only within the same class).
+Since a private method cannot be inherited or overridden, it cannot be abstract.
+👉 Therefore, declaring an abstract method as private violates the purpose of abstraction.
+
+abstract class T
+{
+    private abstract void show();
+}
+public class PTApplication
+{
+    public static void main(String x[])
+    {
+    }
+}
+
+output
+🔴 Compile-Time Error
+Illegal combination of modifiers: abstract and private
+----------------------------------------------
+Q8. Can we declare abstract methods as static? Explain with reason.
+
+❌ No, we cannot declare abstract methods as static.
+If we try to do so, Java gives a compile-time error.
+
+Reasons:
+    Abstract method has no body
+        1 An abstract method only provides a method declaration, not a definition.
+        2 But a static method must have a complete definition because it belongs to the class itself.
+        3 Hence, abstract and static contradict each other.
+
+    Abstract methods are designed for overriding
+        1 Abstract methods must be overridden in a subclass.
+        2 Static methods cannot be overridden; they only support method hiding.
+        3 Therefore, a static method cannot fulfill the requirement of an abstract method.
+
+    Dynamic polymorphism is not supported by static methods
+        1 Abstract methods are mainly used to achieve abstraction and dynamic polymorphism.
+        2 Static methods are resolved at compile time and support only compile-time binding.
+        3 So static methods cannot participate in dynamic polymorphism.
+
+    Opposite behavior
+        1 abstract → depends on subclass implementation (runtime behavior)
+        2 static → fixed at class level (compile-time behavior)
+        3 Because of this opposite nature, they cannot be used together.
+
+abstract class T
+{
+  static abstract void show();  
+}
+public class PTApplication
+    {
+        public static void main(String[] x)
+        {
+        }
+    }
+output:
+❌ Compiler error (typical)
+Illegal combination of modifiers: abstract and static
+---------------------------------------------
+Q9. Can we declare an abstract method as final?
+
+    ❌ No, we cannot declare an abstract method as final.
+
+    Reason
+        1 An abstract method must be overridden in the child class. 
+        2 A final method cannot be overridden.
+        3 Since their purposes are opposite, Java does not allow using abstract and final together.
+
+    👉 If we try to do this, we get a compile-time error.
+
+abstract class T
+{
+    final abstract void show();
+}
+public class PTApplication
+{
+    public static void main(String x[])
+    {
+    }
+}
+
+output
+Compile-time error (typical)
+Illegal combination of modifiers: abstract and final
+--------------------------------------------
+Q10. Can we create references of an abstract class? Why do we use it?
+
+✅ Yes, we can create a reference of an abstract class,
+❌ but we cannot create an object of an abstract class.
+
+Why can we create an abstract class reference?
+
+Using upcasting, an abstract class reference can point to an object of its child class.
+--------------------------------------------
+example of dynamic polymorphism using abstrct class referance
+
+abstract class Circle
+{
+    protected float Pi, radius;
+
+    Circle()
+    {
+        Pi = 3.14f;
+    }
+
+    void setRadius(float radius)
+    {
+        this.radius = radius;
+    }
+
+    abstract float getResult();
+}
+
+// Child class for Area
+class Area extends Circle
+{
+    float getResult()
+    {
+        return Pi * radius * radius;
+    }
+}
+
+// Child class for Circumference
+class Cirm extends Circle
+{
+    float getResult()
+    {
+        return 2 * Pi * radius;
+    }
+}
+
+public class TNApplication
+{
+    public static void main(String[] x)
+    {
+        Circle cir; // abstract class reference
+
+        cir = new Area();   // upcasting
+        cir.setRadius(3.0f);
+        System.out.println("Area is " + cir.getResult());
+
+        cir = new Cirm();   // upcasting
+        cir.setRadius(4.0f);
+        System.out.println("Circumference is " + cir.getResult());
+    }
+}
+
+🎯 Output
+Area is 28.26
+Circumference is 25.12
+----------------------------------------------
+Q11. Is it true that if an abstract class contains more than one abstract method, then all methods must be overridden in the child class?
+
+✅ Yes, it is true — with a condition.
+
+✅ Correct rule
+
+If a concrete (non-abstract) child class extends an abstract class,
+    👉 it must override all abstract methods of the parent abstract class. Using an abstract class reference allows dynamic polymorphism and loose coupling.
+
+If it does not override all abstract methods,
+    👉 the child class must be declared abstract, otherwise a compile-time error occurs.
+
+❌ Small correction to your statement
+
+“define as blank definition of that method”
+
+🔧 This is not correct.
+You cannot leave an abstract method blank. You must provide a proper method body, even if it is empty { }.
+
+
+Example
+abstract class T
+{
+    abstract void show();
+    abstract void display();
+    abstract void test();
+}
+
+class T1 extends T
+{
+    void show()
+    {
+        System.out.println("I need show method from T");
+    }
+    void display() { }
+    void test() { }
+}
+
+class T2 extends T
+{
+    void display()
+    {
+        System.out.println("I need display method from T");
+    }
+    void show() { }
+    void test() { }
+}
+
+public class PTApplication
+{
+    public static void main(String[] x)
+    {
+        T t;
+
+        t = new T1();
+        t.show();
+
+        t = new T2();
+        t.display();
+    }
+}
+
+🎯 Output
+I need show method from T
+I need display method from T
+---------------------------------------------
+NOTE
+📌 Limitation of Abstract Class & Abstract Methods
+
+Suppose we have an abstract class A with five abstract methods:
+
+abstract class A
+{
+    abstract void s1();
+    abstract void s2();
+    abstract void s3();
+    abstract void s4();
+    abstract void s5();
+}
+
+Now assume we have five child classes: B, C, D, E, F
+
+    Class B needs only s1()
+    Class C needs only s2()
+    Class D needs only s3()
+    Class E needs only s4()
+    Class F needs only s5()
+
+❌ Problem (Limitation)
+
+Because each child class is concrete, it must override all 5 abstract methods.
+So:
+
+    In class B → s1() has logic, s2–s5() are empty
+    In class C → s2() has logic, others are empty
+    … and so on
+
+👉 Each class writes 4 empty methods.
+
+🔢 Total methods written
+    Required logic methods = 5
+    Blank overridden methods = 20
+    Total overridden methods = 25
+This creates a lot of unnecessary code.
+
+⚠️ This causes Boilerplate Code
+🧠 Boilerplate Code means:
+    Code that is part of the program but does not contain any business logic and exists only to satisfy language rules.
+Here, empty overridden methods are boilerplate, not logic.
+
+----------------------------------------------
+Q12. What is an Adapter Class and why do we use it?
+✅ Definition
+
+An adapter class is an intermediate class that extends an abstract class or implements an interface and provides empty (default) implementations for all its abstract methods.
+
+✅ Why do we use an Adapter Class?
+    To avoid overriding unnecessary methods in every child class
+    To reduce boilerplate code
+    To allow child classes to override only the methods they need
+
+🧠 How it works
+    Abstract class / Interface has many abstract methods
+    Adapter class overrides all of them with blank definitions
+    Concrete child class extends adapter class
+    Child class implements only required methods
+
+Example with source code 
+
+abstract class T
+{
+    abstract void show();
+    abstract void display();
+    abstract void test();
+}
+abstract class D extends T
+{
+    void show() { }
+    void display() { }
+    void test() { }
+}
+
+class T1 extends D
+{
+    void show()
+    {
+        System.out.println("I need show method from T");
+    }
+}
+
+class T2 extends D
+{
+    void display()
+    {
+        System.out.println("I need display method from T");
+    }
+}
+
+public class PTApplication
+{
+    public static void main(String[] x)
+    {
+        T1 t1 = new T1();
+        t1.show();
+
+        T2 t2 = new T2();
+        t2.display();
+    }
+}
+----------------------------------------------
+Q13. Can we inherit a non-abstract class in an abstract class?
+
+Yes, we can inherit a non-abstract class in an abstract class.
+
+An abstract class can extend a non-abstract (concrete) class because an abstract class is allowed to contain both abstract and non-abstract methods.
+When an abstract class inherits a  non-abstract class, it automatically gets all the concrete methods of the parent class and may also declare its own abstract methods.
+
+So, inheriting a non-abstract class into an abstract class is completely valid in Java.
+
+Exapmle
+class X 
+{
+    void demo() 
+    {
+        System.out.println("Demo method from class X");
+    }
+}
+abstract class T extends X 
+{
+    abstract void show();
+    abstract void display();
+    abstract void test();
+}
+-----------------------------------------
+Q14. Can we use abstract classes without inheritance? How?
+
+    Yes, we can use abstract classes without creating a named subclass.
+    This is possible using an anonymous inner class.
+    An anonymous inner class allows us to:
+    Create an object of an abstract class
+    Provide implementations of its abstract methods at the time of object creation
+    Avoid writing a separate child class using extends
+
+Example
+abstract class A 
+{
+    abstract void show();
+}
+
+public class Test 
+{
+    public static void main(String[] args) 
+    {
+        A obj = new A() 
+        {
+            void show() 
+            {
+                System.out.println("Abstract method implemented");
+            }
+        };
+
+        obj.show();
+    }
+}

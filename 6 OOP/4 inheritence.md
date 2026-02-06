@@ -2417,24 +2417,140 @@ Q14. Can we use abstract classes without inheritance? How?
     Provide implementations of its abstract methods at the time of object creation
     Avoid writing a separate child class using extends
 
-Example
-abstract class A 
+Example 1: Using a normal class
+
+class A 
 {
-    abstract void show();
+    void show() 
+    {
+        System.out.println("Parent class method");
+    }
+}
+public class Test 
+{
+    public static void main(String[] args) 
+    {
+        A obj = new A() 
+        {   // anonymous inner class
+            void show() 
+            {
+                System.out.println("Anonymous class method");
+            }
+        };
+        obj.show();
+    }
+}
+
+Output
+Anonymous class method
+
+Example 2: Using an abstract class
+abstract class B 
+{
+    abstract void display();
 }
 
 public class Test 
 {
     public static void main(String[] args) 
     {
-        A obj = new A() 
+        // anonymous inner class
+        B obj = new B() 
         {
-            void show() 
+            void display() 
             {
-                System.out.println("Abstract method implemented");
+                System.out.println("Implemented using anonymous class");
             }
         };
-
-        obj.show();
+        obj.display();
     }
 }
+
+Output
+Implemented using anonymous class
+----------------------------------------------
+Q15. What is an Anonymous Inner Class?
+
+An anonymous inner class is a class without a name that is declared and instantiated at the same time.
+It is mainly used to  override methods of a class or implement abstract classes or interfaces without creating a separate subclass.
+
+The class definition is written immediately after the new keyword, and its object is created at runtime.
+
+Correct Note
+
+Anonymous inner class is recommended when we want to use an abstract class or interface immediately at runtime without creating a separate named subclass or implementation class.
+
+Even though inheritance/implementation still happens internally, we do not explicitly write the child class.
+
+General Syntax
+
+ClassName reference = new ClassName() 
+{   
+    access specifier returntype functionname(datatype variablename)
+    {
+    // override methods here
+    }
+};
+
+Example of anonymous inner class Using an abstract class
+
+abstract class B 
+{
+    abstract void display();
+}
+
+public class Test 
+{
+    public static void main(String[] args) 
+    {
+        // anonymous inner class
+        B obj = new B() 
+        {
+            void display() 
+            {
+                System.out.println("Implemented using anonymous class");
+            }
+        };
+        obj.display();
+    }
+}
+
+output:
+I am abstract class method
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+Difference between abstract, final, and static keywords
+
+| Feature            | Abstract                                                    | Final                                 | Static                                               |
+| ------------------ | ----------------------------------------------------------- | ------------------------------------- | ---------------------------------------------------- |
+| Purpose            | Used to achieve **abstraction** (incomplete implementation) | Used to **restrict modification**     | Used to create **class-level members**               |
+| Used with          | Class and methods                                           | Class, methods, and variables         | Variables, methods, blocks, and nested classes       |
+| Inheritance        | Abstract class **must be inherited**                        | Final class **cannot be inherited**   | Static is not related to inheritance                 |
+| Method behavior    | Abstract method **must be overridden**                      | Final method **cannot be overridden** | Static method **cannot be overridden** (only hidden) |
+| Object requirement | Implemented through **subclass objects**                    | Can be used normally by objects       | Can be accessed **without object** using class name  |
+| Implementation     | Abstract methods **have no body**                           | Final methods **have complete body**  | Static methods **have implementation**               |
+| Variables          | Cannot be abstract                                          | Final variables become **constants**  | Static variables are **shared by all objects**       |
+
+----------------------------------------------------------------------------
+Difference between Abstract, Final, and Static Methods      
+
+| Feature            | Abstract Method                     | Final Method             | Static Method                                     |
+| ------------------ | ----------------------------------- | ------------------------ | ------------------------------------------------- |
+| Keyword            | `abstract`                          | `final`                  | `static`                                          |
+| Method body        | **No body** (only declaration)      | **Has body**             | **Has body**                                      |
+| Overriding         | **Must be overridden** in subclass  | **Cannot be overridden** | **Cannot be overridden** (only method hiding)     |
+| Object requirement | Called using **object of subclass** | Called using **object**  | Can be called **without object** using class name |
+| Purpose            | Achieve **abstraction**             | **Restrict overriding**  | Provide **class-level functionality**             |
+| Class requirement  | Must be inside **abstract class**   | Can be inside any class  | Can be inside any class                           |
+
+-----------------------------------------------------------------------------
+
+Q20. Difference between Abstract Class and Final Class
+| Abstract Class                                    | Final Class                                                   |
+| ------------------------------------------------- | ------------------------------------------------------------- |
+| Declared using `abstract` keyword                 | Declared using `final` keyword                                |
+| **Cannot create object directly**                 | Object **can be created**                                     |
+| Must be **inherited** to provide implementation   | **Cannot be inherited**                                       |
+| Used to achieve **abstraction**                   | Used to **prevent inheritance** (often for immutable classes) |
+| Can contain **abstract and non-abstract methods** | Contains **only complete methods**                            |

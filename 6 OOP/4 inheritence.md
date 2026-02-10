@@ -2530,9 +2530,10 @@ Difference between abstract, final, and static keywords
 | Method behavior    | Abstract method **must be overridden**                      | Final method **cannot be overridden** | Static method **cannot be overridden** (only hidden) |
 | Object requirement | Implemented through **subclass objects**                    | Can be used normally by objects       | Can be accessed **without object** using class name  |
 | Implementation     | Abstract methods **have no body**                           | Final methods **have complete body**  | Static methods **have implementation**               |
-| Variables          | Cannot be abstract                                          | Final variables become **constants**  | Static variables are **shared by all objects**       |
+| Variables          | Cannot be abstract                                          | Final variables become **constants**  | Static variables are **shared by all objects**       | 
 
-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Difference between Abstract, Final, and Static Methods      
 
 | Feature            | Abstract Method                     | Final Method             | Static Method                                     |
@@ -2543,10 +2544,11 @@ Difference between Abstract, Final, and Static Methods
 | Object requirement | Called using **object of subclass** | Called using **object**  | Can be called **without object** using class name |
 | Purpose            | Achieve **abstraction**             | **Restrict overriding**  | Provide **class-level functionality**             |
 | Class requirement  | Must be inside **abstract class**   | Can be inside any class  | Can be inside any class                           |
-
+ 
 -----------------------------------------------------------------------------
 
 Q20. Difference between Abstract Class and Final Class
+ 
 | Abstract Class                                    | Final Class                                                   |
 | ------------------------------------------------- | ------------------------------------------------------------- |
 | Declared using `abstract` keyword                 | Declared using `final` keyword                                |
@@ -2554,3 +2556,98 @@ Q20. Difference between Abstract Class and Final Class
 | Must be **inherited** to provide implementation   | **Cannot be inherited**                                       |
 | Used to achieve **abstraction**                   | Used to **prevent inheritance** (often for immutable classes) |
 | Can contain **abstract and non-abstract methods** | Contains **only complete methods**                            |
+
+----------------------------------------------
+
+Q1. What is an Interface ?
+
+An interface is a reference type in Java that contains abstract methods (by default public abstract) and constants (public static final). 
+We cannot create cannot create its object and methods of interface are by default public abstract 
+
+----------------------------------------------
+
+Q2. Why use an interface if we already have an abstract class?
+
+Interfaces are used because they provide:
+
+Multiple inheritance
+    A class can implement multiple interfaces but extend only one class.
+Loose coupling  
+    Programs depend on interface methods instead of specific class implementations.
+Full abstraction (traditionally)
+    Methods are abstract by default (except default/static methods in modern Java).
+Dynamic polymorphism
+    Interface references can refer to different implementing objects.
+
+---------------------------------------------
+Q3. How can we say the interface achieves 100% abstraction ?
+
+Because all methods in an interface are abstract by default (until Java 7), meaning the interface contains only method declarations and no method implementation.
+Therefore, it represents complete abstraction.
+
+(Note: From Java 8 onward, interfaces can also contain default and static methods with implementation, so practically it is not always 100% abstraction anymore.)
+
+interface Test
+{
+    void show(); //public abstract void show();
+}
+
+output:
+javac Test.java
+javap Test
+
+interface Test
+{
+    public abstract void show();
+}
+---------------------------------------------
+Q . Why does Java not support multiple inheritance using classes?
+ 
+Java does not support multiple inheritance using classes because it can create the Diamond Problem (ambiguity).
+
+Diamond Problem Explanation
+
+When a class inherits from two parent classes and both parent classes contain a method with the same name, the child class does not know which parent method should be used, causing ambiguity.
+
+Example (conceptual):
+      A
+     / \
+    B   C
+     \ /
+      D
+
+If both B and C override a method show() from A, then class D (child of B and C) will be confused about which show() method to call.
+
+Because of this ambiguity, Java does not allow multiple inheritance with classes.
+
+How Java solves this?
+
+Java supports multiple inheritance using interfaces, because interfaces only declare methods (no ambiguity of implementation), and the implementing class provides the method implementation.
+
+Short Interview Answer
+
+Java does not support multiple inheritance with classes to avoid the Diamond Problem (method ambiguity). Instead, Java supports multiple inheritance through interfaces.
+----------------------------------------------
+
+Q. Where can we write the logic of interface methods?
+
+Answer:
+The logic of interface methods is written in the implementing class.
+A class implements an interface using the implements keyword and overrides the interface methods to provide their implementation.
+
+class classname implements interfacename1,interfacename2......interfacename..n
+{
+    override here methods of interface
+}
+
+Example: interface maethod implementation with dynamic polymorphisum
+
+interface Vehicle
+{
+    void engine(); //public abstractvoid engine();
+}
+
+class Bike implements Vehical
+{
+    public void enine() //call
+}

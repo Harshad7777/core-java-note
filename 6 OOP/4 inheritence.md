@@ -2639,15 +2639,392 @@ class classname implements interfacename1,interfacename2......interfacename..n
 {
     override here methods of interface
 }
-
-Example: interface maethod implementation with dynamic polymorphisum
+---------------------------------------------
+Example: interface method implementation with dynamic polymorphisum
 
 interface Vehicle
 {
-    void engine(); //public abstractvoid engine();
+    void engine();   // public abstract by default
 }
 
-class Bike implements Vehical
+class Bike implements Vehicle
 {
-    public void enine() //call
+    public void engine()
+    {
+        System.out.println("200 CC");
+    }
 }
+
+class Car implements Vehicle
+{
+    public void engine()
+    {
+        System.out.println("1000 CC");
+    }
+}
+
+public class VApplication
+{
+    public static void main(String x[])
+    {
+        Vehicle v = new Bike();   // dynamic polymorphism
+        v.engine();
+
+        v = new Car();            // dynamic polymorphism
+        v.engine();
+    }
+}
+
+Output
+200 CC
+1000 CC
+----------------------------------------------
+Important interview question on interface
+
+Q1. Can we create an object of an interface?
+
+No, we cannot create an object of an interface directly because an interface does not contain complete method implementations (it only declares methods). Since objects require fully defined behavior, Java does not allow direct instantiation of an interface, and attempting to do so results in a compile-time error.
+
+interface Vehicle
+{
+    void engine();   // public abstract by default
+}
+
+public class VApplication
+{
+    public static void main(String x[])
+    {
+        Vehicle v = new Vehicle(); // ERROR: cannot instantiate interface
+    }
+}
+
+
+This gives compile-time error because interfaces cannot be instantiated.
+
+----------------------------------------------
+Q2. Why can we not create an object of an abstract class?
+
+An abstract class may contain abstract methods (methods without implementation).
+If Java allowed creating objects of an abstract class, then it would be possible to call those abstract methods directly using that object, but abstract methods do not have a method body (implementation).
+To avoid this situation, Java does not allow object creation of abstract classes.
+Objects can only be created for concrete (non-abstract) subclasses that implement all abstract methods.
+
+abstract class A
+{
+    abstract void show(); //abstract method
+    void display()// non abstract
+    {
+    }
+}
+public class AbsAPP
+{
+    public static void main(String x[])
+    {
+        A a1 = new A();
+        a1.display();
+        a1.show();
+    }
+}
+
+Your program has an error because abstract class object cannot be created.
+
+----------------------------------------------------------
+
+Q2. Can we write the logic of an interface method?
+
+By default, interface methods are public and abstract, so they do not contain method logic. The implementation (logic) must be written in the class that implements the interface.
+
+interface Vehicle
+{
+    void engine()
+    {
+        //error
+    }
+}
+public class VApplication
+{
+    public static void main(String x[])
+    {
+        // Vehicle v = new Vehicale();
+    }
+}
+
+NOTE: We get a compile-time error because interface methods are public abstract by default, and abstract methods cannot have method bodies.
+
+However, from Jdk 1.8 onward, interfaces can also contain default methods and static methods, and these methods can have method logic.
+
+interface Vehicle
+{
+    static void engine()
+    {
+    }
+}
+public class VApplication
+{
+    public static void main(String x[])
+    {
+        //Vehicle.engine();
+    }
+}
+
+OUTPUT:
+javac Vapplication.java
+java VApplication
+
+Note: possible to define Static method within interface from JDK 1.8 so there is no compile time error
+
+ OR
+
+ interface Vehicle
+ {
+    default void engine()
+    {
+    }
+ }
+ public class VApplication
+ {
+    public static void main(String x[])
+    {
+        //Vehicle v = new Vehicle(); 
+    }
+ }
+
+OUTPUT:
+javac Vapplication.java
+java VApplication
+
+Note: possible to define Default method in interface from JDK 1.8 so there is no compile time error
+
+ -------------------------------------------------------
+Q3. Are interface variables by default public static final?
+
+Yes. All variables declared inside an interface are implicitly public, static, and final.
+Because they are final (constants), they must be initialized at the time of declaration, otherwise a compile-time error occurs.
+
+interface Circle
+{
+    float PI; //public static final PI
+}
+public class VApplication
+{
+    public static void main(String x[])
+    {
+    }
+}
+
+Note: Variables in an interface are public static final by default.
+Since they are final, they must be initialized at the time of declaration.
+Here PI is not initialized, so the compiler shows an error.
+
+interface Circle
+{
+    float PI = 3.14f; // public static final PI
+}
+
+public class VAppliaction
+{
+    public static void main(String x[])
+    {
+        System.out.println(Circle.PI);
+    }
+}
+
+Output
+3.14
+----------------------------------------------
+
+Q4. Can we define a constructor inside an interface?
+
+No, interfaces cannot contain constructors. If we try to declare a constructor inside an interface, we get a compile-time error.
+
+Reason:
+A constructor is used to initialize objects when a class object is created.
+An interface cannot be instantiated (cannot create objects), therefore it does not require constructors, and Java does not allow constructors inside interfaces.
+
+interface Circle
+{
+    float PI = 3.14f;
+    Circle()   // ✔ constructor 
+    {
+    }
+}
+public class VApplication
+{
+    public static void main(String x[])
+    {
+        Circle c = new Circle();   // constructor called
+        System.out.println(c.PI);
+    }
+}
+
+Output
+You also cannot create an object of an interface:
+
+Circle c = new Circle();   // ❌ interface cannot be instantiated
+---------------------------------------------
+Q5. Can one interface inherit another interface? How?
+Yes, one interface can inherit another interface using the extends keyword.
+This is called interface-to-interface inheritance.
+
+Important rules
+
+| Inheritance Type      | Keyword Used |
+| --------------------- | ------------ |
+| Class → Class         | `extends`    |
+| Interface → Interface | `extends`    |
+| Class → Interface     | `implements` |
+| Interface → Class     | Not allowed  |
+
+interface A
+{
+    void show();
+}
+
+interface B extends A
+{
+    void display();
+}
+
+public class Test
+{
+    public static void main(String x[])
+    {
+        // program runs (no output)
+    }
+}
+
+output:
+javac VApplication.java
+----------------------------------------------
+Q6. Can we declare interface methods as private?
+
+Before Java 9, declaring a private method in an interface produced a compile-time error.
+
+Yes, from Java 9 onward, interfaces can contain private methods, but these methods are used only inside the interface (typically to support default or static methods). They cannot be accessed by implementing classes.
+
+Example
+
+interface A
+{
+    private void show();
+}
+public class VApplication
+{
+    public static void main(String x[])
+    {
+    }
+}
+
+output:
+error: missing method body , or declare abstract
+{
+    private void show();
+}
+
+Reason 
+Interface methods cannot be private because they must be overridden in implementing classes, and private methods cannot be overridden. 
+Also, interface methods are by default public and abstract.
+----------------------------------------------
+Q7. Can we declare interface methods as protected?
+
+No, we cannot declare interface methods as protected.
+✅ Correct Reason (Improved Explanation)
+Interface methods are implicitly public abstract.
+protected means the method is accessible only within:
+same package, or subclassesa
+But interface methods are meant to be implemented by any class, possibly from any package.
+Therefore, interface methods must be public, not protected.
+
+interface ABC
+{
+    protected void show();//protected public abstract void show();
+}
+output
+modifier protected not allowed here
+----------------------------------------------
+Q8. Can we declare abstract methods in an abstract class as protected?
+✅ Correct Answer
+
+Yes, we can declare abstract methods in an abstract class as protected.
+
+✅ Correct Reason
+Methods in a class or abstract class can have any valid access modifier:
+private
+default
+protected
+public
+
+Since an abstract class is a normal class (with abstract methods), its abstract methods can be protected.
+
+A protected abstract method can be overridden by subclasses.
+
+abstract class ABC
+{
+    abstract void show();   // default    // default access
+}
+
+when we write like as
+abstract class ABC
+{
+    protected abstract void show();   // protected abstract void show();
+}
+---------------------------------------------
+Q9. Why can an abstract method be protected in an abstract class but not in an interface?
+
+Correct Explanation
+
+1. Interface case
+Methods in an interface are implicitly public abstract.
+Language rule: interface methods must be public (except private helper methods which are not abstract).
+
+interface A
+{
+    protected void show();   // compile-time error
+}
+is illegal because protected is not allowed for interface abstract methods.
+The compiler does not treat it as “protected public”; it simply reports modifier not allowed.
+
+
+2. Abstract class case
+An abstract class is a normal class.
+Methods in classes can use any valid access modifier:
+    default
+    protected
+    public
+
+Therefore:
+abstract class A
+{
+    protected abstract void show();   // valid
+}
+is allowed.
+
+----------------------------------------------
+Q10. Can we declare the interface method as final?
+No we cannot declare interface method as final because interface method is abstract method and cannot declare abstract method as final because abstract method must be override and interface method cannot override so compiler will generate compile time error.
+
+----------------------------------------------
+Q10. Can we declare an interface method as final?
+✅ Correct Answer:
+No, we cannot declare an interface method as final.
+
+✅ Correct Reason:
+Interface methods are implicitly public abstract.
+An abstract method must be overridden by the implementing class.
+A final method cannot be overridden.
+Therefore, a method cannot be both abstract and final at the same time.
+
+interface ABC
+{
+    final void show();
+}
+output:
+This will give a compile-time error.
+----------------------------------------------
+Q11. Is it true that if an interface contains more than one method, then all methods must be overridden in the implementing class?
+
+Answer:
+Yes. When a class implements an interface, it must override all abstract methods of that interface.
+If the class does not override all methods, then the class must be declared abstract; otherwise, a compile-time error occurs.
+
+If we do not want to implement all methods, we can create an adapter class (an abstract class that implements the interface and provides empty method bodies). Then child classes can override only the required methods.

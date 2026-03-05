@@ -88,14 +88,15 @@ char ch = 'A';
 int ascii = (int) ch; // typecasting char to int
 
 System.out.println("ASCII of " + ch + " = " + ascii);
-------------------------------------------------------------------
+------------------------------------------------------------------ 
 3️⃣ Else-If Ladder
 ------------------------------------------------------------------
-	Used when there are multiple conditions.
-	Executes the first true condition block and ignores the rest.
+Used when there are multiple conditions.
+Executes the first true condition block and ignores the rest.
 
 Example: Find the greatest of three numbers.
-import java.util.*;
+
+import java.util.*; 
 public class AAPP 
 {
     public static void main(String[] args)
@@ -211,7 +212,7 @@ public class SWAPP
     public static void main(String[] args) 
 	{
         Scanner sc = new Scanner(System.in);
-
+        
         System.out.println("1: Addition\n2: Multiplication");
         System.out.println("Enter two values:");
         int a = sc.nextInt();

@@ -1,20 +1,15 @@
 Q. What is Inheritance?
 
 Inheritance is a mechanism in Java where one class acquires (inherits) the properties and behaviors of another class.
-
     The class whose properties are inherited is called the Parent class / Super class / Base class
-
     The class that inherits the properties is called the Child class / Sub class / Derived class
 
 Definition (Standard) 
-
     Inheritance means transferring the properties (variables) and behaviors (methods) of one class into another class.
 
 Note : 
 IS–A Relationship
-
     When inheritance is performed between two classes, they are connected by an IS–A relationship.
-
     Example:
     Math IS-A Subject
     Dog IS-A Animal
@@ -185,9 +180,8 @@ class A extends java.lang.object
 -------------------------------------------------------------------------
 Defined Class → Object Class
    Q. Why does Java provide an Object class as a parent class to every user defined class?
-____________________
 
--------------------------------------------------------------------------
+------------------------------------------------------------------------
 What is Object Class?
  
 The Object class is the root class of Java.
@@ -350,7 +344,7 @@ Therefore, it becomes the developer’s responsibility to explicitly pass parame
 
 For this purpose, Java provides the super() constructor, which must be used inside the child class constructor to pass the required arguments to the parent constructor.
 
--------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 Q. What is super() constructor and why is it used?
 
@@ -572,7 +566,7 @@ Types of non-access specifiers:
     f. transient
     g. strictfp
     h. assert
-
+------------------------------------------------------------------------
 Q. What is an access specifier?
 Answer:
     Access specifiers are Java keywords used to control the accessibility (visibility) of classes and their members.
@@ -1789,7 +1783,7 @@ public class AbsApplication
 🔥 Output
 Need good coding + communication + logic
 Need cooking skill
------------------------------------------------------------------------------
+------------------------------------------------------------------------
 Example of loose coupling using abstract class and abstract methods
 
 abstract class Employee 
@@ -1841,11 +1835,11 @@ Output
 Need good coding + communication + logic
 Need cooking skill
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------
 Q1. Can we create an object of an abstract class?
     ❌ No, we cannot create an object of an abstract class.
     If we try to create an object of an abstract class, we get a compile-time error
----------------------------------------------------------------------------
+------------------------------------------------------------------------
 Q2. Why can’t we create an object of an abstract class?
 
 An abstract class can contain:
@@ -2518,7 +2512,7 @@ public class Test
 output:
 I am abstract class method
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
  
 Difference between abstract, final, and static keywords
 
@@ -3028,3 +3022,745 @@ Yes. When a class implements an interface, it must override all abstract methods
 If the class does not override all methods, then the class must be declared abstract; otherwise, a compile-time error occurs.
 
 If we do not want to implement all methods, we can create an adapter class (an abstract class that implements the interface and provides empty method bodies). Then child classes can override only the required methods.
+
+Example 
+abstract class T
+{
+    abstract void show();
+    abstract void display();
+    abstract void test();
+}
+
+class T1 extends T
+{
+    void show()
+    {
+        System.out.println("i need show the method from T");
+    }
+
+    void display()
+    {
+        // empty implementation
+    }
+
+    void test()
+    {
+        // empty implementation
+    }
+}
+
+class T2 extends T
+{
+    void display()
+    {
+        System.out.println("i need display method from T");
+    }
+
+    void show()
+    {
+        // empty implementation
+    }
+
+    void test()
+    {
+        // empty implementation
+    }
+}
+
+public class PTApplication
+{
+    public static void main(String x[])
+    {
+        T1 t1 = new T1();
+        t1.show();
+
+        T2 t2 = new T2();
+        t2.display();
+    }
+}
+
+Output
+i need show the method from T
+i need display method from T''
+
+-----------------------------------------------------------------------
+📘 Limitation of Abstract Class & Abstract Methods
+
+Suppose we have an abstract class A with five abstract methods:
+
+s1(), s2(), s3(), s4(), s5()
+
+And five child classes:
+
+B, C, D, E, F
+
+Each child class needs only one specific method, but Java forces us to override all abstract methods.
+
+🔴 Problem
+
+Class B needs only s1()
+→ must override s2(), s3(), s4(), s5() as empty methods
+
+Class C needs only s2()
+→ must override s1(), s3(), s4(), s5() as empty methods
+
+Same for other classes
+
+👉 So each class writes many unused methods.
+
+❌ Result
+
+Total methods overridden = 25
+
+Useful methods = only 5
+
+Remaining = 20 empty methods
+
+This unnecessary code is called boilerplate code.
+
+📦 What is Boilerplate Code?
+
+Boilerplate code = Code written only to satisfy syntax/rules,
+but contains no actual logic.
+
+👉 It increases code size without adding functionality.
+
+✅ Solution in OOP → Adapter Class
+
+An Adapter Class provides default (empty) implementations
+for all methods.
+
+Then child classes override only the methods they need.
+
+🧠 How Adapter Class Works
+Step 1 — Create abstract class
+abstract class A
+{
+    abstract void s1();
+    abstract void s2();
+    abstract void s3();
+    abstract void s4();
+    abstract void s5();
+}
+Step 2 — Create Adapter Class
+abstract class AAdapter extends A
+{
+    void s1() {}
+    void s2() {}
+    void s3() {}
+    void s4() {}
+    void s5() {}
+}
+
+👉 All methods implemented as empty
+👉 Still abstract (cannot create object)
+
+Step 3 — Child class overrides only required method
+class B extends AAdapter
+{
+    void s1()
+    {
+        System.out.println("Logic for s1()");
+    }
+}
+🎯 Advantages
+
+✅ Removes boilerplate code
+✅ Improves readability
+✅ Easy maintenance
+✅ Override only required methods
+✅ Cleaner design
+
+-----------------------------------------------------------------------
+✅ Q12. What is an Adapter Class and why is it used?
+📘 Definition
+
+An Adapter Class is an intermediate abstract class that provides empty (default) implementations for all abstract methods of another abstract class or interface.
+
+It allows subclasses to override only the methods they actually need.
+
+🧠 Why is it used?
+
+It is used to:
+
+✅ Avoid implementing unnecessary methods
+✅ Reduce boilerplate code
+✅ Improve readability and maintenance
+✅ Provide selective method overriding
+✅ Make code cleaner and easier to extend
+
+abstract class T
+{
+    abstract void show();
+    abstract void display();
+    abstract void test();
+}
+//Adapter class
+abstrct class D extend T
+{
+    void show(){}
+    void display(){}
+    void test(){}
+}
+//child class using only show()
+class T1 extend D
+{
+    void show()
+    {
+        System.out.println("I need show method from T");
+    }
+}
+
+//child class using only display()
+class T2 extends D
+{
+    void display()
+    {
+        System.out.println("I need display method from T");
+    }
+}
+
+public class PTApplication
+{
+    public staic void main(String x[])
+    {
+        T1 t1 = new T1();
+        t1.show();
+
+        T2 t2 = new T2();
+        t2.display();
+    }
+}
+
+🧾 Output
+I need show method from T
+I need display method from T
+
+------------------------------------------------------------------------
+
+✅ Q13. Can we inherit a non-abstract class in an abstract class?
+📘 Answer
+
+👉 Yes, an abstract class can inherit a non-abstract (concrete) class.
+
+🧠 Why is it possible?
+
+Because:
+
+✅ An abstract class can contain both abstract and non-abstract methods
+✅ A non-abstract class contains only concrete (implemented) methods
+✅ When an abstract class extends a non-abstract class, it inherits all concrete methods
+✅ The abstract class may also declare its own abstract methods
+
+👉 Therefore, inheritance is completely valid.
+
+📦 Explanation in Simple Words
+
+A concrete class already has implementations.
+
+An abstract class can:
+    Use those existing methods
+    Add new abstract methods
+    Add new concrete methods
+So there is no restriction.
+
+✔️ Your Example — Correct
+class X
+{
+    void demo()
+    {
+        System.out.println("Method from non-abstract class X");
+    }
+}
+
+abstract class T extends X
+{
+    abstract void show();
+    abstract void display();
+    abstract void test();
+}
+
+🔍 What Happens Here?
+    Class X → Non-abstract (concrete class)
+    Class T → Abstract class
+    T inherits method demo() from X
+    T adds new abstract methods
+👉 Any concrete subclass of T must implement:
+
+show(), display(), test()
+but can directly use demo() from X.
+
+------------------------------------------------------------------------
+
+✅ Q14. Can we use abstract classes without inheritance? How?
+📘 Answer
+
+👉 Yes, we can use an abstract class without creating a named subclass.
+
+This is done using an Anonymous Inner Class, which creates an unnamed subclass at runtime and provides implementations for abstract methods.
+
+------------------------------------------------------------------------
+ What is an anonymous inner class?
+🧠 Simple Explanation
+
+👉 It is a special type of inner class
+👉 It has no class name
+👉 It is created after the new keyword
+👉 It is used for one-time use
+👉 We can write method logic inside it
+👉 The object can directly use those methods at runtime
+
+⭐ When is it used?
+
+It is recommended when:
+
+✅ You need a class only once
+✅ You want to use an abstract class without creating a separate subclass
+✅ You want to implement an interface without creating a separate implementation class
+✅ To reduce extra code
+
+Note: normally anonymous inner class recommended when want to use abstract class at runtime without inheritance or interface at runtime without implementation 
+
+Syntex 
+classname ref = new classname()
+{
+    access spacifier returntype functionname(datatype variablename)
+    {
+        write here your logics
+    }
+};
+
+example
+
+abstract class T
+{
+    abstract void show();
+}
+public class PTApplication
+{
+    public static void main(String x[])
+    {
+        T t1 = new T()
+        {
+            void show()
+            {
+                System.out.println("I am abstract class method");
+            }
+        }
+    };
+    t1.show();
+}
+----------------------------------------------------------------------
+Q15. How we can solve diamond problem using interface or How we can achieve multiple inheritance using interface explain with an example?
+
+🔷 What is the Diamond Problem?
+
+The diamond problem occurs in multiple inheritance when a child class inherits from two parent classes that have the same method, causing ambiguity about which method to use.
+
+      A
+     / \
+    B   C
+     \ /
+      D
+
+If both B and C inherit from A and D inherits from B and C, then D may get confused about which method implementation to use.
+
+👉 Java avoids this problem by not allowing multiple inheritance with classes.
+
+🔷 How Java Solves It Using Interfaces
+
+Java allows multiple inheritance using interfaces only, not classes.
+
+✔ A class can implement multiple interfaces
+✔ Interfaces contain abstract methods (no implementation)
+✔ Child class must provide its own implementation
+✔ No ambiguity occurs
+
+👉 Therefore, the diamond problem does not arise.
+
+🔷 Rules for Multiple Inheritance in Java
+
+    A class can extend only ONE class
+    A class can implement MANY interfaces
+    All interface methods must be overridden (unless default methods exist)
+
+🔷 Example: Multiple Inheritance Using Interfaces
+Step 1: Create Interfaces
+interface A 
+{
+    void show();
+}
+
+interface B 
+{
+    void show();
+}
+
+Both interfaces contain the same method.
+
+Step 2: Implement Both Interfaces in One Class
+class D implements A, B 
+{
+    public void show() 
+    {
+        System.out.println("Show method implemented in class D");
+    }
+}
+
+✔ Class D provides ONE implementation
+✔ No confusion exists
+
+Step 3: Main Class
+public class Test 
+{
+    public static void main(String[] args) 
+    {
+        D obj = new D();
+        obj.show();
+    }
+}
+✅ Output
+Show method implemented in class D
+🔷 Why There Is No Diamond Problem Here?
+
+Because:
+    Interfaces do not provide method implementation (by default)
+    Child class defines the method itself
+    Only one final version exists
+
+👉 So ambiguity is removed.
+
+🔷 Important Note (Java 8+)
+    If interfaces contain default methods, conflict can occur.
+    Then child class must override the method and choose implementation.
+
+Example:
+
+interface A {
+    default void show() {
+        System.out.println("A show");
+    }
+}
+
+interface B {
+    default void show() {
+        System.out.println("B show");
+    }
+}
+
+class D implements A, B {
+    public void show() {
+        System.out.println("D show");
+    }
+}
+✅ Short Exam Definition
+
+Java achieves multiple inheritance using interfaces.
+When multiple interfaces contain the same method, the implementing class overrides the method, so no ambiguity occurs and the diamond problem is avoided.
+-------------------------------------------------------
+Q16. Is it possible to define a method within an interface?
+
+Yes ✅, it is possible to define methods inside an interface.
+
+Since Java 8 (JDK 1.8), interfaces can contain:
+
+1️⃣ Abstract Methods (Default behavior before Java 8)
+
+    By default, methods in an interface are public and abstract.
+    The implementing class must override them.
+    interface Test 
+    {
+        void show();   // public abstract by default
+    }
+
+2️⃣ Default Methods (Introduced in Java 8)
+
+    Defined using the default keyword.
+    They have a method body.
+    No need to override in implementing class (optional).
+
+interface T
+{ 
+    default void display() 
+    {
+        System.out.println("Default method in interface");
+    }
+}
+class T1 implements T
+{
+}
+public class TAPP
+{
+    public static void main(Strimg x[])
+    {
+        T1 t1 = new T1();
+        t1.show();
+    }
+}
+
+✔ Used to add new methods to interfaces without breaking existing implementations.
+
+3️⃣ Static Methods (Introduced in Java 8)
+
+    Defined using the static keyword.
+    Must be called using the interface name.
+    Cannot be overridden.
+
+interface T 
+{
+    static void show() 
+    {
+        System.out.println("Static method in interface");
+    }
+}
+public class TAPP
+{
+    public static void main(String x[])
+    {
+        T.show();
+    }
+}
+
+
+// Calling
+Test.message();
+
+4️⃣ Private Methods (Introduced in Java 9)
+
+    Used only inside the interface.
+    Cannot be accessed by implementing classes.
+    Helps to avoid code duplication inside default methods.
+
+interface Test 
+{
+    private void helper() 
+    {
+        System.out.println("Private method");
+    }
+}
+
+✅ Final Answer (Short Exam Format)
+
+Yes, it is possible to define methods within an interface.
+From Java 8 onwards, we can define:
+
+    Abstract methods
+    Default methods
+    Static methods
+
+    From Java 9 onwards, we can also define private methods.
+
+----------------------------------------------------------
+
+Q17. What is a Functional Interface in Java & Why is it Used ?
+
+✅ Definition
+
+A Functional Interface in Java is an interface that contains only one abstract method.
+
+It may contain:
+    Multiple default methods
+    Multiple static methods
+    But only one abstract method
+
+✅ Annotation Used
+
+@FunctionalInterface
+
+This annotation ensures that the interface has only one abstract method.
+If we add another abstract method, it gives a compile-time error.
+
+✅ Example
+    @FunctionalInterface
+    interface MyInterface 
+    {
+        void show();   // Only one abstract method
+    }
+✅ Why Do We Use Functional Interfaces?
+
+Functional interfaces are mainly used for:
+---------------------------------------------------------
+
+Q18. What is lambda expression and what is the purpose of lambda expression?
+
+A Lambda Expression is a feature introduced in Java 8.
+It is a short and simple way to write an anonymous function.
+It is mainly used to implement a Functional Interface (an interface that contains only one abstract method).
+
+1️⃣ Lambda Expressions
+
+    They allow us to write short and clean code using lambda expressions.
+    
+    @FunctionInterface
+    interface T
+    {
+        void show(); //public abstract void show();
+    }
+
+    public class TAPP
+    {
+        public static void mian(String x[])
+        {
+            T t1 = ()->System.out.println("I am show method of T");
+            t1.show;
+        }
+    }
+    Instead of writing a separate class, we can directly provide implementation using a lambda expression.
+
+2️⃣ Used in Predefined Interfaces
+
+    Java provides many built-in functional interfaces like:
+    Runnabl
+    Callable
+    Comparator
+    Predicate
+    Function
+    Consumer
+
+    These are widely used in:
+    Multithreading
+    Stream API
+    Collection sorting
+
+    Note: we will discuss all interfaces and lambda expression in depth when we learn JDK 1.8 feature 
+
+----------------------------------------------------------
+✅ Q20. Can we override a protected method as public?
+✔ Yes, it is possible.
+
+If a parent class method is declared as protected, the child class can override it and change the access modifier to public.
+
+🔹 Why is it allowed?
+Because in method overriding:
+    We can increase visibility (make access more accessible)
+    But we cannot decrease visibility
+
+Access Level Order (Low → High)
+private < default < protected < public
+
+So:
+protected → public ✅ Allowed
+public → protected ❌ Not Allowed
+protected → private ❌ Not Allowed
+
+class A
+{
+    protected void show()
+    {
+        System.out.println("I am a show method");
+    }
+}
+class B extends A
+{
+    public void show()
+    {
+        System.out.println("I am show method in B");
+    }
+}
+public class TAPP
+{
+    public static void main(Stirng x[])
+    {
+        B b1 = new B();
+        b1.show();
+    }
+}
+
+output:
+I am show method in B
+------------------------------------------------------
+Q21. Can we override the default method as protected in child class?
+Yes we can override default method as protected in child class because protected has higher priority than default so it is possible 
+
+private < default < protected < public
+
+class A
+{
+    void show()  //default access
+    {
+        System.out.println(" I am show method ");
+    }
+}
+class B extends A
+{
+    protected void show();
+    {  
+        // overriding with wider access
+        System.out.println("I am show method in B");
+    }
+}
+public class TAPP
+{
+    public static void main(String x[])
+    {
+        B b1 = new B();
+        b1.show();
+    }
+}
+----------------------------------------------------------
+Q22. Can we override protected to default?
+No if parent method is protected then we cannot override it as default 
+
+private < default < protected < public
+
+class A
+{
+    protected void show()
+    {
+        System.out.println(" I am show method ");
+    }
+}
+class B extends A
+{
+    void show()
+    {
+        System.out.println("I am show method in B");
+    }
+}
+public class TAPP
+{
+    public static void main(String x[])
+    {
+        B b1 = new B();
+        b1.show();
+    }
+}
+----------------------------------------------------------
+Q23. Can we override public to protected methods?
+No if parent method is public then child method must be public cannot override it as protected or default 
+
+private < default < protected < public
+
+class A
+{
+    public void show()
+    {
+        System.out.println("I am show method");
+    }
+}
+class B extends A
+{
+    protectd void show()
+    {
+        System.out.println("I am show method in B");
+    }
+}
+public class TAPP
+{
+    public staic void main(String x[])
+    {
+        B b1 = new B();
+        b1.show();
+    }
+}
+
+ERROR!
+Main.java:15: error: show() in B cannot override show() in A
+    void show()
+         ^
+  attempting to assign weaker access privileges; was protected
+1 error
+
+----------------------------------------------------------
+
+

@@ -104,7 +104,7 @@ public class PAPP
     public static void main (String x[])
     {
         Scanner sc = new Scanner(System.in);
-
+        
         int no, sum=0, i;
         System.out.println("Enter number");
         no = sc.nextInt();
@@ -269,8 +269,10 @@ for(; i<=5; i++) { }
 Example: Print “Good Morning”
 public class FAPP 
 {
-    public static void main(String[] args) {
-        for(int i=1; i<=5; i++) {
+    public static void main(String[] args) 
+    {
+        for(int i=1; i<=5; i++) 
+        {
             System.out.println("Good Morning");
         }
     }
@@ -724,6 +726,17 @@ public class P8
  1 0-1-2-3-4-5-6-7
 
 
+
+--------------------------------------------------------------------
+2️⃣ Exit Control Loop
+--------------------------------------------------------------------
+The loop body executes at least once.
+Condition is checked after execution.
+
+Type:
+1. do-while
+
+
 4️⃣ Do-While Loop
 
 Exit control loop
@@ -738,23 +751,17 @@ while(condition);
 
 public class DOAPP 
 {
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         int i = 1;
-        do {
+        do 
+        {
             System.out.println("Good Morning");
             i++;
-        } while(i < 0);
+        } 
+        while(i < 0);
     }
 }
-
---------------------------------------------------------------------
-2️⃣ Exit Control Loop
---------------------------------------------------------------------
-The loop body executes at least once.
-Condition is checked after execution.
-
-Type:
-1. do-while
 
 --------------------------------------------------------------------
 Important Components of Any Loop

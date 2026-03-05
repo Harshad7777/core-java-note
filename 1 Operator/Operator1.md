@@ -1,4 +1,4 @@
- 1. Introduction to Java
+1. Introduction to Java
 
 Q. What is Java?
 Java is a high-level, object-oriented programming language.
@@ -71,7 +71,7 @@ Features of OOP in Java:
 
 Note:
 Java is not purely object-oriented; it is a programming language that implements OOP concepts.
-
+-------------------------------------------------------------------------------
 2. Java Development Environment
 Steps to work with Java:
 1. Install JDK
@@ -87,7 +87,7 @@ Steps to work with Java:
 
 | **Purpose**    | Runs Java programs (converts bytecode to machine code). | Runs Java programs.                                                      | Develops **and** runs Java programs.                                         |
 
-| **Contains**   | - Just the JVM<br>- No compiler or development tools    | - JVM<br>- Java class libraries                                          | - JRE<br>- Development tools like `javac` (compiler), `jar`, `javadoc`, etc. |
+| **Contains**   | - Just the JVM - No compiler or development tools       | - JVM - Java class libraries                                             | - JRE - Development tools like `javac` (compiler), `jar`, `javadoc`, etc. |
  
 | **User**       | End-users or runtime environment.                       | End-users who want to run Java programs.                                 | Developers who want to write Java programs.                                  |
 

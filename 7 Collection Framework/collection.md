@@ -673,80 +673,58 @@ Definition:
 Legacy collections are the collection classes that existed before the Collection Framework (before JDK 1.2) and were later included in the framework.
 
 Examples:
-
-Vector
-
-Stack
-
-Hashtable
-
-Enumeration
+    Vector
+    Stack
+    Hashtable
+    Enumeration
 
 Why Vector is legacy?
-
-Vector was introduced in Java 1.0
-
-The Collection Framework was introduced in JDK 1.2
-
-Later Vector was included in the collection framework
-
-Therefore, Vector is called a legacy collection.
+    Vector was introduced in Java 1.0
+    The Collection Framework was introduced in JDK 1.2
+    Later Vector was included in the collection framework
+    Therefore, Vector is called a legacy collection.
 
 2️⃣ Thread Safe Collection
-
-Definition:
 A collection is thread safe when multiple threads can use the same collection object without data inconsistency.
-
-Vector methods are synchronized, so:
-
-Only one thread can access the object at a time
-
-Threads use the object one by one
-
-Because of synchronization, Vector is thread safe.
+    Vector methods are synchronized, so:
+        Only one thread can access the object at a time
+        Threads use the object one by one
+        Because of synchronization, Vector is thread safe.
 
 3️⃣ Constructors of Vector
 1. Vector()
-
 Creates a vector with default capacity = 10
-
-Vector v = new Vector();
+    Vector v = new Vector();
 
 Internally it creates:
-
-Object[10]
+    Object[10]
 
 If capacity is exceeded, Vector doubles its size.
 
 Example:
-
 10 → 20 → 40 → 80
+
 2. Vector(int capacity)
 
 Creates vector with user-defined capacity.
-
-Vector v = new Vector(5);
-
-Initial capacity = 5
+    Vector v = new Vector(5);
+    Initial capacity = 5
 
 3. Vector(int initialCapacity, int incrementalCapacity)
 
 Allows user to set:
-
 Initial capacity
-
 Incremental capacity
 
 Vector v = new Vector(5,2);
 
 Meaning:
-
 Initial size = 5
 Next increase = +2
 
 Example growth:
-
 5 → 7 → 9 → 11
+
 4. Vector(Collection c)
 
 Copies data from another collection into the vector.
@@ -754,25 +732,19 @@ Copies data from another collection into the vector.
 ArrayList list = new ArrayList();
 list.add(10);
 list.add(20);
-
 Vector v = new Vector(list);
-4️⃣ Important Points about Vector
 
-Vector is a dynamic array
+5. Important Points about Vector
 
-It is a legacy collection
+    Vector is a dynamic array
+    It is a legacy collection
+    It is thread safe
+    Default capacity = 10
+    When capacity exceeds → size doubles
+    User can customize capacity using constructors
+    Vector internally uses constructor chaining
 
-It is thread safe
-
-Default capacity = 10
-
-When capacity exceeds → size doubles
-
-User can customize capacity using constructors
-
-Vector internally uses constructor chaining
-
-5️⃣ Example Program
+6 .Example Program
 
 Write a program to store 5 values in Vector and display them
 
@@ -781,7 +753,7 @@ import java.util.*;
 public class Test {
     public static void main(String[] args) {
 
-        Vector v = new Vector();
+        Vector v = new Vector(4,2);
 
         v.add(10);
         v.add(20);
@@ -795,6 +767,8 @@ public class Test {
         {
             System.out.println(obj);
         }
+        System.out.println("Size is "+v.size());
+        System.out.println("Capacity after crossing "+v.capacity());
     }
 }
 Output
@@ -804,71 +778,195 @@ Vector elements:
 30
 40
 50
+Size is 5
+Capacity after crossing 6
 
-✅ Short Exam Definition
+--------------------------------------------------------------------------
 
-Vector is a dynamic array class in java.util package that is thread safe and legacy, because it was introduced in Java 1.0 before the Collection Framework and its methods are synchronized.
+Q9. Explain Cursors / Iterators in Collection and Why We Use Them
+Cursor in Collection
 
+A Cursor is used to retrieve (fetch) elements from a collection object one by one.
+
+In Java Collection Framework, cursors help us traverse elements of a collection such as:
+    ArrayList
+    Vector
+    LinkedList
+    HashSet
+
+Why We Use Cursor
+    Cursor is used because:
+    Collections store multiple elements
+    To read elements one by one
+    To traverse the collection
+
+Types of Cursor in Java
+
+There are five types of cursors in Java:
+    Iterator
+    Enumeration
+    ListIterator
+    Enhanced For Loop (for-each loop)
+    forEach() method (introduced in JDK 1.8)
 -------------------------------------------------------------------------
+Q10. Explain Iterator Interface
+Iterator Interface
 
+Iterator is a cursor interface present in the java.util package.
+It is used to traverse elements of a collection in forward direction only.
 
+Iterator works with all collection classes such as:
+    ArrayList
+    Vector
+    HashSet
+    LinkedList
 
+Syntax
+Iterator i = collection.iterator();
 
-Types of Collection
+Methods of Iterator Interface
+1. boolean hasNext()
+    This method checks whether the next element is present in the collection.
+    Returns:
+    true → if element exists
+    false → if element does not exist
 
-The Collection interface has three main sub-interfaces:
+Example
+while(i.hasNext())
 
-List
+2. Object next()
+This method returns the next element and moves the cursor to the next position.
 
-Set
+Example
+Object obj = i.next();
 
-Queue
+3. void remove()
+This method removes the current element from the collection using iterator.
+Example
+i.remove();
 
-List
+Example 1
+WAP to store values in Vector and calculate sum using Iterator
 
-Ordered collection
-
-Allows duplicate elements
-
-Set
-
-Does not allow duplicate elements
-
-Queue
-
-Follows FIFO (First In First Out) order
-
-Example Program
 import java.util.*;
+public class VCAPP
+{
+    public static void main(String x[])
+    {
+        Vector v = new Vector();
 
-public class Test {
-    public static void main(String[] args) {
+        v.add(10);
+        v.add(20);
+        v.add(30);
+        v.add(40);
 
-        Collection<Integer> c = new ArrayList<>();
+        Iterator i = v.iterator();
 
-        c.add(10);
-        c.add(20);
-        c.add(30);
+        int sum = 0;
 
-        System.out.println("Size: " + c.size());
-        System.out.println("Contains 20: " + c.contains(20));
+        while(i.hasNext())
+        {
+            Object obj = i.next();
 
-        c.remove(20);
-
-        System.out.println("After remove: " + c);
+            sum = sum + (int)obj;   // downcasting
+            System.out.println(obj);
+        }
+        System.out.println("Sum is " + sum);
     }
 }
 Output
-Size: 3
-Contains 20: true
-After remove: [10, 30]
+10
+20
+30
+40
+Sum is 100
 
-✅ Short Viva Answer (Important)
+Note
+Iterator returns Object type.
+To perform operations like addition or comparison, we must convert it to its original type using downcasting.
 
-Collection is an interface in java.util package.
+Example 2
+WAP to find maximum value from Vector
+import java.util.*;
 
-It extends Iterable.
+public class MAXVECTAPP
+{
+    public static void main(String x[])
+    {
+        Vector v = new Vector();
 
-It provides common methods for storing and manipulating groups of objects.
+        v.add(9);
+        v.add(2);
+        v.add(12);
+        v.add(43);
+        v.add(5);
 
-Main child interfaces are List, Set, and Queue.-----------------------------------------------------
+        int max = (int)v.get(0);
+
+        Iterator i = v.iterator();
+
+        while(i.hasNext())
+        {
+            Object obj = i.next();
+
+            if((int)obj > max)
+            {
+                max = (int)obj;
+            }
+        }
+
+        System.out.println("MAX value is " + max);
+    }
+}
+Output
+MAX value is 43
+
+Example 3
+WAP to sort Vector without using built-in sorting method
+
+import java.util.*;
+public class MAXVECTAPP
+{
+    public static void main(String x[])
+    {
+        Vector v = new Vector();
+
+        v.add(9);
+        v.add(2);
+        v.add(12);
+        v.add(43);
+        v.add(5);
+
+        int size = v.size();
+
+        System.out.println("Vector before sort " + v);
+
+        for(int i = 0; i < size; i++)
+        {
+            for(int j = i + 1; j < size; j++)
+            {
+                Object prev = v.get(i);
+                Object next = v.get(j);
+
+                if((int)prev > (int)next)
+                {
+                    v.set(i, next);
+                    v.set(j, prev);
+                }
+            }
+        }
+        System.out.println("Vector after sort " + v);
+    }
+}
+
+Output
+Vector before sort [9, 2, 12, 43, 5]
+Vector after sort [2, 5, 9, 12, 43]
+
+Important Points
+    Cursor is used to traverse collection elements
+    Iterator is the most commonly used cursor
+    Iterator works only in forward direction
+    Iterator provides hasNext(), next(), remove() methods
+
+

@@ -3761,6 +3761,6 @@ Main.java:15: error: show() in B cannot override show() in A
   attempting to assign weaker access privileges; was protected
 1 error
 
-----------------------------------------------------------
+---------------------------------------------------------------------
 
 

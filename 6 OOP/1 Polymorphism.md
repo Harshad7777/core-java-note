@@ -1,5 +1,5 @@
 Q. What is Polymorphism?
--------------------------------------------------------------------------
+-----------------------------------------------------------
 Polymorphism means one thing having many forms.
 In programming, when the same method or object shows different behavior in different situations, it is called polymorphism.
 👉 Poly = many

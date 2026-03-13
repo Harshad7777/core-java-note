@@ -887,14 +887,14 @@ To perform operations like addition or comparison, we must convert it to its ori
 
 Example 2
 WAP to find maximum value from Vector
-import java.util.*;
 
+import java.util.*;
 public class MAXVECTAPP
 {
     public static void main(String x[])
-    {
+    {   
         Vector v = new Vector();
-
+         
         v.add(9);
         v.add(2);
         v.add(12);
@@ -914,10 +914,10 @@ public class MAXVECTAPP
                 max = (int)obj;
             }
         }
-
         System.out.println("MAX value is " + max);
     }
 }
+
 Output
 MAX value is 43
 
@@ -945,7 +945,7 @@ public class MAXVECTAPP
         {
             for(int j = i + 1; j < size; j++)
             {
-                Object prev = v.get(i);
+                Object prev = v.get(i); 
                 Object next = v.get(j);
 
                 if((int)prev > (int)next)
@@ -968,5 +968,302 @@ Important Points
     Iterator is the most commonly used cursor
     Iterator works only in forward direction
     Iterator provides hasNext(), next(), remove() methods
+------------------------------------------------------------------------
+
+Q11. Explain Enumeration Interface
+
+Enumeration Interface
+
+Enumeration is a cursor interface present in the java.util package.
+It is used to retrieve (fetch) elements from a collection one by one.
+
+Enumeration works mainly with legacy collection classes such as:
+    Vector
+    Stack
+    Hashtable
+
+Why Enumeration is called Read-Only Cursor
+    Enumeration is called a read-only cursor because:
+    It can only read (fetch) elements
+    It cannot add elements
+    It cannot remove elements
+    So Enumeration is only used for traversal, not modification.
+
+Creating Enumeration Object
+
+To create a reference of Enumeration we use the elements() method available in legacy classes.
+
+Syntax
+    Enumeration ref = collection.elements();
+
+Example
+    Vector v = new Vector();
+    Enumeration e = v.elements();
+
+Methods of Enumeration Interface
+
+1️⃣ boolean hasMoreElements()
+This method checks whether more elements are available in the collection.
+Returns:
+true → if element exists
+false → if no more elements exist
+
+Example
+Vector v = new Vector();
+Enumeration e = v.elements();
+while(e.hasMoreElements())
+
+2️⃣ Object nextElement()
+This method returns the next element from the collection and moves the cursor forward.
+
+Example
+Object obj = e.nextElement();
+
+Example Program
+WAP to store values in Vector and display them using Enumeration
+
+import java.util.*;
+public class EnumExample
+{
+    public static void main(String args[])
+    {
+        Vector v = new Vector();
+
+        v.add(10);
+        v.add(20);
+        v.add(30);
+        v.add(40);
+
+        Enumeration e = v.elements();
+
+        while(e.hasMoreElements())
+        {
+            System.out.println(e.nextElement());
+        }
+    }
+}
+Output
+10
+20
+30
+40
+
+------------------------------------------------------------------------
+Q12. Explain ListIterator Interface
+ListIterator Interface
+
+ListIterator is a cursor interface present in the java.util package.
+It is a child interface of the Iterator interface, so it contains all methods of Iterator along with some additional methods.
+
+ListIterator is used to traverse elements of a List collection in both directions.
+
+It works with List classes only, such as:
+    ArrayList
+    Vector
+    LinkedList
+
+Features of ListIterator
+    Traverse elements forward and backward
+    Add elements during traversal
+    Remove elements
+    Replace elements
+    Works only with List type collections
+
+Creating ListIterator Object
+To create a ListIterator reference we use the listIterator() method.
+
+Syntax
+    ListIterator ref = collection.listIterator();
+or
+    ListIterator ref = collection.listIterator(int index);
+
+Example
+
+ListIterator it = list.listIterator(1);
+
+Methods of ListIterator
+1️⃣ boolean hasNext()
+    Checks if the next element exists when moving forward.
+
+2️⃣ E next()
+    Returns the next element and moves the cursor forward.
+
+3️⃣ boolean hasPrevious()
+Checks if the previous element exists when moving backward.
+
+4️⃣ E previous()
+Returns the previous element and moves the cursor backward.
+
+5️⃣ int nextIndex()
+Returns the index of the next element during forward traversal.
+
+6️⃣ int previousIndex()
+Returns the index of the previous element during backward traversal.
+
+7️⃣ void remove()
+Removes the current element from the collection.
+
+8️⃣ void set(E e)
+Replaces the current element with a new element.
+
+9️⃣ void add(E e)
+Adds a new element into the collection during traversal.
+
+Example
+WAP to traverse Vector in forward direction using ListIterator
+
+import java.util.*;
+public class ListIteratorExample
+{
+    public static void main(String args[])
+    {
+        Vector v = new Vector();
+
+        v.add(10);
+        v.add(20);
+        v.add(30);
+
+        ListIterator it = v.listIterator();
+
+        while(it.hasNext())
+        {
+            System.out.println(it.next());
+        }
+    }
+}
+Output
+10
+20
+30
+
+Example
+WAP to traverse Vector in backward direction
+
+import java.util.*;
+public class ListIteratorExample
+{
+    public static void main(String args[])
+    {
+        Vector v = new Vector();
+
+        v.add(10);
+        v.add(20);
+        v.add(30);
+
+        ListIterator it = v.listIterator(v.size());
+
+        while(it.hasPrevious())
+        {
+            System.out.println(it.previous());
+        }
+    }
+}
+
+Output
+30
+20
+10
+
+Important Points
+    ListIterator is a child interface of Iterator
+    It allows bidirectional traversal
+    It can add, remove, and replace/set  elements
+    Works only with List collections
+    Provides more functionality than Iterator
+
+-----------------------------------------------------------------------
+Example: WAP to perform the following operation on collection?
+Case 1: Add New Element 
+Case 2: View All Elements 
+Case 3: Search element 
+Case 4: delete element 
+Case 5: return size of collection 
+Case 6: search using index 
+Etc 
+
+import java.util.*;
+public class CollApplication
+{  
+   public static void main(String x[])
+   {  
+      Vector v=new Vector();
+      Scanner xyz  = new Scanner(System.in);
+	  do{
+	    System.out.println("1:Add New Element");
+		System.out.println("2:View All");
+		System.out.println("3:Search using contains");
+		System.out.println("4:Delete ");
+		System.out.println("5:return size");
+		System.out.println("6:Search using index");
+		System.out.println("Enter your choice");
+		int choice=xyz.nextInt();
+		switch(choice)
+		{
+		   case 1:
+		   System.out.println("Enter data");
+		   int data=xyz.nextInt();
+		   boolean b=v.add(data);
+		   if(b)
+		   {
+                System.out.println("data added");
+		   }
+		   else
+            {
+		     System.out.println("Data not added");
+		   }
+		   break;
+		   case 2:
+		   Iterator i = v.iterator();
+		   while(i.hasNext())
+		   { Object obj = i.next();
+		     System.out.println(obj);
+		   }
+		   break;
+		   case 3:
+		   System.out.println("enter data for search");
+		   data=xyz.nextInt();
+		    b=v.contains(data);
+		   if(b)
+		   { System.out.println("Data found");
+		   }
+		   else{
+		    System.out.println("data not found");
+		   }
+		   break;
+		   case 4:
+		    System.out.println("enter data for delete");
+		    data=xyz.nextInt();
+		    int  index=v.indexOf(data);
+			 if(index!=-1)
+			 {  v.remove(index);
+			 }
+			 else{
+			   System.out.println("Value not found");
+			 }
+		   break;
+		   case 5: 
+		    System.out.println("Size of vector  "+v.size());
+		   break;
+		   case 6:
+		   System.out.println("Enter data for search");
+		     data=xyz.nextInt();
+		    index=v.indexOf(data);
+			 if(index!=-1)
+			 {   System.out.println("Value found");
+			 }
+			 else{
+			   System.out.println("Value not found");
+			 }
+		   break;
+		   case 7:
+		   System.exit(0);
+		   break;
+		   default:
+		   System.out.println("Wrong choice");
+		   
+		}
+	  }while(true);//infinite loop 
+   }
+}
 
 

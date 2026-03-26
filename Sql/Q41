@@ -1,0 +1,62 @@
+41–60: Pattern Matching (LIKE, STARTS, ENDS, CONTAINS, IN/NOT IN)
+Q#	Requirement	SQL Query
+---------------------------------------------------
+41	Names starting with 'A'	
+SELECT * FROM employee WHERE name LIKE 'A%';
+
+42	Names ending with 'n'	
+SELECT * FROM employee WHERE name LIKE '%n';
+
+43	Names containing 'ra'	
+SELECT * FROM employee WHERE name LIKE '%ra%';
+
+44	Emails ending '@gmail.com'	
+SELECT * FROM employee WHERE email LIKE '%@gmail.com';
+
+45	Emails containing 'yahoo'	
+SELECT * FROM employee WHERE email LIKE '%yahoo%';
+
+46	Contact starting '98'	
+SELECT * FROM employee WHERE contact LIKE '98%';
+
+47	Address containing 'Road'	
+SELECT * FROM employee WHERE address LIKE '%Road%';
+
+48	Names exactly 5 characters	
+SELECT * FROM employee WHERE CHAR_LENGTH(name)=5;
+
+49	Names starting 'S' and ending 'h'	
+SELECT * FROM employee WHERE name LIKE 'S%h';
+
+50	Emails starting with 'info'	
+SELECT * FROM employee WHERE email LIKE 'info%';
+
+51	Names NOT starting with 'R'	
+SELECT * FROM employee WHERE name NOT LIKE 'R%';
+
+52	Names containing 'a' but not ending 'a'	
+SELECT * FROM employee WHERE name LIKE '%a%' AND name NOT LIKE '%a';
+
+53	Address starting 'Flat'	
+SELECT * FROM employee WHERE address LIKE 'Flat%';
+
+54	Emails containing '.com'	
+SELECT * FROM employee WHERE email LIKE '%.com%';
+
+55	Contact ending with '0'	
+SELECT * FROM employee WHERE contact LIKE '%0';
+
+56	Employees from cities Pune,Mumbai,Delhi	
+SELECT * FROM employee WHERE city IN ('Pune','Mumbai','Delhi');
+
+57	Salary in (30000,40000,50000)	
+SELECT * FROM employee WHERE salary IN (30000,40000,50000);
+
+58	Name in ('Amit','Rahul')	
+SELECT * FROM employee WHERE name IN ('Amit','Rahul');
+
+59	Employees from Chennai or Bangalore	
+SELECT * FROM employee WHERE city IN ('Chennai','Bangalore');
+
+60	NOT in cities Pune,Delhi	
+SELECT * FROM employee WHERE city NOT IN ('Pune','Delhi');

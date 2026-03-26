@@ -1,0 +1,35 @@
+Question 9: Select employees whose salary is not equal to 25000.
+Consider an employee table with the following fields:
+id, name, salary, email, contact, address, and city.
+If the table does not exist, create it.
+-------------------------------------------------------------------------------------------------------------
+
+Explanation
+
+This requirement is about filtering employees whose salary is different from a specific value.
+
+Each employee has a salary column.
+
+The condition checks whether the salary is not equal to 25000.
+
+Only employees earning any amount other than 25000 are included.
+
+Employees with salary exactly 25000 are excluded.
+-----------------------------------------
+
+root
+
+create database employee;
+
+use employee;
+
+create table employee(id int primary key , name varchar(50), salary decimal(10,2), email varchar(100), contact varchar(150), address varchar(150),city varchar(50));
+
+desc employee;
+
+
+insert into employee value(1, 'Rahul', 60000, 'rahul@email.com', '9876543210', '123 Street, Pune', 'Pune'),(2, 'Amit', 55000, 'amit@email.com', '9876501234', 'Mumbai Road, Mumbai', 'Mumbai'),(3, 'Sneha', 70000, 'sneha@email.com', '9123456789', 'MG Road, Bangalore', 'Bangalore'),(4, 'Priya', 65000, 'priya@email.com', '9988776655', 'Delhi Street, Delhi', 'Delhi'),(5, 'Ramesh', 80000, 'ramesh@email.com', '9123456780', '456 Avenue, Pune', 'Pune'),(7, 'sahil', 40000, 'sahil@gmail.com', '9876543211', 'Andheri', 'Mumbai'), (8, 'Rohit', 55000, 'rohit@gmail.com', null , 'Baner', 'Pune');
+
+SELECT *FROM employee;
+
+SELECT *FROM employee where salary != 25000;

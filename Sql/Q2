@@ -1,0 +1,29 @@
+Question 2: Select employees with salary greater than 50000.
+Consider an employee table with the following fields:
+id, name, salary, email, contact, address, and city.
+If the table does not exist, create it.
+-------------------------------------------------------------------------------------------------------------
+
+This requirement is about filtering employees based on their salary.
+
+Each employee has a salary value.
+
+The condition checks whether the salary is strictly greater than 50000.
+
+Only those employees who earn more than 50000 are included.
+
+Employees with salary equal to or less than 50000 are excluded.
+
+---------------------------------------------------
+create database employeesal;
+
+use employeesal;
+
+CREATE TABLE employee ( id INT PRIMARY KEY, name VARCHAR(100), salary DECIMAL(10,2), email VARCHAR(100), contact VARCHAR(15), address VARCHAR(255), city VARCHAR(50));
+
+INSERT INTO employee VALUES
+(1, 'Amit', 60000, 'amit@gmail.com', '9876543210', 'Pune Camp', 'Pune'),
+(2, 'Rahul', 45000, 'rahul@gmail.com', '9876543211', 'Andheri', 'Mumbai'), (3, 'Sneha', 75000, 'sneha@gmail.com', '9876543212', 'BTM', 'Bangalore'), (4, 'Priya', 50000, 'priya@gmail.com', '9876543213', 'Hadapsar', 'Pune');
+
+SELECT * FROM employee
+WHERE salary > 50000;

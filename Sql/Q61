@@ -1,0 +1,61 @@
+61–80: IN/NOT IN, BETWEEN/NOT BETWEEN, AND/OR Conditions
+
+Q#	Requirement	SQL Query
+61	Id in (1,2,3,4)	
+SELECT * FROM employee WHERE id IN (1,2,3,4);
+
+62	Salary NOT IN (10000,20000)	
+SELECT * FROM employee WHERE salary NOT IN (10000,20000);
+
+63	Name in ('Suresh','Ramesh')	
+SELECT * FROM employee WHERE name IN ('Suresh','Ramesh');
+
+64	Cities Hyderabad, Chennai	
+SELECT * FROM employee WHERE city IN ('Hyderabad','Chennai');
+    
+65	Salary NOT IN (25000,35000)	
+SELECT * FROM employee WHERE salary NOT IN (25000,35000);
+
+66	Salary BETWEEN 20000 AND 50000	
+SELECT * FROM employee WHERE salary BETWEEN 20000 AND 50000;
+
+67	Id BETWEEN 5 AND 15	
+SELECT * FROM employee WHERE id BETWEEN 5 AND 15;
+68	Salary NOT BETWEEN 30000 AND 60000	
+SELECT * FROM employee WHERE salary NOT BETWEEN 30000 AND 60000;
+
+69	Salary BETWEEN 40000 AND 80000 AND city Pune	
+SELECT * FROM employee WHERE salary BETWEEN 40000 AND 80000 AND city='Pune';
+
+70	Id BETWEEN 1 AND 10 AND city Mumbai	
+SELECT * FROM employee WHERE id BETWEEN 1 AND 10 AND city='Mumbai';
+
+71	Salary BETWEEN 25000 AND 45000 OR city Delhi	
+SELECT * FROM employee WHERE salary BETWEEN 25000 AND 45000 OR city='Delhi';
+
+72	Salary NOT BETWEEN 10000 AND 20000	
+SELECT * FROM employee WHERE salary NOT BETWEEN 10000 AND 20000;
+
+73	Salary BETWEEN 50000 AND 90000 AND name starts 'A'	
+SELECT * FROM employee WHERE salary BETWEEN 50000 AND 90000 AND name LIKE 'A%';
+
+74	Salary BETWEEN 20000 AND 70000 AND NOT city Chennai	
+SELECT * FROM employee WHERE salary BETWEEN 20000 AND 70000 AND city!='Chennai';
+
+75	Id NOT BETWEEN 3 AND 8	
+SELECT * FROM employee WHERE id NOT BETWEEN 3 AND 8;
+
+76	Count employees per city	
+SELECT city, COUNT(*) AS employee_count FROM employee GROUP BY city;
+
+77	Average salary per city	   
+SELECT city, AVG(salary) AS avg_salary FROM employee GROUP BY city;
+
+78	Maximum salary per city	
+SELECT city, MAX(salary) AS max_salary FROM employee GROUP BY city;
+
+79	Minimum salary per city	
+SELECT city, MIN(salary) AS min_salary FROM employee GROUP BY city;
+
+80	Total salary per city	
+SELECT city, SUM(salary) AS total_salary FROM employee GROUP BY city;

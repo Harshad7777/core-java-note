@@ -1,0 +1,30 @@
+Question 4: Select employees whose salary is less than 30000.
+Consider an employee table with the following fields:
+id, name, salary, email, contact, address, and city.
+If the table does not exist, create it.
+-------------------------------------------------------------------------------------------------------------
+
+This requirement is about filtering employees based on a lower salary condition.
+
+Each employee has a salary value.
+
+The condition checks whether the salary is strictly less than 30000.
+
+Only those employees earning below 30000 are included.
+
+Employees earning 30000 or more are excluded.
+-------------------------------------------------
+
+root
+
+create database employee;
+
+use employee;
+
+create table employee(id int primary key , name varchar(50), salary decimal(10,2), email varchar(100), contact varchar(150), address varchar(150),city varchar(50));
+
+desc employee;
+
+INSERT INTO employee (1, 'Amit', 60000, 'amit@gmail.com', '9876543210', 'Pune Camp', 'Pune'), (2, 'Rahul', 25000, 'rahul@gmail.com', '9876543211', 'Andheri', 'Mumbai'), (3, 'Sneha', 75000, 'sneha@gmail.com', '9876543212', 'BTM', 'Bangalore'), (4, 'Priya', 30000, 'priya@gmail.com', '9876543213', 'Hadapsar', 'Pune');
+
+SELECT *FROM employee WHERE salary < 30000;

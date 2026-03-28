@@ -2717,9 +2717,11 @@ public class SetApplication
 }
 
 -------------------------------------------------
+
 Q27. Explain LinkedHashSet in detail
 
 LinkedHashSet is a class that extends HashSet.
+
 
 Key Features
     Stores unique elements
@@ -2754,7 +2756,7 @@ public class SetApplication
         }
     }
 }
-------------------------------------------------------------------------
+----------------------------------------------------------------
 
 Q28. Explain TreeSet in detail
 
@@ -2857,25 +2859,17 @@ public class SetApplication
 }
 
 👉 Output will contain only one object ✅
-
 ⚠️ Important Corrections in Your Theory
-
 ❌ Wrong:
-
 JVM cannot generate same hashcode
-
 ✔ Correct:
 
 JVM can generate same hashcode (collision possible)
 
 But equals() confirms actual equality
 
-✅ Final Quick Revision
-
+✅ Final Quick Revisio
 HashSet → unique + random order
-
 LinkedHashSet → unique + insertion order
-
 TreeSet → unique + sorted order
-
 Duplicate issue → fix using equals() + hashCode()

@@ -1,0 +1,733 @@
+Question 102: Perform Joins on Online shopping database
+
+1. Customer Table
+
+CREATE TABLE customer (
+customer_id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+email VARCHAR(150) UNIQUE NOT NULL,
+phone VARCHAR(15) UNIQUE,
+address TEXT NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+2. Category Table
+
+CREATE TABLE category (
+category_id INT AUTO_INCREMENT PRIMARY KEY,
+category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+3. Product Table
+
+CREATE TABLE product (
+product_id INT AUTO_INCREMENT PRIMARY KEY,
+product_name VARCHAR(200) NOT NULL,
+price DECIMAL(10,2) NOT NULL CHECK (price > 0),
+stock INT NOT NULL CHECK (stock >= 0),
+category_id INT,
+FOREIGN KEY (category_id) REFERENCES category(category_id)
+ON DELETE SET NULL
+ON UPDATE CASCADE
+);
+
+4. Orders Table
+CREATE TABLE orders (
+order_id INT AUTO_INCREMENT PRIMARY KEY,
+customer_id INT NOT NULL,
+order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+status VARCHAR(50) DEFAULT 'Pending',
+FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE
+);
+
+5. Order_Items Table
+CREATE TABLE order_items (
+order_id INT,
+product_id INT,
+quantity INT NOT NULL CHECK (quantity > 0),
+price DECIMAL(10,2) NOT NULL CHECK (price > 0),
+PRIMARY KEY (order_id, product_id),
+FOREIGN KEY (order_id) REFERENCES orders(order_id)
+ON DELETE CASCADE,
+FOREIGN KEY (product_id) REFERENCES product(product_id)
+ON DELETE CASCADE
+);
+
+6. Payment Table
+CREATE TABLE payment (
+payment_id INT AUTO_INCREMENT PRIMARY KEY,
+order_id INT UNIQUE,
+payment_method VARCHAR(50) NOT NULL,
+payment_status VARCHAR(50) DEFAULT 'Pending',
+amount DECIMAL(10,2) NOT NULL CHECK (amount > 0),
+FOREIGN KEY (order_id) REFERENCES orders(order_id)
+ON DELETE CASCADE
+);
+
+7. Shipping Table
+CREATE TABLE shipping (
+shipping_id INT AUTO_INCREMENT PRIMARY KEY,
+order_id INT UNIQUE,
+address TEXT NOT NULL,
+city VARCHAR(100) NOT NULL,
+postal_code VARCHAR(10) NOT NULL,
+delivery_status VARCHAR(50) DEFAULT 'Processing',
+FOREIGN KEY (order_id) REFERENCES orders(order_id)
+ON DELETE CASCADE
+);
+
+8.Review Table
+CREATE TABLE review (
+review_id INT AUTO_INCREMENT PRIMARY KEY,
+customer_id INT,
+product_id INT,
+rating INT CHECK (rating BETWEEN 1 AND 5),
+comment TEXT,
+review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+ON DELETE CASCADE,
+FOREIGN KEY (product_id) REFERENCES product(product_id)
+ON DELETE CASCADE
+);
+
+
+
+🔹 1. Insert into Customer
+
+INSERT INTO customer (name, email, phone, address) VALUES
+('Rahul Sharma', 'rahul@gmail.com', '9876543210', 'Pune'),
+('Priya Singh', 'priya@gmail.com', '9876543211', 'Mumbai'),
+('Amit Patil', 'amit@gmail.com', '9876543212', 'Nagpur'),
+('Sneha Joshi', 'sneha@gmail.com', '9876543213', 'Delhi'),
+('Vikram Rao', 'vikram@gmail.com', '9876543214', 'Bangalore');
+
+🔹 2. Insert into Category
+INSERT INTO category (category_name) VALUES
+('Electronics'),
+('Clothing'),
+('Books'),
+('Home Appliances'),
+('Sports');
+🔹 3. Insert into Product
+
+INSERT INTO product (product_name, price, stock, category_id) VALUES
+('Mobile Phone', 15000, 20, 1),
+('Laptop', 55000, 10, 1),
+('T-Shirt', 500, 50, 2),
+('Jeans', 1200, 30, 2),
+('Novel Book', 300, 15, 3),
+('Microwave', 8000, 5, 4),
+('Refrigerator', 20000, 8, 4),
+('Cricket Bat', 1500, 25, 5);
+
+🔹 4. Insert into Orders
+
+INSERT INTO orders (customer_id, status) VALUES
+(1, 'Pending'),
+(2, 'Completed'),
+(3, 'Completed'),
+(1, 'Pending'),
+(4, 'Completed');
+
+🔹 5. Insert into Order_Items
+
+INSERT INTO order_items (order_id, product_id, quantity, price) VALUES
+(1, 1, 1, 15000),
+(1, 3, 2, 500),
+(2, 2, 1, 55000),
+(2, 5, 3, 300),
+(3, 4, 2, 1200),
+(4, 6, 1, 8000),
+(5, 7, 1, 20000),
+(5, 8, 2, 1500);
+
+🔹 6. Insert into Payment
+
+INSERT INTO payment (order_id, payment_method, payment_status, amount) VALUES
+(1, 'UPI', 'Pending', 16000),
+(2, 'Credit Card', 'Completed', 55900),
+(3, 'Debit Card', 'Completed', 2400),
+(5, 'Cash', 'Completed', 23000);
+
+🔹 7. Insert into Shipping
+
+INSERT INTO shipping (order_id, address, city, postal_code, delivery_status) VALUES
+(1, 'Pune Address', 'Pune', '411001', 'Processing'),
+(2, 'Mumbai Address', 'Mumbai', '400001', 'Delivered'),
+(3, 'Nagpur Address', 'Nagpur', '440001', 'Delivered'),
+(4, 'Pune Address', 'Pune', '411002', 'Processing'),
+(5, 'Delhi Address', 'Delhi', '110001', 'Shipped');
+
+🔹 8. Insert into Review
+
+INSERT INTO review (customer_id, product_id, rating, comment) VALUES
+(1, 1, 5, 'Excellent product'),
+(2, 2, 4, 'Good laptop'),
+(3, 3, 5, 'Nice quality'),
+(4, 5, 3, 'Average book'),
+(1, 3, 5, 'Loved it'),
+(2, 1, 4, 'Worth buying');
+
+mysql> select *from category;
++-------------+-----------------+
+| category_id | category_name   |
++-------------+-----------------+
+|           3 | Books           |
+|           2 | Clothing        |
+|           1 | Electronics     |
+|           4 | Home Appliances |
+|           5 | Sports          |
++-------------+-----------------+
+
+mysql> select *from customer;
++-------------+--------------+------------------+------------+-----------+---------------------+
+| customer_id | name         | email            | phone      | address   | created_at          |
++-------------+--------------+------------------+------------+-----------+---------------------+
+|           1 | Rahul Sharma | rahul@gmail.com  | 9876543210 | Pune      | 2026-03-28 17:57:33 |
+|           2 | Priya Singh  | priya@gmail.com  | 9876543211 | Mumbai    | 2026-03-28 17:57:33 |
+|           3 | Amit Patil   | amit@gmail.com   | 9876543212 | Nagpur    | 2026-03-28 17:57:33 |
+|           4 | Sneha Joshi  | sneha@gmail.com  | 9876543213 | Delhi     | 2026-03-28 17:57:33 |
+|           5 | Vikram Rao   | vikram@gmail.com | 9876543214 | Bangalore | 2026-03-28 17:57:33 |
++-------------+--------------+------------------+------------+-----------+---------------------+
+
+mysql> select *from  order_items;
++----------+------------+----------+----------+
+| order_id | product_id | quantity | price    |
++----------+------------+----------+----------+
+|        1 |          1 |        1 | 15000.00 |
+|        1 |          3 |        2 |   500.00 |
+|        2 |          2 |        1 | 55000.00 |
+|        2 |          5 |        3 |   300.00 |
+|        3 |          4 |        2 |  1200.00 |
+|        4 |          6 |        1 |  8000.00 |
+|        5 |          7 |        1 | 20000.00 |
+|        5 |          8 |        2 |  1500.00 |
++----------+------------+----------+----------+
+
+mysql> select *from orders;
++----------+-------------+---------------------+-----------+
+| order_id | customer_id | order_date          | status    |
++----------+-------------+---------------------+-----------+
+|        1 |           1 | 2026-03-28 17:58:00 | Pending   |
+|        2 |           2 | 2026-03-28 17:58:00 | Completed |
+|        3 |           3 | 2026-03-28 17:58:00 | Completed |
+|        4 |           1 | 2026-03-28 17:58:00 | Pending   |
+|        5 |           4 | 2026-03-28 17:58:00 | Completed |
++----------+-------------+---------------------+-----------+
+
+mysql> select *from payment;
++------------+----------+----------------+----------------+----------+
+| payment_id | order_id | payment_method | payment_status | amount   |
++------------+----------+----------------+----------------+----------+
+|          1 |        1 | UPI            | Pending        | 16000.00 |
+|          2 |        2 | Credit Card    | Completed      | 55900.00 |
+|          3 |        3 | Debit Card     | Completed      |  2400.00 |
+|          4 |        5 | Cash           | Completed      | 23000.00 |
++------------+----------+----------------+----------------+----------+
+
+mysql> select *from product;
++------------+--------------+----------+-------+-------------+
+| product_id | product_name | price    | stock | category_id |
++------------+--------------+----------+-------+-------------+
+|          1 | Mobile Phone | 15000.00 |    20 |           1 |
+|          2 | Laptop       | 55000.00 |    10 |           1 |
+|          3 | T-Shirt      |   500.00 |    50 |           2 |
+|          4 | Jeans        |  1200.00 |    30 |           2 |
+|          5 | Novel Book   |   300.00 |    15 |           3 |
+|          6 | Microwave    |  8000.00 |     5 |           4 |
+|          7 | Refrigerator | 20000.00 |     8 |           4 |
+|          8 | Cricket Bat  |  1500.00 |    25 |           5 |
++------------+--------------+----------+-------+-------------+
+
+mysql> select *from review;
++-----------+-------------+------------+--------+-------------------+---------------------+
+| review_id | customer_id | product_id | rating | comment           | review_date         |
++-----------+-------------+------------+--------+-------------------+---------------------+
+|         1 |           1 |          1 |      5 | Excellent product | 2026-03-28 17:58:40 |
+|         2 |           2 |          2 |      4 | Good laptop       | 2026-03-28 17:58:40 |
+|         3 |           3 |          3 |      5 | Nice quality      | 2026-03-28 17:58:40 |
+|         4 |           4 |          5 |      3 | Average book      | 2026-03-28 17:58:40 |
+|         5 |           1 |          3 |      5 | Loved it          | 2026-03-28 17:58:40 |
+|         6 |           2 |          1 |      4 | Worth buying      | 2026-03-28 17:58:40 |
++-----------+-------------+------------+--------+-------------------+---------------------+
+
+mysql> select *from  shipping;
++-------------+----------+----------------+--------+-------------+-----------------+
+| shipping_id | order_id | address        | city   | postal_code | delivery_status |
++-------------+----------+----------------+--------+-------------+-----------------+
+|           1 |        1 | Pune Address   | Pune   | 411001      | Processing      |
+|           2 |        2 | Mumbai Address | Mumbai | 400001      | Delivered       |
+|           3 |        3 | Nagpur Address | Nagpur | 440001      | Delivered       |
+|           4 |        4 | Pune Address   | Pune   | 411002      | Processing      |
+|           5 |        5 | Delhi Address  | Delhi  | 110001      | Shipped         |
++-------------+----------+----------------+--------+-------------+-----------------+
+
+--------------------------------------------------------------
+
+Query1. List all customers
+mysql> SELECT * FROM customer;
++-------------+--------------+------------------+------------+-----------+---------------------+
+| customer_id | name         | email            | phone      | address   | created_at          |
++-------------+--------------+------------------+------------+-----------+---------------------+
+|           1 | Rahul Sharma | rahul@gmail.com  | 9876543210 | Pune      | 2026-03-28 17:57:33 |
+|           2 | Priya Singh  | priya@gmail.com  | 9876543211 | Mumbai    | 2026-03-28 17:57:33 |
+|           3 | Amit Patil   | amit@gmail.com   | 9876543212 | Nagpur    | 2026-03-28 17:57:33 |
+|           4 | Sneha Joshi  | sneha@gmail.com  | 9876543213 | Delhi     | 2026-03-28 17:57:33 |
+|           5 | Vikram Rao   | vikram@gmail.com | 9876543214 | Bangalore | 2026-03-28 17:57:33 |
++-------------+--------------+------------------+------------+-----------+---------------------+
+
+-------------------------------------------------------------------------------------------------
+
+Query2. Show all product names and prices
+mysql> SELECT product_name, price FROM product;
+
++--------------+----------+
+| product_name | price    |
++--------------+----------+
+| Mobile Phone | 15000.00 |
+| Laptop       | 55000.00 |
+| T-Shirt      |   500.00 |
+| Jeans        |  1200.00 |
+| Novel Book   |   300.00 |
+| Microwave    |  8000.00 |
+| Refrigerator | 20000.00 |
+| Cricket Bat  |  1500.00 |
++--------------+----------+
+
+-----------------------------------------------------
+
+Query3. Find products with price greater than 50
+
+SELECT product_name, price FROM product WHERE price > 50;
++--------------+----------+
+| product_name | price    |
++--------------+----------+
+| Mobile Phone | 15000.00 |
+| Laptop       | 55000.00 |
+| T-Shirt      |   500.00 |
+| Jeans        |  1200.00 |
+| Novel Book   |   300.00 |
+| Microwave    |  8000.00 |
+| Refrigerator | 20000.00 |
+| Cricket Bat  |  1500.00 |
++--------------+----------+
+
+select * from product where price > 50;
++------------+--------------+----------+-------+-------------+
+| product_id | product_name | price    | stock | category_id |
++------------+--------------+----------+-------+-------------+
+|          1 | Mobile Phone | 15000.00 |    20 |           1 |
+|          2 | Laptop       | 55000.00 |    10 |           1 |
+|          3 | T-Shirt      |   500.00 |    50 |           2 |
+|          4 | Jeans        |  1200.00 |    30 |           2 |
+|          5 | Novel Book   |   300.00 |    15 |           3 |
+|          6 | Microwave    |  8000.00 |     5 |           4 |
+|          7 | Refrigerator | 20000.00 |     8 |           4 |
+|          8 | Cricket Bat  |  1500.00 |    25 |           5 |
++------------+--------------+----------+-------+-------------+
+-----------------------------------------------------------------------
+
+Query4. List all categories
+
+select * from category;
+
++-------------+-----------------+
+| category_id | category_name   |
++-------------+-----------------+
+|           3 | Books           |
+|           2 | Clothing        |
+|           1 | Electronics     |
+|           4 | Home Appliances |
+|           5 | Sports          |
++-------------+-----------------+
+
+------------------------------------------------------------------------
+Query5. Find customers created after a specific date
+
+select * from customer
+where created_at > '2024-01-01';
+
++-------------+--------------+------------------+------------+-----------+---------------------+
+| customer_id | name         | email            | phone      | address   | created_at          |
++-------------+--------------+------------------+------------+-----------+---------------------+
+|           1 | Rahul Sharma | rahul@gmail.com  | 9876543210 | Pune      | 2026-03-28 17:57:33 |
+|           2 | Priya Singh  | priya@gmail.com  | 9876543211 | Mumbai    | 2026-03-28 17:57:33 |
+|           3 | Amit Patil   | amit@gmail.com   | 9876543212 | Nagpur    | 2026-03-28 17:57:33 |
+|           4 | Sneha Joshi  | sneha@gmail.com  | 9876543213 | Delhi     | 2026-03-28 17:57:33 |
+|           5 | Vikram Rao   | vikram@gmail.com | 9876543214 | Bangalore | 2026-03-28 17:57:33 |
++-------------+--------------+------------------+------------+-----------+---------------------+
+
+--------------------------------------------------------------------------------------------------------
+
+Query6. Display orders with status 'Pending'
+
+select * from orders
+where status = 'pending';
+
++----------+-------------+---------------------+---------+
+| order_id | customer_id | order_date          | status  |
++----------+-------------+---------------------+---------+
+|        1 |           1 | 2026-03-28 17:58:00 | Pending |
+|        4 |           1 | 2026-03-28 17:58:00 | Pending |
++----------+-------------+---------------------+---------+
+---------------------------------------------------------------------------------------------
+Query7. Show all products with stock less than 10
+
+select * from product
+where stock < 10;
+
++------------+--------------+----------+-------+-------------+
+| product_id | product_name | price    | stock | category_id |
++------------+--------------+----------+-------+-------------+
+|          6 | Microwave    |  8000.00 |     5 |           4 |
+|          7 | Refrigerator | 20000.00 |     8 |           4 |
++------------+--------------+----------+-------+-------------+
+--------------------------------------------------------------------------------------------
+
+Query8. Get all reviews with rating 5
+
+select * from review
+where rating = 5;
+
++-----------+-------------+------------+--------+-------------------+---------------------+
+| review_id | customer_id | product_id | rating | comment           | review_date         |
++-----------+-------------+------------+--------+-------------------+---------------------+
+|         1 |           1 |          1 |      5 | Excellent product | 2026-03-28 17:58:40 |
+|         3 |           3 |          3 |      5 | Nice quality      | 2026-03-28 17:58:40 |
+|         5 |           1 |          3 |      5 | Loved it          | 2026-03-28 17:58:40 |
++-----------+-------------+------------+--------+-------------------+---------------------+
+
+--------------------------------------------------------------------------------------------
+Query9. List all payments with status 'Completed'
+
+select *from payment
+where payment_status = 'Completed';
+
++------------+----------+----------------+----------------+----------+
+| payment_id | order_id | payment_method | payment_status | amount   |
++------------+----------+----------------+----------------+----------+
+|          2 |        2 | Credit Card    | Completed      | 55900.00 |
+|          3 |        3 | Debit Card     | Completed      |  2400.00 |
+|          4 |        5 | Cash           | Completed      | 23000.00 |
++------------+----------+----------------+----------------+----------+
+
+--------------------------------------------------------------------------------------------
+Query10. Show shipping records with 'Processing' status
+
+select *from shipping
+where delivery_status = 'Processing';
+
++-------------+----------+--------------+------+-------------+-----------------+
+| shipping_id | order_id | address      | city | postal_code | delivery_status |
++-------------+----------+--------------+------+-------------+-----------------+
+|           1 |        1 | Pune Address | Pune | 411001      | Processing      |
+|           4 |        4 | Pune Address | Pune | 411002      | Processing      |
++-------------+----------+--------------+------+-------------+-----------------+
+--------------------------------------------------------------------------------------------
+
+Query11. List all customers with their orders
+
+select c.name, o.order_id, o.order_date
+from customer c
+join orders o on c.customer_id = o.customer_id;
+
++--------------+----------+---------------------+
+| name         | order_id | order_date          |
++--------------+----------+---------------------+
+| Rahul Sharma |        1 | 2026-03-28 17:58:00 |
+| Priya Singh  |        2 | 2026-03-28 17:58:00 |
+| Amit Patil   |        3 | 2026-03-28 17:58:00 |
+| Rahul Sharma |        4 | 2026-03-28 17:58:00 |
+| Sneha Joshi  |        5 | 2026-03-28 17:58:00 |
++--------------+----------+---------------------+
+
+---------------------------------------------------------------------------
+
+Query12. Show products along with their category names
+
+select p.product_name, c.category_name
+from product p
+left join category c on p.category_id = c.category_id;
+
++--------------+-----------------+
+| product_name | category_name   |
++--------------+-----------------+
+| Mobile Phone | Electronics     |
+| Laptop       | Electronics     |
+| T-Shirt      | Clothing        |
+| Jeans        | Clothing        |
+| Novel Book   | Books           |
+| Microwave    | Home Appliances |
+| Refrigerator | Home Appliances |
+| Cricket Bat  | Sports          |
++--------------+-----------------+
+
+--------------------------------------------------------------------------
+Query13. Find total number of orders placed by each customer
+
+
+--------------------------------------------------------------------------
+Query14. Display total amount spent per order
+
+Query15. List all orders with customer name and order date
+
+Query16. Find products that have never been ordered
+
+Query17. Get average rating for each product
+
+Query18. List customers who have given reviews
+
+Query19. Find total revenue generated
+
+Query20. Display payment status for each order
+
+Query21. List all orders with shipping city and delivery status
+
+Query22. Find top 5 most expensive products
+
+Query23. Get total quantity sold per product
+
+Query24. List customers who have not placed any orders
+
+Query25. Show orders that have no payment yet
+
+Query 26. Find total number of products in each category
+Hint:Group products by category.
+
+Query27. Display all reviews with customer name and product name
+Hint: Join review, customer, and product.
+
+Query28. Find the most recently placed order
+Hint: Get latest order based on date.
+
+Query 29. List orders with total items count
+Hint: Count number of products in each order.
+
+Query 30. Show customers along with total amount they spent
+Hint: Aggregate payments per customer.
+
+Query31. Find the top 3 customers who spent the most money
+Hint: Rank customers based on total payment amount.
+
+Query32. Identify products with highest average rating (above 4.5)
+Hint: Filter products based on aggregated ratings.
+
+Query33. Find customers who ordered every category of products
+Hint: Advanced grouping and filtering logic.
+
+Query34. Get monthly revenue report
+Hint: Group payments by month and year.
+
+Query 35. Find orders where total amount exceeds average order value
+Hint: Compare each order with overall average.
+
+Query36. Identify duplicate reviews (same customer reviewing same product multiple times)
+Hint: Detect redundant entries.
+
+Query37. Find the most popular product (highest quantity sold)
+Hint: Rank products based on total sales.
+
+Query 38. List customers who placed orders but never made payments
+Hint: Detect incomplete transactions.
+
+Query39. Find products that are low in stock but highly demanded
+Hint: Combine stock condition with high sales.
+
+Query 40. Generate a complete order summary report, Include customer name, order details, total amount, payment status, and shipping status in one result.
+
+🔹 Basic Queries
+✅ Query 1: List all customers
+SELECT * FROM customer;
+✅ Query 2: Show all product names and prices
+SELECT product_name, price FROM product;
+✅ Query 3: Find products with price > 50
+SELECT * FROM product WHERE price > 50;
+✅ Query 4: List all categories
+SELECT * FROM category;
+✅ Query 5: Customers created after specific date
+SELECT * FROM customer 
+WHERE created_at > '2024-01-01';
+✅ Query 6: Orders with status 'Pending'
+SELECT * FROM orders 
+WHERE status = 'Pending';
+✅ Query 7: Products with stock < 10
+SELECT * FROM product 
+WHERE stock < 10;
+✅ Query 8: Reviews with rating 5
+SELECT * FROM review 
+WHERE rating = 5;
+✅ Query 9: Payments with status 'Completed'
+SELECT * FROM payment 
+WHERE payment_status = 'Completed';
+✅ Query 10: Shipping with 'Processing'
+SELECT * FROM shipping 
+WHERE delivery_status = 'Processing';
+🔹 Joins
+✅ Query 11: Customers with their orders
+SELECT c.name, o.order_id, o.order_date
+FROM customer c
+JOIN orders o ON c.customer_id = o.customer_id;
+✅ Query 12: Products with category names
+SELECT p.product_name, c.category_name
+FROM product p
+LEFT JOIN category c ON p.category_id = c.category_id;
+✅ Query 13: Total orders per customer
+SELECT c.name, COUNT(o.order_id) AS total_orders
+FROM customer c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id;
+✅ Query 14: Total amount per order
+SELECT order_id, SUM(quantity * price) AS total_amount
+FROM order_items
+GROUP BY order_id;
+✅ Query 15: Orders with customer name
+SELECT c.name, o.order_id, o.order_date
+FROM orders o
+JOIN customer c ON o.customer_id = c.customer_id;
+🔹 Intermediate Queries
+✅ Query 16: Products never ordered
+SELECT p.product_name
+FROM product p
+LEFT JOIN order_items oi ON p.product_id = oi.product_id
+WHERE oi.product_id IS NULL;
+✅ Query 17: Average rating per product
+SELECT product_id, AVG(rating) AS avg_rating
+FROM review
+GROUP BY product_id;
+✅ Query 18: Customers who gave reviews
+SELECT DISTINCT c.name
+FROM customer c
+JOIN review r ON c.customer_id = r.customer_id;
+✅ Query 19: Total revenue
+SELECT SUM(amount) AS total_revenue 
+FROM payment 
+WHERE payment_status = 'Completed';
+✅ Query 20: Payment status per order
+SELECT o.order_id, p.payment_status
+FROM orders o
+LEFT JOIN payment p ON o.order_id = p.order_id;
+🔹 Advanced Joins
+✅ Query 21: Orders with shipping info
+SELECT o.order_id, s.city, s.delivery_status
+FROM orders o
+JOIN shipping s ON o.order_id = s.order_id;
+✅ Query 22: Top 5 expensive products
+SELECT * FROM product 
+ORDER BY price DESC 
+LIMIT 5;
+✅ Query 23: Total quantity sold per product
+SELECT product_id, SUM(quantity) AS total_sold
+FROM order_items
+GROUP BY product_id;
+✅ Query 24: Customers without orders
+SELECT c.name
+FROM customer c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+WHERE o.order_id IS NULL;
+✅ Query 25: Orders without payment
+SELECT o.order_id
+FROM orders o
+LEFT JOIN payment p ON o.order_id = p.order_id
+WHERE p.order_id IS NULL;
+🔹 Grouping & Aggregation
+✅ Query 26: Products per category
+SELECT category_id, COUNT(*) AS total_products
+FROM product
+GROUP BY category_id;
+✅ Query 27: Reviews with customer & product
+SELECT c.name, p.product_name, r.rating, r.comment
+FROM review r
+JOIN customer c ON r.customer_id = c.customer_id
+JOIN product p ON r.product_id = p.product_id;
+✅ Query 28: Most recent order
+SELECT * FROM orders
+ORDER BY order_date DESC
+LIMIT 1;
+✅ Query 29: Orders with item count
+SELECT order_id, COUNT(product_id) AS total_items
+FROM order_items
+GROUP BY order_id;
+✅ Query 30: Total spent per customer
+SELECT c.name, SUM(p.amount) AS total_spent
+FROM customer c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN payment p ON o.order_id = p.order_id
+GROUP BY c.customer_id;
+🔹 Complex Queries
+✅ Query 31: Top 3 customers by spending
+SELECT c.name, SUM(p.amount) AS total_spent
+FROM customer c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN payment p ON o.order_id = p.order_id
+GROUP BY c.customer_id
+ORDER BY total_spent DESC
+LIMIT 3;
+✅ Query 32: Products with avg rating > 4.5
+SELECT product_id, AVG(rating) AS avg_rating
+FROM review
+GROUP BY product_id
+HAVING avg_rating > 4.5;
+✅ Query 33: Customers who ordered every category
+SELECT c.customer_id, c.name
+FROM customer c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN product p ON oi.product_id = p.product_id
+GROUP BY c.customer_id
+HAVING COUNT(DISTINCT p.category_id) = 
+      (SELECT COUNT(*) FROM category);
+✅ Query 34: Monthly revenue
+SELECT YEAR(order_date) AS year, MONTH(order_date) AS month,
+       SUM(p.amount) AS revenue
+FROM orders o
+JOIN payment p ON o.order_id = p.order_id
+GROUP BY year, month;
+✅ Query 35: Orders above average value
+SELECT order_id, SUM(quantity * price) AS total
+FROM order_items
+GROUP BY order_id
+HAVING total > (
+    SELECT AVG(total_amount)
+    FROM (
+        SELECT SUM(quantity * price) AS total_amount
+        FROM order_items
+        GROUP BY order_id
+    ) t
+);
+🔹 Expert Level
+✅ Query 36: Duplicate reviews
+SELECT customer_id, product_id, COUNT(*) AS count
+FROM review
+GROUP BY customer_id, product_id
+HAVING COUNT(*) > 1;
+✅ Query 37: Most popular product
+SELECT product_id, SUM(quantity) AS total_sold
+FROM order_items
+GROUP BY product_id
+ORDER BY total_sold DESC
+LIMIT 1;
+✅ Query 38: Orders without payment (customers)
+SELECT DISTINCT c.name
+FROM customer c
+JOIN orders o ON c.customer_id = o.customer_id
+LEFT JOIN payment p ON o.order_id = p.order_id
+WHERE p.order_id IS NULL;
+✅ Query 39: Low stock but high demand
+SELECT p.product_name, p.stock, SUM(oi.quantity) AS sold
+FROM product p
+JOIN order_items oi ON p.product_id = oi.product_id
+GROUP BY p.product_id
+HAVING p.stock < 10 AND sold > 50;
+✅ Query 40: Complete order summary
+SELECT c.name, o.order_id, o.order_date,
+       SUM(oi.quantity * oi.price) AS total_amount,
+       p.payment_status,
+       s.delivery_status
+FROM orders o
+JOIN customer c ON o.customer_id = c.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+LEFT JOIN payment p ON o.order_id = p.order_id
+LEFT JOIN shipping s ON o.order_id = s.order_id
+GROUP BY o.order_id;

@@ -3,6 +3,24 @@
 Q. What is Java?
 Java is a high-level, object-oriented programming language.
 
+disadvantages of Java 
+
+1. Slower Performance
+Reason: Java uses the Java Virtual Machine (JVM) which converts bytecode into machine code at runtime.
+
+2. High Memory Usage
+Java programs consume more memory.
+JVM, garbage collection, and libraries require extra resources.
+
+3. Complex Code (Verbose)
+Java requires more lines of code compared to languages like Python.
+Example: simple tasks need class, main method, etc.
+
+4. Limited Hardware Control
+Cannot directly interact with hardware.
+
+5. Large Application Size
+
 Features of Java
 1.Simple
     Easy to learn and understand.
@@ -87,7 +105,7 @@ Steps to work with Java:
 
 | **Purpose**    | Runs Java programs (converts bytecode to machine code). | Runs Java programs.                                                      | Develops **and** runs Java programs.                                         |
 
-| **Contains**   | - Just the JVM - No compiler or development tools       | - JVM - Java class libraries                                             | - JRE - Development tools like `javac` (compiler), `jar`, `javadoc`, etc. |
+| **Contains**   | - Just the JVM - No compiler or development tools       | - JVM - Java class libraries                                             | - JRE - Development tools like `javac` (compiler), `jar`, `javadoc`, etc.    |
  
 | **User**       | End-users or runtime environment.                       | End-users who want to run Java programs.                                 | Developers who want to write Java programs.                                  |
 
@@ -130,7 +148,7 @@ https://www.oracle.com/in/java/technologies/downloads/#java24
 
 Q  Difference between C++, Java, and Python
 
-| Feature           | Python 🐍   | Java ☕             | C++ ⚡            |
+| Feature           | Python 🐍   | Java ☕            | C++ ⚡              |
 | ----------------- | ----------- | ------------------- | ------------------- |
 | Typing            | Dynamic     | Static              | Static              |
 | Compilation       | Interpreted | Bytecode (JVM)      | Native Machine Code |
@@ -170,7 +188,7 @@ static = belongs to the class, not to objects.
 Saves memory (one copy for all).
 Used for constants, utility methods, and program entry (main).
 So you can access it without creating an object.
-
+ 
     🔹 Where we use static?
     1. Static Variables
     Shared across all objects of the class.

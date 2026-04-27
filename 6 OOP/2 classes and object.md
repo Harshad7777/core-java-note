@@ -48,7 +48,7 @@ Important Components of a Class
     Each object has its own copy of instance variables.
 
     int id;   // instance variable
-
+ 
 2. Class Variable (Static Variable)
 
     A class variable is a variable declared inside a class using the static keyword.

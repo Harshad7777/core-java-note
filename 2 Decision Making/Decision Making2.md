@@ -200,11 +200,11 @@ public class GTAPP
 ------------------------------------------------------------------
 5️⃣ Switch Statement
 ------------------------------------------------------------------
+
 Ideal for menu-driven or choice-based programs.
 Executes a block matching the value of a variable.
-Example: Simple calculator (addition or multiplication).
 
-Example: Check if a character is a vowel or consonant.
+Example: Simple calculator (addition or multiplication).
 
 import java.util.*;
 public class SWAPP 
@@ -213,11 +213,11 @@ public class SWAPP
 	{
         Scanner sc = new Scanner(System.in);
         
-        System.out.println("1: Addition\n2: Multiplication");
         System.out.println("Enter two values:");
         int a = sc.nextInt();
         int b = sc.nextInt();
 
+        System.out.println("1: Addition\n2: Multiplication");
         System.out.println("Enter your choice:");
         int choice = sc.nextInt();
 

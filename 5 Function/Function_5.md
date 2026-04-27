@@ -1,7 +1,7 @@
 Function 
 ----------------------------------------------
 A function is a block of statements that is used to write logic once and reuse it multiple times by calling the function.
-
+ 
 🔹 Why we use a function ?
     To reduce code repetition
     To make code easy to read
@@ -44,7 +44,7 @@ Important Rules While Defining a Function
 6. When a function returns a value, the value must be stored (caught) at the calling point
 7. After the return statement, no code is executed
 (logic written after return is unreachable)
-----------------------------------------------
+--------------------------------------------------------------------
 Function Definition Syntax
 
     accessSpecifier returnType functionName(datatype variable, datatype variable)
@@ -58,7 +58,6 @@ Example of User-Defined Function
     {
         return a + b;
     }
-
 -------------------------------------------------------------------
 2) Call Function
     If we want to reuse a function, we need to call it.
@@ -224,9 +223,11 @@ This reduces the number of parameters and improves readability and reusability
 Important Note
 
 👉 When we pass an array as a parameter to a function, the base address (reference) of the array is passed, not individual elements.
+
 Syntax: Passing Array to Function
 
 Function Definition
+
     returnType functionName(dataType[] arrayName)
     {
         // logic
@@ -235,8 +236,9 @@ Function Definition
 Function Calling
     functionName(arrayName);
 
-    Simple Example
-    public static int getSum(int[] a)
+Simple Example
+
+public static int getSum(int[] a)
     {
         int sum = 0;
         for(int i = 0; i < a.length; i++)
@@ -728,7 +730,7 @@ public class DPAPP
     {
         int limit = 5;
         int a[] = new int[limit + 1];
-
+A
         Arrays.fill(a, 0); // Arrays.fill(arrayName, value);
 
         for(int i = 0; i <= limit; i++)//2<=5

@@ -229,7 +229,7 @@ Must be public static void main(String[] args).
 ------------------------✅short note---------------------------
 public
 main Must be accessible by JVM (which is outside your class).
-If not public, JVM cannot run it.
+If not public, JVM cannot run it. 
 
 static
 JVM calls main without creating an object.
@@ -542,10 +542,10 @@ If we want to accept from keyboard using java we have two ways
 Using command line argument 
 Using Scanner class.
 
- Command line argument is a parameter present in the main function of string array type.
-
+Command line argument is a parameter present in the main function of string array type.
 
 ```java
+
 public class PIAPP
 {
     public static void main(String x[])
@@ -679,6 +679,7 @@ This is called wildcard import.
 
 Common Classes in java.util.*;
 Scanner → Used to take input from keyboard
+
 Date → Represents date and time (legacy)
 Time → Represents time (legacy / not commonly used)
 ArrayList → Dynamic array implementation
@@ -860,9 +861,9 @@ public class SFLAPP
     public static void main(String x[])
     {  
        Scanner xyz = new Scanner(System.in);
-	   int no,rem, sum=0;
+	   int no, rem, sum=0;
 	   System.out.printf("Enter four digit number");
-	   no=xyz.nextInt();
+	   no = xyz.nextInt();
 
 	   rem = no%10;
 	   no = no/10;
@@ -898,7 +899,7 @@ Types of Number  System
 ______________________________________________
 Binary Number System : Binary Number System contain two digits only 0 & 1 so the base of binary number system is 2 
 
-Types of Number  System 
+Types of Number System 
 _________________________________________________
 1️⃣ Binary Number System
 Binary Number System contains only two digits: 0 and 1.
@@ -1217,7 +1218,8 @@ Operator priority decides the order of execution of operators when more than one
 | 14       | `=`, `+=`, `-=`, `*=`, `/=` etc            | Right to Left  |                |               |
 
 ```java
-public class OAPP {
+public class OAPP 
+{
     public static void main(String x1[]) {
         int x = 6;
         System.out.println(x++ == 6 && ++x == 8);

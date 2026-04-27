@@ -97,6 +97,7 @@ public class PAPP
 }
 
 Example: WAP to input number and check number is perfect or not?
+//6 = 1+2+3
 
 import java.util.*;
 public class PAPP
@@ -279,8 +280,7 @@ public class FAPP
 }
 
 Example: Strong Number
-
-(A number whose sum of factorial of digits equals the number: 145)
+(A number whose sum of factorial of digits equals the number: 145 = 120+24+1) 
 
 import java.util.*;
 public class StrongApp
@@ -307,6 +307,50 @@ public class StrongApp
     System.out.println(temp == sum ? "Strong Number ": "Not Strong Number");
 }
 
+or
+
+import java.util.Scanner;
+
+public class StrongNumber 
+{
+    static int factorial(int n) 
+    {
+        int fact = 1;
+        for(int i = 1; i <= n; i++) 
+        {
+            fact = fact * i;
+        }
+        return fact;
+    }
+
+    public static void main(String[] args) 
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number: ");
+        int num = sc.nextInt();
+
+        int temp = num;
+        int sum = 0;
+
+        while(num > 0) 
+        {
+            int digit = num % 10;
+            sum = sum + factorial(digit);
+            num = num / 10;
+        }
+
+        if(sum == temp) 
+        {
+            System.out.println("Strong Number");
+        } 
+        else 
+        {
+            System.out.println("Not Strong Number");
+        }
+    }
+}
+
 3️⃣ Nested Loop
 
 Loop inside another loop
@@ -329,7 +373,7 @@ public class NestedLoopAPP
         {
             for(int j=1; j<=3; j++) 
             {
-                System.out.println("I=" + i + " J=" + j);
+                System.out.println("I =" + i + " J=" + j);
             }
             System.out.println();
         }
@@ -359,11 +403,11 @@ public class FAPP
     for(int i=1; i<=10; i++)
 	   { 
         for(int j=2; j<=10; j++)
-			 {   
+			{   
                 System.out.print(i * j + "\t");
 				Thread.sleep(200);
-			 }
-			 System.out.print("\n"); // manual new line
+			}
+			System.out.print("\n"); // manual new line
 	   }
    }
 }
@@ -735,7 +779,6 @@ Condition is checked after execution.
 
 Type:
 1. do-while
-
 
 4️⃣ Do-While Loop
 

@@ -31,6 +31,8 @@ public class ObjARRAPP
     public static void main(String x[])
     {
         Object arr[] = new Object[5];
+        //Object → It is the parent class of all classes in Java
+
         arr[0] = false;
         arr[1] = "good";
         arr[2] = new java.util.Date();
@@ -225,6 +227,19 @@ Important Methods of Collection Interface
 
 🔟 boolean removeAll(Collection<?> c)
         Object value = list.remove(1); // remove(1) removes the element at index 1 //Index 1 = 20
+
+    import java.util.*;
+    public class Demo {
+        public static void main(String[] args) {
+
+            ArrayList<Integer> list1 = new ArrayList<>(Arrays.asList(10, 20, 30, 40));
+            ArrayList<Integer> list2 = new ArrayList<>(Arrays.asList(20, 40));
+
+            list1.removeAll(list2);
+
+            System.out.println(list1); // Output: [10, 30]
+        }
+    }
 
 1️⃣1️⃣ indexOf(Object obj)
         int index = list.indexOf(20); // If the element is found, it returns its index otherwise -1
@@ -511,6 +526,8 @@ public class Test {
 
         Object value = list.remove(1); // remove(1) removes the element at index 1 //Index 1 = 20
 
+       //list.removeAll(c);
+       
         System.out.println("Removed element: " + value);
         System.out.println("ArrayList after removal: " + list);
     }

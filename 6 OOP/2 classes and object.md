@@ -179,7 +179,7 @@ Q2. Why use a Class? / Benefits of Class
 2. Reusability
 
     A class is declared only once and can be reused multiple times, which reduces code duplication.
-
+ 
     A class can be reused in two ways:
         1. By creating objects of the class
         2. By using inheritance (discussed in later chapters)
@@ -198,7 +198,6 @@ Q3. How to reuse class more than one time?
    A class can be reused in two ways:
         1. By creating objects of the class
         2. By using inheritance (discussed in later chapters)
-
 
 Q4. What is an Object and how to create an Object in Java?
 

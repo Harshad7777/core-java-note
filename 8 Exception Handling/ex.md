@@ -556,10 +556,3 @@ public class ExeApplication {
 
 ---
 
-# Important Notes
-
-1. Exception class is parent of all exception classes
-2. Single try can have multiple catch blocks
-3. finally always executes
-4. Checked exceptions occur at compile time
-5. Unchecked exceptions occur at runtime

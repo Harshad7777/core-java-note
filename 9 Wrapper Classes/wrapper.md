@@ -245,7 +245,7 @@ String s = String.valueOf(a);
 * Once created, value **cannot change**
  when we perform any operation on string JVM create new object of string every time. Interally String is final class in JAVA.
 
- Note: every  “ “ in java consider as string object 
+Note: every  “ “ in java consider as string object 
 
 ---
 
@@ -256,7 +256,6 @@ String s = String.valueOf(a);
 ```java
 String s = "abc"; s = reference of string and abc = object;
 ```
-
 * Stored in **String Constant Pool**
 
 ---
@@ -291,6 +290,323 @@ When we create string using initialization then string object get create in stri
 when we create object using a new keyword then JVM create new object every time in heap if string value is same or different 
 
 ---
+# String Constructors in Java
+
+In Java, the `String` class provides different constructors to create string objects in various ways.
+
+---
+
+# 1. `String()`
+
+## Definition
+
+Creates an empty string object.
+
+## Syntax
+
+```java id="strcon1"
+String s = new String();
+```
+
+## Example
+
+```java id="strcon2"
+public class Test {
+
+    public static void main(String args[]) {
+
+        String s = new String();
+
+        System.out.println("String is: " + s);
+    }
+}
+```
+
+## Output
+
+```id="out1"
+String is:
+```
+
+---
+
+# 2. `String(String)`
+
+## Definition
+
+Creates a string object with initial or default value.
+
+## Syntax
+
+```java id="strcon3"
+String s = new String("Java");
+```
+
+## Example
+
+```java id="strcon4"
+public class Test {
+
+    public static void main(String args[]) {
+
+        String s = new String("Java");
+
+        System.out.println("String is: " + s);
+    }
+}
+```
+
+## Output
+
+```id="out2"
+String is: Java
+```
+
+---
+
+# 3. `String(char[])`
+
+## Definition
+
+Converts character array into string format.
+
+## Syntax
+
+```java id="strcon5"
+char ch[] = {'J','A','V','A'};
+
+String s = new String(ch);
+```
+
+## Example
+
+```java id="strcon6"
+public class Test {
+
+    public static void main(String args[]) {
+
+        char ch[] = {'J','A','V','A'};
+
+        String s = new String(ch);
+
+        System.out.println("String is: " + s);
+    }
+}
+```
+
+## Output
+
+```id="out3"
+String is: JAVA
+```
+
+---
+
+# 4. `String(char[], int offset, int length)`
+
+## Definition
+
+Converts specified length of character array into string format.
+
+---
+
+## Parameters
+
+| Parameter | Meaning               |
+| --------- | --------------------- |
+| `char[]`  | Actual character data |
+| `offset`  | Starting index        |
+| `length`  | Number of characters  |
+
+---
+
+## Syntax
+
+```java id="strcon7"
+char ch[] = {'J','A','V','A'};
+
+String s = new String(ch,1,2);
+```
+
+---
+
+## Example
+
+```java id="strcon8"
+public class Test {
+
+    public static void main(String args[]) {
+
+        char ch[] = {'J','A','V','A'};
+
+        String s = new String(ch,1,2);
+
+        System.out.println("String is: " + s);
+    }
+}
+```
+
+## Explanation
+
+* Start index = 1 → `A`
+* Length = 2 → `AV`
+
+## Output
+
+```id="out4"
+String is: AV
+```
+
+---
+
+# 5. `String(byte[])`
+
+## Definition
+
+Converts byte array into string format using ASCII values.
+
+---
+
+## Syntax
+
+```java id="strcon9"
+byte b[] = {65,66,67};
+
+String s = new String(b);
+```
+
+---
+
+## Example
+
+```java id="strcon10"
+public class Test {
+
+    public static void main(String args[]) {
+
+        byte b[] = {65,66,67,68};
+
+        String s = new String(b);
+
+        System.out.println("String is: " + s);
+    }
+}
+```
+
+## ASCII Values
+
+| ASCII | Character |
+| ----- | --------- |
+| 65    | A         |
+| 66    | B         |
+| 67    | C         |
+| 68    | D         |
+
+## Output
+
+```id="out5"
+String is: ABCD
+```
+
+---
+
+# 6. `String(byte[], int offset, int length)`
+
+## Definition
+
+Converts specified length of byte array into string format.
+
+---
+
+## Parameters
+
+| Parameter | Meaning          |
+| --------- | ---------------- |
+| `byte[]`  | Actual byte data |
+| `offset`  | Starting index   |
+| `length`  | Number of bytes  |
+
+---
+
+## Syntax
+
+```java id="strcon11"
+byte b[] = {65,66,67,68};
+
+String s = new String(b,1,2);
+```
+
+---
+
+## Example
+
+```java id="strcon12"
+public class Test {
+
+    public static void main(String args[]) {
+
+        byte b[] = {65,66,67,68};
+
+        String s = new String(b,1,2);
+
+        System.out.println("String is: " + s);
+    }
+}
+```
+
+## Explanation
+
+* Start index = 1 → 66 = B
+* Length = 2 → BC
+
+## Output
+
+```id="out6"
+String is: BC
+```
+
+---
+
+# Summary Table
+
+| Constructor                    | Purpose                           |
+| ------------------------------ | --------------------------------- |
+| `String()`                     | Creates empty string              |
+| `String(String)`               | Creates string with initial value |
+| `String(char[])`               | Converts char array to string     |
+| `String(char[],offset,length)` | Converts part of char array       |
+| `String(byte[])`               | Converts byte array using ASCII   |
+| `String(byte[],offset,length)` | Converts part of byte array       |
+
+---
+
+# Important Notes
+
+1. String objects are immutable in Java
+2. String class belongs to `java.lang` package
+3. Strings can be created using:
+
+   * Constructor
+   * Literal method
+
+---
+
+# Example of String Literal
+
+```java id="literal1"
+String s = "Java";
+```
+
+---
+
+# Difference Between Constructor and Literal
+
+| Constructor                        | Literal                        |
+| ---------------------------------- | ------------------------------ |
+| Creates object using `new` keyword | Direct assignment              |
+| Memory allocated in heap           | Stored in String Constant Pool |
+| Example: `new String("Java")`      | Example: `"Java"`              |
+
 
 # 🔹 Important String Methods
 
@@ -311,24 +627,458 @@ endsWith(String)
 ```
 
 ---
+# Methods of String in Java
 
-# 🔹 Immutability Example
+The `String` class provides many inbuilt methods for performing operations on strings.
 
-```java
-String s = "good";
-s.toUpperCase();
-System.out.println(s);
+---
+
+# 1. `int length()`
+
+## Definition
+
+This method is used to calculate the length of a string.
+
+## Syntax
+
+```java id="len1"
+int len = s.length();
 ```
 
-✔ Output: `good` (not changed)
+## Example
 
-Correct way:
+```java id="len2"
+public class SMApplication {
 
-```java
-s = s.toUpperCase();
+    public static void main(String x[]) {
+
+        String s = "Good";
+
+        int len = s.length();
+
+        System.out.println("Length is " + len);
+    }
+}
+```
+
+## Output
+
+```id="lenout1"
+Length is 4
 ```
 
 ---
+
+# 2. `char charAt(int index)`
+
+## Definition
+
+This method returns character using specified index.
+
+## Syntax
+
+```java id="char1"
+char ch = s.charAt(index);
+```
+
+## Example
+
+```java id="char2"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s = "Java";
+
+        char ch = s.charAt(2);
+
+        System.out.println("Character is " + ch);
+    }
+}
+```
+
+## Output
+
+```id="charout1"
+Character is v
+```
+
+---
+
+# 3. `String toUpperCase()`
+
+## Definition
+
+Converts string into uppercase and returns new string.
+
+## Example
+
+```java id="upper1"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s = "good";
+
+        String s1 = s.toUpperCase();
+
+        System.out.println("Original String : " + s);
+        System.out.println("Upper String : " + s1);
+    }
+}
+```
+
+## Output
+
+```id="upperout1"
+Original String : good
+Upper String : GOOD
+```
+
+---
+
+# Why String is Immutable?
+
+## Explanation
+
+```java id="immut1"
+String s = "good";
+
+s.toUpperCase();
+```
+
+Here:
+
+* Original object = `"good"`
+* JVM creates new object = `"GOOD"`
+* Original object is not modified
+
+---
+
+## Diagram Representation
+
+```id="immutdiag"
+Before:
+s ----> "good"
+
+After:
+s ----> "GOOD"
+
+Old object removed by Garbage Collector
+```
+
+So String objects are immutable.
+
+---
+
+# 4. `String toLowerCase()`
+
+## Definition
+
+Converts uppercase string into lowercase.
+
+## Example
+
+```java id="lower1"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s = "JAVA";
+
+        String s1 = s.toLowerCase();
+
+        System.out.println(s1);
+    }
+}
+```
+
+## Output
+
+```id="lowerout1"
+java
+```
+
+---
+
+# 5. `String concat(String)`
+
+## Definition
+
+Used for combining two strings.
+
+## Syntax
+
+```java id="concat1"
+String s3 = s1.concat(s2);
+```
+
+## Example
+
+```java id="concat2"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s1 = "Good";
+        String s2 = " Morning";
+
+        String s3 = s1.concat(s2);
+
+        System.out.println(s3);
+    }
+}
+```
+
+## Output
+
+```id="concatout1"
+Good Morning
+```
+
+---
+
+# 6. `String trim()`
+
+## Definition
+
+Removes spaces from beginning and ending of string.
+
+## Example
+
+```java id="trim1"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s = "   Java   ";
+
+        System.out.println(s.trim());
+    }
+}
+```
+
+## Output
+
+```id="trimout1"
+Java
+```
+
+---
+
+# 7. `String substring(int index)`
+
+## Definition
+
+Extracts string from specified index to end.
+
+## Example
+
+```java id="sub1"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s = "Programming";
+
+        String s1 = s.substring(3);
+
+        System.out.println(s1);
+    }
+}
+```
+
+## Output
+
+```id="subout1"
+gramming
+```
+
+---
+
+# 8. `String substring(int startIndex, int endIndex)`
+
+## Definition
+
+Extracts string between two indexes.
+
+## Example
+
+```java id="sub2"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s = "Programming";
+
+        String s1 = s.substring(0, 4);
+
+        System.out.println(s1);
+    }
+}
+```
+
+## Output
+
+```id="subout2"
+Prog
+```
+
+---
+
+# 9. `String[] split(String)`
+
+## Definition
+
+Splits string using specified symbol or character.
+
+## Example
+
+```java id="split1"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s = "Java-Python-PHP";
+
+        String arr[] = s.split("-");
+
+        for(int i = 0; i < arr.length; i++) {
+
+            System.out.println(arr[i]);
+        }
+    }
+}
+```
+
+## Output
+
+```id="splitout1"
+Java
+Python
+PHP
+```
+
+---
+
+# 10. `int indexOf(String data)`
+
+## Definition
+
+Checks data in string and returns index.
+
+If not found → returns `-1`
+
+## Example
+
+```java id="index1"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s = "Programming";
+
+        int index = s.indexOf("g");
+
+        System.out.println(index);
+    }
+}
+```
+
+## Output
+
+```id="indexout1"
+3
+```
+
+---
+
+# 11. `boolean startsWith(String)`
+
+## Definition
+
+Checks whether string starts with specified data.
+
+## Example
+
+```java id="start1"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s = "Programming";
+
+        boolean b = s.startsWith("Pro");
+
+        System.out.println(b);
+    }
+}
+```
+
+## Output
+
+```id="startout1"
+true
+```
+
+---
+
+# 12. `boolean endsWith(String)`
+
+## Definition
+
+Checks whether string ends with specified data.
+
+## Example
+
+```java id="end1"
+public class SMApplication {
+
+    public static void main(String x[]) {
+
+        String s = "good";
+
+        boolean b = s.endsWith("d");
+
+        if(b) {
+
+            System.out.println("String ends with d");
+        }
+        else {
+
+            System.out.println("String does not end with d");
+        }
+    }
+}
+```
+
+## Output
+
+```id="endout1"
+String ends with d
+```
+
+---
+
+# Summary Table of String Methods
+
+| Method          | Purpose                   |
+| --------------- | ------------------------- |
+| `length()`      | Calculate string length   |
+| `charAt()`      | Return character by index |
+| `toUpperCase()` | Convert to uppercase      |
+| `toLowerCase()` | Convert to lowercase      |
+| `concat()`      | Combine strings           |
+| `trim()`        | Remove spaces             |
+| `substring()`   | Extract part of string    |
+| `split()`       | Split string              |
+| `indexOf()`     | Find index of data        |
+| `startsWith()`  | Check starting data       |
+| `endsWith()`    | Check ending data         |
+
+---
+
+
 
 # 🔹 StringBuffer & StringBuilder
 

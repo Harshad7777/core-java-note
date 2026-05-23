@@ -1,0 +1,268 @@
+
+---
+
+# 🔹 JDBC (Java Database Connectivity)
+
+> JDBC is an API that helps Java programs connect with database applications and perform operations like insert, update, delete, and select.
+
+---
+
+# 🔹 Steps to Connect Java with Database
+
+### 1. Import package
+
+```java
+import java.sql.*;
+```
+
+### 2. Load Driver (optional in newer versions)
+
+```java
+Class.forName("com.mysql.cj.jdbc.Driver");
+```
+
+👉 In modern Java (JDBC 4+), this step is **optional**.
+
+---
+
+### 3. Establish Connection
+
+```java
+Connection conn = DriverManager.getConnection(
+    "jdbc:mysql://localhost:3306/dbname",
+    "username",
+    "password"
+);
+```
+
+---
+
+### 4. Create Statement
+
+```java
+Statement stmt = conn.createStatement();
+```
+
+---
+
+### 5. Execute Query
+
+* Insert/Update/Delete:
+
+```java
+stmt.executeUpdate("SQL QUERY");
+```
+
+* Select:
+
+```java
+ResultSet rs = stmt.executeQuery("SELECT * FROM table");
+```
+
+---
+
+### 6. Process Result
+
+```java
+while(rs.next()) {
+    System.out.println(rs.getInt(1) + " " + rs.getString(2));
+}
+```
+
+---
+
+### 7. Close Connection
+
+```java
+conn.close();
+```
+
+---
+
+# 🔹 What is Driver?
+
+✔ Correct:
+
+> A driver is a **software component** that enables Java to communicate with a database.
+
+---
+
+# 🔹 Types of JDBC Drivers
+
+### 1. Type 1 (ODBC Driver)
+
+* Uses ODBC
+* Platform dependent ❌
+* Removed in Java 8 ❌
+
+---
+
+### 2. Type 2 (Native API)
+
+* Uses database-specific libraries
+* Platform dependent
+
+---
+
+### 3. Type 3 (Network Protocol)
+
+* Uses middleware server
+
+---
+
+### 4. Type 4 (Thin Driver) ✅
+
+* Pure Java
+* Platform independent
+* Direct connection to database
+* **Most used**
+
+Example:
+
+```java
+com.mysql.cj.jdbc.Driver
+```
+
+---
+
+# 🔹 Why Type 1 Removed?
+
+✔ Correct reasons:
+
+* Platform dependent
+* Requires ODBC installation
+* Not suitable for modern applications
+
+---
+
+# 🔹 What is JAR File?
+
+✔ Correct:
+
+> JAR (Java Archive) file contains compiled `.class` files and libraries.
+
+👉 Used to:
+
+* Reuse code
+* Add external libraries (like MySQL connector)
+
+---
+
+# 🔹 Important Interfaces in JDBC
+
+* `Connection`
+* `Statement`
+* `PreparedStatement` ⭐ (important)
+* `ResultSet`
+
+---
+
+# 🔹 Statement vs PreparedStatement (VERY IMPORTANT)
+
+### ❌ Statement (your example)
+
+```java
+stmt.executeUpdate("insert into emp values('" + name + "'," + sal + ")");
+```
+
+⚠ Problems:
+
+* SQL Injection risk
+* Hard to manage
+* Not safe
+
+---
+
+### ✅ PreparedStatement (BEST PRACTICE)
+
+```java
+PreparedStatement ps = conn.prepareStatement(
+    "insert into employee(name, salary) values(?, ?)"
+);
+
+ps.setString(1, name);
+ps.setInt(2, sal);
+
+ps.executeUpdate();
+```
+
+✔ Advantages:
+
+* Secure (prevents SQL injection)
+* Faster
+* Cleaner code
+
+---
+
+# 🔹 What is ResultSet?
+
+✔ Correct:
+
+> ResultSet is used to store and process data returned from SELECT query.
+
+---
+
+### Important Methods
+
+```java
+rs.next();          // move to next row
+rs.getInt(1);       // get integer
+rs.getString(2);    // get string
+```
+
+---
+
+# 🔹 Common Mistake in Your Notes ⚠
+
+You wrote:
+
+> using "" + known as SQL injection technique
+
+❌ Wrong
+
+✔ Correct:
+
+* That is **string concatenation**
+* SQL Injection is a **security problem**, not a technique
+
+---
+
+# 🔹 Clean Example (Best Version)
+
+```java
+import java.sql.*;
+import java.util.Scanner;
+
+public class Test {
+    public static void main(String[] args) throws Exception {
+
+        Connection conn = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/test",
+            "root",
+            "root"
+        );
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter name:");
+        String name = sc.nextLine();
+
+        System.out.println("Enter salary:");
+        int sal = sc.nextInt();
+
+        PreparedStatement ps = conn.prepareStatement(
+            "insert into employee(name, salary) values(?, ?)"
+        );
+
+        ps.setString(1, name);
+        ps.setInt(2, sal);
+
+        int result = ps.executeUpdate();
+
+        if(result > 0) {
+            System.out.println("Inserted successfully");
+        }
+
+        conn.close();
+    }
+}
+```

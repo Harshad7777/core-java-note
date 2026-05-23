@@ -1,6 +1,6 @@
 1. Introduction to Java
 
-Q. What is Java?
+Q. What is Java? 
 Java is a high-level, object-oriented programming language.
 
 disadvantages of Java 
@@ -11,7 +11,7 @@ Reason: Java uses the Java Virtual Machine (JVM) which converts bytecode into ma
 2. High Memory Usage
 Java programs consume more memory.
 JVM, garbage collection, and libraries require extra resources.
-
+ 
 3. Complex Code (Verbose)
 Java requires more lines of code compared to languages like Python.
 Example: simple tasks need class, main method, etc.

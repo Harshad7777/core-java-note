@@ -2890,3 +2890,1024 @@ HashSet → unique + random order
 LinkedHashSet → unique + insertion order
 TreeSet → unique + sorted order
 Duplicate issue → fix using equals() + hashCode()
+
+
+------------------------------------------------
+Great. I’ll start with **Q29 → Q34** first in clean interview format.
+
+---
+
+# Q29. Explain the difference between HashSet, LinkedHashSet, and TreeSet?
+
+## Correct Answer
+
+| Feature                 | HashSet                               | LinkedHashSet                    | TreeSet                                |
+| ----------------------- | ------------------------------------- | -------------------------------- | -------------------------------------- |
+| Internal Data Structure | Uses `HashMap`                        | Uses `LinkedHashMap`             | Uses `TreeMap`                         |
+| Order                   | Does **not maintain insertion order** | Maintains **insertion order**    | Maintains **sorted (ascending) order** |
+| Performance             | O(1) average for add/remove/search    | O(1) average                     | O(log n)                               |
+| Null Values             | Allows one `null`                     | Allows one `null`                | Usually does not allow `null`          |
+| Comparison              | Uses `hashCode()` and `equals()`      | Uses `hashCode()` and `equals()` | Uses `compareTo()` or `Comparator`     |
+
+## Simple Explanation
+
+* **HashSet** → Fast, but order is random.
+* **LinkedHashSet** → Keeps insertion order.
+* **TreeSet** → Automatically sorts data.
+
+## Important Interview Point
+
+Use:
+
+* `HashSet` → Fast lookup
+* `LinkedHashSet` → Order + uniqueness
+* `TreeSet` → Sorted unique data
+
+---
+
+# Q30. What is NavigableSet and why use it?
+
+## Correct Answer
+
+`NavigableSet` is an interface in Java that extends `SortedSet`.
+It provides navigation methods to work with sorted sets.
+
+Useful methods:
+
+* `descendingSet()` → Reverse order
+* `ceiling()` → Smallest element ≥ given value
+* `floor()` → Largest element ≤ given value
+* `higher()` → Next greater element
+* `lower()` → Next smaller element
+
+`TreeSet` implements `NavigableSet`.
+
+## Simple Explanation
+
+`NavigableSet` helps move forward/backward in sorted data.
+
+Example:
+If set = `[5, 10, 20, 30]`
+
+* `higher(10)` → 20
+* `lower(20)` → 10
+* `ceiling(11)` → 20
+* `floor(11)` → 10
+
+## Important Interview Point
+
+Used when you need sorted data + nearest higher/lower searching.
+
+---
+
+# Q31. What is Collections class and why use it?
+
+## Correct Answer
+
+`Collections` is a utility class in `java.util` package.
+It contains static methods to perform common operations on collection objects.
+
+Common methods:
+
+* `Collections.sort(List)` → Sort list
+* `Collections.sort(List, Comparator)` → Sort custom objects
+* `Collections.max(Collection)` → Largest value
+* `Collections.min(Collection)` → Smallest value
+* `Collections.reverse(List)` → Reverse list
+* `Collections.shuffle(List)` → Random order
+* `Collections.synchronizedList(List)` → Thread-safe list
+* `Collections.synchronizedMap(Map)` → Thread-safe map
+
+## Simple Explanation
+
+`Collections` = Helper class for Collection Framework.
+
+It helps in:
+
+* Sorting
+* Reversing
+* Finding min/max
+* Making synchronized collections
+
+## Important Interview Point
+
+`Collections` is a **class**, not an interface.
+
+---
+
+# Q32. Explain the difference between Collection and Collections?
+
+## Correct Answer
+
+| Collection                                 | Collections                            |
+| ------------------------------------------ | -------------------------------------- |
+| Interface                                  | Utility class                          |
+| Part of Collection Framework               | Helper class for collection operations |
+| Parent interface of `List`, `Set`, `Queue` | Contains static methods                |
+| Stores groups of objects                   | Performs operations on collections     |
+
+### Example
+
+`Collection`
+
+```java
+List<Integer> list = new ArrayList<>();
+```
+
+`Collections`
+
+```java
+Collections.sort(list);
+```
+
+## Simple Explanation
+
+* **Collection** → Used to store objects.
+* **Collections** → Used to operate on stored objects.
+
+## Important Interview Point
+
+**Collection = Interface**
+**Collections = Utility Class**
+
+---
+
+# Q33. Explain 5 methods of Collections class
+
+## Correct Answer
+
+### 1. `sort(List)`
+
+Sorts list in ascending order.
+
+```java
+Collections.sort(list);
+```
+
+### 2. `reverse(List)`
+
+Reverses the list.
+
+```java
+Collections.reverse(list);
+```
+
+### 3. `max(Collection)`
+
+Returns maximum value.
+
+```java
+Collections.max(list);
+```
+
+### 4. `min(Collection)`
+
+Returns minimum value.
+
+```java
+Collections.min(list);
+```
+
+### 5. `shuffle(List)`
+
+Randomly shuffles elements.
+
+```java
+Collections.shuffle(list);
+```
+
+Extra important:
+
+* `binarySearch()`
+* `synchronizedList()`
+* `swap()`
+* `fill()`
+
+## Simple Explanation
+
+These methods help manipulate collections easily.
+
+## Important Interview Point
+
+Almost all methods in `Collections` are static.
+
+---
+
+# Q34. Explain the difference between Comparable and Comparator interface?
+
+## Correct Answer
+
+| Comparable                 | Comparator                             |
+| -------------------------- | -------------------------------------- |
+| Package: `java.lang`       | Package: `java.util`                   |
+| Used for natural sorting   | Used for custom sorting                |
+| Single sorting logic       | Multiple sorting logic possible        |
+| Method: `compareTo()`      | Method: `compare()`                    |
+| Class itself implements it | Separate class/lambda can implement it |
+| `Collections.sort(list)`   | `Collections.sort(list, comparator)`   |
+
+### Example
+
+Sort employee by ID → Comparable
+Sort employee by salary/name → Comparator
+
+## Simple Explanation
+
+**Comparable**
+→ Sorting inside the class itself.
+
+**Comparator**
+→ Sorting outside the class.
+
+## Important Interview Point
+
+Use:
+
+* **Comparable** → Default sorting
+* **Comparator** → Flexible/custom sorting
+
+---
+
+Great. Continuing with **Q35 → Q40**.
+
+---
+
+# Q35. How can we convert an asynchronous collection or map into a synchronized collection?
+
+## Correct Answer
+
+Java provides synchronized wrapper methods in the `Collections` class.
+
+Methods:
+
+* `Collections.synchronizedList(List)`
+* `Collections.synchronizedSet(Set)`
+* `Collections.synchronizedMap(Map)`
+* `Collections.synchronizedCollection(Collection)`
+
+### Example
+
+```java
+List<Integer> list = new ArrayList<>();
+List<Integer> syncList = Collections.synchronizedList(list);
+
+Map<Integer, String> map = new HashMap<>();
+Map<Integer, String> syncMap = Collections.synchronizedMap(map);
+```
+
+## Simple Explanation
+
+Normal collections like `ArrayList` and `HashMap` are not thread-safe.
+To make them safe for multiple threads, wrap them using `Collections.synchronized...()`.
+
+## Important Interview Point
+
+Synchronized collection = thread-safe, but often slower than non-synchronized collections.
+
+---
+
+# Q36. Which algorithm is used by Comparable and Comparator for sorting?
+
+## Correct Answer
+
+`Comparable` and `Comparator` do **not perform sorting themselves**.
+They only provide comparison logic.
+
+They are used by:
+
+* `Collections.sort()`
+* `Arrays.sort()`
+
+### Sorting algorithms
+
+* For **Object sorting** → Java uses **TimSort**
+* For primitive arrays → optimized sorting (Dual-Pivot QuickSort in many JDK implementations)
+
+## Simple Explanation
+
+`Comparable` and `Comparator` decide **how to compare**, while Java sorting methods decide **how to sort**.
+
+## Important Interview Point
+
+* `compareTo()` → Comparable
+* `compare()` → Comparator
+
+---
+
+# Q37. What is Map interface and why use it?
+
+## Correct Answer
+
+`Map` is an interface in `java.util`.
+It stores data as **key-value pairs**.
+
+Properties:
+
+* Key must be unique
+* Value can be duplicate
+* Not a child of `Collection`
+
+Common methods:
+
+* `put(K,V)`
+* `get(key)`
+* `remove(key)`
+* `containsKey()`
+* `containsValue()`
+* `keySet()`
+* `values()`
+* `entrySet()`
+
+## Simple Explanation
+
+Map is used when data has a relationship like:
+
+* ID → Name
+* Username → Password
+* Country → Capital
+
+Example:
+
+```java
+Map<Integer,String> map = new HashMap<>();
+map.put(1,"Java");
+```
+
+## Important Interview Point
+
+Map stores **unique keys + duplicate values allowed**.
+
+---
+
+# Q38. Explain HashMap in detail
+
+## Correct Answer
+
+`HashMap` is a class that implements `Map`.
+It stores data in key-value pairs.
+
+Features:
+
+* Keys are unique
+* Values can be duplicate
+* Unordered (no insertion order guarantee)
+* Allows one `null` key
+* Allows multiple `null` values
+* Not synchronized
+* Average O(1) for insert/search/delete
+
+### Internal working
+
+Uses:
+
+* Hashing
+* Buckets
+* Hash table
+* Collision handling
+
+Java 8:
+If many collisions happen in one bucket, linked list can convert to **Red-Black Tree** for better performance.
+
+## Constructors
+
+```java
+HashMap()
+HashMap(int initialCapacity)
+HashMap(int initialCapacity, float loadFactor)
+HashMap(Map m)
+```
+
+## Simple Explanation
+
+HashMap is fast and widely used for storing key-value data.
+
+## Important Interview Point
+
+Best when order is not important.
+
+---
+
+# Q39. Explain LinkedHashMap
+
+## Correct Answer
+
+`LinkedHashMap` is a child class of `HashMap`.
+
+Features:
+
+* Stores key-value pairs
+* Maintains insertion order
+* Unique keys
+* Duplicate values allowed
+* Allows one null key
+* Faster lookup like HashMap (average O(1))
+
+Internally uses:
+
+* Hash table + doubly linked list
+
+## Simple Explanation
+
+It is like HashMap but remembers the order of insertion.
+
+Example:
+Insert:
+`10, 20, 30`
+
+Output:
+`10, 20, 30`
+
+## Important Interview Point
+
+Use when both **fast access + insertion order** are needed.
+
+---
+
+# Q40. Explain TreeMap
+
+## Correct Answer
+
+`TreeMap` is a class that implements `NavigableMap`.
+
+Features:
+
+* Stores key-value pairs
+* Keys are automatically sorted (ascending order)
+* Unique keys
+* Duplicate values allowed
+* Does **not allow null key**
+* Allows multiple null values
+* Time complexity = O(log n)
+
+Internally uses:
+
+* **Red-Black Tree** (self-balancing tree)
+
+### Constructors
+
+```java
+TreeMap()
+TreeMap(Comparator)
+TreeMap(Map)
+TreeMap(SortedMap)
+```
+
+For descending order:
+
+```java
+NavigableMap<Integer,String> map = treeMap.descendingMap();
+```
+
+## Simple Explanation
+
+TreeMap automatically sorts keys.
+
+Example:
+Insert:
+`50, 10, 30`
+
+Output:
+`10, 30, 50`
+
+## Important Interview Point
+
+Use when sorted keys are required.
+
+---
+
+### Quick Comparison
+
+| Feature     | HashMap    | LinkedHashMap    | TreeMap        |
+| ----------- | ---------- | ---------------- | -------------- |
+| Order       | No order   | Insertion order  | Sorted order   |
+| Null Key    | Yes (1)    | Yes (1)          | No             |
+| Null Values | Yes        | Yes              | Yes            |
+| Speed       | O(1)       | O(1)             | O(log n)       |
+| Structure   | Hash Table | Hash Table + DLL | Red-Black Tree |
+
+---
+
+Next: **Q41 → Q47** (TreeMap examples, HashMap vs LinkedHashMap vs TreeMap, Internal Working of HashMap, Red-Black Tree, Generics, ClassCastException).
+
+-----------------------------------------------
+Great. Continuing with **Q41 → Q47** in simple interview-friendly English.
+
+---
+
+# Q41. Difference between HashMap, LinkedHashMap, and TreeMap
+
+## Correct Answer
+
+| Feature         | HashMap              | LinkedHashMap                   | TreeMap                             |
+| --------------- | -------------------- | ------------------------------- | ----------------------------------- |
+| Order           | No guaranteed order  | Maintains insertion order       | Sorts by key (ascending by default) |
+| Data Structure  | Hash Table           | Hash Table + Doubly Linked List | Red-Black Tree                      |
+| Null Key        | One null key allowed | One null key allowed            | Null key not allowed                |
+| Null Values     | Multiple allowed     | Multiple allowed                | Multiple allowed                    |
+| Time Complexity | O(1) average         | O(1) average                    | O(log n)                            |
+| Synchronization | Not synchronized     | Not synchronized                | Not synchronized                    |
+
+## Simple Explanation
+
+* **HashMap** → Fast, no order.
+* **LinkedHashMap** → Fast + keeps insertion order.
+* **TreeMap** → Keeps keys sorted.
+
+## Important Interview Point
+
+Choose based on requirement:
+
+* Need speed → `HashMap`
+* Need insertion order → `LinkedHashMap`
+* Need sorted keys → `TreeMap`
+
+---
+
+# Q42. How does HashMap work internally?
+
+## Correct Answer
+
+`HashMap` stores data in **key-value pairs** using hashing.
+
+### Steps:
+
+1. Key is passed to `put(key, value)`
+2. Java calculates `hashCode()` of the key
+3. Hash value decides the bucket index
+4. Entry is stored in that bucket
+5. If two keys map to same bucket → collision occurs
+6. Java handles collision using:
+
+   * Linked List (before Java 8)
+   * Linked List → Red-Black Tree if bucket becomes large (Java 8+)
+
+## Simple Explanation
+
+HashMap finds a bucket using the key’s hash and stores data there.
+
+## Important Interview Point
+
+Main concepts:
+
+* `hashCode()`
+* Bucket
+* Collision
+* Equals method
+* Red-Black Tree
+
+---
+
+# Q43. What is Collision in HashMap?
+
+## Correct Answer
+
+Collision happens when **two different keys generate the same bucket index**.
+
+Example:
+
+```java
+key1 → bucket 2
+key2 → bucket 2
+```
+
+Both keys go into same bucket.
+
+### Collision Handling
+
+Java uses:
+
+* Linked List
+* Red-Black Tree (Java 8+ if bucket becomes large)
+
+## Simple Explanation
+
+Two different keys trying to store data in same bucket = collision.
+
+## Important Interview Point
+
+Collision affects performance if too many occur.
+
+---
+
+# Q44. What is Red-Black Tree?
+
+## Correct Answer
+
+A **Red-Black Tree** is a self-balancing binary search tree.
+
+Properties:
+
+* Every node is Red or Black
+* Root is always Black
+* Keeps tree balanced
+* Search, Insert, Delete → O(log n)
+
+Used in Java:
+
+* `TreeMap`
+* `TreeSet`
+* HashMap bucket optimization (Java 8+)
+
+## Simple Explanation
+
+It is a balanced tree that keeps operations fast.
+
+## Important Interview Point
+
+Why used? → Better performance than long linked lists.
+
+---
+
+# Q45. What is Generics in Java?
+
+## Correct Answer
+
+Generics allow classes, interfaces, and methods to work with **type-safe data**.
+
+Syntax:
+
+```java
+ClassName<T>
+```
+
+Example:
+
+```java
+List<String> list = new ArrayList<>();
+list.add("Java");
+```
+
+Benefits:
+
+* Type safety
+* No explicit casting needed
+* Compile-time error checking
+* Reusable code
+
+## Simple Explanation
+
+Generics let you specify data type in advance.
+
+Without Generics:
+
+```java
+List list = new ArrayList();
+```
+
+Can store anything.
+
+With Generics:
+
+```java
+List<Integer> list = new ArrayList<>();
+```
+
+Only integers allowed.
+
+## Important Interview Point
+
+Generics improve safety and readability.
+
+---
+
+# Q46. Why do we use Generics?
+
+## Correct Answer
+
+We use Generics for:
+
+1. Type safety
+2. Compile-time checking
+3. Avoid ClassCastException
+4. Code reusability
+5. Cleaner code
+
+Example:
+
+```java
+List<String> names = new ArrayList<>();
+```
+
+Only String values allowed.
+
+## Simple Explanation
+
+Generics reduce bugs by restricting wrong data types.
+
+## Important Interview Point
+
+Main advantage = **Type safety at compile time**.
+
+---
+
+# Q47. What is ClassCastException?
+
+## Correct Answer
+
+`ClassCastException` occurs when we try to convert one incompatible object type into another.
+
+Example:
+
+```java
+Object obj = "Java";
+Integer num = (Integer) obj;   // Exception
+```
+
+Output:
+
+```java
+ClassCastException
+```
+
+Why?
+Because String cannot be cast to Integer.
+
+## Simple Explanation
+
+Wrong type casting causes ClassCastException.
+
+## How Generics help
+
+```java
+List<String> list = new ArrayList<>();
+```
+
+Now wrong type insertion/casting is caught earlier.
+
+## Important Interview Point
+
+`ClassCastException` happens at **runtime**, not compile time.
+
+---
+
+Next: **Q48 → Q54** (Wrapper Class, Autoboxing, Unboxing, Final keyword, finally, finalize, and common interview differences).
+Great. Continuing with **Q48 → Q54**.
+
+---
+
+# Q48. What is a Wrapper Class in Java?
+
+## Correct Answer
+
+A **Wrapper Class** is a class that converts a primitive data type into an object.
+
+Java provides wrapper classes for all primitive types.
+
+| Primitive Type | Wrapper Class |
+| -------------- | ------------- |
+| `byte`         | `Byte`        |
+| `short`        | `Short`       |
+| `int`          | `Integer`     |
+| `long`         | `Long`        |
+| `float`        | `Float`       |
+| `double`       | `Double`      |
+| `char`         | `Character`   |
+| `boolean`      | `Boolean`     |
+
+### Example
+
+```java
+int num = 10;
+Integer obj = Integer.valueOf(num);
+```
+
+## Simple Explanation
+
+Primitive types (`int`, `char`, etc.) are not objects.
+Wrapper classes convert them into objects.
+
+## Important Interview Point
+
+Collections like `ArrayList` store objects, so wrapper classes are often used.
+
+---
+
+# Q49. Why do we use Wrapper Classes?
+
+## Correct Answer
+
+Wrapper classes are used because:
+
+1. Collections store objects, not primitives
+2. Utility methods are available (`parseInt()`, `compareTo()`, etc.)
+3. Supports autoboxing and unboxing
+4. Can represent `null` (primitive types cannot)
+
+### Example
+
+```java
+ArrayList<Integer> list = new ArrayList<>();
+list.add(100);
+```
+
+## Simple Explanation
+
+Wrapper classes help when Java needs an object instead of a primitive value.
+
+## Important Interview Point
+
+Primitive → faster, less memory
+Wrapper → object features + utility methods
+
+---
+
+# Q50. What is Autoboxing?
+
+## Correct Answer
+
+Autoboxing is the automatic conversion of a primitive type into its corresponding wrapper object.
+
+### Example
+
+```java
+int a = 10;
+Integer obj = a;   // Autoboxing
+```
+
+Equivalent to:
+
+```java
+Integer obj = Integer.valueOf(a);
+```
+
+## Simple Explanation
+
+Java automatically converts primitive → object.
+
+## Important Interview Point
+
+Autoboxing introduced in **Java 5**.
+
+---
+
+# Q51. What is Unboxing?
+
+## Correct Answer
+
+Unboxing is the automatic conversion of a wrapper object into its corresponding primitive type.
+
+### Example
+
+```java
+Integer obj = 50;
+int num = obj;   // Unboxing
+```
+
+Equivalent to:
+
+```java
+int num = obj.intValue();
+```
+
+## Simple Explanation
+
+Java automatically converts object → primitive.
+
+## Important Interview Point
+
+Unboxing can throw `NullPointerException` if wrapper object is `null`.
+
+Example:
+
+```java
+Integer x = null;
+int y = x;   // NullPointerException
+```
+
+---
+
+# Q52. What is the `final` keyword in Java?
+
+## Correct Answer
+
+`final` is used to restrict modification.
+
+### 1. Final Variable
+
+Value cannot be changed.
+
+```java
+final int x = 10;
+// x = 20;  // Error
+```
+
+### 2. Final Method
+
+Method cannot be overridden.
+
+```java
+final void show() {}
+```
+
+### 3. Final Class
+
+Class cannot be inherited.
+
+```java
+final class Demo {}
+```
+
+Example:
+`String` is a final class.
+
+## Simple Explanation
+
+`final` = cannot change / extend / override.
+
+## Important Interview Point
+
+* Final variable → constant
+* Final method → no overriding
+* Final class → no inheritance
+
+---
+
+# Q53. What is `finally` in Java?
+
+## Correct Answer
+
+`finally` is a block used in exception handling.
+
+It always executes whether exception occurs or not (except special cases like JVM shutdown).
+
+### Example
+
+```java
+try {
+    int a = 10 / 2;
+} catch (Exception e) {
+    System.out.println(e);
+} finally {
+    System.out.println("Always executes");
+}
+```
+
+## Simple Explanation
+
+`finally` is mainly used for cleanup code:
+
+* Closing file
+* Closing database connection
+* Releasing resources
+
+## Important Interview Point
+
+`finally` runs after `try/catch`.
+
+---
+
+# Q54. What is `finalize()` in Java?
+
+## Correct Answer
+
+`finalize()` is a method of the `Object` class.
+
+It was called by Garbage Collector before destroying an object.
+
+Example:
+
+```java
+class Demo {
+    protected void finalize() {
+        System.out.println("Object destroyed");
+    }
+}
+```
+
+## Simple Explanation
+
+It was used for cleanup before object removal.
+
+## Important Technical Accuracy
+
+`finalize()` is **deprecated** (Java 9+) and should not be used in modern Java.
+
+Use:
+
+* `try-with-resources`
+* Explicit cleanup methods
+
+## Important Interview Point
+
+Do not confuse:
+
+* `final` → keyword
+* `finally` → exception block
+* `finalize()` → deprecated method
+
+---
+
+# Quick Difference
+
+| Feature    | final                     | finally                 | finalize()     |
+| ---------- | ------------------------- | ----------------------- | -------------- |
+| Type       | Keyword                   | Block                   | Method         |
+| Purpose    | Restrict changes          | Cleanup after try/catch | Old GC cleanup |
+| Used In    | Variable / Method / Class | Exception handling      | Object class   |
+| Modern Use | Yes                       | Yes                     | Deprecated     |
+
+---
+
+✅ **Q29 → Q54 completed (grammar fixed + technically corrected + interview-friendly explanations).**
+
+If you want, I can continue the same style for **OOP, Exception Handling, Multithreading, JDBC, Collections advanced, and Spring interview questions**.

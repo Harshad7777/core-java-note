@@ -1,0 +1,917 @@
+# Spring Framework Notes
+
+## Topics Covered
+
+1. Spring Core
+2. Spring JDBC
+3. Spring MVC
+4. Spring Security
+5. Spring AOP (Optional)
+
+---
+
+# Q. What is Spring?
+
+Spring is a Java framework used for developing different types of applications.
+It is called a **framework of frameworks** because it provides many modules like Spring Core, Spring MVC, Spring JDBC, Spring Security, etc.
+
+Using Spring Framework we can develop:
+
+* Desktop Applications
+* Database Applications
+* Web Applications
+* Enterprise Applications
+* Distributed Applications
+* Microservices-based Applications
+
+Spring is a very flexible and lightweight framework.
+
+---
+
+# Q. Why use Spring Framework / Benefits of Spring Framework?
+
+## 1. Able to Develop Any Kind of Application
+
+Using Spring Framework we can develop:
+
+* Web applications
+* Enterprise applications
+* Distributed applications
+* REST APIs
+* Microservices
+
+---
+
+## 2. Lightweight Framework
+
+Spring is lightweight because it uses:
+
+* POJO (Plain Old Java Object)
+* Modular Architecture
+
+---
+
+## 3. Dependency Injection (DI)
+
+Spring provides Dependency Injection which reduces tight coupling between classes.
+
+### Without Spring Framework
+
+We create objects manually using `new` keyword.
+
+```java
+Employee emp = new Employee();
+emp.setId(1);
+emp.setName("ABC");
+```
+
+---
+
+### With Spring Framework
+
+Spring automatically creates and manages objects called **Beans**.
+
+### Benefits
+
+* Easier Maintenance
+* Better Code Reusability
+* Easier Testing
+
+---
+
+## 4. Inversion of Control (IOC)
+
+Spring Container (IOC Container) manages the lifecycle of objects.
+
+Developer focuses only on business logic while Spring handles:
+
+* Object creation
+* Dependency management
+* Configuration
+
+---
+
+## 5. Easy Database Integration
+
+Spring simplifies database connectivity using:
+
+* JDBC Template
+* JPA
+* Hibernate
+
+### Benefits
+
+* Less Boilerplate Code
+* Better Exception Handling
+* Easier Transaction Management
+
+---
+
+## 6. Spring Boot Support
+
+Spring Boot is an advanced version of Spring Framework.
+
+Features:
+
+* Auto Configuration
+* Embedded Server (Tomcat)
+* Starter Dependencies
+
+---
+
+## 7. Microservices Support
+
+Spring Boot + Spring Cloud help to develop Microservices easily.
+
+---
+
+## 8. REST API Development
+
+Using Spring and Spring Boot we can develop REST APIs easily.
+
+---
+
+## 9. Security Support
+
+Spring Security provides:
+
+* Authentication
+* Authorization
+* JWT Token Support
+* OAuth2 Support
+* Role-based Access
+
+---
+
+# Q. What is Dependency Injection & Its Types?
+
+Dependency Injection means one object depends on another object.
+
+Example:
+If one class requires another class object to work, it is called dependency injection.
+
+---
+
+# Types of Dependency Injection
+
+## 1. Setter Injection
+
+When dependency is passed using setter methods.
+
+### Example
+
+```java
+class Employee {
+    private int id;
+    private String name;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+Employee emp = new Employee();
+emp.setId(1);
+emp.setName("ABC");
+```
+
+---
+
+## 2. Constructor Injection
+
+When dependency is passed through constructor.
+
+### Example
+
+```java
+public class Employee {
+
+    public Employee(String name, int id) {
+    }
+}
+
+Employee emp = new Employee("ABC", 1);
+```
+
+---
+
+## 3. Collection Dependency
+
+When collection object is passed as dependency.
+
+### Example
+
+```java
+class Company {
+
+    public void setListEmployee(List<String> names) {
+    }
+}
+```
+
+---
+
+## 4. Map Dependency
+
+When `Map` is passed as dependency.
+
+### Example
+
+```java
+class Company {
+
+    public void setListEmployee(Map<Integer, String> map) {
+    }
+}
+```
+
+---
+
+## 5. Object Dependency
+
+When one object depends on another object.
+
+### Example
+
+```java
+class Employee {
+
+    private int id;
+    private String name;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+class Company {
+
+    private Employee emp;
+
+    public void setListEmployee(Employee emp) {
+        this.emp = emp;
+    }
+}
+```
+
+---
+
+## 6. Properties Dependency
+
+When `Properties` object is passed as dependency.
+
+### Example
+
+```java
+class Company {
+
+    public void setProperties(Properties p) {
+    }
+}
+```
+
+---
+
+# Modules in Spring Framework and Their Work
+
+---
+
+# 1. Spring Core
+
+Spring Framework Core module provides basic features of Spring Framework.
+
+Features:
+
+* Object Creation
+* Bean Management
+* Dependency Injection
+* IOC Container
+
+Used to develop console-based applications.
+
+---
+
+# 2. Spring JDBC
+
+Spring JDBC is built on top of JDBC.
+
+It simplifies database operations.
+
+Features:
+
+* JDBC Template
+* Exception Handling
+* Transaction Management
+
+---
+
+# 3. Spring MVC
+
+Spring MVC helps to develop web applications using MVC Architecture.
+
+MVC stands for:
+
+* Model
+* View
+* Controller
+
+---
+
+# 4. Spring Security
+
+Provides security features like:
+
+* Authentication
+* Authorization
+* Password Encryption
+* JWT Authentication
+* Role-Based Access
+
+---
+
+# 5. Spring AOP
+
+Spring AOP stands for Aspect Oriented Programming.
+
+Used for:
+
+* Logging
+* Security
+* Transaction Management
+
+---
+
+# 6. Spring Boot
+
+Spring Boot is an optimized version of Spring Framework.
+
+Features:
+
+* Auto Configuration
+* Embedded Server
+* Faster Development
+
+---
+
+# 7. Spring Boot with JPA
+
+Used to connect database using ORM concepts.
+
+Benefits:
+
+* Less SQL Writing
+* Easy CRUD Operations
+* ORM Support
+
+---
+
+# How to Create Application Using Spring Framework
+
+## Steps
+
+1. Create Maven Project
+2. Add Maven Dependencies
+3. Configure Beans using XML or Annotations
+4. Create Java Classes
+5. Create Spring Container
+6. Get Bean Object from Container
+7. Run Application
+
+---
+
+# Simple Spring Flow
+
+```text
+Client Application
+        ↓
+Spring Container (IOC)
+        ↓
+Create Bean Objects
+        ↓
+Inject Dependencies
+        ↓
+Application Ready
+```
+
+# How to Create Project/Application Using Spring Framework
+
+---
+
+## Step 1: Create Maven Project
+
+Create a Maven project in Eclipse/IDE.
+
+Project Structure:
+
+```bash
+src/main/java
+src/main/resources
+pom.xml
+```
+
+---
+
+## Step 2: Add Spring Dependencies
+
+Add Spring Core and Context dependencies in `pom.xml`
+
+```xml
+<dependencies>
+
+    <!-- Spring Core -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>5.2.3.RELEASE</version>
+    </dependency>
+
+    <!-- Spring Context -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.2.3.RELEASE</version>
+    </dependency>
+
+</dependencies>
+```
+
+---
+
+# Step 3: Create POJO Class (Bean Class)
+
+POJO = Plain Old Java Object
+
+`Employee.java`
+
+```java
+package org.techhub;
+
+public class Employee {
+
+    private int id;
+    private String name;
+    private int sal;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSal() {
+        return sal;
+    }
+
+    public void setSal(int sal) {
+        this.sal = sal;
+    }
+
+    public void show() {
+        System.out.println(id + " " + name + " " + sal);
+    }
+}
+```
+
+---
+
+# Step 4: Configure Bean Using XML
+
+Create XML file inside:
+
+```bash
+src/main/resources
+```
+
+Create file:
+
+```bash
+test.xml
+```
+
+---
+
+## XML Configuration
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="e" class="org.techhub.Employee">
+        <property name="id" value="1"/>
+        <property name="name" value="RAM"/>
+        <property name="sal" value="10000"/>
+    </bean>
+
+</beans>
+```
+
+### Explanation:
+
+### `<bean>`
+
+Used to configure a class as a Spring Bean.
+
+### Attributes:
+
+* **id** → Reference name of bean object
+* **class** → Fully qualified class name
+* **property** → Used for setter injection
+* **name** → Setter variable name
+* **value** → Value passed to setter method
+
+---
+
+# Step 5: Create Client Application
+
+Client class contains `main()` method.
+
+`ClientApplication.java`
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        Employee e = (Employee) context.getBean("e");
+
+        e.show();
+
+        context.close();
+    }
+}
+```
+
+---
+
+# Step 6: Run Application
+
+### Output:
+
+```bash
+1 RAM 10000
+```
+
+---
+
+# Spring Container
+
+Spring Container manages:
+
+* Bean object creation
+* Bean lifecycle
+* Dependency Injection
+* Bean scope
+* Overall Spring application management
+
+Two main containers:
+
+1. **BeanFactory**
+2. **ApplicationContext**
+
+In this project we used:
+`ClassPathXmlApplicationContext`
+
+---
+
+# Flow of Execution
+
+1. Create Maven Project
+2. Add Spring dependencies
+3. Create POJO/Bean class
+4. Configure bean in XML
+5. Create Spring Container
+6. Call `getBean()`
+7. Spring creates object
+8. Setter methods are called
+9. Execute application
+
+---
+
+# Bean Creation Flow
+
+```java
+Employee e = (Employee) context.getBean("e");
+```
+
+Spring internally:
+
+* Finds bean id `"e"`
+* Creates Employee object
+* Calls setter methods
+* Returns object
+
+---
+
+Your notes are about **Setter Injection (Setter Dependency Injection)** and **Constructor Injection (Constructor Dependency Injection)** in Spring. Here is a clean corrected explanation.
+
+---
+
+# 1. Setter Injection / Setter Dependency Injection
+
+Setter Injection means **Spring container injects values into bean properties using setter methods**.
+
+Spring calls setter methods automatically.
+
+### Example
+
+## Bean Class (POJO)
+
+```java
+package org.techhub;
+
+public class Player {
+    private int id;
+    private String name;
+    private int run;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getRun() {
+        return run;
+    }
+
+    public void setRun(int run) {
+        this.run = run;
+    }
+}
+```
+
+---
+
+## XML Configuration (player.xml)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+    <bean id="p" class="org.techhub.Player">
+        <property name="id" value="1"/>
+        <property name="name" value="Virat"/>
+        <property name="run" value="12000"/>
+    </bean>
+</beans>
+```
+
+Here Spring internally calls:
+
+```java
+player.setId(1);
+player.setName("Virat");
+player.setRun(12000);
+```
+
+---
+
+## Client Application
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class PlayerClientApplication {
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("player.xml");
+
+        Player player = (Player) context.getBean("p");
+
+        System.out.println(
+                player.getId() + "\t" +
+                player.getName() + "\t" +
+                player.getRun()
+        );
+
+        context.close();
+    }
+}
+```
+
+### Output
+
+```java
+1   Virat   12000
+```
+
+---
+
+# 2. Constructor Injection / Constructor Dependency Injection
+
+Constructor Injection means **Spring container creates object using constructor and passes values through constructor arguments**.
+
+---
+
+## Example 1: Default Constructor
+
+### Bean Class
+
+```java
+package org.techhub;
+
+public class Test {
+
+    public Test() {
+        System.out.println("I am default constructor");
+    }
+}
+```
+
+---
+
+## XML Configuration
+
+```xml
+<bean id="t" class="org.techhub.Test"/>
+```
+
+Spring automatically calls:
+
+```java
+new Test();
+```
+
+---
+
+## Client Application
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ConstructorInjectApplication {
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("player.xml");
+
+        Test t = (Test) context.getBean("t");
+
+        context.close();
+    }
+}
+```
+
+### Output
+
+```java
+I am default constructor
+```
+
+---
+
+# 3. Constructor Injection with Parameterized Constructor
+
+If a class has **only parameterized constructor**, Spring needs configuration to pass values.
+
+Use:
+
+```xml
+<constructor-arg />
+```
+
+---
+
+## Test.java
+
+```java
+package org.techhub;
+
+public class Test {
+
+    public Test(int x) {
+        System.out.println("I am param constructor " + x);
+    }
+}
+```
+
+---
+
+## XML Configuration
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="p" class="org.techhub.Player">
+        <property name="id" value="1"/>
+        <property name="name" value="Virat"/>
+        <property name="run" value="12000"/>
+    </bean>
+
+    <bean id="t" class="org.techhub.Test">
+        <constructor-arg type="int" value="100"/>
+    </bean>
+
+</beans>
+```
+
+Spring internally calls:
+
+```java
+new Test(100);
+```
+
+---
+
+## Client Application
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ConstructorInjectApplication {
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("player.xml");
+
+        Test t = (Test) context.getBean("t");
+
+        context.close();
+    }
+}
+```
+
+### Output
+
+```java
+I am param constructor 100
+```
+
+---
+
+# Important Difference
+
+| Setter Injection                           | Constructor Injection                |
+| ------------------------------------------ | ------------------------------------ |
+| Uses setter methods                        | Uses constructor                     |
+| Uses `<property>` tag                      | Uses `<constructor-arg>` tag         |
+| Object created first, then values assigned | Values passed while object creation  |
+| Good for optional dependencies             | Good for mandatory dependencies      |
+| Can change values later                    | Values usually fixed during creation |
+
+---
+
+
+
+
+

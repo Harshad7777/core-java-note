@@ -3,10 +3,10 @@
 ## Topics Covered
 
 1. Spring Core
-2. Spring JDBC
+2. Spring JDBC  
 3. Spring MVC
 4. Spring Security
-5. Spring AOP (Optional)
+5. Spring AOP (Aspect-Oriented Programming)
 
 ---
 
@@ -29,7 +29,7 @@ Spring is a very flexible and lightweight framework.
 ---
 
 # Q. Why use Spring Framework / Benefits of Spring Framework?
-
+ 
 ## 1. Able to Develop Any Kind of Application
 
 Using Spring Framework we can develop:

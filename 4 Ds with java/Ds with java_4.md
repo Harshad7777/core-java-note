@@ -6,14 +6,13 @@ Data Structure is a technique to organize, store, and manage data in memory effi
 🔹 Why is Data Structure Important?
 -------------------------------------------------------------
 1️⃣ Interview Perspective
-Most technical interviews test:
 Searching & Sorting
-Arrays, Stack, Queue
+Arrays, Stack, Queue   
 Time & Space Complexity
 Real-world problem solving
 
 2️⃣ Efficiency
-Data Structures help us write:
+Data Structures help us write:  
 Faster code → Minimum Time Complexity
 Optimized memory usage → Minimum Space Complexity
 
@@ -24,7 +23,7 @@ Binary Search → O(log n)
 
 3️⃣ Reusability
 Once a data structure is implemented, it can be reused.
-
+ 
 Example:
 👉 Java Collection Framework
 ArrayList

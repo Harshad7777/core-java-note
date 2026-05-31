@@ -6,7 +6,7 @@ Java is a high-level, object-oriented programming language.
 disadvantages of Java 
 
 1. Slower Performance
-Reason: Java uses the Java Virtual Machine (JVM) which converts bytecode into machine code at runtime.
+Reason: Java uses the Java Virtual Machine (JVM) which converts bytecode into machine code at runtime. 
 
 2. High Memory Usage
 Java programs consume more memory.

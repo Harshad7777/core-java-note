@@ -1933,7 +1933,7 @@ class Department
 Meaning:
 Department → contains → List of Employees
 -------------------------------------------------------------------------
-✅ Combined Payroll Management Code
+✅ Combined Payroll Management Code 
 
 import java.util.*;
 
@@ -2893,45 +2893,28 @@ Duplicate issue → fix using equals() + hashCode()
 
 
 ------------------------------------------------
-Great. I’ll start with **Q29 → Q34** first in clean interview format.
 
 ---
 
-# Q29. Explain the difference between HashSet, LinkedHashSet, and TreeSet?
-
+# Q29. Explain the difference between HashSet, LinkedHashSet, and TreeSet ?
+ 
 ## Correct Answer
 
 | Feature                 | HashSet                               | LinkedHashSet                    | TreeSet                                |
 | ----------------------- | ------------------------------------- | -------------------------------- | -------------------------------------- |
 | Internal Data Structure | Uses `HashMap`                        | Uses `LinkedHashMap`             | Uses `TreeMap`                         |
-| Order                   | Does **not maintain insertion order** | Maintains **insertion order**    | Maintains **sorted (ascending) order** |
+| Order                   | Does **not maintain insertion order** | Maintains **insertion  **        | Maintains **sorted (ascending) order** |
 | Performance             | O(1) average for add/remove/search    | O(1) average                     | O(log n)                               |
-| Null Values             | Allows one `null`                     | Allows one `null`                | Usually does not allow `null`          |
-| Comparison              | Uses `hashCode()` and `equals()`      | Uses `hashCode()` and `equals()` | Uses `compareTo()` or `Comparator`     |
+| Null Values             | Allows one `null`                     | Allows one `null`                | Usually does not allow `null`          | 
+| Comparison              | Uses `hashCode()` and `equals()`      | Uses `hashCode()` and `equals()` | Uses `compareTo()` or `Compa rator`    | 
 
-## Simple Explanation
-
-* **HashSet** → Fast, but order is random.
-* **LinkedHashSet** → Keeps insertion order.
-* **TreeSet** → Automatically sorts data.
-
-## Important Interview Point
-
-Use:
-
-* `HashSet` → Fast lookup
-* `LinkedHashSet` → Order + uniqueness
-* `TreeSet` → Sorted unique data
-
----
 
 # Q30. What is NavigableSet and why use it?
-
+ 
 ## Correct Answer
 
-`NavigableSet` is an interface in Java that extends `SortedSet`.
-It provides navigation methods to work with sorted sets.
-
+NavgableSet is interface which is used for arrange TreeSet data in descending order 
+  
 Useful methods:
 
 * `descendingSet()` → Reverse order
@@ -2939,8 +2922,6 @@ Useful methods:
 * `floor()` → Largest element ≤ given value
 * `higher()` → Next greater element
 * `lower()` → Next smaller element
-
-`TreeSet` implements `NavigableSet`.
 
 ## Simple Explanation
 
@@ -2975,8 +2956,11 @@ Common methods:
 * `Collections.min(Collection)` → Smallest value
 * `Collections.reverse(List)` → Reverse list
 * `Collections.shuffle(List)` → Random order
-* `Collections.synchronizedList(List)` → Thread-safe list
-* `Collections.synchronizedMap(Map)` → Thread-safe map
+* `Collections.synchronizedList(List)` → Thread-safe list this method is used for converting Asynchronized list collection into synchronized list collection.
+* `Collections.synchronizedMap(Map)` → Thread-safe map  this method is used for converting Asynchronized map into synchronized map collection 
+* public static Collection synchronizedCollection(Collection): this method is used for convert asynchronized collection to synchronized collection 
+Etc 
+
 
 ## Simple Explanation
 

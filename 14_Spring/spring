@@ -4,7 +4,7 @@
 
 1. Spring Core
 2. Spring JDBC  
-3. Spring MVC
+3. Spring MVC 
 4. Spring Security
 5. Spring AOP (Aspect-Oriented Programming)
 
@@ -47,7 +47,7 @@ Using Spring Framework we can develop:
 Spring is lightweight because it uses:
 
 * POJO (Plain Old Java Object)
-* Modular Architecture
+* Modular Architecture 
 
 ---
 
@@ -72,8 +72,8 @@ emp.setName("ABC");
 Spring automatically creates and manages objects called **Beans**.
 
 ### Benefits
-
-* Easier Maintenance
+ 
+* Easier Maintenance  
 * Better Code Reusability
 * Easier Testing
 
@@ -83,23 +83,23 @@ Spring automatically creates and manages objects called **Beans**.
 
 Spring Container (IOC Container) manages the lifecycle of objects.
 
-Developer focuses only on business logic while Spring handles:
+Developer focuses only on business logic while Spring handles: 
 
 * Object creation
-* Dependency management
+* Dependency management 
 * Configuration
 
 ---
 
 ## 5. Easy Database Integration
 
-Spring simplifies database connectivity using:
+ Spring simplifies database connectivity using:
 
 * JDBC Template
 * JPA
 * Hibernate
 
-### Benefits
+### Benefits 
 
 * Less Boilerplate Code
 * Better Exception Handling
@@ -119,7 +119,7 @@ Features:
 
 ---
 
-## 7. Microservices Support
+## 7. Microservices Supporty
 
 Spring Boot + Spring Cloud help to develop Microservices easily.
 
@@ -153,30 +153,361 @@ If one class requires another class object to work, it is called dependency inje
 ---
 
 # Types of Dependency Injection
+# Setter Injection (Setter Dependency Injection)
 
-## 1. Setter Injection
+## Definition
 
-When dependency is passed using setter methods.
+Setter Injection (or Setter Dependency Injection) is a type of **Dependency Injection (DI)** in which Spring injects values into a bean using **setter methods**.
 
-### Example
+The Spring IOC Container creates the object and calls the setter methods automatically to inject the required values.
+
+---
+
+## Why Setter Injection?
+
+Without Spring, values are assigned manually:
 
 ```java
-class Employee {
+Player p = new Player();
+p.setId(1);
+p.setName("Virat");
+p.setRun(12000);
+```
+
+With Spring, the container automatically injects these values through XML configuration.
+
+---
+
+## Advantages of Setter Injection
+
+1. Easy to implement.
+2. Supports optional dependencies.
+3. Values can be modified after object creation.
+4. Improves readability.
+5. Promotes Loose Coupling.
+6. Easy maintenance and testing.
+
+---
+
+# Steps to Develop the Application
+
+## Step 1: Create Maven Project
+
+Create a Maven Project in Eclipse/STS.
+
+Project Structure:
+
+```text
+SetterInjectionDemo
+|
+|-- src/main/java
+|-- src/main/resources
+|-- pom.xml
+```
+
+---
+
+## Step 2: Add Maven Dependencies
+
+### pom.xml
+
+```xml
+<dependencies>
+
+    <!-- Spring Core -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>5.3.30</version>
+    </dependency>
+
+    <!-- Spring Context -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.3.30</version>
+    </dependency>
+
+</dependencies>
+```
+
+---
+
+## Step 3: Create POJO (Bean Class)
+
+### Player.java
+
+```java
+package org.techhub;
+
+public class Player {
+
     private int id;
     private String name;
+    private int run;
+
+    public int getId() {
+        return id;
+    }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
-}
 
-Employee emp = new Employee();
-emp.setId(1);
-emp.setName("ABC");
+    public int getRun() {
+        return run;
+    }
+
+    public void setRun(int run) {
+        this.run = run;
+    }
+}
+```
+
+---
+
+## Theory
+
+The `Player` class is called a **POJO (Plain Old Java Object)** because:
+
+* It contains private variables.
+* It provides public getter and setter methods.
+* It does not depend on Spring APIs.
+
+The values of `id`, `name`, and `run` will be injected using setter methods.
+
+---
+
+## Step 4: Configure Bean Using XML
+
+### player.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC
+"-//SPRING//DTD BEAN 2.0//EN"
+"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="p"
+          class="org.techhub.Player">
+
+        <property name="id" value="1"/>
+
+        <property name="name"
+                  value="Virat"/>
+
+        <property name="run"
+                  value="12000"/>
+
+    </bean>
+
+</beans>
+```
+
+---
+
+## Theory of XML Tags
+
+### `<bean>`
+
+Used to create and manage objects in Spring Container.
+
+```xml
+<bean id="p"
+      class="org.techhub.Player">
+```
+
+| Attribute | Description                |
+| --------- | -------------------------- |
+| id        | Unique bean identifier     |
+| class     | Fully qualified class name |
+
+---
+
+### `<property>`
+
+Used for Setter Injection.
+
+```xml
+<property name="id" value="1"/>
+```
+
+Spring internally calls:
+
+```java
+player.setId(1);
+```
+
+Similarly,
+
+```xml
+<property name="name" value="Virat"/>
+```
+
+calls
+
+```java
+player.setName("Virat");
+```
+
+and
+
+```xml
+<property name="run" value="12000"/>
+```
+
+calls
+
+```java
+player.setRun(12000);
+```
+
+---
+
+## Step 5: Create Client Application
+
+### PlayerClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class PlayerClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("player.xml");
+
+        Player player =
+                (Player) context.getBean("p");
+
+        System.out.println(
+                player.getId() + "\t" +
+                player.getName() + "\t" +
+                player.getRun());
+
+        context.close();
+    }
+}
+```
+
+---
+
+## Theory of Client Application
+
+### ClassPathXmlApplicationContext
+
+```java
+ClassPathXmlApplicationContext context =
+new ClassPathXmlApplicationContext("player.xml");
+```
+
+Purpose:
+
+* Loads XML configuration file.
+* Creates Spring Container.
+* Creates all beans defined in XML.
+* Injects dependencies automatically.
+
+---
+
+### getBean()
+
+```java
+Player player =
+(Player) context.getBean("p");
+```
+
+Purpose:
+
+Returns the bean object created by Spring.
+
+Equivalent to:
+
+```java
+Player player = new Player();
+```
+
+but Spring creates and manages the object.
+
+---
+
+## Output
+
+```text
+1    Virat    12000
+```
+
+---
+
+# Internal Working of Setter Injection
+
+When Spring reads:
+
+```xml
+<property name="id" value="1"/>
+```
+
+it internally performs:
+
+```java
+Player p = new Player();
+
+p.setId(1);
+p.setName("Virat");
+p.setRun(12000);
+```
+
+Thus Spring injects values through setter methods.
+
+---
+
+# Flow Diagram
+
+```text
+player.xml
+    |
+    v
+Spring Container
+    |
+    v
+Creates Player Object
+    |
+    v
+Calls setId(1)
+Calls setName("Virat")
+Calls setRun(12000)
+    |
+    v
+Ready Bean Object
+    |
+    v
+getBean("p")
+    |
+    v
+Output
+```
+
+### Q2. Which XML tag is used for Setter Injection?
+
+```xml
+<property>
+```
+
+
 ```
 
 ---

@@ -2910,21 +2910,21 @@ Duplicate issue → fix using equals() + hashCode()
 
 
 # Q30. What is NavigableSet and why use it?
- 
+
 ## Correct Answer
 
-NavgableSet is interface which is used for arrange TreeSet data in descending order 
-  
+NavgableSet is interface which is used for arrange TreeSet data in descending order   
+   
 Useful methods:
 
 * `descendingSet()` → Reverse order
 * `ceiling()` → Smallest element ≥ given value
 * `floor()` → Largest element ≤ given value
 * `higher()` → Next greater element
-* `lower()` → Next smaller element
+* `lower()` → Next smaller element 
 
 ## Simple Explanation
-
+ 
 `NavigableSet` helps move forward/backward in sorted data.
 
 Example:
@@ -2939,7 +2939,39 @@ If set = `[5, 10, 20, 30]`
 
 Used when you need sorted data + nearest higher/lower searching.
 
----
+import java.util.*;
+
+public class HashSetApplication {
+
+    public static void main(String[] args) {
+
+        TreeSet<Integer> hs = new TreeSet<>();
+
+        hs.add(100);
+        hs.add(5);
+        hs.add(20);
+        hs.add(22);
+        hs.add(34);
+        hs.add(21);
+        hs.add(5);   // Duplicate
+        hs.add(9);
+        hs.add(3);
+
+        System.out.println("Arrange data by default in ascending order");
+
+        for(Integer obj : hs) {
+            System.out.print(obj + "\t");
+        }
+
+        NavigableSet<Integer> nav = hs.descendingSet();
+
+        System.out.println("\n\nArrange data in descending order");
+
+        for(Integer obj : nav) {
+            System.out.print(obj + "\t");
+        }
+    }
+}---
 
 # Q31. What is Collections class and why use it?
 

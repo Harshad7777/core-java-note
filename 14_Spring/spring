@@ -12,7 +12,7 @@
 
 # Q. What is Spring?
 
-Spring is a Java framework used for developing different types of applications.
+Spring is an open-source Java framework used to develop the any kind of application .
 It is called a **framework of frameworks** because it provides many modules like Spring Core, Spring MVC, Spring JDBC, Spring Security, etc.
 
 Using Spring Framework we can develop:
@@ -75,7 +75,7 @@ Spring automatically creates and manages objects called **Beans**.
  
 * Easier Maintenance  
 * Better Code Reusability
-* Easier Testing
+* Easier Testing 
 
 ---
 
@@ -93,11 +93,11 @@ Developer focuses only on business logic while Spring handles:
 
 ## 5. Easy Database Integration
 
- Spring simplifies database connectivity using:
+Spring simplifies database connectivity using:
 
 * JDBC Template
 * JPA
-* Hibernate
+* Hibernate 
 
 ### Benefits 
 
@@ -118,7 +118,7 @@ Features:
 * Starter Dependencies
 
 ---
-
+ 
 ## 7. Microservices Supporty
 
 Spring Boot + Spring Cloud help to develop Microservices easily.
@@ -148,7 +148,7 @@ Spring Security provides:
 Dependency Injection means one object depends on another object.
 
 Example:
-If one class requires another class object to work, it is called dependency injection.
+If one class requires another class object to work, it is called dependency injection. 
 
 # Types of Dependency Injection
 
@@ -190,7 +190,7 @@ Spring internally invokes the constructor and passes the required values.
 
 When a collection object such as List, Set, or Queue is injected into a bean, it is called Collection Dependency.
 
-```java
+```java 
 private List<String> employees;
 ```
 
@@ -236,16 +236,6 @@ Correct Example:
 private Properties properties;
 ```
 
-**Note:** Your notes incorrectly used:
-
-```java
-Properties<Integer,String>
-```
-
-This is invalid because `Properties` is not a generic class.
-
----
-
 # Modules in Spring Framework and Their Work
  
 ---
@@ -257,7 +247,7 @@ Spring Core is the fundamental module of the Spring Framework. It provides the b
 Features: 
 
 * Inversion of Control (IoC) 
-* Dependency Injection (DI)
+* Dependency Injection (DI) 
 * Bean Creation and Management
 * Bean Lifecycle Management
 * Configuration Management
@@ -333,7 +323,7 @@ Examples:
 * Security
 * Transaction Management
 * Auditing
-* Exception Handling
+* Exception Handling 
 
 ---
 
@@ -343,7 +333,7 @@ Spring Boot is built on top of the Spring Framework and reduces configuration ef
 
 Features:
 
-* Auto Configuration
+* Auto Configurationl
 * Embedded Servers (Tomcat, Jetty)
 * Starter Dependencies
 * Production-Ready Features
@@ -498,6 +488,7 @@ src/main/resources
 
 ## What is the `<beans>` Tag?
 
+ 
 The `<beans>` tag is the root element of a Spring configuration file. It contains one or more bean definitions.
 
 ```xml
@@ -597,12 +588,12 @@ Types of Spring Containers:
 
 * Basic Container
 * Lazy Initialization
-* Lightweight
+* Lightweight 
 
 ### 2. ApplicationContext
 
 * Advanced Container
-* Supports Events
+* Supports Events   
 * Supports Internationalization
 * Supports Annotation-Based Configuration
 
@@ -625,26 +616,28 @@ public class ClientApplication {
 
     public static void main(String[] args) {
 
+        // Create Spring IoC Container and load test.xml
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("test.xml");
 
-        Employee e =
-                (Employee) context.getBean("e");
+        // Retrieve Employee bean from the container
+        Employee e = (Employee) context.getBean("e");
 
+        // Call business method
         e.show();
 
+        // Close the container
         context.close();
     }
 }
 ```
 
 ---
-
+ 
 # How `getBean()` Works
 
 ```java
-Employee e =
-        (Employee) context.getBean("e");
+Employee e = (Employee) context.getBean("e");
 ```
 
 Explanation:
@@ -654,6 +647,23 @@ Explanation:
 3. If the bean exists, Spring returns the object.
 4. The object is type-cast to `Employee`.
 
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="e" class="org.techhub.Employee">
+
+        <property name="id" value="1"/>
+        <property name="name" value="RAM"/>
+        <property name="sal" value="10000"/>
+
+    </bean>
+
+</beans>
+
 Internally Spring performs:
 
 ```java
@@ -662,12 +672,2624 @@ e.setId(1);
 e.setName("RAM");
 e.setSal(10000);
 ```
-
 and returns the fully initialized object from the IoC Container.
 
 
 
+# Setter Injection (Setter Dependency Injection)
+
+## Definition
+
+**Setter Injection** is a type of **Dependency Injection (DI)** in which the Spring IoC Container injects values or dependent objects into a bean by calling its **setter methods**.
+
+In Setter Injection, the bean must provide **public setter methods** for all the properties that need to be injected.
+
+--- 
+
+# Steps to Develop the Application
+
+### Step 1: Create a Maven Project
+
+Create a Maven project in your IDE (STS/Eclipse/IntelliJ).
+
+---
+
+### Step 2: Add Required Dependencies
+
+Add the following Spring dependencies in `pom.xml`.
+
+```xml
+<dependencies>
+
+    <!-- Spring Core -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>6.2.8</version>
+    </dependency>
+
+    <!-- Spring Context -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>6.2.8</version>
+    </dependency>
+
+</dependencies>
+```
+
+---
+
+## Step 3: Create POJO (Bean Class)
+
+**Player.java**
+
+```java
+package org.techhub;
+
+public class Player {
+
+    private int id;
+    private String name;
+    private int run;
+
+    public Player() {
+        System.out.println("Player Object Created");
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getRun() {
+        return run;
+    }
+
+    public void setRun(int run) {
+        this.run = run;
+    }
+}
+```
+
+---
+
+## Step 4: Configure Bean in XML
+
+Create **player.xml** inside the `src/main/resources` folder.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="p" class="org.techhub.Player">
+
+        <property name="id" value="1"/>
+
+        <property name="name" value="Virat"/>
+
+        <property name="run" value="12000"/>
+
+    </bean>
+
+</beans>
+```
+
+### Explanation
+
+* `id` → Bean ID
+* `class` → Fully Qualified Class Name
+* `<property>` → Used for Setter Injection.
+* `name` → Setter method property name.
+* `value` → Value injected by Spring Container.
+
+---
+
+## Step 5: Create Client Application
+
+**PlayerClientApplication.java**
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class PlayerClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("player.xml");
+
+        Player player = (Player) context.getBean("p");
+
+        System.out.println(player.getId() + "\t"
+                + player.getName() + "\t"
+                + player.getRun());
+
+        context.close();
+    }
+}
+```
+
+---
+
+# Output
+
+```
+Player Object Created
+1    Virat    12000
+```
+
+---
+
+# How Setter Injection Works
+
+When the Spring Container starts:
+
+1. Reads the XML configuration.
+2. Creates the `Player` object using the default constructor.
+3. Calls `setId(1)`.
+4. Calls `setName("Virat")`.
+5. Calls `setRun(12000)`.
+6. Stores the bean in the IoC Container.
+7. Returns the bean when `getBean("p")` is called.
+---
+
+# Advantages of Setter Injection
+
+* Easy to understand and implement.
+* Supports optional properties.
+* Values can be modified after object creation.
+* Improves loose coupling.
+* Easy to test.
+
+---
+
+# Disadvantages of Setter Injection
+
+* Object may remain partially initialized if some setters are not called.
+* Dependencies are mutable (can be changed after object creation).
+* Not suitable when all dependencies are mandatory.
+
+---
+
+# Interview Questions
+
+### 1. What is Setter Injection?
+
+Setter Injection is a Dependency Injection technique in which Spring injects values or dependent objects into a bean using setter methods.
+
+---
+
+### 2. Which XML tag is used for Setter Injection?
+
+```xml
+<property>
+```
+
+---
+
+### 3. Which method is called during Setter Injection?
+
+Spring calls the setter methods such as:
+
+```java
+setId()
+setName()
+setRun()
+```
+
+---
+
+### 4. Is the default constructor required?
+
+**Yes.** Spring first creates the object using the default (no-argument) constructor and then injects values through the setter methods.
+
+---
+
+### 5. Which is better: Constructor Injection or Setter Injection?
+
+* **Constructor Injection:** Best for mandatory dependencies because it ensures the object is fully initialized.
+* **Setter Injection:** Best for optional dependencies because properties can be set or changed after object creation.
+
+---
+
+---
+
+# Constructor Dependency Injection (Constructor Injection)
+
+## Definition
+
+> **When Spring creates an object using a constructor and passes the required parameters automatically, it is called Constructor Dependency Injection.**
+
+---
+
+## Important Note
+
+### Case 1: Default Constructor
+
+If a bean class contains **only a default (no-argument) constructor**, the Spring container automatically calls it while creating the object.
+
+In this case, the developer **does not need to configure `<constructor-arg>`**.
+
+---
+
+# Example 1 : Constructor Injection using Default Constructor
+
+## Test.java
+
+```java
+package org.techhub;
+
+public class Test 
+{
+    public Test() 
+    {
+        System.out.println("I am Default Constructor");
+    }
+}
+```
+
+---
+
+## player.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="t" class="org.techhub.Test"/>
+
+</beans>
+```
+
+---
+
+## ConstructorInjectApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ConstructorInjectApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("player.xml");
+
+        Test t = (Test) context.getBean("t");
+
+        context.close();
+    }
+}
+```
+
+---
+
+## Internal Working
+
+When
+
+```java
+context.getBean("t");
+```
+
+is executed, Spring internally creates the object as
+
+```java
+new Test();
+```
+
+Therefore the output is
+
+```
+I am Default Constructor
+```
+
+---
+
+# Important Point
+
+Suppose the class contains **only a parameterized constructor**.
+
+Example
+
+```java
+public class Test {
+
+    public Test(int x) {
+        System.out.println(x);
+    }
+}
+```
+
+and XML configuration is
+
+```xml
+<bean id="t" class="org.techhub.Test"/>
+```
+
+Now when Spring tries to create the object,
+
+```java
+context.getBean("t");
+```
+
+it searches for a default constructor.
+
+Since **no default constructor exists**, Spring **cannot create the object** and throws a **BeanCreationException** at runtime.
+
+Therefore, whenever a class has only parameterized constructors, we must configure constructor arguments using **`<constructor-arg>`**.
+
+---
+
+# How to Pass Parameters to Constructor using XML
+
+Spring provides the **`<constructor-arg>`** tag.
+
+Syntax
+
+```xml
+<constructor-arg
+        value="..."
+        type="..."
+        index="..."/>
+```
+
+### Attributes
+
+| Attribute | Description                                       |
+| --------- | ------------------------------------------------- |
+| value     | Value to be passed to constructor                 |
+| type      | Data type of constructor parameter                |
+| index     | Position of constructor parameter (starts from 0) |
+| ref       | Used to pass another bean object                  |
+
+---
+
+# Example 2 : Constructor Injection using Parameterized Constructor
+
+## Test.java
+
+```java
+package org.techhub;
+
+public class Test {
+
+    public Test(int x) {
+
+        System.out.println("I am Parameterized Constructor : " + x);
+    }
+}
+```
+
+---
+
+## player.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="t" class="org.techhub.Test">
+
+        <constructor-arg type ="int" value="100"/>
+
+    </bean>
+
+</beans>
+```
+
+> Since there is only one `int` parameter, specifying `type` or `index` is optional.
+
+---
+
+## ConstructorInjectApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ConstructorInjectApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("player.xml");
+
+        Test t = (Test) context.getBean("t");
+
+        context.close();
+    }
+}
+```
+
+---
+
+## Internal Working
+
+Spring internally creates the object as
+
+```java
+new Test(100);
+```
+
+Output
+
+```
+I am Parameterized Constructor : 100
+```
+
+---
+
+# Interview Questions
+
+### Q2. When is `<constructor-arg>` required?
+
+**Answer:**
+
+`<constructor-arg>` is required when a bean class has a parameterized constructor and Spring needs values or object references to create the object.
+
+---
+
+### Q3. What happens if a class has only a parameterized constructor but no `<constructor-arg>` is configured?
+
+**Answer:**
+
+Spring cannot find a matching constructor, so it throws a **BeanCreationException** at runtime.
+
+---
+
+# 3. Field Dependency Injection
+
+## Definition 
+
+Field Dependency Injection means the Spring IoC Container injects the dependency **directly into the field (instance variable)** using annotations such as `@Autowired`.
+
+The developer does **not** need to create a constructor or setter method.
+
+---
+
+## Example
+
+### Department.java
+
+```java
+package org.techhub;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Department {
+
+    public void display() {
+        System.out.println("Department Object Created");
+    }
+}
+```
+
+---
+
+### Employee.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Employee {
+
+    @Autowired
+    private Department department;
+
+    public void show() {
+        department.display();
+    }
+}
+```
+
+---
+
+### Main Class
+
+```java
+package org.techhub;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ApplicationContext context =
+                new AnnotationConfigApplicationContext(AppConfig.class);
+
+        Employee emp = context.getBean(Employee.class);
+        emp.show();
+    }
+}
+```
+
+---
+
+### AppConfig.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "org.techhub")
+public class AppConfig {
+
+}
+```
+
+---
+
+## How It Works
+
+1. Spring creates the `Department` bean.
+2. Spring creates the `Employee` bean.
+3. Spring finds the `@Autowired` annotation.
+4. Spring injects the `Department` object directly into the `department` field.
+5. The `show()` method uses the injected object.
+
+---
+
+## Advantages
+
+* Very little code.
+* No need to write setter methods or constructors.
+* Easy and quick to implement.
+
+---
+
+## Disadvantages
+
+* Creates tight coupling with the Spring Framework.
+* Dependencies are hidden, making the class harder to understand.
+* Difficult to write unit tests without Spring.
+* Does not support immutable objects.
+
+---
+
+# Comparison of All Three Types
+
+| Feature          | Setter Injection                       | Constructor Injection                              | Field Injection                     |
+| ---------------- | -------------------------------------- | -------------------------------------------------- | ----------------------------------- |
+| Injection Method | Setter method                          | Constructor                                        | Directly into field                 |
+| Annotation/XML   | `<property>` or `@Autowired` on setter | `<constructor-arg>` or `@Autowired` on constructor | `@Autowired` on field               |
+| Dependency Type  | Optional                               | Mandatory                                          | Usually mandatory                   |
+| Testability      | Good                                   | Excellent                                          | Poor                                |
+| Immutability     | No                                     | Yes                                                | No                                  |
+| Recommended      | For optional dependencies              | ✅ Best practice                                   | Not recommended for production code |
+
+### Interview Note
+
+There are **three commonly used dependency injection types** in Spring:
+
+1. **Setter Dependency Injection**
+2. **Constructor Dependency Injection** ✅ (Most recommended)
+3. **Field Dependency Injection** (`@Autowired` on fields)
+
+---
 
 
+# Collection Dependencies in Spring
+
+---
+
+## What is Collection Dependency?
+
+Collection Dependency means injecting a **collection object** such as **List, Set, Map, or Properties** into a Spring bean through the Spring IoC Container.
+
+A collection can be injected either:
+
+* Using **Setter Injection**
+* Using **Constructor Injection**
+
+**Definition**
+
+> Collection Dependency Injection is the process of injecting collection objects (List, Set, Map, or Properties) into a Spring bean using Setter Injection or Constructor Injection.
+
+---
+
+# Collection Injection using Setter Injection
+
+---
+
+## Syntax
+
+```xml
+<bean id="ref" class="classname">
+
+    <property name="propertyName">
+
+        <collection>
+
+            <value>value1</value>
+            <value>value2</value>
+            <value>value3</value>
+
+        </collection>
+
+    </property>
+
+</bean>
+```
+
+**Note:**
+
+* `<collection>` is not an actual XML tag.
+* Replace it with one of the following:
+
+  * `<list>`
+  * `<set>`
+  * `<map>`
+  * `<props>`
+
+depending on the collection type.
+
+---
+
+# Example 1 : List Dependency Injection
+
+---
+
+## Employee.java
+
+```java
+package org.techhub;
+
+import java.util.List;
+
+public class Employee {
+
+    private List<String> names;
+
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
+
+    public void showList() {
+
+        System.out.println("Employee Names");
+
+        for(String n : names) {
+            System.out.println(n);
+        }
+    }
+}
+```
+
+---
+
+## test.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="e" class="org.techhub.Employee">
+
+        <property name="names">
+
+            <list>
+
+                <value>ABC</value>
+                <value>MNO</value>
+                <value>PQR</value>
+                <value>ABC</value>
+
+            </list>
+
+        </property>
+
+    </bean>
+
+</beans>
+```
+
+---
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        Employee emp = (Employee)context.getBean("e");
+
+        emp.showList();
+
+        context.close();
+    }
+}
+```
+
+---
+
+## Output
+
+```
+Employee Names
+
+ABC
+MNO
+PQR
+ABC
+```
+
+### Explanation
+
+The Spring IoC Container creates the Employee object.
+It creates a List and stores all the values defined inside the <list> tag.
+The List is injected into the Employee bean by calling the setNames() setter method.
+Finally, when the showList() method is called, all the values stored in the List are displayed.
+Since a List allows duplicate elements, the value ABC is printed twice.
+
+---
+
+# Example 2 : Set Dependency Injection
+
+---
+
+## Dept.java
+
+```java
+package org.techhub;
+
+import java.util.Set;
+
+public class Dept {
+
+    private Set<String> deptNames;
+
+    public void setDeptNames(Set<String> deptNames) {
+        this.deptNames = deptNames;
+    }
+
+    public void showDeptList() {
+
+        System.out.println("Department Names");
+
+        for(String dept : deptNames) {
+            System.out.println(dept);
+        }
+    }
+}
+```
+
+---
+
+## test.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="d" class="org.techhub.Dept">
+
+        <property name="deptNames">
+
+            <set>
+
+                <value>HR</value>
+                <value>DEV</value>
+                <value>PROD</value>
+                <value>HR</value>
+
+            </set>
+
+        </property>
+
+    </bean>
+
+</beans>
+```
+
+---
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        Dept dept = (Dept)context.getBean("d");
+
+        dept.showDeptList();
+
+        context.close();
+    }
+}
+```
+
+---
+
+## Output
+
+```
+Department Names
+
+HR
+DEV
+PROD
+```
+
+### Explanation
+
+* Spring creates a Set object.
+* Values are inserted into the Set.
+* Duplicate values are automatically removed.
+* Therefore **HR** is printed only once.
+
+---
+
+# Map Dependency Injection
+
+---
+
+## What is Map Dependency?
+
+Map Dependency means injecting a **Map** object into a Spring bean using either Setter Injection or Constructor Injection.
+
+Each element of the map consists of a **key-value pair**.
+
+---
+
+## Syntax
+
+```xml
+<bean id="ref" class="classname">
+
+    <property name="propertyName">
+
+        <map>
+
+            <entry key="key1" value="value1"/>
+            <entry key="key2" value="value2"/>
+
+        </map>
+
+    </property>
+
+</bean>
+```
+
+---
+
+# Example : Map Injection using Setter Injection
+
+---
+
+## Dept.java
+
+```java
+package org.techhub;
+
+import java.util.Map;
+import java.util.Set;
+
+public class Dept {
+
+    private Map<Integer,String> dept;
+
+    public void setDept(Map<Integer,String> dept) {
+        this.dept = dept;
+    }
+
+    public void showList() {
+
+        Set<Map.Entry<Integer,String>> set = dept.entrySet();
+
+        for(Map.Entry<Integer,String> entry : set) {
+
+            System.out.println(entry.getKey() + "\t" + entry.getValue());
+
+        }
+    }
+}
+```
+
+---
+
+## test.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="d" class="org.techhub.Dept">
+
+        <property name="dept">
+
+            <map>
+
+                <entry key="1" value="HR"/>
+                <entry key="2" value="DEV"/>
+                <entry key="3" value="PROD"/>
+
+            </map>
+
+        </property>
+
+    </bean>
+
+</beans>
+```
+
+---
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        Dept dept = (Dept)context.getBean("d");
+
+        dept.showList();
+
+        context.close();
+    }
+}
+```
+
+---
+
+## Output
+
+```
+1    HR
+2    DEV
+3    PROD
+```
+
+### Explanation
+
+* Spring creates a Map object.
+* Each `<entry>` represents one key-value pair.
+* The Map is injected into the bean using the `setDept()` method.
+* The `entrySet()` method is used to iterate through the map entries.
+
+---
+
+# Difference Between List, Set and Map Injection
+
+---
+
+| List                      | Set                                | Map                              |
+| ------------------------- | ---------------------------------- | -------------------------------- |
+| Uses `<list>`             | Uses `<set>`                       | Uses `<map>`                     |
+| Stores only values        | Stores only values                 | Stores key-value pairs           |
+| Allows duplicate values   | Does not allow duplicate values    | Keys must be unique              |
+| Maintains insertion order | Does not guarantee insertion order | Stores data as key-value mapping |
+
+---
+
+# Interview Questions
+
+---
+
+**1. What is Collection Dependency Injection?**
+
+Collection Dependency Injection is the process of injecting collection objects such as **List, Set, Map, or Properties** into a Spring bean using Setter Injection or Constructor Injection.
+
+**2. Which collection types can Spring inject?**
+
+* List
+* Set
+* Map
+* Properties
+
+**3. Which XML tags are used for collection injection?**
+
+* `<list>`
+* `<set>`
+* `<map>`
+* `<props>`
+
+**4. What is the difference between List and Set injection?**
+
+* **List** allows duplicate values and maintains insertion order.
+* **Set** does not allow duplicate values.
+
+**5. What is Map Dependency Injection?**
+
+Map Dependency Injection is the process of injecting a `Map<K, V>` object into a Spring bean, where data is stored as **key-value pairs**.
+
+**6. Which XML tag is used to add entries into a Map?**
+
+The `<entry>` tag is used inside the `<map>` tag.
+
+**7. Can Collection Dependency Injection be performed using Constructor Injection?**
+
+Yes. Spring supports both **Setter Injection** and **Constructor Injection** for injecting collections.
+
+
+Your notes are mostly correct, but there are a few grammatical mistakes and one important conceptual mistake. Here's a cleaner and technically accurate version that is suitable for exams and interviews.
+
+---
+
+# Object Dependency in Spring
+
+---
+
+## Definition
+
+**Object Dependency** means when **one class depends on another class object** to perform its work.
+
+In other words, if one class requires an object of another class, it is called **Object Dependency**.
+
+For example:
+
+```java
+public class Courier {
+
+    private Parcel parcel;
+
+    public void setParcel(Parcel parcel) {
+        this.parcel = parcel;
+    }
+}
+```
+
+Here, the `Courier` class depends on the `Parcel` object.
+
+---
+
+# Definition (Simple)
+
+Object Dependency means **passing one class object as a parameter to another class through a constructor or setter method**.
+
+For example:
+
+```java
+public void setParcel(Parcel parcel)
+```
+
+or
+
+```java
+public Courier(Parcel parcel)
+```
+
+Both represent **object dependency**.
+
+---
+
+# Important Terms
+
+## 1. Target Class
+
+The **Target Class** is the class **that uses another class object**.
+
+It is the class into which the dependency is injected.
+
+### Example
+
+```java
+public class Courier {
+
+    private Parcel parcel;
+}
+```
+
+Here,
+
+* **Courier** → Target Class
+* Because it uses the `Parcel` object.
+
+---
+
+## 2. Dependent Class
+
+The **Dependent Class** is the class **whose object is injected into the target class**.
+
+### Example
+
+```java
+public class Parcel {
+}
+```
+
+Here,
+
+* **Parcel** → Dependent Class
+
+
+---
+
+# Example
+
+```java
+public class Parcel {
+
+}
+```
+
+```java
+public class Courier {
+
+    private Parcel parcel;
+
+    public void setParcel(Parcel parcel) {
+        this.parcel = parcel;
+    }
+}
+```
+
+Relationship
+
+```
+Parcel  --------->  Courier
+(object injected)     (uses Parcel)
+
+Dependent Class       Target Class
+```
+
+---
+
+# Managing Object Dependency Using Spring XML
+
+Spring manages object dependency using the **`ref` attribute**.
+
+```xml
+<bean id="p" class="org.techhub.objdep.Parcel"/>
+
+<bean id="c" class="org.techhub.objdep.Courier">
+    <property name="parcel" ref="p"/>
+</bean>
+```
+
+### Explanation
+
+1. Spring creates the `Parcel` bean.
+2. Spring creates the `Courier` bean.
+3. Spring injects the `Parcel` bean into the `parcel` property using the setter method.
+4. The `Courier` object can now use the `Parcel` object.
+
+---
+
+# Example 2
+---
+
+## Company.java
+
+```java
+package org.techhub.objdep;
+
+public class Company {
+
+    private String name;
+    private String TAN;
+    private String PAN;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTAN() {
+        return TAN;
+    }
+
+    public void setTAN(String TAN) {
+        this.TAN = TAN;
+    }
+
+    public String getPAN() {
+        return PAN;
+    }
+
+    public void setPAN(String PAN) {
+        this.PAN = PAN;
+    }
+}
+```
+
+---
+
+## MSME.java (Constructor Injection)
+
+```java
+package org.techhub.objdep;
+
+public class MSME {
+
+    private Company company; //O D
+
+    // Parameterized Constructor
+    public MSME(Company company) {
+        this.company = company;
+    }
+
+    public void showCompanyDetails() {
+        System.out.println(
+            company.getName() + "\t" +
+            company.getTAN() + "\t" +
+            company.getPAN()
+        );
+    }
+}
+```
+
+Here, the constructor parameter
+
+```java
+public MSME(Company company)
+```
+
+is the **dependency** that Spring will inject.
+
+---
+
+## test.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+    "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="comp" class="org.techhub.objdep.Company">
+        <property name="name" value="XYZ"/>
+        <property name="TAN" value="ABC123MNOP"/>
+        <property name="PAN" value="11223344"/>
+    </bean>
+
+    <bean id="m" class="org.techhub.objdep.MSME">
+        <constructor-arg ref="comp"/>
+    </bean>
+
+</beans>
+```
+
+The important line is:
+
+```xml
+<constructor-arg ref="comp"/>
+```
+
+Spring passes the `Company` bean (`comp`) as the constructor parameter.
+
+---
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.techhub.objdep.MSME;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        MSME m = (MSME)context.getBean("m");
+
+        m.showCompanyDetails();
+    }
+}
+```
+
+---
+
+### Output
+
+```
+XYZ    ABC123MNOP    11223344
+```
+
+### Flow
+
+1. Spring creates the `Company` bean (`comp`).
+2. Spring creates the `MSME` bean.
+3. Spring calls:
+
+```java
+new MSME(companyObject);
+```
+
+4. The `Company` object is injected through the constructor.
+5. `showCompanyDetails()` prints the company information.
+
+This is **constructor dependency injection with object dependency**.
+
+
+---
+
+# Autowiring in Spring
+
+## Definition
+
+**Autowiring** is a feature of the Spring IoC Container that **automatically injects dependent objects into the target class**, so the developer does not need to specify the dependency manually using `ref`.
+
+Without autowiring:
+
+```xml
+<bean id="company" class="org.techhub.objdep.Company"/>
+
+<bean id="m" class="org.techhub.objdep.MSME">
+    <property name="company" ref="company"/>
+</bean>
+```
+
+With autowiring:
+
+```xml
+<bean id="company" class="org.techhub.objdep.Company"/>
+
+<bean id="m" class="org.techhub.objdep.MSME" autowire="byType"/>
+```
+
+Spring automatically injects the `Company` object.
+
+---
+
+# Why do we need Autowiring?
+
+Suppose we write
+
+```java
+public class MSME {
+
+    private Company company;
+
+    public void showCompanyDetails() {
+        System.out.println(company.getName());
+    }
+}
+```
+
+and XML
+
+```xml
+<bean id="company" class="org.techhub.objdep.Company"/>
+
+<bean id="m" class="org.techhub.objdep.MSME"/>
+```
+
+Since no dependency is injected,
+
+```java
+company == null
+```
+
+Calling
+
+```java
+company.getName();
+```
+
+throws
+
+```
+java.lang.NullPointerException
+```
+
+Autowiring solves this problem by automatically injecting the dependency.
+
+---
+
+# Types of XML Autowiring
+
+## 1. byType
+
+Spring matches the **property name** with the **bean class**.
+
+Spring IoC Container searches for a bean whose type (class) matches the type of the property in the target class. If exactly one matching bean is found, Spring automatically injects it.
+Example
+
+```java
+private Company company;
+```
+
+XML
+
+```xml
+<bean id="comp" class="org.techhub.objdep.Company"/>
+
+<bean id="m"
+      class="org.techhub.objdep.MSME"
+      autowire="byType"/>
+```
+
+Spring sees
+
+```
+Company company;
+```
+
+and injects the bean whose class is `Company`.
+
+**Condition**
+
+There must be **only one bean of that type**.
+
+
+### **Company.java**
+
+```java
+package org.techhub.objdep;
+
+public class Company {
+
+    private String name;
+    private String TAN;
+    private String PAN;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTAN() {
+        return TAN;
+    }
+
+    public void setTAN(String TAN) {
+        this.TAN = TAN;
+    }
+
+    public String getPAN() {
+        return PAN;
+    }
+
+    public void setPAN(String PAN) {
+        this.PAN = PAN;
+    }
+}
+```
+
+---
+
+### **MSME.java**
+
+```java
+package org.techhub.objdep;
+
+public class MSME {
+
+    private Company company;
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void showCompanyDetails() {
+        System.out.println(System.identityHashCode(company));
+        System.out.println(company.getName() + "\t"
+                + company.getTAN() + "\t"
+                + company.getPAN());
+    }
+}
+```
+
+---
+
+### **test.xml**
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="comp" class="org.techhub.objdep.Company">
+        <property name="name" value="XYZ"/>
+        <property name="TAN" value="ABC123MNOP"/>
+        <property name="PAN" value="11223344"/>
+    </bean>
+
+    <bean id="m"
+          class="org.techhub.objdep.MSME"
+          autowire="byType"/>
+
+</beans>
+```
+
+---
+
+### **ClientApplication.java**
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.techhub.objdep.MSME;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        MSME m = (MSME) context.getBean("m");
+
+        m.showCompanyDetails();
+
+        context.close();
+    }
+}
+```
+
+### **Output**
+
+```text
+989110044
+XYZ    ABC123MNOP    11223344
+```
+
+> **Note:** The value printed by `System.identityHashCode(company)` is the memory identity hash code and will be different each time you run the program.
+
+
+---
+
+## 2. byName
+
+Spring matches the **property name** with the **bean id**.
+
+Example
+
+```java
+private Company company;
+```
+
+Bean id must also be
+
+```xml
+<bean id="company"
+      class="org.techhub.objdep.Company"/>
+```
+
+Then
+
+```xml
+<bean id="m"
+      class="org.techhub.objdep.MSME"
+      autowire="byName"/>
+```
+
+works correctly.
+
+If the bean id is
+
+```xml
+id="comp"
+```
+
+then autowiring byName fails because
+
+```
+company != comp
+```
+
+For **Autowiring byName**, the **reference variable name** in the target class and the **bean id** in XML **must be the same**.
+
+---
+
+## Company.java
+
+```java
+package org.techhub.objdep;
+
+public class Company {
+
+    private String name;
+    private String TAN;
+    private String PAN;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTAN() {
+        return TAN;
+    }
+
+    public void setTAN(String TAN) {
+        this.TAN = TAN;
+    }
+
+    public String getPAN() {
+        return PAN;
+    }
+
+    public void setPAN(String PAN) {
+        this.PAN = PAN;
+    }
+}
+```
+
+---
+
+## MSME.java
+
+```java
+package org.techhub.objdep;
+
+public class MSME {
+
+    private Company company;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public void showCompanyDetails() {
+        System.out.println(System.identityHashCode(company));
+        System.out.println(company.getName() + "\t"
+                + company.getTAN() + "\t"
+                + company.getPAN());
+    }
+}
+```
+
+---
+
+## test.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <!-- Bean id must be same as the property name -->
+    <bean id="company" class="org.techhub.objdep.Company">
+        <property name="name" value="XYZ"/>
+        <property name="TAN" value="ABC123MNOP"/>
+        <property name="PAN" value="11223344"/>
+    </bean>
+
+    <bean id="m"
+          class="org.techhub.objdep.MSME"
+          autowire="byName"/>
+
+</beans>
+```
+
+---
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.techhub.objdep.MSME;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        MSME m = (MSME) context.getBean("m");
+
+        m.showCompanyDetails();
+
+        context.close();
+    }
+}
+```
+
+---
+
+## Output
+
+```text
+12345678
+XYZ    ABC123MNOP    11223344
+```
+
+---
+
+## 3. constructor
+
+Spring injects dependencies using the constructor.
+
+```java
+public class MSME {
+
+    private Company company;
+
+    public MSME(Company company) {
+        this.company = company;
+    }
+}
+```
+
+XML
+
+```xml
+<bean id="company"
+      class="org.techhub.objdep.Company"/>
+
+<bean id="m"
+      class="org.techhub.objdep.MSME"
+      autowire="constructor"/>
+```
+
+Spring internally performs
+
+```java
+new MSME(companyObject);
+```
+
+## Constructor Autowiring Example
+
+### Company.java
+
+```java
+package org.techhub.objdep;
+
+public class Company {
+
+    private String name;
+    private String TAN;
+    private String PAN;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTAN() {
+        return TAN;
+    }
+
+    public void setTAN(String TAN) {
+        this.TAN = TAN;
+    }
+
+    public String getPAN() {
+        return PAN;
+    }
+
+    public void setPAN(String PAN) {
+        this.PAN = PAN;
+    }
+}
+```
+
+---
+
+### MSME.java
+
+```java
+package org.techhub.objdep;
+
+public class MSME {
+
+    private Company company;
+
+    // Constructor Injection
+    public MSME(Company company) {
+        System.out.println("I am Constructor");
+        this.company = company;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public void showCompanyDetails() {
+        System.out.println(System.identityHashCode(company));
+        System.out.println(company.getName() + "\t"
+                + company.getTAN() + "\t"
+                + company.getPAN());
+    }
+}
+```
+
+---
+
+### test.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="company" class="org.techhub.objdep.Company">
+        <property name="name" value="XYZ"/>
+        <property name="TAN" value="ABC123MNOP"/>
+        <property name="PAN" value="11223344"/>
+    </bean>
+
+    <bean id="m"
+          class="org.techhub.objdep.MSME"
+          autowire="constructor"/>
+
+</beans>
+```
+
+---
+
+### ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.techhub.objdep.MSME;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        MSME m = (MSME) context.getBean("m");
+
+        m.showCompanyDetails();
+
+        context.close();
+    }
+}
+```
+
+---
+
+## Output
+
+```text
+I am Constructor
+12345678
+XYZ    ABC123MNOP    11223344
+```
+
+> **Note:** `12345678` is the output of `System.identityHashCode(company)` and will be different on every execution.
+
+---
+
+## How `autowire="constructor"` Works
+
+1. Spring creates the `Company` bean.
+2. Spring creates the `MSME` bean.
+3. Spring finds the constructor:
+
+```java
+public MSME(Company company)
+```
+
+4. Spring searches for a bean of type `Company`.
+5. It finds:
+
+```xml
+<bean id="company" class="org.techhub.objdep.Company"/>
+```
+
+6. Spring internally executes:
+
+```java
+Company comp = new Company();
+comp.setName("XYZ");
+comp.setTAN("ABC123MNOP");
+comp.setPAN("11223344");
+
+MSME m = new MSME(comp);
+```
+
+7. The constructor receives the `Company` object automatically, so the `company` field is initialized and `showCompanyDetails()` prints the details successfully.
+
+---
+
+# 4. no (default)
+
+If you want **`autowire="default"`**, then your `MSME` class **must have a default constructor** and you must **inject the dependency manually** using `<property ref="..."/>`. Otherwise, Spring cannot inject the `Company` object.
+
+---
+
+## Company.java
+
+```java
+package org.techhub.objdep;
+
+public class Company {
+
+    private String name;
+    private String TAN;
+    private String PAN;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTAN() {
+        return TAN;
+    }
+
+    public void setTAN(String TAN) {
+        this.TAN = TAN;
+    }
+
+    public String getPAN() {
+        return PAN;
+    }
+
+    public void setPAN(String PAN) {
+        this.PAN = PAN;
+    }
+}
+```
+
+---
+
+## MSME.java
+
+```java
+package org.techhub.objdep;
+
+public class MSME {
+
+    private Company company;
+
+    // Default Constructor
+    public MSME() {
+        System.out.println("Default Constructor Called");
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    // Setter Injection
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public void showCompanyDetails() {
+        System.out.println(System.identityHashCode(company));
+        System.out.println(company.getName() + "\t"
+                + company.getTAN() + "\t"
+                + company.getPAN());
+    }
+}
+```
+
+---
+
+## test.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="company" class="org.techhub.objdep.Company">
+        <property name="name" value="XYZ"/>
+        <property name="TAN" value="ABC123MNOP"/>
+        <property name="PAN" value="11223344"/>
+    </bean>
+
+    <bean id="m" class="org.techhub.objdep.MSME" autowire="default">
+        <property name="company" ref="company"/>
+    </bean>
+
+</beans>
+```
+
+---
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.techhub.objdep.MSME;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        MSME m = (MSME) context.getBean("m");
+
+        m.showCompanyDetails();
+
+        context.close();
+    }
+}
+```
+
+---
+
+## Output
+
+```text
+Default Constructor Called
+989110044
+XYZ    ABC123MNOP    11223344
+```
+---
+
+### Important Note
+
+`autowire="default"` **does not automatically inject dependencies**. It behaves like **no autowiring** unless a default autowire mode is configured for the `<beans>` element. Therefore, you **must** use:
+
+```xml
+<property name="company" ref="company"/>
+```
+
+or
+
+```xml
+<constructor-arg ref="company"/>
+```
+
+to inject the dependency manually.
+
+---
+# 5. autodetect
+
+Your example is from **old Spring (Spring 2.x/3.x)**. **`autowire="autodetect"` has been deprecated and removed** in modern Spring versions. It is **not supported** in Spring 4 and later.
+
+If you are studying from old notes, then the following code is correct.
+
+---
+
+## Company.java
+
+```java
+package org.techhub.objdep;
+
+public class Company {
+
+    private String name;
+    private String TAN;
+    private String PAN;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTAN() {
+        return TAN;
+    }
+
+    public void setTAN(String TAN) {
+        this.TAN = TAN;
+    }
+
+    public String getPAN() {
+        return PAN;
+    }
+
+    public void setPAN(String PAN) {
+        this.PAN = PAN;
+    }
+}
+```
+
+---
+
+## MSME.java
+
+```java
+package org.techhub.objdep;
+
+public class MSME {
+
+    private Company company;
+
+    public MSME(Company company) {
+        System.out.println("I am Constructor");
+        this.company = company;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public void showCompanyDetails() {
+        System.out.println(System.identityHashCode(company));
+        System.out.println(company.getName() + "\t"
+                + company.getTAN() + "\t"
+                + company.getPAN());
+    }
+}
+```
+
+---
+
+## test.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="company" class="org.techhub.objdep.Company">
+        <property name="name" value="XYZ"/>
+        <property name="TAN" value="ABC123MNOP"/>
+        <property name="PAN" value="11223344"/>
+    </bean>
+
+    <bean id="m"
+          class="org.techhub.objdep.MSME"
+          autowire="autodetect"/>
+
+</beans>
+```
+
+---
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.techhub.objdep.MSME;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        MSME m = (MSME) context.getBean("m");
+
+        m.showCompanyDetails();
+
+        context.close();
+    }
+}
+```
+
+---
+
+## Output
+
+```text
+I am Constructor
+12345678
+XYZ    ABC123MNOP    11223344
+```
+
+*(The hash code will be different on every run.)*
+
+---
+
+## How `autowire="autodetect"` Works (Old Spring)
+
+1. Spring creates the `Company` bean.
+2. Spring creates the `MSME` bean.
+3. It checks whether `MSME` has a **parameterized constructor**.
+4. Since it finds:
+
+```java
+public MSME(Company company)
+```
+
+it performs **constructor autowiring** and internally executes:
+
+```java
+Company company = new Company();
+
+company.setName("XYZ");
+company.setTAN("ABC123MNOP");
+company.setPAN("11223344");
+
+MSME m = new MSME(company);
+```
+
+5. If no suitable constructor were found, Spring would fall back to **byType** autowiring.
+
+> **Note:** `autowire="autodetect"` is **deprecated and removed** in modern Spring. For new applications, use `autowire="constructor"` in XML or, preferably, annotation-based constructor injection with `@Autowired` (or a single constructor without `@Autowired`).
+
+---
+Your notes are mostly correct. Below is a **corrected, interview-ready version** with improved definitions and examples.
+
+---
+
+# Bean Scope in Spring
+
+## Definition
+
+**Bean Scope** defines **how many objects of a bean Spring IoC Container creates and how long those objects live**.
+
+In other words, bean scope determines:
+
+* **How many bean objects are created**
+* **The lifecycle of the bean**
+
+> **Note:** By default, every Spring bean has **singleton** scope.
+
+---
+
+# Syntax
+
+```xml
+<bean id="beanId"
+      class="packageName.ClassName"
+      scope="scopeType"/>
+```
+
+---
+
+# Types of Bean Scope
+
+## 1. Singleton Scope (Default)
+
+### Definition
+
+**Singleton** is the default scope in Spring.
+
+In singleton scope, **Spring creates only one object** of the bean for the entire IoC Container.
+
+Whenever `getBean()` is called, Spring returns **the same object**.
+
+---
+
+### MSME.java
+
+```java
+package org.techhub.objdep;
+
+public class MSME {
+
+    public MSME() {
+        System.out.println("Constructor Called");
+    }
+}
+```
+
+---
+
+### test.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="m"
+          class="org.techhub.objdep.MSME"
+          scope="singleton"/>
+
+</beans>
+```
+
+---
+
+### ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.techhub.objdep.MSME;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        MSME m1 = context.getBean("m", MSME.class);
+        MSME m2 = context.getBean("m", MSME.class);
+        MSME m3 = context.getBean("m", MSME.class);
+        MSME m4 = context.getBean("m", MSME.class);
+
+        System.out.println("m1 : " + System.identityHashCode(m1));
+        System.out.println("m2 : " + System.identityHashCode(m2));
+        System.out.println("m3 : " + System.identityHashCode(m3));
+        System.out.println("m4 : " + System.identityHashCode(m4));
+
+        context.close();
+    }
+}
+```
+
+---
+
+### Output
+
+```
+Constructor Called
+
+m1 : 12345678
+m2 : 12345678
+m3 : 12345678
+m4 : 12345678
+```
+
+**Constructor executes only once** because only **one object** is created.
+
+---
+
+# Internal Flow
+
+```
+Spring Container
+      │
+      ▼
+Creates MSME Object
+      │
+      ▼
+Stores Object
+      │
+      ▼
+getBean() → Same Object
+getBean() → Same Object
+getBean() → Same Object
+```
+
+---
+
+# 2. Prototype Scope
+
+### Definition
+
+If the bean scope is **prototype**, Spring creates **a new object every time `getBean()` is called**.
+
+---
+
+### MSME.java
+
+```java
+package org.techhub.objdep;
+
+public class MSME {
+
+    public MSME() {
+        System.out.println("Constructor Called");
+    }
+}
+```
+
+---
+
+### test.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="m"
+          class="org.techhub.objdep.MSME"
+          scope="prototype"/>
+
+</beans>
+```
+
+---
+
+### ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.techhub.objdep.MSME;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        MSME m1 = context.getBean("m", MSME.class);
+        MSME m2 = context.getBean("m", MSME.class);
+        MSME m3 = context.getBean("m", MSME.class);
+        MSME m4 = context.getBean("m", MSME.class);
+
+        System.out.println("m1 : " + System.identityHashCode(m1));
+        System.out.println("m2 : " + System.identityHashCode(m2));
+        System.out.println("m3 : " + System.identityHashCode(m3));
+        System.out.println("m4 : " + System.identityHashCode(m4));
+
+        context.close();
+    }
+}
+```
+
+---
+
+### Output
+
+```
+Constructor Called
+Constructor Called
+Constructor Called
+Constructor Called
+
+m1 : 12345678
+m2 : 23456789
+m3 : 34567890
+m4 : 45678901
+```
+
+Each `getBean()` call creates a **new object**, so the constructor runs **four times**.
+
+---
+
+# Internal Flow
+
+```
+getBean()
+    │
+    ▼
+New MSME Object
+
+getBean()
+    │
+    ▼
+New MSME Object
+
+getBean()
+    │
+    ▼
+New MSME Object
+```
+
+---
+
+# Other Bean Scopes (Spring Web)
+
+| Scope           | Description                             |
+| --------------- | --------------------------------------- |
+| **request**     | One bean per HTTP request               |
+| **session**     | One bean per HTTP session               |
+| **application** | One bean for the entire web application |
+| **websocket**   | One bean per WebSocket session          |
+
+These scopes are available in **Spring Web MVC**.
+
+---
+
+# Singleton vs Prototype
+
+| Singleton                       | Prototype                             |
+| ------------------------------- | ------------------------------------- |
+| Default scope                   | Must be specified explicitly          |
+| One object per Spring container | New object for every `getBean()` call |
+| Constructor called once         | Constructor called every time         |
+| Same memory address             | Different memory addresses            |
+| Shared by all callers           | Separate object for each caller       |
+
+---
+
+## Interview Definition
+
+> **Bean Scope** defines the number of bean instances created by the Spring IoC Container and their lifecycle. The default scope is **singleton**, where only one bean instance is created and shared. In **prototype** scope, Spring creates a new bean instance every time `getBean()` is called.
 
 

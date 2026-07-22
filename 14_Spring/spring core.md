@@ -2685,7 +2685,7 @@ MSME m = new MSME(comp);
 ---
 
 # 4. no (default)
-
+ 
 If you want **`autowire="default"`**, then your `MSME` class **must have a default constructor** and you must **inject the dependency manually** using `<property ref="..."/>`. Otherwise, Spring cannot inject the `Company` object.
 
 ---
@@ -3009,9 +3009,6 @@ MSME m = new MSME(company);
 > **Note:** `autowire="autodetect"` is **deprecated and removed** in modern Spring. For new applications, use `autowire="constructor"` in XML or, preferably, annotation-based constructor injection with `@Autowired` (or a single constructor without `@Autowired`).
 
 ---
-Your notes are mostly correct. Below is a **corrected, interview-ready version** with improved definitions and examples.
-
----
 
 # Bean Scope in Spring
 
@@ -3041,11 +3038,11 @@ In other words, bean scope determines:
 # Types of Bean Scope
 
 ## 1. Singleton Scope (Default)
-
+   
 ### Definition
-
+   
 **Singleton** is the default scope in Spring.
-
+ 
 In singleton scope, **Spring creates only one object** of the bean for the entire IoC Container.
 
 Whenever `getBean()` is called, Spring returns **the same object**.
@@ -3100,10 +3097,10 @@ public class ClientApplication {
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("test.xml");
 
-        MSME m1 = context.getBean("m", MSME.class);
-        MSME m2 = context.getBean("m", MSME.class);
-        MSME m3 = context.getBean("m", MSME.class);
-        MSME m4 = context.getBean("m", MSME.class);
+        MSME m1 = (MSME)context.getBean("m");
+        MSME m2 = (MSME)context.getBean("m");
+        MSME m3 = (MSME)context.getBean("m");
+        MSME m4 = (MSME)context.getBean("m");
 
         System.out.println("m1 : " + System.identityHashCode(m1));
         System.out.println("m2 : " + System.identityHashCode(m2));
@@ -3207,10 +3204,10 @@ public class ClientApplication {
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("test.xml");
 
-        MSME m1 = context.getBean("m", MSME.class);
-        MSME m2 = context.getBean("m", MSME.class);
-        MSME m3 = context.getBean("m", MSME.class);
-        MSME m4 = context.getBean("m", MSME.class);
+        MSME m1 = (MSME)context.getBean("m");
+        MSME m2 = (MSME)context.getBean("m");
+        MSME m3 = (MSME)context.getBean("m");
+        MSME m4 = (MSME)context.getBean("m");
 
         System.out.println("m1 : " + System.identityHashCode(m1));
         System.out.println("m2 : " + System.identityHashCode(m2));
@@ -3288,8 +3285,2743 @@ These scopes are available in **Spring Web MVC**.
 
 ---
 
-## Interview Definition
+Your notes are generally correct, but there are a few grammar mistakes, outdated practices, and annotation name typos. Below is a **corrected, interview-ready version**.
 
-> **Bean Scope** defines the number of bean instances created by the Spring IoC Container and their lifecycle. The default scope is **singleton**, where only one bean instance is created and shared. In **prototype** scope, Spring creates a new bean instance every time `getBean()` is called.
+---
+
+
+# How to Configure a Spring Application Using Annotations
+*# Q. What is an Annotation?
+
+**Definition:**
+
+An **Annotation** in Java is a special type of **metadata** that provides information about the program to:
+
+* Compiler
+* JVM
+* Frameworks (Spring, Hibernate, JUnit)
+* Tools and Libraries
+
+**Note:** Annotations **do not change the program logic directly**, but they instruct the compiler, framework, or tools on how the code should behave.
+
+---
+
+## Example
+
+```java
+class A {
+    void show() {
+    }
+}
+
+class B extends A {
+
+    @Override
+    void show() {
+    }
+}
+```
+
+Here,
+
+```java
+@Override
+```
+
+tells the compiler that `show()` overrides the parent class method.
+
+---
+
+# Q. Why Use Annotations?
+
+## Advantages
+
+* Reduces XML configuration.
+* Spring automatically detects components.
+* Compile-time checking.
+* Better dependency injection.
+* Easy bean management.
+* Improves code readability.
+* Reduces boilerplate code.
+
+---
+
+# Important Spring Annotations
+
+### Core Spring
+
+* `@Component`
+* `@Service`
+* `@Repository`
+* `@Controller`
+* `@Configuration`
+* `@ComponentScan`
+* `@Autowired`
+* `@Qualifier`
+* `@Primary`
+* `@Bean`
+* `@Scope`
+* `@Lazy`
+* `@Value`
+* `@PropertySource`
+* `@DependsOn`
+* `@PostConstruct`
+* `@PreDestroy`
+* `@Lookup`
+* `@Profile`
+* `@Import`
+* `@Description`
+* `@Conditional`
+* `@Role`
+
+### JSR-330
+
+* `@Inject`
+* `@Named`
+
+### Spring MVC / REST
+
+* `@RestController`
+* `@RequestMapping`
+* `@GetMapping`
+* `@PostMapping`
+* `@PutMapping`
+* `@DeleteMapping`
+* `@RequestBody`
+* `@ResponseBody`
+
+---
+
+# Steps to Configure Spring Using Annotations
+Project Structure
+
+SpringAnnotationDemo
+│
+├── src/main/java
+│   ├── org/techhub
+│   │      ├── Employee.java
+│   │      └── ClientApplication.java
+│   │
+│   └── org/techhub/config
+│          └── ConfigApp.java
+│
+└── pom.xml
+
+### Step 1
+
+Create a Maven Project.
+
+---
+
+### Step 2
+
+Add Dependencies
+
+```xml
+<dependencies>
+
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>5.2.3.RELEASE</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.2.3.RELEASE</version>
+    </dependency>
+
+</dependencies>
+```
+
+---
+
+### Step 3
+
+Create a POJO and mark it as a Spring Bean.
+
+## Employee.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("e")
+public class Employee {
+
+    private int id;
+    private String name;
+    private int sal;
+
+    public int getId() {
+        return id;
+    }
+
+    @Value("1")
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Value("ABC")
+    public void setName(String name) 
+    {
+        this.name = name;
+    }
+
+    public int getSal() {
+        return sal;
+    }
+
+    @Value("10000")
+    public void setSal(int sal) {
+        this.sal = sal;
+    }
+}
+```
+
+---
+
+# Annotation Explanation
+
+## @Component
+
+```java
+@Component("e")
+```
+
+Marks the class as a **Spring Bean**.
+
+Spring automatically creates its object.
+
+Bean id = **e**
+
+---
+
+## @Value
+
+```java
+@Value("10000")
+```
+
+Injects a value into a field or setter method.
+
+Can be used on
+
+* Variables
+* Setter methods
+* Constructor parameters
+
+---
+
+# Step 4
+
+Create Configuration Class
+
+## ConfigApp.java
+
+```java
+package org.techhub.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "org.techhub")
+public class ConfigApp {
+
+}
+```
+
+---
+
+# Annotation Explanation
+
+## @Configuration
+
+Marks the class as a Spring **Configuration Class**.
+
+It replaces the XML configuration file.
+
+---
+
+## @ComponentScan
+
+```java
+@ComponentScan(basePackages = "org.techhub")
+```
+
+Spring scans the specified package and automatically creates beans for classes annotated with:
+
+* `@Component`
+* `@Service`
+* `@Repository`
+* `@Controller`
+
+---
+
+# Step 5
+
+Create Client Application
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.techhub.config.ConfigApp;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(ConfigApp.class);
+
+        Employee emp = (Employee)context.getBean("e");
+
+        System.out.println(emp.getId());
+        System.out.println(emp.getName());
+        System.out.println(emp.getSal());
+
+        context.close();
+    }
+}
+```
+
+---
+
+# Output
+
+```text
+1
+ABC
+10000
+```
+
+---
+
+# Flow Diagram
+
+```
+Employee.java
+     │
+     │
+@Component
+     │
+     ▼
+Component Scan
+     │
+     ▼
+Spring IoC Container
+     │
+     ▼
+Creates Employee Bean
+     │
+     ▼
+@Value injects values
+     │
+     ▼
+getBean("e")
+     │
+     ▼
+Employee Object
+```
+
+---
+
+# Interview Definitions
+
+### What is `@Component`?
+
+`@Component` is a stereotype annotation that marks a user-defined class as a Spring bean. During component scanning, Spring automatically detects the class, creates its object, and manages it in the IoC Container.
+
+---
+
+### What is `@Configuration`?
+
+`@Configuration` marks a Java class as a configuration class. It replaces the XML configuration file and contains bean definitions or component scanning instructions.
+
+---
+
+### What is `@ComponentScan`?
+
+`@ComponentScan` tells Spring which packages to scan for classes annotated with `@Component`, `@Service`, `@Repository`, and `@Controller`, allowing Spring to automatically register them as beans.
+
+---
+
+### What is `@Value`? 
+
+`@Value` is used to inject constant values or property values into fields, setter methods, or constructor parameters.
+
+---
+
+# `@Autowired` and `@Qualifier` Annotation in Spring
+
+## What is `@Autowired`?
+
+`@Autowired` is an annotation used by the Spring Framework to **automatically inject the dependency (object) of one class into another class**.
+
+Instead of creating objects using the `new` keyword, Spring creates the object and injects it automatically.
+
+### Syntax
+
+```java
+@Autowired
+private ClassName objectReference;
+```
+Below is a **complete Spring Annotation Example** using **`@Component`, `@Autowired`, `@Value`, `@Configuration`, and `@ComponentScan`**.
+
+---
+
+# Project Structure
+
+```
+SpringAnnotationDemo
+│
+├── src/main/java
+│   │
+│   ├── org.techhub
+│   │      Employee.java
+│   │      Company.java
+│   │      ConfigApp.java
+│   │      ClientApplication.java
+│
+└── pom.xml
+```
+
+---
+
+# Step 1: pom.xml
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.techhub</groupId>
+    <artifactId>SpringAnnotationDemo</artifactId>
+    <version>1.0</version>
+
+    <dependencies>
+
+        <!-- Spring Core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.3.30</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
+```
+
+---
+
+# Step 2: Employee.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("employee")
+public class Employee {
+
+    @Value("700")
+    private int id;
+
+    @Value("ABC")
+    private String name;
+
+    @Value("10000")
+    private int sal;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSal() {
+        return sal;
+    }
+
+    public void setSal(int sal) {
+        this.sal = sal;
+    }
+}
+```
+
+---
+
+# Step 3: Company.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component("comp")
+public class Company {
+
+    @Autowired
+    private Employee emp;
+
+    public Employee getEmployee() {
+        return emp;
+    }
+
+    public void setEmployee(Employee emp) {
+        this.emp = emp;
+    }
+}
+```
+
+---
+
+# Step 4: ConfigApp.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "org.techhub")
+public class ConfigApp {
+
+}
+```
+
+---
+
+# Step 5: ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        ApplicationContext context =
+                new AnnotationConfigApplicationContext(ConfigApp.class);
+
+        Company c = context.getBean("comp", Company.class);
+
+        Employee e = c.getEmployee();
+
+        System.out.println("Employee Details");
+        System.out.println("-------------------------");
+        System.out.println("ID      : " + e.getId());
+        System.out.println("Name    : " + e.getName());
+        System.out.println("Salary  : " + e.getSal());
+    }
+}
+```
+
+---
+
+# Interview Explanation
+
+**Q. Explain this annotation example.**
+
+**Answer:**
+
+> In this example, `Employee` and `Company` classes are declared as Spring beans using `@Component`. The `Employee` bean receives values using the `@Value` annotation. The `Company` bean contains an `Employee` object marked with `@Autowired`, so Spring automatically injects the `Employee` bean into the `Company` bean. The configuration class uses `@Configuration` and `@ComponentScan` to scan the package and register all components. Finally, the `Company` bean is retrieved from the Spring container, and the injected `Employee` object's details are printed.
+
+
+---
+
+## Why do we use `@Qualifier`?
+
+`@Qualifier` is used together with `@Autowired` when **multiple beans of the same type** are available.
+
+It tells Spring **which bean should be injected**.
+
+Without `@Qualifier`, Spring gets confused if there are multiple implementations of the same interface and throws an exception.
+
+---
+
+# 1) SetVal.java
+
+```java
+package org.techhub;
+
+public interface SetVal {
+
+    void setA(int a);
+
+    void setB(int b);
+
+    int getResult();
+}
+```
+
+---
+
+# 2) Add.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("add")
+public class Add implements SetVal {
+
+    @Value("100")
+    private int a;
+
+    @Value("200")
+    private int b;
+
+    @Override
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    @Override
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    @Override
+    public int getResult() {
+        return a + b;
+    }
+}
+```
+
+---
+
+# 3) Mul.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("mul")
+public class Mul implements SetVal {
+
+    @Value("10")
+    private int a;
+
+    @Value("20")
+    private int b;
+
+    @Override
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    @Override
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    @Override
+    public int getResult() {
+        return a * b;
+    }
+}
+```
+
+---
+
+# 4) Calculator.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component("calc")
+public class Calculator {
+
+    @Autowired
+    @Qualifier("mul")     // Change to "add" for addition
+    private SetVal setVal;
+
+    public void setOperation(SetVal setVal) {
+        this.setVal = setVal;
+    }
+
+    public void show() {
+        System.out.println("Result is : " + setVal.getResult());
+    }
+}
+```
+
+---
+
+# 5) ConfigApp.java
+
+```java
+package org.techhub.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "org.techhub")
+public class ConfigApp {
+
+}
+```
+
+---
+
+# 6) ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.techhub.config.ConfigApp;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(ConfigApp.class);
+
+        Calculator calc = context.getBean("calc", Calculator.class);
+
+        calc.show();
+
+        context.close();
+    }
+}
+```
+
+---
+
+# Output
+
+Using
+
+```java
+@Qualifier("mul")
+```
+
+Output:
+
+```
+Result is : 200
+```
+
+---
+
+
+```java
+public interface SetVal {
+    int getResult();
+}
+```
+
+and two implementation classes:
+
+```java
+@Component("add")
+public class Add implements SetVal { ... }
+```
+
+```java
+@Component("mul")
+public class Mul implements SetVal { ... }
+```
+
+Now Spring creates **two beans**:
+
+* Bean id = **add**
+* Bean id = **mul**
+
+If you write
+
+```java
+@Autowired
+private SetVal setVal;
+```
+
+Spring asks:
+
+> "There are two objects of type `SetVal`. Which one should I inject?"
+
+Since it cannot decide, it throws:
+
+```
+NoUniqueBeanDefinitionException
+```
+
+---
+
+## Solution: Use `@Qualifier`
+
+```java
+@Autowired
+@Qualifier("mul")
+private SetVal setVal;
+```
+
+Now Spring understands:
+
+> "Inject the bean whose id is **mul**."
+
+So the `Mul` object is injected.
+
+---
+
+# Internal Working Diagram
+
+```
+                Spring IoC Container
+                       │
+      ┌────────────────┼────────────────┐
+      │                │                │
+      ▼                ▼                ▼
+   Add Bean         Mul Bean      Calculator Bean
+   id="add"         id="mul"         id="calc"
+      │                │                │
+      └───────────────►│                │
+          @Qualifier("mul")            │
+                       │                │
+                       ▼                │
+            private SetVal setVal ◄────┘
+```
+
+---
+
+# Dynamic Polymorphism
+
+```java
+private SetVal setVal;
+```
+
+The reference is of the **interface** type.
+
+At runtime, Spring decides which implementation object to inject.
+
+```java
+@Qualifier("add")  → Add object
+```
+
+or
+
+```java
+@Qualifier("mul")  → Mul object
+```
+
+This is **runtime (dynamic) polymorphism**, and it also supports **loose coupling** because the `Calculator` class depends only on the `SetVal` interface, not on a specific implementation.
+
+---
+
+# Interview Questions
+
+### 1. What is `@Autowired`?
+
+`@Autowired` is used to automatically inject a dependent bean into another bean. Spring searches the IoC container for a matching bean and injects it.
+
+---
+
+### 2. Why do we use `@Qualifier`?
+
+`@Qualifier` is used when multiple beans of the same type exist. It specifies exactly which bean should be injected.
+
+---
+
+### 3. What happens if we use only `@Autowired` with multiple implementations?
+
+Spring finds more than one matching bean and throws a `NoUniqueBeanDefinitionException` because it cannot determine which implementation to inject.
+
+---
+
+### 4. What is the advantage of using an interface with `@Autowired`?
+
+Using an interface promotes **loose coupling**. The implementation can be changed (for example, from `Add` to `Mul`) simply by changing the qualifier, without modifying the `Calculator` class.
+
+---
+
+### 5. Can `@Autowired` work without `@Qualifier`?
+
+Yes. It works without `@Qualifier` if there is **only one bean** of the required type in the Spring container. When multiple beans of the same type exist, `@Qualifier` (or another mechanism such as `@Primary`) is needed.
+
+Your notes are mostly correct. Below is an **interview-ready** version with explanation, flow, and output.
+
+---
+
+# @Scope Annotation in Spring
+
+---
+
+## Definition
+
+`@Scope` annotation is used to define the **scope (lifecycle)** of a Spring bean. It tells the Spring IoC Container **how many objects (bean instances) should be created**.
+
+It is a **class-level annotation** and is generally used with `@Component`.
+
+**Syntax**
+
+```java
+@Scope("scope_name")
+```
+
+Example:
+
+```java
+@Component
+@Scope("prototype")
+public class Test {
+
+}
+```
+
+---
+
+## Why do we use @Scope?
+
+By default, Spring creates only **one object** of every bean (**Singleton Scope**).
+
+If we want:
+
+* One object for the entire application → **singleton**
+* A new object every time `getBean()` is called → **prototype**
+
+then we use `@Scope`.
+
+---
+
+## Types of Bean Scope
+
+| Scope       | Description                                               |
+| ----------- | --------------------------------------------------------- |
+| singleton   | Only one object is created (Default Scope).               |
+| prototype   | A new object is created every time `getBean()` is called. |
+| request     | One object per HTTP request (Web Application).            |
+| session     | One object per HTTP session (Web Application).            |
+| application | One object per ServletContext.                            |
+| websocket   | One object per WebSocket session.                         |
+
+---
+
+# Example: Prototype Scope
+
+## Test.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component("t")
+@Scope("prototype")
+public class Test {
+
+    public Test() {
+        System.out.println("I am Test class constructor");
+    }
+}
+```
+
+---
+
+## ConfigApp.java
+
+```java
+package org.techhub.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "org.techhub")
+public class ConfigApp {
+
+}
+```
+
+---
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.techhub.config.ConfigApp;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(ConfigApp.class);
+
+                Test t1=(Test)context.getBean("t");
+                Test t2=(Test)context.getBean("t");
+                Test t3=(Test)context.getBean("t");
+                Test t4=(Test)context.getBean("t");
+
+        context.close();
+    }
+}
+```
+
+---
+
+# Output
+
+```
+I am Test class constructor
+I am Test class constructor
+I am Test class constructor
+I am Test class constructor
+```
+
+---
+
+# Why is the constructor called four times?
+
+Because the bean scope is:
+
+```java
+@Scope("prototype")
+```
+
+Every call to
+
+```java
+context.getBean("t");
+```
+
+creates a **new object**.
+
+Execution:
+
+```
+getBean() → Object 1 → Constructor executes
+
+getBean() → Object 2 → Constructor executes
+
+getBean() → Object 3 → Constructor executes
+
+getBean() → Object 4 → Constructor executes
+```
+
+So, the constructor is executed **4 times**.
+
+---
+
+# If @Scope is removed
+
+```java
+@Component("t")
+public class Test {
+
+}
+```
+
+or
+
+```java
+@Scope("singleton")
+```
+
+Output:
+
+```
+I am Test class constructor
+```
+
+Even though:
+
+```java
+Test t1 = context.getBean("t");
+Test t2 = context.getBean("t");
+Test t3 = context.getBean("t");
+Test t4 = context.getBean("t");
+```
+
+only **one object** is created, because **singleton** is the default scope.
+
+---
+
+# Interview Questions
+
+### Q1. What is `@Scope`?
+
+**Answer:**
+`@Scope` is a class-level annotation used to define the lifecycle or scope of a Spring bean. It tells the Spring container whether to create a single object or multiple objects.
+
+---
+
+### Q2. What is the default scope of a Spring bean?
+
+**Answer:**
+The default scope is **singleton**, meaning Spring creates only one object of the bean for the entire IoC container.
+
+---
+
+## Project Usage
+
+* **Singleton Scope:** Used for service classes, DAO classes, repositories, configuration classes, and utility classes where a single shared instance is sufficient.
+* **Prototype Scope:** Used when each operation requires a fresh object, such as temporary data holders, report generators, or user-specific processing objects.
+
+
+---
+
+# Spring Bean Life Cycle
+
+---
+
+## Definition
+
+The **Spring Bean Life Cycle** describes the complete journey of a bean from its **creation** until its **destruction** inside the Spring IoC Container.
+  
+The Spring IoC Container is responsible for:     
+
+* Creating bean objects.
+* Injecting dependencies.
+* Calling initialization methods.
+* Managing the bean during its lifetime.
+* Destroying the bean when the container is closed.
+
+---
+
+# Workflow of Spring Bean Life Cycle
+
+```
+            Spring IoC Container
+                       │
+                       ▼
+               Bean Instantiation
+          (Object is created using constructor)
+                       │
+                       ▼
+              Dependency Injection
+      (Constructor Injection / Setter Injection)
+                       │
+                       ▼
+             Custom Init Method
+      (Automatically called by Spring)
+                       │
+                       ▼
+           Bean is Ready for Use
+                       │
+                       ▼
+           Utility / Business Methods
+        (Called manually by the developer)
+                       │
+                       ▼
+          Container Close (context.close())
+                       │
+                       ▼
+           Custom Destroy Method
+      (Automatically called by Spring)
+```
+
+---
+
+# Explanation of Each Phase
+
+## 1. Spring IoC Container
+
+The **Spring IoC Container** is an internal Spring component responsible for:
+
+* Creating bean objects.
+* Managing the complete lifecycle of beans.
+* Injecting dependencies.
+* Calling initialization and destroy methods automatically.
+
+---
+
+## 2. Bean Instantiation
+
+The Spring container creates the bean object by calling its constructor.
+
+Example:
+
+```java
+public Employee() {
+    System.out.println("Bean Instantiation");
+}
+```
+
+---
+
+## 3. Dependency Injection
+
+After object creation, Spring injects dependencies using:
+
+* Constructor Injection
+* Setter Injection
+
+Example:
+
+```java
+public void setId(int id) {
+    this.id = id;
+}
+```
+
+---
+
+## 4. Custom Init Method
+
+A **Custom Init Method** is a user-defined method that Spring calls automatically after dependency injection.
+
+Example:
+
+```java
+public void myInit() {
+    System.out.println("Init Method");
+}
+```
+
+Purpose:
+
+* Open database connection
+* Load configuration
+* Initialize resources
+
+---
+
+## 5. Utility (Business) Method
+
+This is a normal user-defined method.
+
+It is **not called automatically**.
+
+The developer calls it whenever required.
+
+Example:
+
+```java
+public void display() {
+    System.out.println("Employee Details");
+}
+```
+
+---
+
+## 6. Custom Destroy Method
+
+When the Spring container is closed, Spring automatically calls the destroy method.
+
+Example:
+
+```java
+public void myDestroy() {
+    System.out.println("Destroy Method");
+}
+```
+
+Purpose:
+
+* Close database connection
+* Release resources
+* Close files
+* Clean up memory
+
+---
+
+# Ways to Implement Spring Bean Life Cycle
+
+Spring provides three ways:
+
+1. XML Configuration
+2. Annotation Configuration
+3. Java Configuration (Programming Approach)
+
+---
+
+# Bean Life Cycle using XML Configuration
+
+## Step 1: Create Employee Class
+
+```java
+package org.techhub;
+
+public class Employee {
+
+    private int id;
+    private String name;
+    private int sal;
+
+    public Employee() {
+        System.out.println("Bean Instantiation");
+    }
+
+    public void myInit() {
+        System.out.println("Init Method");
+    }
+
+    public void display() {
+        System.out.println("Utility Method");
+    }
+
+    public void myDestroy() {
+        System.out.println("Destroy Method");
+    }
+
+    public void setId(int id) {
+        System.out.println("Dependency Injection");
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSal(int sal) {
+        this.sal = sal;
+    }
+}
+```
+
+---
+
+## Step 2: Configure XML
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="e"
+          class="org.techhub.Employee"
+          init-method="myInit"
+          destroy-method="myDestroy">
+
+        <property name="id" value="1"/>
+        <property name="name" value="ABC"/>
+        <property name="sal" value="10000"/>
+
+    </bean>
+
+</beans>
+```
+
+---
+
+## Step 3: Client Application
+
+```java
+package org.techhub;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ClientApplication {
+
+    public static void main(String[] args) 
+    {
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("test.xml");
+
+        Employee employee = (Employee)context.getBean("e");
+
+        employee.display();
+
+        context.close();
+    }
+}
+```
+
+---
+
+# Execution Flow
+
+When the program runs, Spring performs the following steps:
+
+### Step 1
+
+Constructor executes.
+
+```
+Bean Instantiation
+```
+
+↓
+
+### Step 2
+
+Setter methods are called.
+
+```
+Dependency Injection
+```
+
+↓
+
+### Step 3
+
+Spring automatically calls:
+
+```
+myInit()
+```
+
+↓
+
+### Step 4
+
+Developer manually calls:
+
+```
+display()
+```
+
+↓
+
+### Step 5
+
+Container is closed.
+
+```
+context.close();
+```
+
+↓
+
+### Step 6
+
+Spring automatically calls:
+
+```
+myDestroy()
+```
+
+---
+
+# Output
+
+```
+Bean Instantiation
+Dependency Injection
+Init Method
+Utility Method
+Destroy Method
+```
+
+---
+
+# XML Attributes Used
+
+### init-method
+
+```xml
+init-method="myInit"
+```
+
+Spring automatically calls the specified method after dependency injection.
+
+---
+
+### destroy-method
+
+```xml
+destroy-method="myDestroy"
+```
+
+Spring automatically calls the specified method when the container is closed.
+
+---
+
+# Interview Questions
+
+### Q1. What is the Spring Bean Life Cycle?
+
+**Answer:**
+The Spring Bean Life Cycle is the sequence of steps that a bean goes through inside the Spring IoC Container, starting from object creation (instantiation), dependency injection, initialization, business method execution, and finally destruction when the container is closed.
+
+---
+
+### Q2. What is the order of the Spring Bean Life Cycle?
+
+**Answer:**
+
+1. Bean Instantiation
+2. Dependency Injection
+3. Init Method
+4. Utility/Business Method
+5. Destroy Method
+
+---
+
+### Q3. Which methods are called automatically by Spring?
+
+**Answer:**
+
+* Constructor (Bean Instantiation)
+* Dependency Injection (Setter/Constructor)
+* Init Method
+* Destroy Method
+
+---
+
+### Q4. Which method is called manually?
+
+**Answer:**
+The Utility or Business Method (for example, `display()`) is called manually by the developer.
+
+---
+
+### Q5. When is the destroy method executed?
+
+**Answer:**
+The destroy method is executed automatically when the Spring container is closed using `context.close()` (for configurable application contexts).
+
+
+# Bean Life Cycle Using Annotations in Spring
+
+---
+
+# Step 1: Create a Maven Project
+
+Create a Maven project and add the required Spring dependencies.
+
+---
+
+# Step 2: Add Dependencies (`pom.xml`)
+
+```xml
+<dependencies>
+
+    <!-- Spring Context -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>6.2.8</version>
+    </dependency>
+
+    <!-- Jakarta Annotation -->
+    <dependency>
+        <groupId>jakarta.annotation</groupId>
+        <artifactId>jakarta.annotation-api</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+
+</dependencies>
+```
+
+---
+
+# Step 3: Create POJO Class
+
+## Employee.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
+@Component("e")
+public class Employee {
+
+    private int id;
+    private String name;
+    private int sal;
+
+    // Bean Instantiation
+    public Employee() {
+        System.out.println("Bean Instantiation");
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Value("1")
+    public void setId(int id) {
+        System.out.println("Dependency Injection");
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Value("ABC")
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSal() {
+        return sal;
+    }
+
+    @Value("10000")
+    public void setSal(int sal) {
+        this.sal = sal;
+    }
+
+    // Initialization Method
+    @PostConstruct
+    public void myInit() {
+        System.out.println("This is Init Method");
+    }
+
+    // Utility Method
+    public void display() {
+        System.out.println("Employee Details");
+        System.out.println("Id : " + id);
+        System.out.println("Name : " + name);
+        System.out.println("Salary : " + sal);
+    }
+
+    // Destroy Method
+    @PreDestroy
+    public void myDestroy() {
+        System.out.println("This is Destroy Method");
+    }
+}
+```
+
+---
+
+# Step 4: Configuration Class
+
+## ConfigTest.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "org.techhub")
+public class ConfigTest {
+
+}
+```
+
+---
+
+# Step 5: Client Application
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(ConfigTest.class);
+
+        Employee employee = (Employee)context.getBean("e");
+
+        employee.display();
+
+        context.close();
+    }
+}
+```
+
+---
+
+# Output
+
+```
+Bean Instantiation
+Dependency Injection
+This is Init Method
+
+Employee Details
+Id : 1
+Name : ABC
+Salary : 10000
+
+This is Destroy Method
+```
+
+---
+
+# Execution Flow
+
+```
+Spring Container Starts
+        │
+        ▼
+Bean Instantiation
+(Constructor Executes)
+        │
+        ▼
+Dependency Injection
+(@Value Executes)
+        │
+        ▼
+@PostConstruct
+(Initialization Method)
+        │
+        ▼
+Bean Ready to Use
+(display() Method)
+        │
+        ▼
+context.close()
+        │
+        ▼
+@PreDestroy
+(Destroy Method)
+```
+
+---
+
+# Explanation of Annotations
+
+### `@Component`
+
+* Marks the class as a Spring Bean.
+* Spring automatically creates the object.
+
+```java
+@Component("e")
+```
+
+---
+
+### `@Value`
+
+* Injects values into bean properties.
+
+```java
+@Value("1")
+public void setId(int id)
+```
+
+---
+
+### `@PostConstruct`
+
+* Marks the method as the **Initialization Method**.
+* Executes **after dependency injection** and **before the bean is ready to use**.
+* It runs **only once**.
+
+```java
+@PostConstruct
+public void myInit() {
+    System.out.println("This is Init Method");
+}
+```
+
+---
+
+### `@PreDestroy`
+
+* Marks the method as the **Destroy Method**.
+* Executes **before the bean is removed from the Spring container**.
+* Called when the container is closed using `context.close()`.
+
+```java
+@PreDestroy
+public void myDestroy() {
+    System.out.println("This is Destroy Method");
+}
+```
+
+---
+
+# Important Interview Points
+
+**Q1. What is Bean Life Cycle?**
+The Bean Life Cycle is the sequence of phases a Spring bean passes through: **Instantiation → Dependency Injection → Initialization → Ready for Use → Destruction**.
+
+---
+
+**Q2. Which annotation is used for the initialization method?**
+
+**Answer:** `@PostConstruct`
+
+---
+
+**Q3. Which annotation is used for the destroy method?**
+
+**Answer:** `@PreDestroy`
+
+---
+
+**Q4. When is `@PostConstruct` executed?**
+
+After dependency injection is completed and before the bean is used.
+
+---
+
+**Q5. When is `@PreDestroy` executed?**
+
+Just before the Spring container destroys the bean, typically when `context.close()` is called.
+
+---
+
+**Q6. Is `context.close()` necessary?**
+
+Yes. For singleton beans, `@PreDestroy` methods are invoked only when the application context is closed.
+
+---
+
+# Bean Life Cycle Summary
+
+| Stage | Action               | Annotation               |
+| ----- | -------------------- | ------------------------ |
+| 1     | Bean Instantiation   | Constructor              |
+| 2     | Dependency Injection | `@Value`, `@Autowired`   |
+| 3     | Initialization       | `@PostConstruct`         |
+| 4     | Bean Ready for Use   | Business/Utility Methods |
+| 5     | Bean Destruction     | `@PreDestroy`            |
+
+This example demonstrates the complete Spring bean life cycle using annotation-based configuration.
+
+
+# Bean Life Cycle Using Programming Approach in Spring
+
+## What is the Programming Approach?
+
+Instead of using annotations like `@PostConstruct` and `@PreDestroy`, Spring provides two interfaces to implement the bean life cycle programmatically.
+
+1. **InitializingBean**
+
+   * Contains the `afterPropertiesSet()` method.
+   * This method works as the **Initialization Method**.
+
+2. **DisposableBean**
+
+   * Contains the `destroy()` method.
+   * This method works as the **Destroy Method**.
+
+> In this approach, the bean class implements these interfaces, and Spring automatically invokes their methods at the appropriate stages of the bean life cycle.
+
+---
+
+# Bean Life Cycle Steps
+
+```
+Bean Instantiation
+        ↓
+Dependency Injection
+        ↓
+afterPropertiesSet()  (Init Method)
+        ↓
+Bean Ready to Use
+        ↓
+destroy() (Destroy Method)
+```
+
+---
+
+# Step 1: Create a Maven Project
+
+Create a Maven project and add the Spring Context dependency.
+
+---
+
+# Step 2: Add Dependencies (`pom.xml`)
+
+```xml
+<dependencies>
+
+    <!-- Spring Context -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>6.2.8</version>
+    </dependency>
+
+    <!-- Jakarta Annotation (Optional if using @Component/@Value) -->
+    <dependency>
+        <groupId>jakarta.annotation</groupId>
+        <artifactId>jakarta.annotation-api</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+
+</dependencies>
+```
+
+---
+
+# Step 3: Create POJO Class
+
+## Employee.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("e")
+public class Employee implements InitializingBean, DisposableBean {
+
+    private int id;
+    private String name;
+    private int sal;
+
+    // Bean Instantiation
+    public Employee() {
+        System.out.println("Bean Instantiation");
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Value("1")
+    public void setId(int id) {
+        System.out.println("Dependency Injection");
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Value("ABC")
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSal() {
+        return sal;
+    }
+
+    @Value("10000")
+    public void setSal(int sal) {
+        this.sal = sal;
+    }
+
+    // Utility Method
+    public void display() {
+        System.out.println("Employee Details");
+        System.out.println("Id : " + id);
+        System.out.println("Name : " + name);
+        System.out.println("Salary : " + sal);
+    }
+
+    // Initialization Method
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("I am Init Method");
+    }
+
+    // Destroy Method
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("I am Destroy Method");
+    }
+}
+```
+
+---
+
+# Step 4: Configuration Class
+
+## ConfigTest.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "org.techhub")
+public class ConfigTest {
+
+}
+```
+
+---
+
+# Step 5: Client Application
+
+## ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(ConfigTest.class);
+
+        Employee employee = (Employee)context.getBean("e");
+
+        employee.display();
+
+        context.close();
+    }
+}
+```
+
+---
+
+# Output
+
+```
+Bean Instantiation
+Dependency Injection
+I am Init Method
+
+Employee Details
+Id : 1
+Name : ABC
+Salary : 10000
+
+I am Destroy Method
+```
+
+---
+
+# Execution Flow
+
+```
+Spring Container Starts
+        │
+        ▼
+Bean Instantiation
+(Constructor Executes)
+        │
+        ▼
+Dependency Injection
+(@Value Executes)
+        │
+        ▼
+afterPropertiesSet()
+(Initialization Method)
+        │
+        ▼
+Bean Ready to Use
+(display() Method)
+        │
+        ▼
+context.close()
+        │
+        ▼
+destroy()
+(Destroy Method)
+```
+
+---
+
+# Explanation of Interfaces
+
+## 1. `InitializingBean`
+
+* Used to perform initialization after all bean properties have been injected.
+* Contains one method:
+
+```java
+public void afterPropertiesSet() throws Exception
+```
+
+* Spring automatically calls this method after dependency injection.
+
+Example:
+
+```java
+@Override
+public void afterPropertiesSet() throws Exception {
+    System.out.println("I am Init Method");
+}
+```
+
+---
+
+## 2. `DisposableBean`
+
+* Used to perform cleanup before the bean is destroyed.
+* Contains one method:
+
+```java
+public void destroy() throws Exception
+```
+
+* Spring calls this method when the application context is closed.
+
+Example:
+
+```java
+@Override
+public void destroy() throws Exception {
+    System.out.println("I am Destroy Method");
+}
+```
+
+---
+
+# Difference Between Annotation and Programming Approach
+
+| Annotation Approach                  | Programming Approach                             |
+| ------------------------------------ | ------------------------------------------------ |
+| Uses `@PostConstruct`                | Implements `InitializingBean`                    |
+| Uses `@PreDestroy`                   | Implements `DisposableBean`                      |
+| Less coupling with Spring interfaces | Directly depends on Spring interfaces            |
+| More commonly recommended            | Useful in some legacy or framework-specific code |
+
+---
+
+# Interview Questions
+
+### Q1. Which interfaces are used to implement the bean life cycle programmatically?
+
+**Answer:**
+
+* `InitializingBean`
+* `DisposableBean`
+
+---
+
+### Q2. Which method acts as the initialization method?
+
+**Answer:**
+`afterPropertiesSet()`
+
+---
+
+### Q3. Which method acts as the destroy method?
+
+**Answer:**
+`destroy()`
+
+---
+
+### Q4. When is `afterPropertiesSet()` called?
+
+**Answer:**
+After Spring completes dependency injection and before the bean is ready for use.
+
+---
+
+### Q5. When is `destroy()` called?
+
+**Answer:**
+When the Spring container is closed using `context.close()`.
+
+---
+
+# Summary
+
+| Stage | Action               | Programming Approach                        |
+| ----- | -------------------- | ------------------------------------------- |
+| 1     | Bean Instantiation   | Constructor                                 |
+| 2     | Dependency Injection | `@Value`, `@Autowired`                      |
+| 3     | Initialization       | `afterPropertiesSet()` (`InitializingBean`) |
+| 4     | Bean Ready for Use   | Business/Utility Methods                    |
+| 5     | Bean Destruction     | `destroy()` (`DisposableBean`)              |
+
+
+
+---
+
+# Eager Loading and Lazy Loading in Spring Framework
+
+---
+
+In **Spring Core (IoC Container)**, **Eager Loading** and **Lazy Loading** define **when Spring creates bean objects**.
+
+---
+
+# Eager Loading
+
+---
+
+**Definition**
+
+Eager Loading means **Spring creates singleton bean objects when the Spring container starts**.
+
+In other words, even if the developer **does not call the `getBean()` method**, Spring automatically creates the bean during container initialization.
+
+Since **Singleton** is the default scope in Spring, all singleton beans are eagerly initialized unless they are marked as lazy.
+
+---
+
+## Example with Source Code
+
+### Demo.java
+
+```java
+package org.techhub;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Demo 
+{
+    public Demo() 
+    {
+        System.out.println("Demo bean object created by Spring container");
+    }
+}
+```
+
+---
+
+### Employee.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("e")
+public class Employee implements InitializingBean, DisposableBean {
+
+    private int id;
+    private String name;
+    private int sal;
+
+    public Employee() {
+        System.out.println("Employee bean object created by Spring container");
+    }
+
+    @Value("1")
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Value("ABC")
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Value("10000")
+    public void setSal(int sal) {
+        this.sal = sal;
+    }
+
+    public void display() {
+        System.out.println("I am utility method");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("I am destroy method");
+    }
+}
+```
+---
+
+## ConfigTest.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "org.techhub")
+public class ConfigTest {
+
+}
+```
+
+---
+
+### ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(ConfigTest.class);
+
+        context.close();
+    }
+}
+```
+
+---
+
+### Output
+
+```
+Demo bean object created by Spring container
+Employee bean object created by Spring container
+I am destroy method
+```
+
+---
+
+### Note
+
+In the above example, we **did not call the `getBean()` method**, but Spring still created both bean objects automatically when the container started.
+
+This behavior is called **Eager Loading**.
+
+---
+
+# Characteristics of Eager Loading
+
+---
+
+* It is the **default behavior for Singleton beans**. 
+* Bean objects are created during **Spring container initialization**.
+* Application startup takes **more time** if many singleton beans are present.
+* More memory is consumed at startup because all singleton beans are created immediately. 
+* Errors in bean configuration are detected during application startup.
+* Improves runtime performance because beans are already available.
+
+---
+
+# Lazy Loading
+
+---
+
+**Definition** 
+
+The bean object is created only when the developer calls the **`getBean()`** method or when another bean requires it.
+
+To make a bean lazy, Spring provides the **`@Lazy`** annotation.
+
+---
+
+## Example with Source Code
+
+### Demo.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
+@Component("d")
+@Lazy
+public class Demo {
+
+    public Demo() {
+        System.out.println("Demo bean object created by Spring container");
+    }
+}
+```
+
+---
+
+### Employee.java
+
+```java
+package org.techhub;
+
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
+@Component("e")
+@Lazy
+public class Employee implements InitializingBean, DisposableBean {
+
+    private int id;
+    private String name;
+    private int sal;
+
+    public Employee() {
+        System.out.println("Employee bean object created by Spring container");
+    }
+
+    @Value("1")
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Value("ABC")
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Value("10000")
+    public void setSal(int sal) {
+        this.sal = sal;
+    }
+
+    public void display() {
+        System.out.println("I am utility method");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("I am destroy method");
+    }
+}
+```
+
+---
+
+### ClientApplication.java
+
+```java
+package org.techhub;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(ConfigTest.class);
+
+        System.out.println("Container Started");
+
+        Demo demo = context.getBean("d", Demo.class);
+
+        context.close();
+    }
+}
+```
+
+---
+
+### Output
+
+```
+Container Started
+Demo bean object created by Spring container
+I am destroy method
+```
+
+---
+
+### Note
+
+When the Spring container starts, it **does not create the `Demo` bean** because it is marked with **`@Lazy`**.
+
+The bean is created **only after calling the `getBean()` method**.
+
+This behavior is called **Lazy Loading**.
+
+---
+
+# Characteristics of Lazy Loading
+
+---
+
+* Bean is created only when it is requested.
+* Reduces application startup time.
+* Consumes less memory during startup.
+* Errors related to the bean are detected only when the bean is created.
+* Useful for large applications where some beans are rarely used.
+* Enabled by using the **`@Lazy`** annotation.
+
+---
+
+# Difference Between Eager Loading and Lazy Loading
+
+---
+
+| Feature                 | Eager Loading                                     | Lazy Loading                                             |
+| ----------------------- | ------------------------------------------------- | -------------------------------------------------------- |
+| **Bean Creation**       | Bean is created when the Spring container starts. | Bean is created when it is requested for the first time. |
+| **Startup Time**        | Higher (slower startup)                           | Lower (faster startup)                                   |
+| **Memory Usage**        | More memory is used initially.                    | Less memory is used initially.                           |
+| **Error Detection**     | Errors are detected during startup.               | Errors are detected at runtime when the bean is created. |
+| **Default in Spring**   | Yes (for Singleton beans)                         | No (must use `@Lazy`)                                    |
+| **Performance**         | Faster bean access after startup                  | Slight delay when bean is accessed for the first time    |
+| **Annotation Required** | No                                                | Yes (`@Lazy`)                                            |
+
+---
+
+Your notes are correct in concept, but they contain several grammar issues and a few technical inaccuracies. Below is a cleaner interview-ready explanation.
+
+---
+ 
+# @Lookup Annotation in Spring Framework
+ 
+## What is `@Lookup` Annotation?
+
+`@Lookup` is a Spring annotation used to inject a **prototype-scoped bean** into a **singleton-scoped bean** dynamically.
+
+Normally, when a prototype bean is injected into a singleton bean using `@Autowired`, the prototype object is created **only once** at the time the singleton bean is created. After that, the singleton bean keeps using the same prototype object.
+
+If we want a **new prototype object every time** the singleton bean requests it, we use the **`@Lookup` annotation**.
+
+---
+
+## Why do we need `@Lookup`?
+
+Spring creates:
+
+* **Singleton Bean** → Only one object is created for the entire application.
+* **Prototype Bean** → A new object is created every time it is requested from the Spring container.
+
+### Problem
+
+When a prototype bean is injected into a singleton bean using `@Autowired`, only one prototype object is injected.
+
+```
+Singleton Bean
+      |
+      |----> Prototype Bean (Only one object)
+```
+
+Even though the bean scope is **prototype**, it behaves like a singleton inside that singleton bean because the dependency is resolved only once. 
+
+---
+
+## Solution
+
+Use the `@Lookup` annotation.
+
+Spring overrides the `@Lookup` method at runtime and returns a **new prototype bean** every time the method is called.
+
+```
+Singleton Bean
+      |
+      |---- display()
+      |         |
+      |         ---> New Prototype Object
+      |
+      |---- display()
+      |         |
+      |         ---> New Prototype Object
+```
+
+---
+
+# Steps to use `@Lookup`
+
+1. Create a Prototype bean.
+2. Create a Singleton bean.
+3. Define a method in the Singleton bean.
+4. Annotate the method with `@Lookup`.
+5. The method should return the Prototype bean type.
+6. Return `null`; Spring overrides this method at runtime.
+
+---
+
+# Example
+
+## Demo.java (Prototype Bean)
+
+```java
+package org.techhub.lookup;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("prototype")
+public class Demo {
+
+    public Demo() {
+        System.out.println("Demo Bean Object Created");
+    }
+}
+```
+
+---
+
+## Test.java (Singleton Bean)
+
+```java
+package org.techhub.lookup;
+
+import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Test {
+
+    public Test() {
+        System.out.println("Test Bean Object Created");
+    }
+
+    @Lookup
+    public Demo display() {
+        return null; // Spring overrides this method
+    }
+}
+```
+
+---
+
+## ConfigApp.java
+
+```java
+package org.techhub.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan("org.techhub")
+public class ConfigApp {
+
+}
+```
+
+---
+
+## ClientApplication.java
+
+```java
+package org.techhub.lookup;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.techhub.config.ConfigApp;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(ConfigApp.class);
+
+        Test test = context.getBean(Test.class);
+
+        Demo d1 = test.display();
+        Demo d2 = test.display();
+        Demo d3 = test.display();
+        Demo d4 = test.display();
+
+        System.out.println(d1);
+        System.out.println(d2);
+        System.out.println(d3);
+        System.out.println(d4);
+
+        context.close();
+    }
+}
+```
+
+---
+
+# Output
+
+```
+Test Bean Object Created
+
+Demo Bean Object Created
+Demo Bean Object Created
+Demo Bean Object Created
+Demo Bean Object Created
+
+org.techhub.lookup.Demo@4e25154f
+org.techhub.lookup.Demo@70dea4e
+org.techhub.lookup.Demo@5c647e05
+org.techhub.lookup.Demo@33909752
+```
+
+Notice that **four different `Demo` objects** are created because `display()` returns a new prototype bean every time.
+
+---
+
+# Important Points
+
+* `@Lookup` is used to inject a **prototype bean into a singleton bean**.
+* Spring overrides the annotated method using **CGLIB** at runtime.
+* The method annotated with `@Lookup` should return the required bean type.
+* The method body usually returns `null`; Spring replaces its implementation automatically.
+* Every call to the `@Lookup` method returns a **new instance** of the prototype bean.
+
+---
+
+# Interview Question
+
+### Q. Why do we use `@Lookup` Annotation?
+
+**Answer:**
+
+`@Lookup` is used to obtain a new instance of a prototype-scoped bean from a singleton-scoped bean. Without `@Lookup`, a prototype bean injected using `@Autowired` is created only once and reused. With `@Lookup`, Spring fetches a fresh prototype bean from the container every time the annotated method is called.
+
+---
+
+### Note about your example
+
+In your `Test` class, the field
+
+```java
+@Autowired
+Demo demo;
+```
+
+is **not actually used** after introducing `@Lookup`. It can be removed to better demonstrate the purpose of `@Lookup`:
+
+```java
+@Component
+public class Test {
+
+    @Lookup
+    public Demo display() {
+        return null;
+    }
+}
+```
+
+This is the recommended way to demonstrate `@Lookup` in Spring.
+
+
+
 
 

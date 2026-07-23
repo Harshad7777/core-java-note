@@ -1,13 +1,10 @@
-
 ---
-
 # Spring JDBC
 
 ## What is Spring JDBC?
 
 Spring JDBC is a module of the Spring Framework that simplifies database access using the JDBC API. It reduces the amount of code required to interact with relational databases by handling repetitive tasks such as opening and closing database connections, managing exceptions, and executing SQL queries.
-  
----   
+---
 
 # Why did Spring develop Spring JDBC if Plain JDBC already exists?
 
@@ -15,14 +12,14 @@ Although Plain JDBC allows Java applications to communicate with databases, it r
 
 ### Problems with Plain JDBC
 
-* Manually loading the JDBC driver.
-* Opening database connections manually.
-* Creating `Statement` or `PreparedStatement` objects.
-* Executing SQL queries manually.
-* Processing `ResultSet`.
-* Closing `Connection`, `Statement`, and `ResultSet` objects manually.
-* Handling checked exceptions (`SQLException`) everywhere.
-* More code, making applications harder to maintain.
+- Manually loading the JDBC driver.
+- Opening database connections manually.
+- Creating `Statement` or `PreparedStatement` objects.
+- Executing SQL queries manually.
+- Processing `ResultSet`.
+- Closing `Connection`, `Statement`, and `ResultSet` objects manually.
+- Handling checked exceptions (`SQLException`) everywhere.
+- More code, making applications harder to maintain.
 
 Spring JDBC solves all these problems by providing reusable classes and automatic resource management.
 
@@ -42,8 +39,8 @@ Instead of throwing `SQLException` (checked exception), Spring converts database
 
 **Benefit:**
 
-* Cleaner code
-* No need to write multiple `try-catch` blocks
+- Cleaner code
+- No need to write multiple `try-catch` blocks
 
 ---
 
@@ -53,11 +50,11 @@ Spring automatically manages JDBC resources.
 
 It automatically:
 
-* Opens database connections
-* Closes database connections
-* Closes `Statement` objects
-* Closes `PreparedStatement` objects
-* Closes `ResultSet` objects
+- Opens database connections
+- Closes database connections
+- Closes `Statement` objects
+- Closes `PreparedStatement` objects
+- Closes `ResultSet` objects
 
 This helps prevent resource leaks.
 
@@ -71,21 +68,18 @@ It simplifies executing all types of SQL operations.
 
 Using `JdbcTemplate`, we can execute:
 
-* **DDL (Data Definition Language)**
+- **DDL (Data Definition Language)**
+  - `CREATE`
+  - `ALTER`
+  - `DROP`
 
-  * `CREATE`
-  * `ALTER`
-  * `DROP`
+- **DML (Data Manipulation Language)**
+  - `INSERT`
+  - `UPDATE`
+  - `DELETE`
 
-* **DML (Data Manipulation Language)**
-
-  * `INSERT`
-  * `UPDATE`
-  * `DELETE`
-
-* **DQL (Data Query Language)**
-
-  * `SELECT`
+- **DQL (Data Query Language)**
+  - `SELECT`
 
 ---
 
@@ -93,8 +87,8 @@ Using `JdbcTemplate`, we can execute:
 
 Spring JDBC can automatically map database rows to Java objects using classes like:
 
-* `BeanPropertyRowMapper`
-* Custom `RowMapper`
+- `BeanPropertyRowMapper`
+- Custom `RowMapper`
 
 This eliminates the need to manually extract values from the `ResultSet`.
 
@@ -106,19 +100,19 @@ Spring provides declarative transaction management using the `@Transactional` an
 
 This ensures:
 
-* Data consistency
-* Automatic commit
-* Automatic rollback when an exception occurs
+- Data consistency
+- Automatic commit
+- Automatic rollback when an exception occurs
 
 ---
 
 ### 7. Better Maintainability
- 
+
 Since Spring JDBC reduces code complexity, applications become:
 
-* Easier to read
-* Easier to debug
-* Easier to maintain
+- Easier to read
+- Easier to debug
+- Easier to maintain
 
 ---
 
@@ -145,14 +139,13 @@ Since Spring JDBC reduces code complexity, applications become:
 **Q. What is the main class in Spring JDBC?**
 **Answer:** The main class is **`JdbcTemplate`**, which simplifies executing SQL statements and managing database resources.
 
-
 ---
 
 # How to Connect a Spring Application with a Database using Spring JDBC
 
 Spring JDBC provides a simple way to connect a Spring application with a relational database. It reduces the boilerplate code required in plain JDBC, such as opening/closing connections and handling exceptions.
 
---- 
+---
 
 # Steps to Connect a Spring Application with a Database
 
@@ -224,10 +217,10 @@ It is used to connect a Spring application with a database.
 
 The following properties must be configured:
 
-* Driver Class Name
-* Database URL
-* Username
-* Password
+- Driver Class Name
+- Database URL
+- Username
+- Password
 
 ---
 
@@ -327,11 +320,9 @@ public class TestConnection {
 
 # 3. Configure Database Connection using Java Annotations
 
-
 ---
 
 ## DBConfig.java
-
 
 ```java
 package org.techhub;
@@ -342,7 +333,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@ComponentScan(basePackages = "org.techhub") 
+@ComponentScan(basePackages = "org.techhub")
 public class DBConfig {
 
     @Bean(name = "dataSource")
@@ -405,10 +396,10 @@ public class TestConnection {
 
 ### Q2. What information is required to configure DriverManagerDataSource?
 
-* Driver Class Name
-* Database URL
-* Username
-* Password
+- Driver Class Name
+- Database URL
+- Username
+- Password
 
 ---
 
@@ -426,17 +417,16 @@ There are three common ways:
 
 Because it **does not provide connection pooling**. It creates a new database connection every time it is requested, which reduces application performance. For production applications, connection pools such as **HikariCP**, **Apache DBCP**, or **C3P0** are preferred.
 
-
 ---
 
 # Working with a Database using Spring JDBC (`JdbcTemplate`)
 
 `JdbcTemplate` is one of the most important classes in Spring JDBC. It simplifies database programming by handling the repetitive tasks of JDBC such as:
 
-* Opening database connections
-* Creating and executing SQL statements
-* Handling exceptions
-* Closing resources
+- Opening database connections
+- Creating and executing SQL statements
+- Handling exceptions
+- Closing resources
 
 It belongs to the package:
 
@@ -450,10 +440,9 @@ org.springframework.jdbc.core
 
 1. Configure the `DataSource`.
 2. Create a `JdbcTemplate` object.
-3. Write SQL queries. 
+3. Write SQL queries.
 4. Execute SQL using `JdbcTemplate` methods.
 5. Process the result (if it is a SELECT query).
-
 
 ---
 
@@ -504,15 +493,14 @@ public class DBConfig {
 
 ### Features
 
-* Uses the default constructor.
-* Injects `DataSource` using the `setDataSource()` method.
-* Demonstrates **setter injection**.
-* Commonly found in older Spring examples.
+- Uses the default constructor.
+- Injects `DataSource` using the `setDataSource()` method.
+- Demonstrates **setter injection**.
+- Commonly found in older Spring examples.
 
 ---
 
 # 2. Modern Configuration (Constructor Injection)
-
 
 ### DBConfig.java
 
@@ -551,10 +539,10 @@ public class DBConfig {
 
 ### Features
 
-* Uses constructor injection.
-* Less code and easier to read.
-* Recommended for modern Spring applications.
-* Preferred in real-world projects.
+- Uses constructor injection.
+- Less code and easier to read.
+- Recommended for modern Spring applications.
+- Preferred in real-world projects.
 
 ---
 
@@ -646,7 +634,9 @@ template.execute(
     "salary DOUBLE)"
 );
 ```
+
 ### DBConfig.java
+
 ```java
 package org.techhub.config;
 
@@ -681,6 +671,7 @@ public class DBConfig {
 ```
 
 ### ClientApplication.java
+
 ```java
 
 package org.techhub;
@@ -752,9 +743,9 @@ can manipulate the SQL query.
 
 To avoid SQL Injection, always use:
 
-* PreparedStatement
-* `JdbcTemplate.update()`
-* Parameterized queries (`?` placeholders)
+- PreparedStatement
+- `JdbcTemplate.update()`
+- Parameterized queries (`?` placeholders)
 
 ---
 
@@ -762,16 +753,16 @@ To avoid SQL Injection, always use:
 
 The `update()` method is used to execute
 
-* INSERT
-* UPDATE
-* DELETE
+- INSERT
+- UPDATE
+- DELETE
 
 queries safely.
 
 It returns
 
-* **1** → Success
-* **0** → No record affected
+- **1** → Success
+- **0** → No record affected
 
 ---
 
@@ -907,7 +898,7 @@ public class DBConfig {
     }
 
     @Bean(name = "template")
-    public JdbcTemplate getTemplate() 
+    public JdbcTemplate getTemplate()
     {
         return new JdbcTemplate(getDataSource());
     }
@@ -968,28 +959,40 @@ public class ClientApplication {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(DBConfig.class);
 
-        JdbcTemplate template = context.getBean("template", JdbcTemplate.class);
+        JdbcTemplate template =
+                context.getBean("template", JdbcTemplate.class);
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter Employee Name");
-        String name = sc.nextLine();
+        if (template != null) {
 
-        System.out.println("Enter Salary");
-        int sal = sc.nextInt();
+            System.out.println("Enter Employee Name:");
+            String name = sc.nextLine();
 
-        ParamToSQLStatement pstmt = new ParamToSQLStatement();
-        pstmt.setName(name);
-        pstmt.setSal(sal);
+            System.out.println("Enter Employee Salary:");
+            int sal = sc.nextInt();
 
-        int result = template.update(
-                "INSERT INTO employee VALUES(0,?,?)",
-                pstmt);
+            ParamToSQLStatement pstmt = new ParamToSQLStatement();
 
-        if(result>0)
-            System.out.println("Record Saved Successfully");
-        else
-            System.out.println("Record Not Saved");
+            pstmt.setName(name);
+            pstmt.setSal(sal);
+
+            int result = template.update(
+                    "INSERT INTO employee VALUES(0,?,?)",
+                    pstmt);
+
+            if (result > 0) {
+
+                System.out.println("Record Saved Successfully...");
+            } else {
+
+                System.out.println("Record Not Saved...");
+            }
+
+        } else {
+
+            System.out.println("Database is not connected...");
+        }
 
         sc.close();
         context.close();
@@ -1017,6 +1020,68 @@ int result = template.update(
         stmt);
 ```
 
+```java
+package org.techhub;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.techhub.config.DBConfig;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(DBConfig.class);
+
+        JdbcTemplate template =
+                context.getBean("template", JdbcTemplate.class);
+
+        Scanner sc = new Scanner(System.in);
+
+        if (template != null) {
+
+            System.out.println("Enter Employee Name:");
+            String name = sc.nextLine();
+
+            System.out.println("Enter Employee Salary:");
+            int sal = sc.nextInt();
+
+            PreparedStatementSetter stmt = new PreparedStatementSetter() {
+
+                @Override
+                public void setValues(PreparedStatement ps) throws SQLException {
+
+                    ps.setString(1, name);
+                    ps.setInt(2, sal);
+                }
+            };
+
+            int result = template.update(
+                    "INSERT INTO employee VALUES(0,?,?)",
+                    stmt);
+
+            if (result > 0) {
+                System.out.println("Record Saved Successfully...");
+            } else {
+                System.out.println("Record Not Saved...");
+            }
+
+        } else {
+            System.out.println("Database is not connected...");
+        }
+
+        sc.close();
+        context.close();
+    }
+}
+```
+
 ---
 
 # Method 3: Lambda Expression
@@ -1033,6 +1098,67 @@ int result = template.update(
         stmt);
 ```
 
+```java
+package org.techhub;
+
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.techhub.config.DBConfig;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(DBConfig.class);
+
+        JdbcTemplate template =
+                context.getBean("template", JdbcTemplate.class);
+
+        Scanner sc = new Scanner(System.in);
+
+        if (template != null) {
+
+            System.out.println("Enter Employee Name:");
+            String name = sc.nextLine();
+
+            System.out.println("Enter Employee Salary:");
+            int sal = sc.nextInt();
+
+            // Lambda Expression
+            PreparedStatementSetter stmt = (PreparedStatement ps) -> {
+
+                ps.setString(1, name);
+                ps.setInt(2, sal);
+            };
+
+            int result = template.update(
+                    "INSERT INTO employee VALUES(0,?,?)",
+                    stmt);
+
+            if (result > 0) {
+
+                System.out.println("Record Saved Successfully...");
+            } else {
+
+                System.out.println("Record Not Saved...");
+            }
+
+        } else {
+
+            System.out.println("Database is not connected...");
+        }
+
+        sc.close();
+        context.close();
+    }
+}
+```
+
 ---
 
 # Method 4: Direct Lambda Expression
@@ -1046,6 +1172,68 @@ int result = template.update(
             ps.setInt(2, sal);
         });
 ```
+
+````java
+package org.techhub;
+
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.techhub.config.DBConfig;
+
+public class ClientApplication {
+
+    public static void main(String[] args) {
+
+        // Load Spring Container
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(DBConfig.class);
+
+        // Get JdbcTemplate Bean
+        JdbcTemplate template =
+                context.getBean("template", JdbcTemplate.class);
+
+        // Create Scanner Object
+        Scanner sc = new Scanner(System.in);
+
+        if (template != null) {
+
+            // Read Employee Name
+            System.out.println("Enter Employee Name:");
+            String name = sc.nextLine();
+
+            // Read Employee Salary
+            System.out.println("Enter Employee Salary:");
+            int sal = sc.nextInt();
+
+            // Execute Insert Query using Lambda Expression
+            int result = template.update(
+                    "INSERT INTO employee VALUES(0,?,?)",
+                    (PreparedStatement ps) -> {
+
+                        ps.setString(1, name);
+                        ps.setInt(2, sal);
+                    });
+
+            if (result > 0) {
+
+                System.out.println("Record Saved Successfully...");
+            } else {
+
+                System.out.println("Record Not Saved...");
+            }
+
+        } else {
+
+            System.out.println("Database is not connected...");
+        }
+
+        sc.close();
+        context.close();
+    }
+}
 
 ---
 
@@ -1068,7 +1256,7 @@ if(result>0)
     System.out.println("Record Deleted Successfully");
 else
     System.out.println("Record Not Found");
-```
+````
 
 ---
 
@@ -1096,169 +1284,519 @@ else
 
 For modern Spring JDBC applications, **Method 4 (direct lambda)** is the most concise and widely used approach.
 
+---
 
+Here is a **rewritten, well-structured version** of your notes while keeping the same concepts and examples.
 
+# Fetch Data from Database using `JdbcTemplate.query()`
 
-
-
-
-
-
-
+The `query()` method of the `JdbcTemplate` class is used to execute a **SELECT** statement and retrieve records from a database table. It returns the fetched records as a collection of Java objects.
 
 ---
 
-# Fetch Data using query()
-
-The `query()` method executes a SELECT statement and returns a list of objects.
-
-## Syntax
+# Syntax
 
 ```java
-List<T> query(
-
-String sql,
-
-RowMapper<T> mapper
-
-);
+List<T> query(String sql, RowMapper<T> rowMapper);
 ```
+
+### Parameters
+
+- **sql** – The SQL `SELECT` query to execute.
+- **RowMapper** – Maps each row of the `ResultSet` to a Java object.
+
+### Return Type
+
+- Returns a `List<T>` containing all the mapped objects.
 
 ---
 
-# What is RowMapper?
+# What is `RowMapper`?
 
-`RowMapper` is a functional interface.
-
-Package:
+`RowMapper` is a **functional interface** available in the following package:
 
 ```java
 org.springframework.jdbc.core
 ```
 
-It contains one method:
+It contains one abstract method:
 
 ```java
-mapRow(ResultSet rs, int rowNum)
+T mapRow(ResultSet rs, int rowNum) throws SQLException;
 ```
 
-This method converts one database row into one Java object.
+### Parameters
+
+- **ResultSet rs** – Represents the current row fetched from the database.
+- **rowNum** – Indicates the current row number.
+
+### Return Value
+
+Returns a Java object (for example, an `Employee` object).
+
+### Purpose
+
+The `mapRow()` method converts **one row of the database table into one Java object**. Spring automatically calls this method for every row returned by the `SELECT` query.
 
 ---
 
-# Employee Class
+# Example: Fetch All Employee Records using Spring JDBC
+
+## Step 1: Create Database and Table
+
+```sql
+CREATE DATABASE aug2025;
+
+USE aug2025;
+
+CREATE TABLE employee
+(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    salary INT
+);
+
+INSERT INTO employee(name,salary)
+VALUES
+('Rahul',35000),
+('Amit',42000),
+('Karan',30000);
+```
+
+---
+
+# Project Structure
+
+```
+SpringJDBCProject
+│
+├── src
+│
+├── org.techhub
+│
+│   ├── DBConfig.java
+│   ├── Employee.java
+│   └── FetchDataApplication.java
+│
+└── pom.xml
+```
+
+---
+
+# DBConfig.java
 
 ```java
+package org.techhub;
+
+// Import Spring annotations and JDBC classes
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+// Marks this class as Spring Configuration class
+@Configuration
+
+// Scan the org.techhub package for Spring components
+@ComponentScan(basePackages = {"org.techhub"})
+public class DBConfig {
+
+    // Create DataSource bean
+    @Bean(name = "dataSource")
+    public DriverManagerDataSource getDataSource() {
+
+        // Create DataSource object
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
+        // MySQL Driver Class
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+
+        // Database URL
+        dataSource.setUrl("jdbc:mysql://localhost:3306/aug2025");
+
+        // Database Username
+        dataSource.setUsername("root");
+
+        // Database Password
+        dataSource.setPassword("root");
+
+        // Return DataSource object
+        return dataSource;
+    }
+
+    // Create JdbcTemplate bean
+    @Bean(name = "template")
+    public JdbcTemplate getTemplate() {
+
+        // Pass DataSource to JdbcTemplate
+        return new JdbcTemplate(getDataSource());
+    }
+}
+```
+
+---
+
+# Employee.java
+
+```java
+package org.techhub;
+
+package org.techhub;
+
+// POJO class
 public class Employee {
 
+    // Instance variables
     private int id;
     private String name;
-    private int salary;
+    private int sal;
 
-    // Getters and Setters
+    // Default Constructor
+    public Employee() {
 
+    }
+
+    // Parameterized Constructor
+    public Employee(String name, int id, int sal) {
+
+        this.name = name;
+        this.id = id;
+        this.sal = sal;
+    }
+
+    // Getter for id
+    public int getId() {
+        return id;
+    }
+
+    // Setter for id
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    // Getter for name
+    public String getName() {
+        return name;
+    }
+
+    // Setter for name
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Getter for salary
+    public int getSal() {
+        return sal;
+    }
+
+    // Setter for salary
+    public void setSal(int sal) {
+        this.sal = sal;
+    }
+}
+```
+
+### Explanation
+
+`Employee` is a **POJO (Plain Old Java Object)** that represents one row of the `employee` table.
+
+---
+
+# Method 1: Using Anonymous Inner Class
+
+```java
+package org.techhub;
+
+// Import required classes
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+public class FetchDataApplication {
+
+    public static void main(String[] args) 
+    {
+
+        // Load Spring Configuration Class
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(DBConfig.class);
+
+        // Get JdbcTemplate bean from Spring Container
+        JdbcTemplate template =
+                context.getBean("template", JdbcTemplate.class);
+
+        // Check whether JdbcTemplate bean is created or not
+        if (template != null) {
+
+            // Create RowMapper using Anonymous Inner Class
+            RowMapper<Employee> mapper = new RowMapper<Employee>() {
+
+                // Override mapRow() method
+                @Override
+                public Employee mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+
+                    // Create Employee object
+                    Employee emp = new Employee();
+
+                    // Read first column (id)
+                    emp.setId(rs.getInt(1));
+
+                    // Read second column (name)
+                    emp.setName(rs.getString(2));
+
+                    // Read third column (salary)
+                    emp.setSal(rs.getInt(3));
+
+                    // Return Employee object
+                    return emp;
+                }
+            };
+
+            // Execute SELECT query
+            List<Employee> list =
+                    template.query("SELECT * FROM employee", mapper);
+
+            // Display all employee records
+            for (Employee emp : list) {
+
+                System.out.println(
+                        emp.getId() + "\t" +
+                        emp.getName() + "\t" +
+                        emp.getSal());
+            }
+
+        } else {
+
+            // Display message if connection fails
+            System.out.println("Database is not connected.");
+        }
+
+        // Close Spring Container
+        context.close();
+    }
 }
 ```
 
 ---
 
-# Fetch All Employees
+# Method 2: Using Lambda Expression
 
 ```java
-List<Employee> list = template.query(
+package org.techhub;
 
-"select * from employee",
+// Import required classes
+import java.sql.ResultSet;
+import java.util.List;
 
-(rs,rowNum)->{
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-    Employee emp = new Employee();
+public class FetchDataApplication {
 
-    emp.setId(rs.getInt("id"));
-    emp.setName(rs.getString("name"));
-    emp.setSalary(rs.getInt("salary"));
+    public static void main(String[] args) {
 
-    return emp;
+        // Load Spring Configuration
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(DBConfig.class);
 
+        // Get JdbcTemplate bean
+        JdbcTemplate template =
+                context.getBean("template", JdbcTemplate.class);
+
+        // Execute SELECT query
+        List<Employee> list =
+                template.query(
+
+                        "SELECT * FROM employee",
+
+                        // Lambda Expression for RowMapper
+                        (ResultSet rs, int rowNum) -> {
+
+                            // Create Employee object
+                            Employee emp = new Employee();
+
+                            // Read employee id
+                            emp.setId(rs.getInt(1));
+
+                            // Read employee name
+                            emp.setName(rs.getString(2));
+
+                            // Read employee salary
+                            emp.setSal(rs.getInt(3));
+
+                            // Return object
+                            return emp;
+                        });
+
+        // Print employee details
+        for (Employee emp : list) {
+
+            System.out.println(
+                    emp.getId() + "\t" +
+                    emp.getName() + "\t" +
+                    emp.getSal());
+        }
+
+        // Close Spring Container
+        context.close();
+    }
 }
-
-);
-
-list.forEach(System.out::println);
 ```
 
 ---
 
-# Fetch Employee by ID
+# Method 3: Constructor-Based Lambda Expression
 
 ```java
-List<Employee> list = template.query(
+package org.techhub;
 
-"select * from employee where id=?",
+// Import required classes
+import java.sql.ResultSet;
+import java.util.List;
 
-ps->ps.setInt(1,id),
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-(rs,rowNum)->{
+public class FetchDataApplication {
 
-    Employee emp = new Employee();
+    public static void main(String[] args) {
 
-    emp.setId(rs.getInt("id"));
-    emp.setName(rs.getString("name"));
-    emp.setSalary(rs.getInt("salary"));
+        // Load Spring Container
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(DBConfig.class);
 
-    return emp;
+        // Get JdbcTemplate bean
+        JdbcTemplate template =
+                context.getBean("template", JdbcTemplate.class);
 
+        // Execute SELECT query and map each row directly
+        List<Employee> list =
+                template.query(
+
+                        "SELECT * FROM employee",
+
+                        // Constructor-based RowMapper
+                        (ResultSet rs, int rowNum) ->
+                                new Employee(
+                                        rs.getString(2),
+                                        rs.getInt(1),
+                                        rs.getInt(3)));
+
+        // Display records using forEach()
+        list.forEach(emp ->
+                System.out.println(
+                        emp.getId() + "\t" +
+                        emp.getName() + "\t" +
+                        emp.getSal()));
+
+        // Close Spring Container
+        context.close();
+    }
 }
-
-);
 ```
 
 ---
 
-# Alternative (Recommended)
+# Output
 
-Instead of `PreparedStatementSetter`, use method parameters directly.
-
-```java
-List<Employee> list = template.query(
-
-"select * from employee where id=?",
-
-new Object[]{id},
-
-(rs,rowNum)->{
-
-    Employee emp = new Employee();
-
-    emp.setId(rs.getInt("id"));
-    emp.setName(rs.getString("name"));
-    emp.setSalary(rs.getInt("salary"));
-
-    return emp;
-
-}
-
-);
+```
+1    Rahul    35000
+2    Amit     42000
+3    Karan    30000
 ```
 
-Or even simpler:
+---
 
-```java
-List<Employee> list = template.query(
+# Program Flow
 
-"select * from employee where id=?",
-
-(rs,rowNum)->new Employee(
-
-rs.getInt("id"),
-rs.getString("name"),
-rs.getInt("salary")
-
-),
-
-id
-
-);
 ```
+Start
+   │
+   ▼
+Load Spring Container
+   │
+   ▼
+Create DataSource Bean
+   │
+   ▼
+Create JdbcTemplate Bean
+   │
+   ▼
+Get JdbcTemplate Bean
+   │
+   ▼
+Execute SELECT Query using query()
+   │
+   ▼
+Spring calls mapRow() for each row
+   │
+   ▼
+Convert each row into an Employee object
+   │
+   ▼
+Store all Employee objects in List<Employee>
+   │
+   ▼
+Display the employee details
+   │
+   ▼
+End
+```
+
+
+## Program Flow
+
+```
+Start
+   │
+   ▼
+Load Spring Container
+   │
+   ▼
+Create DataSource Bean
+   │
+   ▼
+Create JdbcTemplate Bean
+   │
+   ▼
+Get JdbcTemplate Bean
+   │
+   ▼
+Create RowMapper
+   │
+   ▼
+Call query()
+   │
+   ▼
+Execute SELECT Query
+   │
+   ▼
+Read Each Row from ResultSet
+   │
+   ▼
+Convert Each Row into Employee Object
+   │
+   ▼
+Store Objects in List<Employee>
+   │
+   ▼
+Display Employee Details
+   │
+   ▼
+End
+```
+
+This is the complete Spring JDBC example for **fetching all records using `JdbcTemplate.query()`**, including:
+
+1. Anonymous Inner Class implementation of `RowMapper`.
+2. Lambda Expression implementation of `RowMapper`.
+3. Constructor-based lambda implementation with `forEach()`.
 
 ---
 
@@ -1272,22 +1810,22 @@ id
 
 ### 2. Why is `JdbcTemplate` better than plain JDBC?
 
-* Eliminates boilerplate code
-* Handles exceptions automatically
-* Closes resources automatically
-* Supports parameterized queries
-* Reduces code complexity
+- Eliminates boilerplate code
+- Handles exceptions automatically
+- Closes resources automatically
+- Supports parameterized queries
+- Reduces code complexity
 
 ---
 
 ### 3. Which methods are commonly used in `JdbcTemplate`?
 
-* `execute()`
-* `update()`
-* `query()`
-* `queryForObject()`
-* `queryForList()`
-* `queryForMap()`
+- `execute()`
+- `update()`
+- `query()`
+- `queryForObject()`
+- `queryForList()`
+- `queryForMap()`
 
 ---
 
@@ -1311,9 +1849,9 @@ id
 
 ## Best Practices
 
-* Use `update()` instead of `execute()` for DML operations.
-* Avoid string concatenation when building SQL queries.
-* Use parameterized queries (`?`) to prevent SQL injection.
-* Use `RowMapper` to map database rows to Java objects.
-* For production applications, use a connection pool (such as **HikariCP**) instead of `DriverManagerDataSource`.
-* Always close the `ApplicationContext` after use to release resources.
+- Use `update()` instead of `execute()` for DML operations.
+- Avoid string concatenation when building SQL queries.
+- Use parameterized queries (`?`) to prevent SQL injection.
+- Use `RowMapper` to map database rows to Java objects.
+- For production applications, use a connection pool (such as **HikariCP**) instead of `DriverManagerDataSource`.
+- Always close the `ApplicationContext` after use to release resources.

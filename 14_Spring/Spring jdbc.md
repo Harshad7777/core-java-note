@@ -1747,49 +1747,7 @@ Display the employee details
    │
    ▼
 End
-```
 
-
-## Program Flow
-
-```
-Start
-   │
-   ▼
-Load Spring Container
-   │
-   ▼
-Create DataSource Bean
-   │
-   ▼
-Create JdbcTemplate Bean
-   │
-   ▼
-Get JdbcTemplate Bean
-   │
-   ▼
-Create RowMapper
-   │
-   ▼
-Call query()
-   │
-   ▼
-Execute SELECT Query
-   │
-   ▼
-Read Each Row from ResultSet
-   │
-   ▼
-Convert Each Row into Employee Object
-   │
-   ▼
-Store Objects in List<Employee>
-   │
-   ▼
-Display Employee Details
-   │
-   ▼
-End
 ```
 
 This is the complete Spring JDBC example for **fetching all records using `JdbcTemplate.query()`**, including:
@@ -1855,3 +1813,343 @@ This is the complete Spring JDBC example for **fetching all records using `JdbcT
 - Use `RowMapper` to map database rows to Java objects.
 - For production applications, use a connection pool (such as **HikariCP**) instead of `DriverManagerDataSource`.
 - Always close the `ApplicationContext` after use to release resources.
+
+
+
+
+# Applying `WHERE` Clause with `JdbcTemplate.query()`
+
+If you want to fetch specific records from a database using a **WHERE** clause, `JdbcTemplate` provides overloaded `query()` methods.
+
+---
+
+# Syntax 1: Using `PreparedStatementSetter`
+
+```java
+List<T> query(String sql,
+              PreparedStatementSetter pss,
+              RowMapper<T> rowMapper);
+```
+
+### Parameters
+
+* **sql** – The SQL `SELECT` query.
+* **PreparedStatementSetter** – Used to set values for the `?` placeholders in the query.
+* **RowMapper** – Converts each row of the `ResultSet` into a Java object.
+
+### Return Type
+
+* Returns a `List<T>` containing the matching records.
+
+---
+
+# Syntax 2: Using `Object[]`
+
+```java
+List<T> query(String sql,
+              Object[] args,
+              RowMapper<T> rowMapper);
+```
+
+### Parameters
+
+* **sql** – The SQL `SELECT` query.
+* **Object[] args** – Values for the `?` placeholders.
+* **RowMapper** – Converts each row into a Java object.
+
+---
+
+# Example
+
+**Write a program to fetch employee details using employee id.**
+
+---
+
+# Database Table
+
+```sql
+CREATE TABLE employee
+(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    salary INT
+);
+```
+
+Sample Data
+
+| id | name  | salary |
+| -- | ----- | ------ |
+| 1  | Rahul | 35000  |
+| 2  | Amit  | 42000  |
+| 3  | Karan | 30000  |
+
+---
+
+# Method 1: Using `PreparedStatementSetter`
+
+## FetchDataApplication.java
+
+```java
+package org.techhub;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
+
+public class FetchDataApplication {
+
+    public static void main(String[] args) {
+
+        // Load Spring Container
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(DBConfig.class);
+
+        // Get JdbcTemplate Bean
+        JdbcTemplate template =
+                context.getBean("template", JdbcTemplate.class);
+
+        // Read Employee Id
+        Scanner xyz = new Scanner(System.in);
+
+        System.out.println("Enter Employee Id:");
+        int empId = xyz.nextInt();
+
+        // Create PreparedStatementSetter
+        PreparedStatementSetter stmt =
+                new PreparedStatementSetter() {
+
+            @Override
+            public void setValues(PreparedStatement ps)
+                    throws SQLException {
+
+                // Set value for ?
+                ps.setInt(1, empId);
+            }
+        };
+
+        // Create RowMapper
+        RowMapper<Employee> mapper =
+                new RowMapper<Employee>() {
+
+            @Override
+            public Employee mapRow(ResultSet rs,
+                                   int rowNum)
+                    throws SQLException {
+
+                Employee emp = new Employee();
+
+                emp.setId(rs.getInt("id"));
+                emp.setName(rs.getString("name"));
+                emp.setSal(rs.getInt("salary"));
+
+                return emp;
+            }
+        };
+
+        // Execute Query
+        List<Employee> list =
+                template.query(
+                        "SELECT * FROM employee WHERE id=?",
+                        stmt,
+                        mapper);
+
+        // Display Result
+        list.forEach(emp ->
+                System.out.println(
+                        emp.getId() + "\t" +
+                        emp.getName() + "\t" +
+                        emp.getSal()));
+
+        xyz.close();
+        context.close();
+    }
+}
+```
+
+---
+
+# Method 2: Using Lambda Expression
+
+```java
+package org.techhub;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Scanner;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class FetchDataApplication {
+
+    public static void main(String[] args) {
+
+        // Load Spring Container
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(DBConfig.class);
+
+        // Get JdbcTemplate Bean
+        JdbcTemplate template =
+                context.getBean("template", JdbcTemplate.class);
+
+        // Read Employee Id
+        Scanner xyz = new Scanner(System.in);
+
+        System.out.println("Enter Employee Id:");
+        int empId = xyz.nextInt();
+
+        // Execute Query
+        List<Employee> list =
+                template.query(
+
+                        "SELECT * FROM employee WHERE id=?",
+
+                        // Set value for ?
+                        (PreparedStatement ps) ->
+                                ps.setInt(1, empId),
+
+                        // Map ResultSet to Employee Object
+                        (ResultSet rs, int rowNum) -> {
+
+                            Employee emp = new Employee();
+
+                            emp.setId(rs.getInt("id"));
+                            emp.setName(rs.getString("name"));
+                            emp.setSal(rs.getInt("salary"));
+
+                            return emp;
+                        });
+
+        // Display Result
+        list.forEach(emp ->
+                System.out.println(
+                        emp.getId() + "\t" +
+                        emp.getName() + "\t" +
+                        emp.getSal()));
+
+        xyz.close();
+        context.close();
+    }
+}
+```
+
+---
+
+# Method 3: Using `Object[]`
+
+```java
+package org.techhub;
+
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Scanner;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class FetchDataApplication {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(DBConfig.class);
+
+        JdbcTemplate template =
+                context.getBean("template", JdbcTemplate.class);
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter Employee Id:");
+        int empId = sc.nextInt();
+
+        List<Employee> list =
+                template.query(
+
+                        "SELECT * FROM employee WHERE id=?",
+
+                        new Object[]{empId},
+
+                        (ResultSet rs, int rowNum) -> {
+
+                            Employee emp = new Employee();
+
+                            emp.setId(rs.getInt("id"));
+                            emp.setName(rs.getString("name"));
+                            emp.setSal(rs.getInt("salary"));
+
+                            return emp;
+                        });
+
+        list.forEach(emp ->
+                System.out.println(
+                        emp.getId() + "\t" +
+                        emp.getName() + "\t" +
+                        emp.getSal()));
+
+        sc.close();
+        context.close();
+    }
+}
+```
+
+---
+
+# Output
+
+```
+Enter Employee Id:
+2
+
+2    Amit    42000
+```
+
+---
+
+# Program Flow
+
+```
+Start
+   │
+   ▼
+Load Spring Container
+   │
+   ▼
+Get JdbcTemplate Bean
+   │
+   ▼
+Read Employee Id
+   │
+   ▼
+Set Id in PreparedStatement
+   │
+   ▼
+Execute SELECT Query
+   │
+   ▼
+Database Returns Matching Record
+   │
+   ▼
+RowMapper Converts Row into Employee Object
+   │
+   ▼
+Store Object in List<Employee>
+   │
+   ▼
+Display Employee Details
+   │
+   ▼
+End
+```
+
+## Note
+
+Your original notes use the column names `empname` and `empsal` in the `RowMapper`, while the earlier examples define the table with the columns `name` and `salary`. The code above uses `name` and `salary` so that it matches the table definition shown in your notes. If your actual database table contains `empname` and `empsal`, then use those column names instead.

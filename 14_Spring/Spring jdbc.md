@@ -2149,4 +2149,7 @@ Display Employee Details
    ▼
 End
 ```
+We want to learn two annotations 
+@Service: this annotation help us to mark user class as service class 
+@Repository: this annotation help us to mark user class as repository class  
 

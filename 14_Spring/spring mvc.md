@@ -268,33 +268,122 @@ public class HomeController {
 }
 ```
 
----
-
-# ViewResolver
+## ViewResolver
 
 ---
 
-The **ViewResolver** converts the logical view name returned by the controller into the actual view page.
+**ViewResolver** is a Spring MVC component that converts the **logical view name** returned by the controller into the **actual view page**.
 
-Example:
+### Example
+
+When a controller returns:
 
 ```java
 return "index";
 ```
 
-ViewResolver converts it into:
+The `ViewResolver` converts it into:
 
 ```
 /WEB-INF/views/index.jsp
 ```
 
-Configuration:
+---
+
+## Java Configuration
 
 ```java
-viewResolver.setPrefix("/WEB-INF/views/");
-viewResolver.setSuffix(".jsp");
+@Bean
+public InternalResourceViewResolver viewResolver() {
+
+    InternalResourceViewResolver viewResolver =
+            new InternalResourceViewResolver();
+
+    viewResolver.setPrefix("/WEB-INF/views/");
+    viewResolver.setSuffix(".jsp");
+
+    return viewResolver;
+}
 ```
 
+---
+
+## XML Configuration
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           https://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc
+           https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- Enable Spring MVC -->
+    <mvc:annotation-driven/>
+
+    <!-- Scan Controller Package -->
+    <context:component-scan base-package="org.techhub.controller"/>
+
+    <!-- View Resolver -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>
+```
+
+---
+
+## Controller Example
+
+```java
+package org.techhub.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class HomeController {
+
+    @RequestMapping("/")
+    public String home() {
+        return "index";
+    }
+}
+```
+
+---
+
+## Flow of ViewResolver
+
+```
+Browser Request
+       │
+       ▼
+Controller
+       │
+       ▼
+return "index";
+       │
+       ▼
+ViewResolver
+Prefix : /WEB-INF/views/
+Suffix : .jsp
+       │
+       ▼
+/WEB-INF/views/index.jsp
+       │
+       ▼
+Response sent to Browser
+```
 ---
 
 # View
@@ -316,6 +405,9 @@ The View:
 
 ---
 
+![alt text](image.png)
+
+---
 # Steps to Configure a Spring MVC Project Using Annotations
 
 ---
@@ -366,6 +458,15 @@ The View:
 # Spring MVC Configuration Class
 
 ```java
+package org.techhub.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceView;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("org.techhub")
@@ -406,7 +507,19 @@ It activates:
 
 # WebApplicationInitializer
 
+This class is responsible for Configure your DispatcherServlet and Create spring web application container 
+So we implement interface in this class name as WebApplicationInitializer and override its method name as onStartUp() shown in following code. 
+
+
 ```java
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
+
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
+
 public class WebAppInitializer
 implements WebApplicationInitializer {
 
@@ -414,17 +527,18 @@ implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext)
             throws ServletException {
 
+// 2. Initialise the Spring context
         AnnotationConfigWebApplicationContext context =
                 new AnnotationConfigWebApplicationContext();
 
         context.register(WebMvcConfig.class);
-
+// 3. Register the DispatcherServlet
         DispatcherServlet dispatcher =
                 new DispatcherServlet(context);
 
         ServletRegistration.Dynamic servlet =
                 servletContext.addServlet("dispatcher", dispatcher);
-
+// 4. Configure startup behavior
         servlet.setLoadOnStartup(1);
 
         servlet.addMapping("/");
@@ -434,22 +548,26 @@ implements WebApplicationInitializer {
 
 ---
 
-# Controller Example
+# Create Controller and call view pages 
 
 ```java
+package org.techhub.config;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 @Controller
-public class TestController {
-
-    @GetMapping("/")
-    public String homePage() {
-        return "index";
-    }
-
-    @GetMapping("/welcome")
-    public String welcomePage() {
-        return "welcome";
-    }
+public class TestController {	
+	@GetMapping("/")
+	public String homePage() {
+		return "index";
+	}
+	@RequestMapping("/welcome")
+	public String welcomePage() {
+		return "welcome";
+	}
 }
+
 ```
 
 ---
@@ -459,17 +577,37 @@ public class TestController {
 ### index.jsp
 
 ```jsp
-<h1>I am Home Page</h1>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>I am home page</h1>
+    <a href="${pageContext.request.contextPath}/welcome">Call Welcome page</a>
+</body>
+</html>
 
-<a href="${pageContext.request.contextPath}/welcome">
-    Welcome Page
-</a>
 ```
 
 ### welcome.jsp
 
 ```jsp
-<h1>Welcome to Spring MVC</h1>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+  <h1>This is the welcome page </h1>
+</body>
+</html>
+
 ```
 
 ---
@@ -524,4 +662,396 @@ Browser Response
 | Used for MVC applications | Used for REST APIs            |
 | Requires ViewResolver     | Does not require ViewResolver |
 
-This version is technically accurate, uses modern Spring MVC practices (Spring 6 with Jakarta EE), and is suitable for interviews as well as learning.
+
+
+
+Your notes cover many topics. Here's a **structured roadmap** for the **Mini Project: Registration Form using Spring MVC + Spring JDBC + MySQL**, which is easier to understand and follow.
+
+---
+
+
+
+
+
+# Mini Project: User Registration System using Spring MVC + Spring JDBC
+
+## Objective
+
+Design a simple **User Registration System** where users can:
+
+* Enter Name
+* Enter Email
+* Enter Contact Number
+* Save data into MySQL database using Spring JDBC
+* Display success message after registration
+
+---
+
+# Technologies Used
+
+### Frontend
+
+* HTML
+* CSS
+* JSP
+
+### Backend
+
+* Core Java
+* Spring Core
+* Spring MVC
+* Spring JDBC
+
+### Database
+
+* MySQL
+
+### Tools
+
+* STS / Eclipse
+* Maven
+* MySQL Workbench
+* Apache Tomcat
+* Postman (for REST API)
+
+---
+
+# Project Structure
+
+```text
+RegistrationProject
+│
+├── src/main/java
+│
+│   └── org.techhub
+│
+│       ├── config
+│       │      MVCConfig.java
+│       │
+│       ├── controller
+│       │      RegisterController.java
+│       │
+│       ├── dao
+│       │      RegisterDao.java
+│       │      RegisterDaoImpl.java
+│       │
+│       ├── service
+│       │      RegisterService.java
+│       │      RegisterServiceImpl.java
+│       │
+│       ├── model
+│       │      Register.java
+│       │
+│       └── exception
+│              UserAlreadyExistsException.java
+│
+├── src/main/webapp
+│
+│   ├── WEB-INF
+│   │      views
+│   │          register.jsp
+│   │          welcome.jsp
+│   │
+│   └── index.jsp
+│
+└── pom.xml
+```
+
+---
+
+# Database
+
+Create Database
+
+```sql
+CREATE DATABASE springmvcdb;
+```
+
+Use Database
+
+```sql
+USE springmvcdb;
+```
+
+Create Table
+
+```sql
+CREATE TABLE register
+(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    contact VARCHAR(20)
+);
+```
+
+---
+
+# Project Flow
+
+```text
+Browser
+
+↓
+
+register.jsp
+
+↓
+
+RegisterController
+
+↓
+
+RegisterService
+
+↓
+
+RegisterDao
+
+↓
+
+JdbcTemplate
+
+↓
+
+MySQL Database
+
+↓
+
+Success
+
+↓
+
+welcome.jsp
+```
+
+---
+
+# Step 1
+
+Create Spring MVC Project
+
+---
+
+# Step 2
+
+Add Maven Dependencies
+
+* spring-webmvc
+* spring-context
+* spring-jdbc
+* mysql-connector-j
+* jakarta.servlet-api
+
+---
+
+# Step 3
+
+Configure Spring MVC
+
+* DispatcherServlet
+* ViewResolver
+* Component Scan
+
+---
+
+# Step 4
+
+Configure Database
+
+Use
+
+* DriverManagerDataSource
+* JdbcTemplate
+
+---
+
+# Step 5
+
+Create Model
+
+```java
+Register
+
+name
+
+email
+
+contact
+```
+
+---
+
+# Step 6
+
+Create DAO Layer
+
+```text
+RegisterDao
+
+↓
+
+RegisterDaoImpl
+```
+
+DAO is responsible for database operations.
+
+Methods
+
+```java
+save(Register register);
+```
+
+---
+
+# Step 7
+
+Create Service Layer
+
+```text
+RegisterService
+
+↓
+
+RegisterServiceImpl
+```
+
+Business logic is written here.
+
+---
+
+# Step 8
+
+Create Controller
+
+```text
+GET /
+
+↓
+
+Open register.jsp
+
+↓
+
+POST /save
+
+↓
+
+Receive Register Object
+
+↓
+
+Call Service
+
+↓
+
+Save Data
+
+↓
+
+Return welcome.jsp
+```
+
+---
+
+# Step 9
+
+Create JSP Pages
+
+* register.jsp
+* welcome.jsp
+
+---
+
+# Step 10
+
+Test Project
+
+Open
+
+```
+http://localhost:8080/RegistrationProject/
+```
+
+Fill
+
+* Name
+* Email
+* Contact
+
+Click
+
+```
+Register
+```
+
+Record should be inserted into MySQL.
+
+---
+
+# Expected Output
+
+### Registration Page
+
+```
+-----------------------------
+Name     [______________]
+
+Email    [______________]
+
+Contact  [______________]
+
+[ Register ]
+-----------------------------
+```
+
+After clicking Register
+
+```
+Form Submitted Successfully
+
+Name : Harshad
+
+Email : harsh@gmail.com
+
+Contact : 9876543210
+```
+
+---
+
+# Concepts Covered in this Project
+
+* Spring MVC Architecture
+* Controller
+* Model
+* ViewResolver
+* JSP
+* Form Submission
+* Data Binding
+* Spring JDBC
+* JdbcTemplate
+* DriverManagerDataSource
+* MySQL Database
+* DAO Layer
+* Service Layer
+* Dependency Injection
+* Maven
+* MVC Design Pattern
+
+---
+
+# Advanced Concepts to Add
+
+After completing this project, you can enhance it by implementing:
+
+* Logging using SLF4J and Logback
+* User-defined Exceptions
+* JUnit Testing
+* File Upload using `MultipartFile`
+* REST APIs (`@RequestBody`, `@ResponseBody`)
+* JSON using Jackson (`jackson-databind`)
+* API Testing using Postman
+* CRUD Operations (Insert, Update, Delete, View)
+
+This mini project provides a complete introduction to developing database-driven web applications using **Spring MVC + Spring JDBC**, and serves as a strong foundation before moving to **Spring Boot**.
+

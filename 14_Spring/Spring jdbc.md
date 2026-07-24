@@ -1914,7 +1914,7 @@ public class FetchDataApplication {
 
         // Get JdbcTemplate Bean
         JdbcTemplate template =
-                context.getBean("template", JdbcTemplate.class);
+                (JdbcTemplate)context.getBean("template");
 
         // Read Employee Id
         Scanner xyz = new Scanner(System.in);
@@ -1986,7 +1986,7 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Scanner;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;r
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class FetchDataApplication {
@@ -2150,6 +2150,3 @@ Display Employee Details
 End
 ```
 
-## Note
-
-Your original notes use the column names `empname` and `empsal` in the `RowMapper`, while the earlier examples define the table with the columns `name` and `salary`. The code above uses `name` and `salary` so that it matches the table definition shown in your notes. If your actual database table contains `empname` and `empsal`, then use those column names instead.

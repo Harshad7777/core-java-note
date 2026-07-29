@@ -1213,3 +1213,484 @@ This method handles the `POST` request sent to `/save`.
 Spring matches the HTML form field names (`name`, `email`, `contact`) with the corresponding properties and setter methods in the `Register` class. This automatic mapping is called **Data Binding**.
 
 
+
+---
+
+# Spring MVC - `@RequestParam`
+
+## What is `@RequestParam`?
+
+`@RequestParam` is used to retrieve request parameter values (query parameters or form data) from an HTTP request and bind them to method parameters in a Spring MVC controller.
+
+### Example
+
+```java
+@GetMapping("/search")
+public String search(@RequestParam("name") String name) {
+    return "Welcome " + name;
+}
+```
+
+**Request**
+
+```
+http://localhost:8080/search?name=Harshad
+```
+
+Output
+
+```
+Welcome Harshad
+```
+
+---
+
+# File Upload in Spring MVC
+
+## Steps to Upload a File
+
+### Step 1: Use POST Method
+
+File uploading should always use the **POST** method.
+
+```html
+<form action="upload"
+      method="POST"
+      enctype="multipart/form-data">
+
+    <input type="file" name="file">
+    <input type="submit" value="Upload">
+
+</form>
+```
+
+> **Note:** File upload is not supported with the GET method.
+
+---
+
+## Why is GET Method Not Used for File Upload?
+
+### Reasons
+
+1. **GET sends data in the URL.**
+
+   * URLs have practical length limits that vary by browser and server.
+   * Files are too large to be sent as URL parameters.
+
+2. **Security**
+
+   * URL parameters are visible in the browser address bar.
+   * Sensitive information should not be exposed in URLs.
+
+3. **GET is intended for retrieving data only**
+
+   * According to HTTP semantics, GET should not be used to upload or modify resources.
+
+Therefore, **POST** is used for uploading files.
+
+---
+
+# enctype Attribute
+
+## 1. application/x-www-form-urlencoded
+
+* Default encoding type
+* Sends data as **name=value** pairs
+* Suitable for normal form fields
+* Cannot upload files
+
+Example
+
+```
+name=Harshad&city=Pune
+```
+
+---
+
+## 2. multipart/form-data
+
+* Required for file uploading
+* Sends files along with other form data
+* Includes file metadata such as
+
+  * File name
+  * File type
+  * File size
+
+Example
+
+```html
+<form enctype="multipart/form-data">
+```
+
+---
+
+# MultipartFile
+
+Spring MVC provides the **MultipartFile** interface for uploading files.
+
+Example
+
+```java
+@PostMapping("/upload")
+public String uploadFile(@RequestParam("file") MultipartFile file) {
+
+    System.out.println(file.getOriginalFilename());
+    System.out.println(file.getSize());
+
+    return "success";
+}
+```
+
+Useful methods
+
+```java
+file.getOriginalFilename();
+file.getSize();
+file.getContentType();
+file.isEmpty();
+file.transferTo(destinationFile);
+```
+
+---
+
+# REST API in Spring MVC
+
+## What is an API?
+
+API stands for **Application Programming Interface**.
+
+An API allows two different applications to communicate and exchange data.
+
+Example
+
+* Mobile App ↔ Spring Boot Server
+* Website ↔ Spring MVC Server
+* React ↔ Spring Boot
+* Angular ↔ Spring Boot
+
+---
+
+# What are Web Services?
+
+A **Web Service** is a software system that enables applications to communicate over a network using HTTP or HTTPS.
+
+---
+
+# Advantages of Web Services
+
+* Interoperability
+* Platform Independent
+* Loose Coupling
+* Reusable
+* Network Accessible
+* Language Independent
+
+---
+
+# Types of Web Services
+
+1. REST API
+2. SOAP Web Service
+3. GraphQL API
+4. gRPC
+
+---
+
+# What is REST?
+
+REST stands for **Representational State Transfer**.
+
+* REST is an **architectural style**, not a protocol.
+* It was introduced by **Roy Fielding** in his 2000 doctoral dissertation.
+* REST works over the HTTP protocol.
+
+---
+
+# Why REST API is Popular?
+
+Without REST APIs:
+
+* Applications become tightly coupled.
+* Mostly HTML pages are exchanged.
+* Difficult to communicate with mobile apps, IoT devices, or other technologies.
+
+With REST APIs:
+
+* Any client can communicate with the server.
+* Data is usually exchanged in JSON format.
+* Supports multiple client technologies.
+
+Example
+
+```
+React
+Angular
+Flutter
+Android
+iOS
+Java
+Python
+
+        ↓
+
+   REST API
+
+        ↓
+
+Spring MVC / Spring Boot
+```
+
+---
+
+# JSON
+
+## What is JSON?
+
+JSON stands for **JavaScript Object Notation**.
+
+It is a lightweight text format used to exchange data between applications.
+
+---
+
+## Advantages of JSON
+
+* Lightweight
+* Easy to Read
+* Platform Independent
+* Language Independent
+* Faster than XML
+* Uses Key-Value pairs
+
+Example
+
+```json
+{
+  "id": 1,
+  "name": "Mobile",
+  "price": 25000
+}
+```
+
+Rules
+
+* Keys are always strings.
+* Values can be String, Number, Boolean, Object, Array, or null.
+
+---
+
+# Jackson Databind
+
+Jackson converts
+
+* Java Object → JSON
+* JSON → Java Object
+
+Dependency
+
+```xml
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.18.2</version>
+</dependency>
+```
+
+---
+
+# @RequestBody
+
+## Purpose
+
+`@RequestBody` converts JSON data received in the HTTP request body into a Java object.
+
+Example JSON
+
+```json
+{
+  "id":1,
+  "name":"Laptop",
+  "price":55000
+}
+```
+
+Controller
+
+```java
+@PostMapping("/save")
+@ResponseBody
+public String save(@RequestBody Product product) {
+
+    System.out.println(product.getName());
+
+    return "Saved";
+}
+```
+
+> **Rule:** JSON keys should match the Java object's field names (or corresponding getter/setter names).
+
+---
+
+# @ResponseBody
+
+## Purpose
+
+`@ResponseBody` converts a Java object into JSON and sends it as the HTTP response.
+
+Example
+
+```java
+@GetMapping("/product")
+@ResponseBody
+public Product getProduct() {
+
+    return new Product(1, "Mobile", 20000);
+}
+```
+
+Output
+
+```json
+{
+   "id":1,
+   "name":"Mobile",
+   "price":20000
+}
+```
+
+> `@ResponseBody` can be applied at the class level or method level.
+
+---
+
+# Example REST Controller
+
+```java
+@Controller
+@ResponseBody
+public class ProductController {
+
+    @GetMapping("/product")
+    public Product getProduct() {
+        return new Product(1, "Mobile", 25000);
+    }
+
+    @GetMapping("/products")
+    public List<Product> getProducts() {
+
+        List<Product> list = new ArrayList<>();
+
+        list.add(new Product(1, "TV", 40000));
+        list.add(new Product(2, "Laptop", 65000));
+        list.add(new Product(3, "Mobile", 25000));
+
+        return list;
+    }
+}
+```
+
+---
+
+# @RestController
+
+Instead of writing
+
+```java
+@Controller
+@ResponseBody
+```
+
+you can simply write
+
+```java
+@RestController
+public class ProductController {
+
+}
+```
+
+`@RestController = @Controller + @ResponseBody`
+
+---
+
+# Postman
+
+## What is Postman?
+
+Postman is an API development and testing tool used to create, test, document, and manage REST APIs.
+
+---
+
+## Features
+
+* Test GET requests
+* Test POST requests
+* Test PUT requests
+* Test DELETE requests
+* Send JSON data
+* View JSON responses
+* Manage API Collections
+* Generate API Documentation
+
+---
+
+## Steps to Test an API
+
+1. Install Postman.
+2. Start your Spring MVC or Spring Boot application.
+3. Open Postman.
+4. Select the HTTP method (GET, POST, PUT, DELETE).
+5. Enter the API URL.
+6. For POST/PUT requests, choose **Body → raw → JSON** and provide the request body.
+7. Click **Send**.
+8. View the response.
+
+---
+
+# Interview Questions
+
+### Q1. What is `@RequestParam`?
+
+**Answer:** It binds request parameters (query parameters or form fields) to controller method parameters.
+
+### Q2. Why is POST used for file uploading?
+
+**Answer:** POST sends data in the request body, supports large file uploads, and does not expose file data in the URL.
+
+### Q3. What is the difference between `application/x-www-form-urlencoded` and `multipart/form-data`?
+
+| application/x-www-form-urlencoded | multipart/form-data       |
+| --------------------------------- | ------------------------- |
+| Default encoding                  | Used for file upload      |
+| Cannot upload files               | Can upload files          |
+| Sends name-value pairs            | Sends files with metadata |
+
+### Q4. What is `MultipartFile`?
+
+**Answer:** It is a Spring interface used to receive uploaded files in a controller.
+
+### Q5. What is REST?
+
+**Answer:** REST (Representational State Transfer) is an architectural style for building web services over HTTP.
+
+### Q6. What is JSON?
+
+**Answer:** JSON is a lightweight, platform-independent text format for exchanging data between applications.
+
+### Q7. What is the purpose of `@RequestBody`?
+
+**Answer:** It converts JSON from the HTTP request body into a Java object.
+
+### Q8. What is the purpose of `@ResponseBody`?
+
+**Answer:** It converts a Java object into JSON and sends it in the HTTP response.
+
+### Q9. What is `@RestController`?
+
+**Answer:** It is a convenience annotation that combines `@Controller` and `@ResponseBody`.
+
+### Q10. Why is Postman used?
+
+**Answer:** Postman is used to create, test, debug, and document REST APIs without building a frontend application.
+
+
+

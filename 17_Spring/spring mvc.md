@@ -1584,6 +1584,25 @@ public class ProductController {
         list.add(new Product(3, "Mobile", 25000));
 
         return list;
+        /*
+		 * [
+		 *   {
+		 *     "id":1,
+		 *     "name":"TV",
+		 *     "price":40000
+		 *   },
+		 *   { "id":2,
+		 *     "name":"MOBILE",
+		 *     "price":40000
+		 *   },
+		 *   {
+		 *      "id":3,
+		 *     "name":"Laptop",
+		 *     "price":60000
+		 *   }
+		 * ]
+		 */
+
     }
 }
 ```

@@ -8,7 +8,7 @@ A decision making statement allows a program to take decisions based on certain 
 🔹 Conditional operators (like ?:) can handle only single-line logic.
 
 🔹 For multiple lines of logic, decision making statements are used.
-------------------------------------------------------------------
+------------------------------------------------------------------ 
 Types of Decision Making Statements
 ------------------------------------------------------------------
 1. Simple if statement

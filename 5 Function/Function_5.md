@@ -2,7 +2,7 @@ Function
 ----------------------------------------------
 A function is a block of statements that is used to write logic once and reuse it multiple times by calling the function.
  
-🔹 Why we use a function ?
+🔹 Why we use a function ? 
     To reduce code repetition
     To make code easy to read
     To reuse logic
@@ -358,15 +358,15 @@ Why use Recursion?
 
 1️⃣ Simplifies complex problems
     Recursion makes complex problems easier to understand by breaking them into smaller sub-problems and solving them step by step.
-
+ 
 2️⃣ Natural solution for divide-and-conquer problems
     Problems that can be divided into similar smaller problems are easier to express using recursion.
-
+  
 Examples:
     Factorial
     Fibonacci series
     Tower of Hanoi
-    Tree traversal
+    Tree traversal    
 
 When to Use Recursion?
 
@@ -676,14 +676,14 @@ fibo(5)
 If we want to solve this problem of overlapping using a function recursion we have 
 Solution dynamic programming 
 
-------------------------------------------------------------------
+-----------------------------------------------------------------
 Q. What is dynamic programming?
 -----------------------------------------------------------------
 Dynamic Programming (DP) is a problem-solving technique used to solve complex problems efficiently by breaking them into smaller overlapping sub-problems.
 
 In Dynamic Programming, the result of each sub-problem is stored (memorized) so that it does not need to be recomputed again, which improves performance.
 
-🔹 Key Characteristics of Dynamic Programming
+🔹 Key Characteristics of Dynamic Programming 
     1️⃣ Overlapping sub-problems
         The same sub-problems appear multiple times.
     2️⃣ Optimal substructure
@@ -730,7 +730,6 @@ public class DPAPP
     {
         int limit = 5;
         int a[] = new int[limit + 1];
-A
         Arrays.fill(a, 0); // Arrays.fill(arrayName, value);
 
         for(int i = 0; i <= limit; i++)//2<=5

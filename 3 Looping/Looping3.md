@@ -11,7 +11,7 @@ Instead, we use a loop to repeat the statement automatically.
 --------------------------------------------------------------------
 Types of Loops
 --------------------------------------------------------------------
-1️⃣ Entry Control Loop
+1️⃣ Entry Control Loop 
 --------------------------------------------------------------------
 The condition is checked first.
 If the condition is true, the loop body executes.
@@ -357,7 +357,7 @@ Loop inside another loop
 Used for tables, matrices, and patterns
 
 Syntax
-for() 
+for()   
 {
     for() 
     {
@@ -488,7 +488,7 @@ public class MAPP
 {
     public static void main(String x[])
 	{
-         int i,j;
+        int i,j;
 		for(i=1; i<=5; i++)
 		{
 		    for(j=1; j<=5; j++)

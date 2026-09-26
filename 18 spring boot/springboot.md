@@ -8,7 +8,7 @@ Spring Boot is a Java-based framework built on top of the Spring Framework. It i
 ---
 
 # Q2. Why do we use Spring Boot? / What are the benefits of Spring Boot?
-
+ 
 ## 1. Auto Configuration
 
 Spring Boot automatically configures the application based on the dependencies available in the project.
@@ -47,7 +47,7 @@ Examples:
 
 * spring-boot-starter-web
 * spring-boot-starter-data-jpa
-* spring-boot-starter-security
+* spring-boot-starter-security  
 * spring-boot-starter-test
 
 ### Benefits
@@ -89,7 +89,7 @@ These features help monitor and manage applications in production.
 
 Spring Boot follows the **Convention over Configuration** principle. Most configurations are done automatically, allowing developers to focus on business logic.
 
----
+--- 
 
 # Before Learning Spring Boot
 

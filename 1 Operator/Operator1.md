@@ -4,7 +4,7 @@ Q. What is Java?
 Java is a high-level, object-oriented programming language.
 
 disadvantages of Java 
-
+ 
 1. Slower Performance
 Reason: Java uses the Java Virtual Machine (JVM) which converts bytecode into machine code at runtime. 
 
@@ -12,7 +12,7 @@ Reason: Java uses the Java Virtual Machine (JVM) which converts bytecode into ma
 Java programs consume more memory.
 JVM, garbage collection, and libraries require extra resources.
  
-3. Complex Code (Verbose)
+3. Complex Code (Verbose)  
 Java requires more lines of code compared to languages like Python.
 Example: simple tasks need class, main method, etc.
 
@@ -24,7 +24,7 @@ Cannot directly interact with hardware.
 Features of Java
 1.Simple
     Easy to learn and understand.
-    Syntax is similar to C and C++.
+    Syntax is similar to C and C++. 
     No complex features like pointers.
 
 2.Object-Oriented
@@ -193,7 +193,7 @@ So you can access it without creating an object.
     1. Static Variables
     Shared across all objects of the class.
     Only one copy exists in memory.
-
+ 
     2. Static Methods
     Can be called without creating an object.
 
@@ -239,7 +239,7 @@ void
 main does not return any value.
 JVM doesn’t expect results, it just executes code.
 
-main
+main 
 The name of the method (fixed keyword).
 JVM specifically looks for this name.
 
@@ -694,6 +694,7 @@ Example: import java.util.Scanner;
 This statement imports only a specific class (Scanner) from the java.util package.
 
             Or
+            
 Inline package import: inline package import is type of package import where we import package but without import keyword.
 
 Syntax: packagename.membername ref = new packagename.membername();

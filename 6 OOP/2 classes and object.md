@@ -160,7 +160,7 @@ public class Student
 }
 -------------------------------------------------------------------------
 Q2. Why use a Class? / Benefits of Class
--------------------------------------------------------------------------
+-----------------------------------------------------------------------
 1. Ability to Store Different Types of Data
 
     A class can store different types of data in a single unit.
@@ -195,7 +195,7 @@ Q2. Why use a Class? / Benefits of Class
     (This concept is explained in the inheritance chapter.)
 
 Q3. How to reuse class more than one time?
-   A class can be reused in two ways:
+   A class can be reused in two ways: 
         1. By creating objects of the class
         2. By using inheritance (discussed in later chapters)
 
@@ -238,6 +238,121 @@ Important Points (Exam Ready)
     Memory is allocated in the heap
     Each object has its own copy of instance variables
     Multiple objects can be created from the same class
+
+In **Java, there are 5 common ways to create an object.** 🚀
+
+### 1. Using `new` Keyword (Most Common)
+
+Creates an object using the `new` keyword.
+
+```java
+class Student {
+    void display() {
+        System.out.println("Hello Student");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.display();
+    }
+}
+```
+
+**Output:**
+
+```text
+Hello Student
+```
+
+---
+
+### 2. Using `Class.forName()` (Reflection)
+
+Creates an object using reflection.
+
+```java
+Class<?> c = Class.forName("Student");
+Student s = (Student) c.getDeclaredConstructor().newInstance();
+```
+
+✅ Used in frameworks like Spring and JDBC.
+
+---
+
+### 3. Using `clone()` Method
+
+Creates a copy of an existing object.
+
+```java
+class Student implements Cloneable 
+{
+    int id=10;
+
+    public Student clone() throws CloneNotSupportedException {
+        return (Student) super.clone();
+    } 
+}
+class Main {
+    public static void main(String[] args) throws CloneNotSupportedException{
+        Student s1 = new Student();
+        Student s2 = s1.clone(); 
+        System.out.println(s2.id);
+    }
+}
+```
+
+---
+
+### 4. Using Deserialization
+
+Creates an object by reading it from a serialized file.
+
+```java
+ObjectInputStream in =
+    new ObjectInputStream(new FileInputStream("student.ser"));
+
+Student s = (Student) in.readObject();
+```
+
+✅ Used to restore objects from stored data.
+
+---
+
+### 5. Using a Factory Method
+
+Creates an object through a method.
+
+```java
+class Student {
+    static Student createStudent() {
+        return new Student();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s = Student.createStudent();
+    }
+}
+```
+
+---
+
+### 📌 Interview Short Answer
+
+| No. | Method          | Description                        |
+| --- | --------------- | ---------------------------------- |
+| 1   | `new` Keyword   | Most common method                 |
+| 2   | Reflection      | Using `Class.forName()`            |
+| 3   | `clone()`       | Copies an existing object          |
+| 4   | Deserialization | Restores an object                 |
+| 5   | Factory Method  | Creates an object through a method |
+
+**Interview Tip:** Java commonly teaches 5 ways to create objects, but the exact count depends on how object creation techniques are classified.
+
+
 
 -------------------------------------------------------------------------
 Q5. Difference Between Reference and Object
@@ -472,7 +587,7 @@ Key Rule to Remember ⭐
 Local variable → copy into instance/static variable → access in other methods
 --------------------------------------------------------------------------
 Q. What happens if we do not use references with objects?
-
+ 
 If we do not use a reference with an object, then such an object is called an anonymous object (object without reference).
 
 When an object is created without a reference, the JVM:
@@ -589,7 +704,7 @@ class Sum
     int m[];   // instance variable to store array reference
 
     void setValue(int arr[])
-    {
+    { 
         m = arr;   // copying base address
     }
 
@@ -664,7 +779,7 @@ Important Points ⭐
     Var-args internally treated as an array
     Only one var-args allowed per method
     Var-args must be the last parameter
-    Used to avoid method overloading
+    Used to avoid method overloading ****
 
 Important Rules for Variable Arguments (Var-Args)
 
@@ -783,11 +898,11 @@ Output of your program
 4 5 6 
 7 8 9 
 
------------------------------------------------------------------------
+----------------------------------------------------------------------- 
 Q9. What is POJO class & Why use POJO class?
 -----------------------------------------------------------------------
 What is POJO Class?
-
+  
 POJO stands for Plain Old Java Object.
 A POJO class is a simple Java class that is not dependent on any framework and is mainly used to store data.
 
@@ -969,20 +1084,20 @@ class Company
         System.out.println("Id is " + e.getId());
         System.out.println("Address is " + e.getAddress());
         System.out.println("Qualification " + e.getQualification());
-        System.out.println("Expected Salary " + e.getExpectedSalary());
+        System.out.println("Expected Salary " + e.getExpectedSalary()); 
         System.out.println("Skill Required " + e.getSkill());
     }
 }
 
 ⭐ Final Conclusion (Exam Ready)
 POJO class is used to group multiple related data into a single object so that it can be passed as one parameter, which improves readability, maintainability, and reduces complexity of method calls.
-------------------------------------------------------------------------
-Q10. What is Array of Objects?
+------------------------------------------------------------------------ 
+Q10. What is Array of Objects? 
 -----------------------------------------------------------------------
-An array of objects is a concept in Java where multiple objects of the same class are stored using a single array reference.
+An array of objects is a concept in Java where multiple objects of the same class are stored using a single array reference.  
 
 Instead of creating many separate object variables, we use an array to manage multiple objects efficiently.
-
+ 
 Why use Array of Objects?
     To store data of multiple objects
     To avoid creating many separate object variables
@@ -1085,7 +1200,7 @@ Q11. What is Static Variable & Static Method?
 A static variable is also called a class-level variable.
 
 It is:
-    Declared using the static keyword
+    Declared using the static keyword                                                       
     Common for all objects of the class
     Created only once
     Loaded when the class is loaded by the JVM
@@ -1121,3 +1236,1003 @@ public class ABCAPP
 X = 100
 Y = 200
 X = 100
+
+## Q12. Difference between Instance Variable and Static Variable
+
+Based on your notes, the main differences are: 
+
+| Point                  | Static Variable                                                     | Instance Variable                                                                                          |
+| ---------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **1. Object required** | Object is **not required** to access it.                            | Object is normally **required** to access it.                                                              |
+| **2. Memory**          | Associated with the **class** and available before object creation. | Associated with the **object**, so it is created as part of the object.                                    |
+| **3. Copy**            | **One common copy** is shared by all objects of the class.          | **Separate copy** is created for every object.                                                             |
+| **4. Lifetime**        | Remains available while the class/application is running.           | Exists as long as its object exists; an unreachable object can later be removed by **Garbage Collection**. |
+| **5. Default values**  | Gets Java's default value according to its data type.               | Gets Java's default value according to its data type.                                                      |
+
+### Simple Example
+
+```java
+class Student {
+    static String college = "ABC College"; // static variable
+    int id;                                // instance variable
+ 
+    Student(int id) {
+        this.id = id;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+
+        Student s1 = new Student(101);
+        Student s2 = new Student(102);
+
+        System.out.println(Student.college);
+        System.out.println(s1.id);
+        System.out.println(s2.id);
+    }
+}
+```
+
+### Understand the difference
+
+```text
+Student
+   |
+   |---- static college = "ABC College"
+   |       ↑
+   |       |---- shared by s1
+   |       |---- shared by s2
+   |
+   |---- s1 → id = 101
+   |
+   |---- s2 → id = 102
+```
+
+**Remember for interview:**
+
+> **Static variable = one common copy for the class.**
+> **Instance variable = separate copy for every object.** 
+
+**Default values from your notes:**
+
+* `int` → `0`
+* `float` → `0.0f`
+* `double` → `0.0`
+* `long` → `0`
+* `String` → `null`
+* `boolean` → `false`
+* `char` → blank
+* `byte` → `0` 
+                                                  |
+  ## Q13. What is a Static Method?
+
+A **static method** is a method that is declared using the `static` keyword. 
+
+### Important Points
+
+1. **Declared using `static` keyword**
+
+   ```java
+   static void show() {
+       System.out.println("Hello");
+   }
+   ```
+
+2. **Can be called without creating an object**
+
+   We can call it using the **class name**:
+
+   ```java
+   class Demo {
+       static void show() {
+           System.out.println("Hello");
+       }
+   }
+
+   class Main {
+       public static void main(String[] args) {
+           Demo.show();
+       }
+   }
+   ```
+
+3. **Static method cannot directly access an instance variable**
+
+   ```java
+   class Demo {
+       int x = 10;              // instance variable
+       static int y = 20;       // static variable
+
+       static void show() {
+           // System.out.println(x);  // ❌ Cannot directly access
+           System.out.println(y);    // ✅ Can access
+       }
+   }
+   ```
+
+### Easy Interview Answer
+
+> **A static method is a method declared with the `static` keyword. It belongs to the class and can be called using the class name without creating an object. A static method cannot directly access instance variables.** 
+
+**Remember:**
+
+```text
+Static method
+     ↓
+Belongs to class
+     ↓
+Object not required
+     ↓
+ClassName.method()
+     ↓
+Can directly access static members
+```
+## Q14. Difference between Instance Method and Static Method
+
+Your notes give these **5 main differences**: 
+
+| Point                  | Static Method                                                                           | Instance / Non-static Method                        |
+| ---------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **1. Calling**         | Can be called using the **class name**; an object is not required.                      | Normally called using an **object**.                |
+| **2. Variables**       | Can directly access **static variables**. It cannot directly access instance variables. | Can access **both static and instance variables**.  |
+| **3. Polymorphism**    | Supports **compile-time polymorphism**.                                                 | Supports **compile-time and runtime polymorphism**. |
+| **4. Method behavior** | Supports **method hiding**.                                                             | Supports **method overriding**.                     |
+| **5. Abstract**        | A static method **cannot be abstract**.                                                 | An instance method **can be abstract**.             |
+
+### 1. Calling
+
+```java
+class Demo {
+
+    static void staticMethod() {
+        System.out.println("Static");
+    }
+
+    void instanceMethod() {
+        System.out.println("Instance");
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+
+        Demo.staticMethod();       // static method
+
+        Demo d = new Demo();
+        d.instanceMethod();       // instance method
+    }
+}
+```
+
+### 2. Variable access
+
+```java
+class Demo {
+
+    static int a = 10;
+    int b = 20;
+
+    static void showStatic() {
+        System.out.println(a);    // ✅
+        // System.out.println(b); // ❌
+    }
+
+    void showInstance() {
+        System.out.println(a);    // ✅
+        System.out.println(b);    // ✅
+    }
+}
+```
+
+### 3 & 4. Polymorphism
+
+**Static methods → method hiding**
+
+```java
+class Parent {
+    static void show() {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    static void show() {
+        System.out.println("Child");
+    }
+}
+```
+
+**Instance methods → method overriding**
+
+```java
+class Parent {
+    void show() {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    @Override
+    void show() {
+        System.out.println("Child");
+    }
+}
+```
+
+### 5. Abstract
+
+```java
+abstract class Demo {
+
+    abstract void show();        // ✅ instance method
+
+    // static abstract void test(); // ❌ not allowed
+}
+```
+
+### ⭐ Easy Interview Answer
+
+> **Static method belongs to the class and can be called without creating an object. Instance method belongs to an object and is normally called using an object. Static methods can directly access static members, while instance methods can access both static and instance members. Static methods support method hiding, whereas instance methods support method overriding. A static method cannot be abstract.** 
+  ## Q15. What is a Local Variable?
+
+A **local variable** is a variable declared **inside a method or block**. Its scope is limited to that method or block. 
+
+### Example
+
+```java
+class Demo {
+
+    void show() {
+        int x = 10;   // local variable
+        System.out.println(x);
+    }
+}
+```
+
+Here, `x` can be used only inside the `show()` method.
+
+---
+
+## Important Points about Local Variables
+
+### 1. Cannot access outside its block
+
+```java
+void show() {
+    int x = 10;
+}
+
+void display() {
+    // System.out.println(x);  // ❌ Error
+}
+```
+
+The local variable `x` is accessible only inside the block where it is declared. 
+
+---
+
+### 2. Local variable cannot be `static`
+
+```java
+void show() {
+    // static int x = 10;  // ❌ Compile-time error
+}
+```
+
+A local variable cannot be declared using the `static` keyword. 
+
+### Why?
+
+According to your notes:
+
+| Point       | Local Variable                | Static Variable                               |
+| ----------- | ----------------------------- | --------------------------------------------- |
+| **Life**    | During execution of its block | During program execution                      |
+| **Scope**   | Only inside its block         | Can be accessed according to its access level |
+| **Storage** | Function/method stack         | Class-level storage                           |
+
+
+
+---
+
+### 3. Cannot use access specifiers
+
+We cannot use `public`, `private`, or `protected` with a local variable.
+
+```java
+void show() {
+    // private int x = 10;  // ❌
+    // public int y = 20;   // ❌
+}
+```
+
+Access specifiers are used with classes and their members, not local variables. 
+
+---
+
+### 4. Local variable must be initialized before use
+
+Java does **not** provide a default value to a local variable.
+
+```java
+void show() {
+
+    int x;
+
+    // System.out.println(x); // ❌ Compile-time error
+
+    x = 10;
+    System.out.println(x);   // ✅
+}
+```
+
+Instance and static variables receive default values, but local variables must be initialized before they are read. 
+
+---
+
+## 5. Local Variable and Instance Variable with Same Name
+
+Consider:
+
+```java
+class Square {
+
+    int x;
+
+    void setValue(int x) {
+        x = x;
+    }
+
+    void showSquare() {
+        System.out.println(x * x);
+    }
+}
+```
+
+Here there are two `x` variables:
+
+```text
+int x              → instance variable
+int x in setValue → local/parameter variable
+```
+
+Inside:
+
+```java
+x = x;
+```
+
+both `x` refer to the **local parameter**, so the instance variable does not receive the value.
+
+Therefore, the instance variable remains its default value `0`. 
+
+### Solution: use `this`
+
+```java
+class Square {
+
+    int x;
+
+    void setValue(int x) {
+        this.x = x;
+    }
+
+    void showSquare() {
+        System.out.println(x * x);
+    }
+}
+```
+
+Now:
+
+```text
+this.x → instance variable
+x      → local variable / parameter
+```
+
+---
+
+# Q. What is `this` reference?
+
+`this` is a reference that points to the **current object**. In other words, the object that calls the current method is the current/working object. 
+
+### Example
+
+```java
+class Student {
+
+    int id;
+
+    void setId(int id) {
+        this.id = id;
+    }
+}
+```
+
+Here:
+
+```text
+this.id → instance variable
+id      → local variable
+```
+
+### Two important uses from your notes
+
+**1. When local and instance variable names are the same:**
+
+```java
+this.x = x;
+```
+
+**2. To refer to the current object's members.** 
+
+---
+
+### 6. Local variable memory
+
+A local variable gets its memory when the **method/function is called** and is associated with the function's stack frame. 
+
+### 7. Re-initialized on every method call
+
+Every time the method is called, its local variables are created again.
+
+```java
+class Demo {
+
+    void show() {
+        int x = 10;
+        System.out.println(x);
+    }
+
+    public static void main(String[] args) {
+        Demo d = new Demo();
+
+        d.show();  // x created
+        d.show();  // x created again
+    }
+}
+```
+
+---
+
+## ⭐ Short Interview Answer
+
+> **A local variable is a variable declared inside a method or block. Its scope is limited to that block. It cannot be static or have an access specifier, and it must be initialized before use because Java does not provide a default value to local variables. Its lifetime is associated with the execution of the method or block.** 
+
+
+## Q16. What is Encapsulation and What are its Benefits?
+
+**Encapsulation** is the process of **hiding data and implementation details** from outside access. Its main goal is **data security**. 
+
+### How to achieve Encapsulation?
+
+To achieve encapsulation:
+
+1. Declare variables/data as **`private`**.
+2. Provide **public methods** such as getters and setters to access or modify the data.
+3. Put required validation or logic inside those methods.
+
+```java
+class Student {
+
+    private int id;
+    private String name;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+```
+
+Now outside code cannot directly do:
+
+```java
+// student.id = 10;       // ❌ private
+```
+
+Instead, it uses:
+
+```java
+Student s = new Student();
+
+s.setId(10);
+s.setName("Rahul");
+
+System.out.println(s.getId());
+System.out.println(s.getName());
+```
+
+So the data is accessed **through controlled public methods**.
+
+---
+
+## Benefits of Encapsulation
+
+### 1. Data Security
+
+Private data cannot be directly accessed from outside the class.
+
+```java
+private int fees;
+```
+
+The user must access it through methods. 
+
+### 2. Controlled Access
+
+We can decide **how data should be accessed or modified**.
+
+For example:
+
+```java
+public void setFees(int fees) {
+
+    if (fees >= 0) {
+        this.fees = fees;
+    }
+}
+```
+
+Here, the method controls what value can be assigned.
+
+### 3. Data Hiding
+
+The internal implementation is hidden from the outside code.
+
+The outside code only needs to know:
+
+```java
+s.setFees(10000);
+```
+
+It does not need to know how `setFees()` internally handles the value.
+
+---
+
+# Your `Candidate` Example
+
+Your notes use a `Candidate` POJO class as an example of encapsulation. 
+
+```java
+class Candidate {
+
+    private String name;
+    private int id;
+    private int fees;
+    private boolean status;
+    private boolean readyStatus;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setFees(int fees) {
+        this.fees = fees;
+    }
+
+    public int getFees() {
+        return fees;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setReadyStatus(boolean readyStatus) {
+        this.readyStatus = readyStatus;
+    }
+
+    public boolean isReadyStatus() {
+        return readyStatus;
+    }
+}
+```
+
+Notice the important pattern:
+
+```text
+private variable
+       ↓
+public getter/setter
+       ↓
+controlled access
+```
+
+For example:
+
+```java
+private int fees;
+```
+
+cannot be accessed directly outside `Candidate`.
+
+Instead:
+
+```java
+setFees(10000);   // set value
+getFees();        // get value
+```
+
+Your `AdmissionProcess` also accesses candidate data through methods such as `getName()`, `getId()`, `setReadyStatus()`, `setFees()`, and `setStatus()` rather than directly accessing the private variables. 
+
+### ⭐ Short Interview Answer
+
+> **Encapsulation is the process of hiding data and implementation details from outside access. We achieve encapsulation by declaring data members as private and providing public getter and setter methods for controlled access. The main benefits are data hiding, data security, and controlled access to data.** 
+
+
+Yes — this is a good **Q16 interview-ready version**. It keeps the main points from your notes: **data hiding, `private` variables, public getters/setters, controlled access, and POJO example**. 
+
+### ⭐ Remember this formula
+
+```text
+Encapsulation
+      ↓
+private data
+      ↓
+public getter/setter
+      ↓
+controlled access
+      ↓
+data security
+```
+
+### One-line example
+
+```java
+private int fees;
+
+public void setFees(int fees) {
+    if (fees >= 0) {
+        this.fees = fees;
+    }
+}
+
+public int getFees() {
+    return fees;
+}
+```
+
+**Interview keywords:**
+`private` → **Data Hiding** → `getter/setter` → **Controlled Access** → **Data Security**
+
+Your next topic in the notes is **Q17: Nested Classes**. 
+## Q17. What are Nested Classes and why use Nested Classes?
+
+### Definition
+
+A **nested class** means a **class declared inside another class**.
+
+```java
+class Outer
+{
+    class Inner
+    {
+    }
+}
+```
+
+Here, `Inner` is a nested class inside `Outer`.
+
+### Why do we use Nested Classes?
+
+According to your notes, there are two main reasons:
+
+1. **Access modifiers**
+   An outer/top-level class cannot be declared `private`, `protected`, or `static`. A nested class can use these modifiers.
+
+2. **Parent-child relationship without inheritance**
+   We can create a relationship between two classes using a nested class without using `extends`. 
+
+---
+
+### 1. Nested class with `private`
+
+```java
+class P
+{
+    private class A
+    {
+    }
+}
+
+public class NestApp
+{
+    public static void main(String x[])
+    {
+    }
+}
+```
+
+Here, `A` is a **private nested class** inside `P`.
+
+---
+
+### 2. Nested class with `static`
+
+```java
+class P
+{
+    static class A
+    {
+    }
+}
+
+public class NestApp
+{
+    public static void main(String x[])
+    {
+    }
+}
+```
+
+Here, `A` is a **static nested class** inside `P`.
+
+---
+
+### 3. Nested class with `protected`
+
+```java
+class P
+{
+    protected class A
+    {
+    }
+}
+```
+
+Here, `A` is a **protected nested class** inside `P`.
+
+---
+
+## Types of Nested Classes
+
+There are **4 types**:
+
+| No. | Type                   |
+| --- | ---------------------- |
+| 1   | Simple Nested Class    |
+| 2   | Static Nested Class    |
+| 3   | Local Nested Class     |
+| 4   | Anonymous Nested Class |
+
+These are the four types listed in your notes. 
+
+### ⭐ Short Interview Answer
+
+> **A nested class is a class declared inside another class. We use nested classes to organize closely related classes and, as covered in our notes, to use modifiers such as private, protected, and static on the nested class and to establish a relationship between classes without inheritance. There are four types: Simple, Static, Local, and Anonymous nested classes.**
+
+## Q18. What is a Simple Nested Class?
+
+### Definition
+
+When we **declare one class directly inside another class**, it is called a **Simple Nested Class**. 
+
+### Example
+
+```java
+class Outer
+{
+    class Inner
+    {
+        void display()
+        {
+            System.out.println("Inside Inner class");
+        }
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        // First create Outer class object
+        Outer obj = new Outer();
+
+        // Then create Inner class object
+        Outer.Inner inner = obj.new Inner();
+
+        inner.display();
+    }
+}
+```
+
+### Important Point ⭐
+
+For creating an object of a **simple nested/inner class**, we must first create an **object of the outer class**.
+
+```java
+Outer obj = new Outer();
+Outer.Inner inner = obj.new Inner();
+```
+
+### Easy Flow
+
+```text
+Outer class object
+       ↓
+Inner class object
+       ↓
+Call inner class method
+```
+
+### Interview Answer
+
+> **A simple nested class is a class declared directly inside another class. To create an object of a simple nested class, we first create an object of the outer class and then create the inner class object using that outer object.**
+
+
+## Q19. What is a Static Nested Class?
+
+### Definition
+
+If we use the **`static` keyword with an inner class**, it is called a **Static Nested Class**. 
+
+### Example
+
+```java
+class Outer
+{
+    static class Inner
+    {
+        void display()
+        {
+            System.out.println("Inside static nested class");
+        }
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        // No need to create Outer class object
+        Outer.Inner obj = new Outer.Inner();
+
+        obj.display();
+    }
+}
+```
+
+### Important Point ⭐
+
+For creating a **static nested class object**, we **do not need to create an object of the outer class**.
+
+We directly use the **outer class name**:
+
+```java
+Outer.Inner obj = new Outer.Inner();
+```
+
+### Difference from Simple Nested Class
+
+| Simple Nested Class      | Static Nested Class          |
+| ------------------------ | ---------------------------- |
+| Outer object is required | Outer object is not required |
+| `obj.new Inner()`        | `new Outer.Inner()`          |
+| Non-static inner class   | `static` nested class        |
+
+### Easy Flow
+
+```text
+Static Nested Class
+        ↓
+No Outer object required
+        ↓
+Use Outer class name
+        ↓
+Outer.Inner obj = new Outer.Inner();
+```
+
+### ⭐ Interview Answer
+
+> **A static nested class is a class declared inside another class using the `static` keyword. To create its object, we don't need to create an object of the outer class; we can directly use the outer class name.**
+
+## Q20. What is a Local Nested Class?
+
+### Definition
+
+A **local nested class** is a class that is **declared inside a method/function of another class**.
+
+The class has **local scope**, so its object cannot be created outside the method/function in which the class is declared. 
+
+### Example
+
+```java
+class Outer
+{
+    void display()
+    {
+        // Local nested class
+        class Inner
+        {
+            void show()
+            {
+                System.out.println("Inside Local Nested Class");
+            }
+        }
+
+        // Object must be created inside this method
+        Inner obj = new Inner();
+
+        obj.show();
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Outer outer = new Outer();
+
+        outer.display();
+    }
+}
+```
+
+### Important Point ⭐
+
+The `Inner` class is declared inside the `display()` method:
+
+```java
+void display()
+{
+    class Inner
+    {
+    }
+}
+```
+
+Therefore, `Inner` can be used **only inside the `display()` method**.
+
+❌ We cannot do this:
+
+```java
+public static void main(String[] args)
+{
+    Inner obj = new Inner(); // Error
+}
+```
+
+### Easy Flow
+
+```text
+Outer Class
+     ↓
+  Method()
+     ↓
+ Local Nested Class
+     ↓
+Object created inside method
+```
+
+### ⭐ Interview Answer
+
+> **A local nested class is a class declared inside a method or function of another class. Its scope is limited to that method, so its object cannot be created outside that method's block.**

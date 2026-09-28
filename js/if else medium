@@ -1,0 +1,309 @@
+Below are the **JavaScript solutions for all 16 questions** from your uploaded assignment. I’ve kept the logic close to the original questions and used `prompt()` / `console.log()`. 
+
+### Q1. Check whether a triangle is valid
+
+```javascript
+let side1 = Number(prompt("Enter Side 1:"));
+let side2 = Number(prompt("Enter Side 2:"));
+let side3 = Number(prompt("Enter Side 3:"));
+
+if (side1 + side2 > side3 &&
+    side1 + side3 > side2 &&
+    side2 + side3 > side1) {
+    console.log("The triangle is valid.");
+} else {
+    console.log("The triangle is not valid.");
+}
+```
+
+### Q2. Equilateral, Isosceles or Scalene
+
+```javascript
+let side1 = Number(prompt("Enter Side 1:"));
+let side2 = Number(prompt("Enter Side 2:"));
+let side3 = Number(prompt("Enter Side 3:"));
+
+if (side1 + side2 <= side3 ||
+    side1 + side3 <= side2 ||
+    side2 + side3 <= side1) {
+    console.log("The triangle is not valid.");
+} else if (side1 === side2 && side2 === side3) {
+    console.log("The triangle is equilateral.");
+} else if (side1 === side2 || side2 === side3 || side1 === side3) {
+    console.log("The triangle is isosceles.");
+} else {
+    console.log("The triangle is scalene.");
+}
+```
+
+### Q3. Calculate percentage and grade
+
+The assignment gives grades from A through F based on percentage. 
+
+```javascript
+let physics = Number(prompt("Enter Physics marks:"));
+let chemistry = Number(prompt("Enter Chemistry marks:"));
+let biology = Number(prompt("Enter Biology marks:"));
+let mathematics = Number(prompt("Enter Mathematics marks:"));
+let computer = Number(prompt("Enter Computer marks:"));
+
+let total = physics + chemistry + biology + mathematics + computer;
+let percentage = total / 5;
+
+console.log("Percentage:", percentage + "%");
+
+if (percentage >= 90) {
+    console.log("Grade A");
+} else if (percentage >= 80) {
+    console.log("Grade B");
+} else if (percentage >= 70) {
+    console.log("Grade C");
+} else if (percentage >= 60) {
+    console.log("Grade D");
+} else if (percentage >= 40) {
+    console.log("Grade E");
+} else {
+    console.log("Grade F");
+}
+```
+
+### Q4. Electricity bill
+
+The slab rates are 0.50, 0.75, 1.20 and 1.50, followed by a 20% surcharge. 
+
+```javascript
+let units = Number(prompt("Enter electricity units:"));
+let bill = 0;
+
+if (units <= 50) {
+    bill = units * 0.50;
+} else if (units <= 150) {
+    bill = (50 * 0.50) +
+           ((units - 50) * 0.75);
+} else if (units <= 250) {
+    bill = (50 * 0.50) +
+           (100 * 0.75) +
+           ((units - 150) * 1.20);
+} else {
+    bill = (50 * 0.50) +
+           (100 * 0.75) +
+           (100 * 1.20) +
+           ((units - 250) * 1.50);
+}
+
+let surcharge = bill * 0.20;
+let totalBill = bill + surcharge;
+
+console.log("Electricity Bill:", bill);
+console.log("Surcharge:", surcharge);
+console.log("Total Bill:", totalBill);
+```
+
+### Q5. Time of day
+
+```javascript
+let time = Number(prompt("Enter time (0-23):"));
+
+if (time >= 0 && time <= 5) {
+    console.log("It is night.");
+} else if (time >= 6 && time <= 11) {
+    console.log("It is morning.");
+} else if (time >= 12 && time <= 17) {
+    console.log("It is afternoon.");
+} else if (time >= 18 && time <= 23) {
+    console.log("It is evening.");
+} else {
+    console.log("Invalid time.");
+}
+```
+
+### Q6. Sales competition
+
+```javascript
+let teamA = Number(prompt("Enter sales amount of Team A:"));
+let teamB = Number(prompt("Enter sales amount of Team B:"));
+
+if (teamA > teamB) {
+    console.log("Congratulations Team A wins bonus.");
+} else if (teamB > teamA) {
+    console.log("Congratulations Team B wins bonus.");
+} else {
+    console.log("Both teams have equal sales.");
+}
+```
+
+### Q7. Previous and next multiple of 100
+
+```javascript
+let num = Number(prompt("Enter a three digit number:"));
+
+if (num >= 100 && num <= 999) {
+    let previous = Math.floor(num / 100) * 100;
+    let next = previous + 100;
+
+    console.log("Previous multiple :", previous);
+    console.log("Next multiple :", next);
+} else {
+    console.log("Invalid Input");
+}
+```
+
+### Q8. Student Pass or Fail
+
+A student passes only when marks in **all three subjects are above 35**. 
+
+```javascript
+let sub1 = Number(prompt("Enter Subject 1 marks:"));
+let sub2 = Number(prompt("Enter Subject 2 marks:"));
+let sub3 = Number(prompt("Enter Subject 3 marks:"));
+
+if (sub1 > 35 && sub2 > 35 && sub3 > 35) {
+    console.log("Result is pass");
+} else {
+    console.log("Result is Fail");
+}
+```
+
+### Q9. Profit or Loss
+
+```javascript
+let costPrice = Number(prompt("Enter Cost Price:"));
+let sellingPrice = Number(prompt("Enter Selling Price:"));
+
+if (sellingPrice > costPrice) {
+    console.log("The transaction was profitable.");
+} else if (sellingPrice < costPrice) {
+    console.log("The transaction was loss-making.");
+} else {
+    console.log("There is no profit and no loss.");
+}
+```
+
+### Q10. Discount eligibility
+
+10 or more items are required for a discount. 
+
+```javascript
+let items = Number(prompt("Enter number of items purchased:"));
+
+if (items >= 10) {
+    console.log("The customer is eligible for a discount.");
+} else {
+    console.log("The customer is not eligible for a discount.");
+}
+```
+
+### Q11. Weather condition
+
+```javascript
+let temperature = Number(prompt("Enter temperature:"));
+
+if (temperature > 30) {
+    console.log("The weather is hot.");
+} else if (temperature < 15) {
+    console.log("The weather is cold.");
+} else {
+    console.log("The weather is normal.");
+}
+```
+
+### Q12. Membership discount
+
+Premium = 20%, Regular = 10%, otherwise = 0%. 
+
+```javascript
+let membership = Number(
+    prompt("Enter membership type (1-Premium, 2-Regular, 0-None):")
+);
+
+if (membership === 1) {
+    console.log("You get a 20% discount.");
+} else if (membership === 2) {
+    console.log("You get a 10% discount.");
+} else {
+    console.log("You get no discount.");
+}
+```
+
+### Q13. Salary based on experience
+
+```javascript
+let experience = Number(prompt("Enter your years of experience:"));
+
+if (experience > 10) {
+    console.log("Your salary is $1000.");
+} else if (experience >= 5) {
+    console.log("Your salary is $800.");
+} else {
+    console.log("Your salary is $500.");
+}
+```
+
+### Q14. Day of the week using nested if-else
+
+```javascript
+let day = Number(prompt("Enter a number (1-7):"));
+
+if (day === 1) {
+    console.log("The day is Monday.");
+} else if (day === 2) {
+    console.log("The day is Tuesday.");
+} else if (day === 3) {
+    console.log("The day is Wednesday.");
+} else if (day === 4) {
+    console.log("The day is Thursday.");
+} else if (day === 5) {
+    console.log("The day is Friday.");
+} else if (day === 6) {
+    console.log("The day is Saturday.");
+} else if (day === 7) {
+    console.log("The day is Sunday.");
+} else {
+    console.log("Invalid day.");
+}
+```
+
+### Q15. Grade with extra credit
+
+The assignment says to add **5 marks** when extra credit is `1`. 
+
+```javascript
+let marks = Number(prompt("Enter your marks:"));
+let extraCredit = Number(
+    prompt("Enter extra credit (1 for Yes, 0 for No):")
+);
+
+if (extraCredit === 1) {
+    marks = marks + 5;
+}
+
+if (marks >= 90) {
+    console.log("Your grade is A.");
+} else if (marks >= 80) {
+    console.log("Your grade is B.");
+} else if (marks >= 70) {
+    console.log("Your grade is C.");
+} else if (marks >= 60) {
+    console.log("Your grade is D.");
+} else if (marks >= 40) {
+    console.log("Your grade is E.");
+} else {
+    console.log("Your grade is F.");
+}
+```
+
+### Q16. Game level based on score
+
+```javascript
+let score = Number(prompt("Enter player score:"));
+
+if (score > 1000) {
+    console.log("High level");
+} else if (score >= 500) {
+    console.log("Medium level");
+} else {
+    console.log("Low level");
+}
+```
+
+These solutions cover **Q1–Q16** from the uploaded file; the original questions are written as C programs, and I have converted their logic to JavaScript. 

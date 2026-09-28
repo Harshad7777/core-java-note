@@ -1,0 +1,276 @@
+Sure. Here are the **JavaScript solutions for Q1–Q4**, converted from your C questions. I’m using `while` loops where the question specifically asks for them.
+
+## Q1. Armstrong Number using `while` loop
+
+```javascript
+let num = Number(prompt("Enter a number:"));
+let original = num;
+let temp = num;
+let digits = 0;
+let sum = 0;
+
+// Count number of digits
+while (temp > 0) {
+    digits++;
+    temp = Math.floor(temp / 10);
+}
+
+// Calculate Armstrong sum
+temp = num;
+
+while (temp > 0) {
+    let digit = temp % 10;
+    sum = sum + Math.pow(digit, digits);
+    temp = Math.floor(temp / 10);
+}
+
+if (sum === original) {
+    console.log(original + " is Armstrong number");
+} else {
+    console.log(original + " is not Armstrong number");
+}
+```
+
+### Example
+
+Input:
+
+```text
+153
+```
+
+Output:
+
+```text
+153 is Armstrong number
+```
+
+---
+
+# Q2. Strong Number
+
+A Strong number is a number where the **sum of factorials of its digits equals the original number**.
+
+Example:
+
+`145`
+
+`1! + 4! + 5!`
+
+`1 + 24 + 120 = 145`
+
+```javascript
+let num = Number(prompt("Enter a number:"));
+let original = num;
+let sum = 0;
+
+while (num > 0) {
+
+    let digit = num % 10;
+    let factorial = 1;
+    let i = 1;
+
+    while (i <= digit) {
+        factorial = factorial * i;
+        i++;
+    }
+
+    sum = sum + factorial;
+
+    num = Math.floor(num / 10);
+}
+
+if (sum === original) {
+    console.log(original + " is strong number");
+} else {
+    console.log(original + " is not strong number");
+}
+```
+
+### Example
+
+Input:
+
+```text
+145
+```
+
+Output:
+
+```text
+145 is strong number
+```
+
+---
+
+# Q3. Automorphic Number
+
+An automorphic number is a number whose **square ends with the same number**.
+
+Examples:
+
+```text
+5 × 5 = 25
+```
+
+Last digit is `5`.
+
+```text
+25 × 25 = 625
+```
+
+Last two digits are `25`.
+
+### JavaScript
+
+```javascript
+let num = Number(prompt("Enter a number:"));
+
+let square = num * num;
+let temp = num;
+let divisor = 1;
+
+while (temp > 0) {
+    divisor = divisor * 10;
+    temp = Math.floor(temp / 10);
+}
+
+let lastPart = square % divisor;
+
+if (lastPart === num) {
+    console.log(num + " is automorphic number.");
+} else {
+    console.log(num + " is not automorphic number.");
+}
+```
+
+### Example 1
+
+Input:
+
+```text
+5
+```
+
+Calculation:
+
+```text
+5 × 5 = 25
+25 % 10 = 5
+```
+
+Output:
+
+```text
+5 is automorphic number.
+```
+
+### Example 2
+
+Input:
+
+```text
+7
+```
+
+Output:
+
+```text
+7 is not automorphic number.
+```
+
+---
+
+# Q4. Disarium Number
+
+A Disarium number is a number where the **sum of each digit raised to its position equals the original number**.
+
+Example:
+
+```text
+89
+
+8¹ + 9²
+= 8 + 81
+= 89
+```
+
+### JavaScript
+
+```javascript
+let num = Number(prompt("Enter a number:"));
+let original = num;
+let temp = num;
+let digits = 0;
+let sum = 0;
+
+// Count digits
+while (temp > 0) {
+    digits++;
+    temp = Math.floor(temp / 10);
+}
+
+// Calculate Disarium sum
+temp = num;
+
+while (temp > 0) {
+
+    let digit = temp % 10;
+
+    sum = sum + Math.pow(digit, digits);
+
+    digits--;
+    temp = Math.floor(temp / 10);
+}
+
+if (sum === original) {
+    console.log(original + " is a Disarium number.");
+} else {
+    console.log(original + " is NOT a Disarium number.");
+}
+```
+
+### Example
+
+Input:
+
+```text
+89
+```
+
+Calculation:
+
+```text
+8¹ + 9²
+= 8 + 81
+= 89
+```
+
+Output:
+
+```text
+89 is a Disarium number.
+```
+
+### Important point for Q4
+
+Because we extract digits from **right to left**, we first count the total digits and then decrease the position:
+
+```javascript
+digits--;
+```
+
+So for `89`:
+
+```text
+9 → position 2
+8 → position 1
+```
+
+giving:
+
+```text
+8¹ + 9²
+```
+
+These four solutions follow the logic and examples in your questions.

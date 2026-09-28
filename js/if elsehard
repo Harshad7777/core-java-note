@@ -1,0 +1,533 @@
+Below are **JavaScript solutions for all 7 questions**. I’ve used `prompt()` for input and `console.log()` for output, so you can run them directly in the browser console.
+
+## Q1. TV Profit/Loss with VAT and Tax
+
+VAT = 5% and Tax = 10%, both included in the total selling price.
+
+Since the total price includes **15%**, net selling price is:
+
+`7000 / 1.15 = 6086.96`
+
+Profit:
+
+`6086.96 - 3500 = 2586.96`
+
+> Note: The sample output `1956.52` does **not** match the stated 5% VAT + 10% tax calculation.
+
+```javascript
+let costPrice = Number(prompt("Enter the cost price of the TV:"));
+let sellingPrice = Number(
+    prompt("Enter the selling price of the TV (including VAT and tax):")
+);
+
+let vat = 5;
+let tax = 10;
+
+let netSellingPrice = sellingPrice / (1 + (vat + tax) / 100);
+
+console.log("Net Selling Price = " + netSellingPrice.toFixed(2));
+
+if (netSellingPrice > costPrice) {
+    let profit = netSellingPrice - costPrice;
+    console.log("You made a profit of " + profit.toFixed(2));
+} else if (netSellingPrice < costPrice) {
+    let loss = costPrice - netSellingPrice;
+    console.log("You incurred a loss of " + loss.toFixed(2));
+} else {
+    console.log("No profit, no loss.");
+}
+```
+
+**Output:**
+
+```text
+Net Selling Price = 6086.96
+You made a profit of 2586.96
+```
+
+---
+
+# Q2. Profit/Loss for 100 Units
+
+```javascript
+let cp = Number(prompt("Enter Cost Price (CP):"));
+let sp = Number(prompt("Enter Selling Price (SP):"));
+
+let quantity = 100;
+
+if (sp > cp) {
+    let profitPerUnit = sp - cp;
+    let totalProfit = profitPerUnit * quantity;
+
+    console.log("Profit per unit = " + profitPerUnit + "₹");
+    console.log("Total Profit on 100 units = " + totalProfit + "₹");
+
+} else if (sp < cp) {
+    let lossPerUnit = cp - sp;
+    let totalLoss = lossPerUnit * quantity;
+
+    console.log("Loss per unit = " + lossPerUnit + "₹");
+    console.log("Total Loss on 100 units = " + totalLoss + "₹");
+
+} else {
+    console.log("No Profit No Loss");
+}
+```
+
+### Input
+
+```text
+CP = 50
+SP = 60
+```
+
+### Output
+
+```text
+Profit per unit = 10₹
+Total Profit on 100 units = 1000₹
+```
+
+If:
+
+```text
+CP = 50
+SP = 45
+```
+
+Output:
+
+```text
+Loss per unit = 5₹
+Total Loss on 100 units = 500₹
+```
+
+---
+
+# Q3. Vehicle Service Center
+
+```javascript
+let ownerName = prompt("Enter owner's name:");
+let vehicleName = prompt("Enter vehicle name:");
+
+let vehicleType = Number(
+    prompt("Enter vehicle type (2 for 2-wheeler, 3 for 3-wheeler, 4 for 4-wheeler):")
+);
+
+if (vehicleType !== 2 && vehicleType !== 3 && vehicleType !== 4) {
+
+    console.log(
+        "This service center is not accepting other than 2 wheeler, 3 wheeler and 4 wheeler"
+    );
+
+} else {
+
+    let age = Number(prompt("Enter vehicle age in months:"));
+
+    if (age <= 8) {
+
+        console.log("Your vehicle service will done after a while");
+
+    } else {
+
+        console.log("1. Enter 1 for tyre problem");
+        console.log("2. Enter 2 for fuel problem");
+        console.log("3. Enter 3 for engine issue");
+        console.log("4. Enter 4 for general services");
+
+        let choice = Number(prompt("Enter your choice:"));
+
+        let issue;
+        let bill = 0;
+
+        switch (choice) {
+
+            case 1:
+                issue = "Tyre Problem";
+
+                let tyres = Number(
+                    prompt("How many tyres are you facing the issue?")
+                );
+
+                bill = tyres * 400;
+                break;
+
+            case 2:
+                issue = "Fuel Problem";
+                bill = 1500;
+                break;
+
+            case 3:
+                issue = "Engine Issue";
+                bill = 5000;
+                break;
+
+            case 4:
+                issue = "General Service";
+                bill = 1000;
+                break;
+
+            default:
+                console.log("Invalid choice");
+        }
+
+        if (bill > 0) {
+
+            console.log("========== SERVICE BILL ==========");
+            console.log("Name of Owner : " + ownerName);
+            console.log("Name of Bike  : " + vehicleName);
+            console.log("Issue         : " + issue);
+            console.log("Bill          : Rs. " + bill);
+            console.log("==================================");
+        }
+    }
+}
+```
+
+### Example
+
+```text
+Name of Owner : Rajesh
+Name of Bike  : Honda
+Issue         : Tyre Problem
+Bill          : Rs. 1200
+```
+
+---
+
+# Q4. Marriage Eligibility
+
+```javascript
+let age = Number(prompt("Enter your age:"));
+let gender = prompt("Enter your gender (M/F):").toUpperCase();
+let nationality = prompt(
+    "Enter your nationality (i or I for Indian):"
+).toUpperCase();
+
+if (nationality !== "I") {
+
+    console.log("You are not an Indian citizen");
+
+} else {
+
+    if (gender === "M") {
+
+        if (age >= 21) {
+            console.log("Eligible to get married in India");
+        } else {
+            console.log("Not eligible to get married in India");
+        }
+
+    } else if (gender === "F") {
+
+        if (age >= 18) {
+            console.log("Eligible to get married in India");
+        } else {
+            console.log("Not eligible to get married in India");
+        }
+
+    } else {
+
+        console.log("Invalid gender");
+    }
+}
+```
+
+### Example 1
+
+```text
+Age = 28
+Gender = m
+Nationality = I
+```
+
+Output:
+
+```text
+Eligible to get married in India
+```
+
+### Example 2
+
+```text
+Age = 28
+Gender = m
+Nationality = c
+```
+
+Output:
+
+```text
+You are not an Indian citizen
+```
+
+---
+
+# Q5. Tea Bill
+
+```javascript
+console.log("Tea Menu:");
+console.log("1. Masala Tea - Rs. 10 per cup");
+console.log("2. Ginger Tea - Rs. 15 per cup");
+console.log("3. Lemon Tea - Rs. 20 per cup");
+
+let choice = Number(prompt("Enter your choice (1/2/3):"));
+
+if (choice >= 1 && choice <= 3) {
+
+    let cups = Number(prompt("Enter the number of cups:"));
+
+    let price;
+
+    switch (choice) {
+
+        case 1:
+            price = 10;
+            break;
+
+        case 2:
+            price = 15;
+            break;
+
+        case 3:
+            price = 20;
+            break;
+    }
+
+    let totalBill = price * cups;
+
+    console.log("Total bill: Rs. " + totalBill.toFixed(2));
+
+} else {
+
+    console.log("Invalid Choice please enter valid option.");
+}
+```
+
+### Example
+
+```text
+Enter your choice: 2
+Enter the number of cups: 3
+```
+
+Output:
+
+```text
+Total bill: Rs. 45.00
+```
+
+---
+
+# Q6. Theme Park Ticket Pricing
+
+Rules:
+
+* Age ≤ 3 → Free
+* Age 4–12 → ₹20
+* Age 13–64 → ₹100
+* Age 65+ → ₹50
+* Height > 180 → +₹50
+* Height 120–180 → No change
+* Height < 120 → 50% discount
+* VIP → 10% discount on final price
+* Negative age/height → Error
+
+```javascript
+let age = Number(prompt("Enter age:"));
+let height = Number(prompt("Enter height in cm:"));
+let vip = prompt("Do you have VIP pass? (y/n):").toLowerCase();
+
+if (age < 0 || height < 0) {
+
+    console.log("Error: Age cannot be negative and height cannot be negative.");
+
+} else {
+
+    let basePrice;
+
+    // Calculate base price
+    if (age <= 3) {
+        basePrice = 0;
+    } else if (age >= 4 && age <= 12) {
+        basePrice = 20;
+    } else if (age >= 13 && age <= 64) {
+        basePrice = 100;
+    } else {
+        basePrice = 50;
+    }
+
+    let finalPrice = basePrice;
+
+    console.log("========== TICKET DETAILS ==========");
+    console.log("Age       : " + age);
+    console.log("Height    : " + height + " cm");
+    console.log("VIP Pass  : " + vip);
+    console.log("Base Price: Rs. " + basePrice.toFixed(2));
+
+    // Height rules
+    if (height > 180) {
+
+        finalPrice = finalPrice + 50;
+
+        console.log("Height Charge: Rs. 50");
+
+    } else if (height >= 120 && height <= 180) {
+
+        console.log("Height Charge: Rs. 0");
+
+    } else if (height < 120) {
+
+        finalPrice = finalPrice * 0.50;
+
+        console.log("Height Discount: 50%");
+
+    }
+
+    // VIP discount
+    if (vip === "y") {
+
+        let vipDiscount = finalPrice * 0.10;
+        finalPrice = finalPrice - vipDiscount;
+
+        console.log("VIP Discount: 10%");
+
+    }
+
+    console.log("Final Ticket Price: Rs. " + finalPrice.toFixed(2));
+    console.log("====================================");
+}
+```
+
+---
+
+# Q7. Interactive Tea Stall
+
+This question requires a **loop**, because the customer can order again.
+
+```javascript
+let orderAgain = "y";
+
+while (orderAgain.toLowerCase() === "y") {
+
+    console.log("================================");
+    console.log("Welcome to our Tea Stall Counter!");
+    console.log("Our Menu:");
+    console.log("1. Tea         - Rs. 10");
+    console.log("2. Coffee      - Rs. 20");
+    console.log("3. Cold Coffee - Rs. 50");
+    console.log("4. Exit");
+    console.log("================================");
+
+    let choice = Number(prompt("Choose by entering a number (1-4):"));
+
+    if (choice === 4) {
+
+        console.log(
+            "Thank you for visiting! We look forward to serving you again soon!"
+        );
+        break;
+    }
+
+    let price;
+    let itemName;
+
+    switch (choice) {
+
+        case 1:
+            itemName = "Tea";
+            price = 10;
+            break;
+
+        case 2:
+            itemName = "Coffee";
+            price = 20;
+            break;
+
+        case 3:
+            itemName = "Cold Coffee";
+            price = 50;
+            break;
+
+        default:
+            console.log("Invalid choice. Please enter 1, 2, 3 or 4.");
+            continue;
+    }
+
+    let quantity = Number(
+        prompt("How many cups of " + itemName + "?")
+    );
+
+    let totalPrice = price * quantity;
+
+    console.log(
+        "Total for " + quantity + " cup(s): Rs. " + totalPrice
+    );
+
+    let amountPaid = Number(
+        prompt("Enter your payment amount: Rs.")
+    );
+
+    if (amountPaid < totalPrice) {
+
+        console.log("Insufficient payment.");
+
+    } else {
+
+        let change = amountPaid - totalPrice;
+
+        console.log("Change: Rs. " + change);
+    }
+
+    orderAgain = prompt(
+        "Explore more or finalize? (Type 'Y' for Yes or 'N' for No):"
+    );
+
+    if (orderAgain.toLowerCase() === "y") {
+
+        console.log("Certainly, let's explore.");
+
+    } else {
+
+        console.log(
+            "Thank you for visiting! We look forward to serving you again soon!"
+        );
+    }
+}
+```
+
+### Example
+
+```text
+Welcome to our Tea Stall Counter!
+
+1. Tea         - Rs. 10
+2. Coffee      - Rs. 20
+3. Cold Coffee - Rs. 50
+4. Exit
+
+Choose: 1
+How many cups of Tea? 3
+
+Total for 3 cup(s): Rs. 30
+Enter your payment amount: Rs. 50
+Change: Rs. 20
+
+Explore more? Y
+
+Certainly, let's explore.
+```
+
+### Concepts covered
+
+| Question | Main JavaScript concepts                      |
+| -------- | --------------------------------------------- |
+| Q1       | Variables, arithmetic, `if-else`, `toFixed()` |
+| Q2       | Variables, arithmetic, `if-else`              |
+| Q3       | `if-else`, `switch`, nested conditions        |
+| Q4       | `if-else`, `toUpperCase()`                    |
+| Q5       | `switch`, arithmetic                          |
+| Q6       | Nested `if-else`, percentage calculation      |
+| Q7       | `while` loop, `switch`, `if-else`             |
+
+These are written in a **C-style JavaScript approach**, so they should be useful if you're currently practicing `if-else`, `switch`, loops, and basic problem-solving.

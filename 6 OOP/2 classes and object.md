@@ -1266,6 +1266,7 @@ class Main {
 
         Student s1 = new Student(101);
         Student s2 = new Student(102);
+        
 
         System.out.println(Student.college);
         System.out.println(s1.id);
@@ -1431,22 +1432,6 @@ class Demo {
 
 ```java
 class Parent {
-    static void show() {
-        System.out.println("Parent");
-    }
-}
-
-class Child extends Parent {
-    static void show() {
-        System.out.println("Child");
-    }
-}
-```
-
-**Instance methods → method overriding**
-
-```java
-class Parent {
     void show() {
         System.out.println("Parent");
     }
@@ -1458,6 +1443,46 @@ class Child extends Parent {
         System.out.println("Child");
     }
 }
+
+class Main {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.show();
+    }
+}
+
+
+Output:
+
+Child
+
+```
+
+**Instance methods → method overriding**
+
+```java
+class Parent {
+    static void show() {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    static void show() {
+        System.out.println("Child");
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.show();
+    }
+}
+
+Output:
+
+Parent
 ```
 
 ### 5. Abstract

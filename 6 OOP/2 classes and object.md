@@ -1,106 +1,118 @@
-Q1. What is class?
-Q2. Why use class or Benefits of class?
-Q3. How to reuse class more than one time?
-Q4. What is an object and how to create an object in Java?
-Q5. What is the difference between reference and object?
-Q6. How to pass parameters to call function?
-Q7. How to pass an array as a parameter to class function?
-Q8. What is a method with variable argument concepts?
-Q9. What is POJO class & Why use POJO class?
-Q10. Static variable & static methods ?
-Q11. Local Variable , instance variable?
-Q12. What is the difference between local variable ,instance variable and static variable?
-Q13. Array of objects?
-Q14. What is encapsulation & Benefit of Encapsulation?
-Q15. What are nested classes and why use nested class?
-Q16. What is a simple nested class?
-Q17. What is a static nested class?
-Q18. What is the local nested class?
-Q19. What are anonymous nested classes?
+# Classes and Objects in Java
 
+## Contents
 
-Q1. What is a Class?
+- [What Is a Class?](#q1-what-is-a-class)
+- [Benefits of a Class](#q2-why-use-a-class-benefits-of-a-class)
+- [Reusing a Class](#q3-how-to-reuse-a-class-more-than-once)
+- [Objects](#q4-what-is-an-object-and-how-do-you-create-one-in-java)
+- [Reference vs. Object](#q5-difference-between-a-reference-and-an-object)
+- [Passing Parameters to Methods](#q6-how-to-pass-parameters-to-class-methods)
+- [Passing Arrays to Methods](#q7-how-to-pass-an-array-as-a-parameter-to-a-class-method)
+- [Variable Arguments](#q8-what-is-a-method-with-variable-arguments)
+- [POJO Classes](#q9-what-is-a-pojo-class-and-why-use-one)
+- [Arrays of Objects](#q10-what-is-an-array-of-objects)
+- [Static Variables](#q11-what-is-a-static-variable)
+- [Instance vs. Static Variables](#q12-difference-between-instance-and-static-variables)
+- [Static Methods](#q13-what-is-a-static-method)
+- [Instance vs. Static Methods](#q14-difference-between-instance-method-and-static-method)
+- [Local Variables](#q15-what-is-a-local-variable)
+- [Encapsulation](#q16-what-is-encapsulation-and-what-are-its-benefits)
+- [Nested Classes](#q17-what-are-nested-classes-and-why-use-nested-classes)
+- [Simple Nested Classes](#q18-what-is-a-simple-nested-class)
+- [Static Nested Classes](#q19-what-is-a-static-nested-class)
+- [Local Nested Classes](#q20-what-is-a-local-nested-class)
 
-Definition 1
+## Q1. What Is a Class?
+
+### Definition 1
 
 A class is a combination of Variables and Methods.
-State → Variables
-Behavior → Methods (functions)
+- **State:** variables.
+- **Behavior:** methods (functions).
 
-Definition 2
+### Definition 2
+
 A class is a collection of data members and member functions.
 
-Definition 3 (Detailed / Technical)
+### Definition 3: Detailed / Technical
 
 A class is a blueprint that may contain:
-    Instance variables
-    Static (class-level) variables
-    Methods
-    Constructors
-    Instance initializer blocks
-    Static initializer blocks
-    Nested classes
 
-Important Components of a Class
-1. Instance Variable
+- Instance variables.
+- Static (class-level) variables.
+- Methods.
+- Constructors.
+- Instance initializer blocks.
+- Static initializer blocks.
+- Nested classes.
 
-    An instance variable is a variable declared inside a class but outside any method without the static keyword.
-    Each object has its own copy of instance variables.
+### Important Components of a Class
 
-    int id;   // instance variable
+#### 1. Instance Variable
+
+An instance variable is declared inside a class but outside any method and does not use the `static` keyword. Each object has its own copy.
+
+```java
+int id; // instance variable
+```
  
-2. Class Variable (Static Variable)
+#### 2. Class Variable (Static Variable)
 
-    A class variable is a variable declared inside a class using the static keyword.
-    It is shared among all objects of the class.
+A class variable is declared inside a class using the `static` keyword. It is shared among all objects of the class.
 
-    static int count;   // class variable
+```java
+static int count; // class variable
+```
 
-3. Method
+#### 3. Method
 
-    When a function is defined inside a class, it is called a method.
-    Methods define the behavior of a class.
+When a function is defined inside a class, it is called a method. Methods define the behavior of a class.
 
-    void show()
-    {
-        System.out.println("Hello");
-    }
+```java
+void show() {
+    System.out.println("Hello");
+}
+```
 
-4. Constructor
+#### 4. Constructor
 
-    Name is same as class name
-    Has no return type
-    Used to initialize objects
+- Name is the same as the class name.
+- Has no return type.
+- Used to initialize objects.
 
-    ClassName()
-    {
-        // constructor
-    }
+```java
+ClassName() {
+    // constructor
+}
+```
 
-5. Instance Initializer Block
+#### 5. Instance Initializer Block
 
-    An instance initializer is a block defined inside a class without the static keyword.
-    It executes every time an object is created, before the constructor.
+An instance initializer is a block defined inside a class without the `static` keyword. It executes every time an object is created, before the constructor.
 
-    {
-        System.out.println("Instance initializer");
-    }
+```java
+{
+    System.out.println("Instance initializer");
+}
+```
 
-6. Static Initializer Block
+#### 6. Static Initializer Block
 
-    A static initializer is a block defined using the static keyword.
-    It executes only once when the class is loaded.
+A static initializer is a block defined using the `static` keyword. It executes only once when the class is loaded.
 
-    static
-    {
-        System.out.println("Static initializer");
-    }
--------------------------------------------------------------------------
-Nested Class
--------------------------------------------------------------------------
+```java
+static {
+    System.out.println("Static initializer");
+}
+```
+
+### Nested Class
+
 A nested class is a class declared inside another class.
 It is used to logically group related classes, improve encapsulation, and increase code readability.
 
+```java
 class ABC
 {
     private int x;              // instance variable
@@ -136,9 +148,11 @@ class ABC
         }
     }
 }
+```
 
-Q.How to declare class in JAVA?
+### How to Declare a Class in Java
 
+```java
 access_specifier class ClassName
 {
     access_specifier dataType variableName;
@@ -147,97 +161,103 @@ access_specifier class ClassName
         // write your logic here
     }
 }
+```
 
-Example: 
-public class Student
-{
-    private int id;        // data member
+Example:
 
-    public void show(int x)
-    {
+```java
+public class Student {
+    private int id;
+
+    public void show(int x) {
         System.out.println(x);
     }
 }
--------------------------------------------------------------------------
-Q2. Why use a Class? / Benefits of Class
------------------------------------------------------------------------
-1. Ability to Store Different Types of Data
+```
 
-    A class can store different types of data in a single unit.
-    Hence, a class is called a complex or heterogeneous data structure.
+## Q2. Why Use a Class? Benefits of a Class
 
-        For example
-        class Employee
-        {
-            private int id;
-            private String name;
-            private long sal;
-        //function
-        }
-    So, a class has the ability to store multiple data types together.
+### 1. Ability to Store Different Types of Data
 
-2. Reusability
+A class can store different types of data in a single unit. It is therefore a complex or heterogeneous data structure.
 
-    A class is declared only once and can be reused multiple times, which reduces code duplication.
- 
-    A class can be reused in two ways:
-        1. By creating objects of the class
-        2. By using inheritance (discussed in later chapters)
+For example:
 
-3. Encapsulation
+```java
+class Employee {
+    private int id;
+    private String name;
+    private long salary;
+    // methods
+}
+```
 
-    A class supports encapsulation, which means binding data and methods together and hiding data using access specifiers.
-    (This concept is discussed in detail in a later chapter.)
+A class can store multiple data types together.
 
-4. Abstraction
+### 2. Reusability
 
-    A class also supports abstraction, which means showing only necessary details and hiding implementation.
-    (This concept is explained in the inheritance chapter.)
+A class is declared once and can be reused multiple times, reducing duplicated code. It can be reused by:
 
-Q3. How to reuse class more than one time?
-   A class can be reused in two ways: 
-        1. By creating objects of the class
-        2. By using inheritance (discussed in later chapters)
+1. Creating objects of the class.
+2. Using inheritance (discussed in later chapters).
 
-Q4. What is an Object and how to create an Object in Java?
+### 3. Encapsulation
 
-Definitions of Object
+A class supports encapsulation, which means binding data and methods together and hiding data using access specifiers. This concept is discussed in detail in a later chapter.
 
-    Definition 1:
-    An object is an instance of a class.
-    Definition 2:
-    An object is a runtime entity, because it is created during program execution.
-    Definition 3:
-    An object is a block of memory where class data is stored.
-    It can be considered a photocopy of a class, because when an object is created, all non-static (instance) variables of the class get memory.
+### 4. Abstraction
 
-Extra clarity (optional for exams):
-    Memory is allocated separately for each object
-    Static variables do not get separate memory per object
-    Instance variables are stored in the heap memory
+A class also supports abstraction, which means showing only necessary details and hiding implementation. This concept is explained in the inheritance chapter.
 
-How to Create an Object in Java
-    To create an object in Java, we use the new keyword.
+## Q3. How to Reuse a Class More Than Once?
 
-    Syntax
-    ClassName ref = new ClassName();
+A class can be reused in two ways:
 
-Explanation
+1. By creating objects of the class.
+2. By using inheritance (discussed in later chapters).
 
-    Employee emp = new Employee();
+## Q4. What Is an Object and How Do You Create One in Java?
 
-    Employee → Class name
-    emp → Reference variable
-    new Employee() → Actual object (allocates memory in heap)
+### Definitions of an Object
+
+1. An object is an instance of a class.
+2. An object is a runtime entity because it is created during program execution.
+3. An object is a block of memory where class data is stored. It can be considered a copy of a class because each non-static (instance) variable gets memory when an object is created.
+
+### Additional Notes
+
+- Memory is allocated separately for each object.
+- Static variables do not get a separate copy for each object.
+- Instance variables are stored as part of the object in heap memory.
+
+### How to Create an Object in Java
+
+To create an object in Java, use the `new` keyword.
+
+**Syntax**
+
+```java
+ClassName ref = new ClassName();
+```
+
+**Example**
+
+```java
+Employee emp = new Employee();
+```
+
+- `Employee` is the class name.
+- `emp` is the reference variable.
+- `new Employee()` creates the object and allocates memory on the heap.
 
 The reference variable emp stores the address of the object.
 
-Important Points (Exam Ready)
+### Important Points
 
-    Objects are created at runtime
-    Memory is allocated in the heap
-    Each object has its own copy of instance variables
-    Multiple objects can be created from the same class
+- Objects are created at runtime.
+- Memory is allocated on the heap.
+- Each object has its own copy of instance variables.
+- Multiple objects can be created from the same class.
 
 In **Java, there are 5 common ways to create an object.** 🚀
 
@@ -354,9 +374,8 @@ public class Main {
 
 
 
--------------------------------------------------------------------------
-Q5. Difference Between Reference and Object
--------------------------------------------------------------------------
+## Q5. Difference Between a Reference and an Object
+
 | **Reference**                                                          | **Object**                                                                         |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | A reference is a **variable** that stores the **address of an object** | An object is a **block of memory** that stores **class data (instance variables)** |
@@ -366,134 +385,141 @@ Q5. Difference Between Reference and Object
 | Can be reassigned or set to `null`                                     | Exists until garbage collected                                                     |
 
 
-Q. Why use references with objects?
-Q. What happens if we do not use references with objects?
+The following examples show how references let us access and reuse objects.
 
-Note: before this question we need to how to use class practically 
+> **Note:** Before answering, first see how to use a class in practice.
 
-Step 1: Declare a Class
-    class Add
-    {
-    }
+### Step 1: Declare a Class
 
+```java
+class Add {
+}
+```
 
-Step 2: Declare Variables Inside the Class
-    import java.util.Scanner;
-    class Add
-    {
-        private int a, b;               // instance variables
-        private Scanner xyz = new Scanner(System.in);
-    }
+### Step 2: Declare Variables Inside the Class
 
-Step 3: Define Methods Inside the Class
-    class Add
-    {
-        private int a, b;
-        private Scanner xyz = new Scanner(System.in);
-
-        public void setValue()
-        {
-            System.out.println("Enter two values:");
-            a = xyz.nextInt();
-            b = xyz.nextInt();
-        }
-    }
-
-Step 4: Create an Object of the Class
-    public class ADDAPP
-    {
-        public static void main(String x[])
-        {
-            Add ad = new Add();   // object creation
-        }
-    }
-
-Step 5: Use Class Variables and Methods Using the Object
-
+```java
 import java.util.Scanner;
-    class Add   //stap 1
-    {
-        private int a, b;  //stap 2 - variable declaration 
-        private Scanner xyz = new Scanner(System.in);
 
-        public void setValue()  //step 3 - function defination
-        {
-            System.out.println("Enter two values:");
-            a = xyz.nextInt();
-            b = xyz.nextInt();
-        }
+class Add {
+    private int a, b;
+    private Scanner xyz = new Scanner(System.in);
+}
+```
 
-        public void showAdd()  //step 3 - function defination
-        {
-            System.out.println("Addition is: " + (a + b));
-        }
-    }
+### Step 3: Define Methods Inside the Class
 
-public class ADDAPP
-    {
-        public static void main(String x[])
-        {
-            Add ad = new Add();   // Step 4
-            ad.setValue();       // Step 5
-            ad.showAdd();        // Step 5
-        }
-    }
-
-
-Example: WAP to create class name as Square with two values with two function 
-    void setNum():accept number as parameter 
-    int getSquare(): calculate square and return it 
-
-import java.util.*;
-class Square   // Step 1: class declaration
-{
-    private int no;                    // Step 2: variable declaration
+```java
+class Add {
+    private int a, b;
     private Scanner xyz = new Scanner(System.in);
 
-    public void setNum()               // Step 3: function definition
-    {
+    public void setValue() {
+        System.out.println("Enter two values:");
+        a = xyz.nextInt();
+        b = xyz.nextInt();
+    }
+}
+```
+
+### Step 4: Create an Object of the Class
+
+```java
+public class ADDAPP {
+    public static void main(String x[]) {
+        Add ad = new Add();
+    }
+}
+```
+
+### Step 5: Use Class Variables and Methods Through the Object
+
+```java
+import java.util.Scanner;
+
+class Add {
+    private int a, b;
+    private Scanner xyz = new Scanner(System.in);
+
+    public void setValue() {
+        System.out.println("Enter two values:");
+        a = xyz.nextInt();
+        b = xyz.nextInt();
+    }
+
+    public void showAdd() {
+        System.out.println("Addition is: " + (a + b));
+    }
+}
+
+public class ADDAPP {
+    public static void main(String x[]) {
+        Add ad = new Add();
+        ad.setValue();
+        ad.showAdd();
+    }
+}
+```
+
+### Example: Square Class
+
+Create a `Square` class with two methods:
+
+- `setNum()`: accepts a number.
+- `getSquare()`: calculates and returns the square.
+
+```java
+import java.util.Scanner;
+
+class Square {
+    private int no;
+    private Scanner xyz = new Scanner(System.in);
+
+    public void setNum() {
         System.out.println("Enter number:");
         no = xyz.nextInt();
     }
 
-    public int getSquare()
-    {
+    public int getSquare() {
         return no * no;
     }
 }
 
-public class SQApplication
-{
-    public static void main(String x[])  // Step 4: main method
-    {
-        Square s1 = new Square();       // Step 5: object creation
-        s1.setNum();                   // using method
-        int result = s1.getSquare();   // using method
+public class SQApplication {
+    public static void main(String x[]) {
+        Square s1 = new Square();
+        s1.setNum();
+        int result = s1.getSquare();
         System.out.println("Square is " + result);
     }
 }
+```
 
-⭐ Output
+**Output:**
+
+```text
 Enter number:
 5
 Square is 25
+```
 
-Q6. How to pass parameters to class functions?
+## Q6. How to Pass Parameters to Class Methods
 
-Example: WAP to create class name as Cube with two functions 
-    void setValue(int x) : this function can accept number as parameter 
-    int getCube(): this function can calculate the cube of a variable and return it.
+Create a `Cube` class with these methods:
 
-class Cube   // step 1
-{
-    void setValue(int n)
-    {
+- `setValue(int x)`: accepts a number.
+- `getCube()`: calculates and returns the cube.
+
+```java
+class Cube {
+    void setValue(int n) {
     }
-    int getCube()
-    {
+
+    int getCube() {
         return n * n * n;
     }
 }
+
 public class CubeApplication
 {
     public static void main(String x[])
@@ -504,26 +530,30 @@ public class CubeApplication
         System.out.println("Cube is " + result);
     }
 }
+```
 
-What is the problem?
+### What Is the Problem?
 
-    If we think about the above code, we have two functions:
-        void setValue(int n) → this function accepts a number as a parameter
-        int getCube() → this function tries to access n
-    But the variable n is declared as a parameter of setValue(int n), therefore n is a local variable of the setValue() method.
-    A local variable (i.e., a variable declared inside a method or as a method parameter) has scope only within that method block.
-    It cannot be accessed directly inside another method of the same class.
-    Since getCube() tries to access n, which is not declared within its scope, this violates Java scope rules, and hence the program produces a compile-time error (cannot find symbol).
+The example contains two methods:
 
-How can we solve this type of problem?
-(Accessing local variable value in another method)
+- `setValue(int n)` accepts a number as a parameter.
+- `getCube()` tries to access `n`.
+
+However, `n` is a parameter of `setValue(int n)`, so it is local to that method. A local variable cannot be accessed directly by another method. Since `getCube()` uses an undeclared `n`, the code produces a compile-time "cannot find symbol" error.
+
+### How Can We Solve This Problem?
+
+To access a value in another method, store it in a class variable:
 
 To solve this type of error, we must not use the local variable directly in another method.
-Instead, we should copy the value of the local variable into:
-   1. Instance variable (without static) OR
-   2. Static variable (with static)
-Because instance variables and static variables are declared directly inside the class block, they are accessible by all methods of that class.
+Instead, copy the value into a class variable:
 
+1. An instance variable (non-static).
+2. A static variable.
+
+Instance and static variables are declared in the class, so the class methods can access them.
+
+```java
 class Cube
 {
     int n;   // instance variable
@@ -548,15 +578,17 @@ public class CubeApplication
         System.out.println("Cube is " + c.getCube());
     }
 }
+```
 
-Why this works?
+### Why This Works
 
-    n (instance variable) is part of the object state
-    All non-static methods can access it
-    Best approach for object-oriented programming
+- `n` is part of the object's state.
+- All non-static methods can access it.
+- This is the preferred approach for object-oriented programming.
 
-Solution 2: Using Static Variable
+### Solution 2: Using a Static Variable
 
+```java
 class Cube
 {
     static int n;   // instance variable
@@ -581,64 +613,68 @@ public class CubeApplication
         System.out.println("Cube is " + c.getCube());
     }
 }
+```
 
-Key Rule to Remember ⭐
+> **Key rule:** Copy a local variable into an instance or static variable to access it from other methods.
 
-Local variable → copy into instance/static variable → access in other methods
---------------------------------------------------------------------------
-Q. What happens if we do not use references with objects?
- 
+`Local variable` → copy into instance/static variable → access in other methods
+## What Happens If We Do Not Use References with Objects?
+
 If we do not use a reference with an object, then such an object is called an anonymous object (object without reference).
 
 When an object is created without a reference, the JVM:
-    Creates the object in heap memory
-    Allows it to be used only once
-    Makes it unreachable immediately after use
+
+- Creates the object in heap memory.
+- Allows it to be used only once.
+- Makes it unreachable immediately after use.
 
 If we create an object without a reference multiple times, the JVM will create a new object every time, meaning:
-    A new memory block is allocated for each object
-    Each object has its own separate data (content)
+
+- A new memory block is allocated for each object.
+- Each object has its own data.
 
 Since there is no reference pointing to these objects, they become eligible for garbage collection after execution.
 
-Example
+**Example:**
+
+```java
 new Cube().setValue(5);   // anonymous object
 new Cube().setValue(10);  // another anonymous object
+```
 
-✔ Two different objects are created
-✔ Two different memory blocks
-✔ Data is not shared
+Two different objects are created, each with its own memory and data.
 
-Key Points ⭐
+### Key Points
 
-    Object without reference → Anonymous object
-    Used only once
-    Cannot be reused
-    New object = new memory every time
-    Eligible for Garbage Collection
+- An object without a reference is an anonymous object.
+- It is used only once and cannot be reused.
+- Each new object receives separate memory.
+- It becomes eligible for garbage collection after use.
 
-Conclusion:reference hold address of object and motive of reference is reuse same object more than one time 
+**Conclusion:** A reference holds the address of an object and lets us reuse that object.
 
-Q. Can we use more than one reference on a single object and what happens if we use a reference ?
+### Can Multiple References Refer to the Same Object?
 
 Yes, we can use more than one reference for a single object.
 
 An object is created in the heap memory, and heap memory is shared, which means the same object can be accessed by multiple references.
 
 When multiple references point to the same object:
-    They all refer to the same memory location
-    They share the same object state (data / variables)
 
-Important Behavior
+- They refer to the same memory location.
+- They share the same object state (data and variables).
+
+### What Happens When the Object Changes?
 
 If we modify the object’s content (state, variables, or data) using any one reference, then:
 
-    The actual object state changes
-    All other references will see the updated value
-    The previous object content is lost (overwritten)
+- The object's state changes.
+- All references see the updated value.
+- The previous value is overwritten.
 
-This happens because references do not store data, they only point to the object.
+This happens because references do not store data; they only point to the object.
 
+```java
 class Cube
 {
     int no; // instance variable
@@ -666,83 +702,92 @@ public class CubeApplication
         c.getCube();        // accessed using first reference
     }
 }
+```
 
-✅ Output
+**Output:**
+
+```text
 Cube is 1000
+```
 
-🧠 What Is Happening Internally?
+### What Is Happening Internally?
 
+```text
 Cube c = new Cube();
-→ One object is created in heap memory
+→ One object is created in heap memory.
 
 Cube c1 = c;
-→ No new object is created
-→ c and c1 point to the same object
+→ No new object is created.
+→ c and c1 point to the same object.
 
 c1.setValue(10);
-→ Object state (no) becomes 10
-→ Previous value (5) is overwritten
+→ Object state (no) becomes 10.
+→ Previous value (5) is overwritten.
 
 c.getCube();
-→ Uses the same object, so cube of 10 is printed
+→ Uses the same object, so the cube of 10 is printed.
+```
 
--------------------------------------------------------------------------
-Q7. How to pass an array as a parameter to a class function?
--------------------------------------------------------------------------
+## Q7. How to Pass an Array as a Parameter to a Class Method?
 If we want to pass an array as a parameter to a class function, we pass the base address (reference) of the array to that function.
 
 In Java, an array is an object, so when we pass an array to a method, its reference is passed, not a copy of elements. Using this reference, the method can access all array values.
 
-Example
-WAP to create a class Sum with two functions:
+### Example: Sum of Array Elements
 
-void setValue(int arr[]) → accepts array as parameter
-int getSum() → calculates and returns sum of array elements
+Create a `Sum` class with two methods:
 
-class Sum
-{
-    int m[];   // instance variable to store array reference
+- `setValue(int arr[])` accepts an array as a parameter.
+- `getSum()` calculates and returns the sum of the array elements.
 
-    void setValue(int arr[])
-    { 
-        m = arr;   // copying base address
+```java
+class Sum {
+    int[] values;
+
+    void setValue(int[] arr) {
+        values = arr;
     }
 
-    int getSum()
-    {
+    int getSum() {
         int sum = 0;
-        for(int i = 0; i < m.length; i++)
-        {
-            sum = sum + m[i];   // correct logic
+        for (int value : values) {
+            sum += value;
         }
         return sum;
     }
 }
 
-public class ArrsumApplication
-{
-    public static void main(String x[])
-    {
-        int a[] = new int[]{10, 20, 30, 40, 50};
+public class ArrsumApplication {
+    public static void main(String x[]) {
+        int[] values = {10, 20, 30, 40, 50};
 
-        Sum s = new Sum();
-        s.setValue(a);   // passing array
-
-        int result = s.getSum();
-        System.out.println("Sum is " + result);
+        Sum sum = new Sum();
+        sum.setValue(values);
+        System.out.println("Sum is " + sum.getSum());
     }
 }
----------------------------------------------------------
-Q8. What is a method with variable argument concepts?
----------------------------------------------------------
+```
+
+**Output:**
+
+```text
+Sum is 150
+```
+
+## Q8. What Is a Method with Variable Arguments?
+
 A method with variable arguments (var-args) is a method that can accept zero or more arguments of the same type.
 
 This concept is used when the number of parameters is not fixed (i.e., infinite or variable).
 In Java, variable arguments are represented using three dots (...).
 
-Syntax
-returnType methodName(dataType... variableName)
+**Syntax:**
 
+```java
+returnType methodName(dataType... variableName)
+```
+
+```java
 class Test
 {
     void show(int... a)   // variable argument method
@@ -763,7 +808,11 @@ public class VarArgDemo
         t.show(1, 2, 3, 4, 5);
     }
 }
-output
+```
+
+**Output:**
+
+```text
 10
 10
 20
@@ -773,99 +822,105 @@ output
 3
 4
 5
+```
 
+### Important Points
 
-Important Points ⭐
-    Var-args internally treated as an array
-    Only one var-args allowed per method
-    Var-args must be the last parameter
-    Used to avoid method overloading ****
+- Varargs are internally treated as an array.
+- Only one varargs parameter is allowed per method.
+- The varargs parameter must be the last parameter.
+- Varargs can reduce the need for method overloading.
 
-Important Rules for Variable Arguments (Var-Args)
+### Important Rules for Variable Arguments
 
-1️⃣ Position of triple dots (...)
-    The triple dots must be written after the data type and before the variable name.
-    ✅ Correct:
-    void show(int... a)
+#### 1. Position of the Ellipsis (`...`)
 
-    ❌ Incorrect:
-    void show(int a...)
+The ellipsis goes after the data type and before the variable name.
 
-2️⃣ Only one variable argument is allowed
-    We cannot declare more than one var-args parameter in a single method.
+```java
+void show(int... a); // Correct
+void show(int a...); // Incorrect
+```
 
-    ❌ Invalid:
-    void show(int... a, int... b)
+#### 2. Only One Varargs Parameter Is Allowed
 
-3️⃣ Var-args must be the last parameter
-    If a method contains normal parameters along with var-args, then the var-args parameter must be the last one in the method definition.
+We cannot declare more than one varargs parameter in a method.
 
-    ✅ Correct:
-    void show(int x, int y, int... a)
+```java
+void show(int... a, int... b); // Invalid
+```
 
+#### 3. Varargs Must Be the Last Parameter
 
-    ❌ Incorrect:
-    void show(int... a, int x)
+If a method has regular parameters, the varargs parameter must come after them.
 
-Example Demonstrating All Rules
+```java
+void show(int x, int y, int... a); // Correct
+void show(int... a, int x);       // Incorrect
+```
 
-    class Sum
-    {
-        void calSum(String name, int... x)
-        {
-            System.out.println("Name is " + name);
-            int s = 0;
-            for(int i = 0; i < x.length; i++)
-            {
-                s += x[i];
-            }
-            System.out.println("Sum of all value is = " + s);
+### Example Demonstrating the Rules
+
+```java
+class Sum {
+    void calSum(String name, int... x) {
+        System.out.println("Name is " + name);
+        int s = 0;
+        for (int i = 0; i < x.length; i++) {
+            s += x[i];
         }
+        System.out.println("Sum of all value is = " + s);
     }
-    public class SumVarApplication
-    {
-        public static void main(String x[])
-        {
-            Sum s = new Sum();
-            s.calSum("Ram", 10, 20, 30, 40, 50);
-        }
-    }
-✅ Output   
+}
 
+public class SumVarApplication {
+    public static void main(String x[]) {
+        Sum s = new Sum();
+        s.calSum("Ram", 10, 20, 30, 40, 50);
+    }
+}
+```
+
+**Output:**
+
+```text
 Name is Ram
 Sum of all value is = 150
+```
 
-Key Point ⭐
-    Variable arguments are internally treated as an array.
+> **Key point:** Variable arguments are internally treated as an array.
 
-Note (Important)
-    If a function is defined with a variable argument (var-args), then we can pass an array as a parameter from the function calling point.
+### Passing an Array to a Varargs Method
 
-class Sum
-{
-    void calSum(int ...x)
-    {
-        int s = 0;
-        for(int i = 0; i < x.length; i++)
-        {
-            s = s + x[i];
+An array can be passed to a method that accepts varargs.
+
+```java
+class Sum {
+    void calSum(int... values) {
+        int sum = 0;
+        for (int value : values) {
+            sum += value;
         }
-        System.out.println("Sum of all value is  " + s);
+        System.out.println("Sum of all values is " + sum);
     }
 }
-public class SumVarApplication
-{
-    public static void main(String x[])
-    {
+
+public class SumVarApplication {
+    public static void main(String x[]) {
         Sum s = new Sum();
-        int a[] = new int[]{10,20,30,40,50};
-        s.calSum(a);   // passing array to var-args method
+        int[] values = {10, 20, 30, 40, 50};
+        s.calSum(values);
     }
 }
+```
 
-✅ Output
-Sum of all value is  150
+**Output:**
 
+```text
+Sum of all values is 150
+```
+
+```java
 class Sum
 {
     void calSum(int[]... x)   // var-args of int arrays
@@ -892,47 +947,52 @@ public class SumVarApplication
         );
     }
 }
+```
 
-Output of your program
+**Output:**
+
+```text
 1 2 3 
 4 5 6 
 7 8 9 
+```
 
------------------------------------------------------------------------ 
-Q9. What is POJO class & Why use POJO class?
------------------------------------------------------------------------
-What is POJO Class?
+## Q9. What Is a POJO Class and Why Use One?
+
+### What Is a POJO Class?
+
+### What Is a POJO Class?
   
 POJO stands for Plain Old Java Object.
 A POJO class is a simple Java class that is not dependent on any framework and is mainly used to store data.
 
 A POJO class generally contains:
 
-    Private data members (variables)
-    Public getter and setter methods
-    Constructors (optional)
-    No business logic or framework-specific code
+- Private data members (variables).
+- Public getter and setter methods.
+- Optional constructors.
+- No framework-specific code or business logic.
 
-Why use POJO Class?
+### Why Use a POJO Class?
 
 POJO classes are used to:
 
-    Store data
-    Transfer data between different layers of an application
-    (Controller → Service → Repository)
-    Pass objects as parameters between methods and classes
-    Maintain encapsulation, readability, and reusability
+- Store data.
+- Transfer data between application layers (Controller → Service → Repository).
+- Pass objects as parameters between methods and classes.
+- Maintain encapsulation, readability, and reusability.
 
-Important Points of POJO Class
-    All variables should be declared as private
-    Getter and setter methods should be public
-    Setter methods are used to store data in the object
-    Getter methods are used to retrieve data from the object
-    POJO class should not extend or implement framework-specific classes/interfaces
-    POJO class does not contain business logic
+### Important Points
 
-Example with source code 
+- Declare variables as `private`.
+- Make getter and setter methods `public`.
+- Use setters to store data and getters to retrieve it.
+- Avoid extending or implementing framework-specific classes or interfaces.
+- Keep business logic outside the POJO.
 
+### Example
+
+```java
 class Employee
 {
     private int id;
@@ -974,35 +1034,43 @@ public class EmployeePOJOAPP
         System.out.println("Name is " + name + "\nId is " + id);
     }
 }
+```
 
-📝 Output
+**Output:**
+
+```text
 Name is Ram
 Id is 1
+```
 
-Q. Why use POJO class? / What are the benefits of POJO class?
+### Why Use a POJO Class? Benefits
 
-Why POJO Class is Used
+#### Why a POJO Class Is Used
 
-    When a method contains many parameters of different data types, passing values one-by-one is not a good approach.
+When a method contains many parameters of different data types, passing values one by one is not a good approach.
 
-    It becomes difficult to remember:
-        Parameter count
-        Parameter order
-        Parameter data types
+It becomes difficult to remember:
+
+- The number of parameters.
+- The parameter order.
+- The parameter data types.
 
 To solve this problem, Java suggests using a POJO class.
 
 A POJO class allows us to group related data into a single object and pass that object as one parameter.
 
-Benefits of POJO Class
-    Reduces number of method parameters
-    Improves code readability
-    Avoids confusion of parameter order
-    Easy to modify (add/remove fields)
-    Supports data transfer between layers
-    Follows encapsulation (data security)
+#### Benefits of a POJO Class
 
-❌ Example Without POJO Class
+- Reduces the number of method parameters.
+- Improves code readability.
+- Avoids confusion about parameter order.
+- Makes it easy to add or remove fields.
+- Supports data transfer between layers.
+- Follows encapsulation principles.
+
+### Example Without a POJO Class
+
+```java
 class Company
 {
     String name;
@@ -1041,16 +1109,18 @@ public class CompApplication
 	  c.showData();
    }
 }
+```
 
-Problems in Above Approach
-    Developer must remember parameter sequence
-    Developer must pass all parameters
-    Cannot skip any parameter
-    Difficult to maintain and modify
+#### Problems with This Approach
 
-✅ Example With POJO Class (Recommended)
-POJO Class
+- The developer must remember the parameter sequence.
+- The developer must pass all parameters.
+- Parameters cannot be skipped.
+- The code is difficult to maintain and modify.
 
+### Example with a POJO Class
+
+```java
 class Employee
 {
     private String name;
@@ -1088,132 +1158,114 @@ class Company
         System.out.println("Skill Required " + e.getSkill());
     }
 }
+```
 
-⭐ Final Conclusion (Exam Ready)
-POJO class is used to group multiple related data into a single object so that it can be passed as one parameter, which improves readability, maintainability, and reduces complexity of method calls.
------------------------------------------------------------------------- 
-Q10. What is Array of Objects? 
------------------------------------------------------------------------
-An array of objects is a concept in Java where multiple objects of the same class are stored using a single array reference.  
+> **Conclusion:** A POJO class groups related data into one object so it can be passed as a single parameter, improving readability and maintainability while simplifying method calls.
+
+## Q10. What Is an Array of Objects?
+
+An array of objects is a concept in Java where multiple objects of the same class are stored using a single array reference.
 
 Instead of creating many separate object variables, we use an array to manage multiple objects efficiently.
- 
-Why use Array of Objects?
-    To store data of multiple objects
-    To avoid creating many separate object variables
-    Easy to iterate, search, and manage objects
-    Used in real-world applications (Student list, Employee list, Product list)
 
-How to Create an Array of Objects?
-Steps:
-    Step 1: Create array of reference
-    Employee[] emp = new Employee[3];
+### Why Use an Array of Objects?
 
-    Step 2: Create objects and assign to array
-    emp[0] = new Employee();
-    emp[1] = new Employee();
-    emp[2] = new Employee();
+- Store data for multiple objects.
+- Avoid creating many separate object variables.
+- Iterate, search, and manage objects easily.
+- Represent real-world collections such as students, employees, or products.
 
-    Step 3: Store data in each object
-    emp[0].setId(1);
-    emp[0].setName("Ram");
+### How to Create an Array of Objects
 
-    emp[1].setId(2);
-    emp[1].setName("Shyam");
+1. Create an array of references: `Employee[] emp = new Employee[3];`
+2. Create and assign objects: `emp[0] = new Employee();` (repeat for each element).
+3. Set data in each object, for example: `emp[0].setId(1);` and `emp[0].setName("Ram");`.
+4. Access each object in a loop:
 
-    emp[2].setId(3);
-    emp[2].setName("Amit");
+   ```java
+   for (int i = 0; i < emp.length; i++) {
+       System.out.println(emp[i].getId() + " " + emp[i].getName());
+   }
+   ```
 
-    Step 4: Access object data using loop
-    for(int i = 0; i < emp.length; i++)
-    {
-        System.out.println(emp[i].getId() + " " + emp[i].getName());
+### Complete Example
+
+```java
+class Employee {
+    private int id;
+    private String name;
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-Complete Example
-
-    class Employee
-    {
-        private int id;
-        private String name;
-
-        public void setId(int id)
-        {
-            this.id = id;
-        }
-
-        public int getId()
-        {
-            return id;
-        }
-
-        public void setName(String name)
-        {
-            this.name = name;
-        }
-
-        public String getName()
-        {
-            return name;
-        }
+    public int getId() {
+        return id;
     }
 
-    public class ArrayOfObjectsApp
-    {
-        public static void main(String[] args)
-        {
-            Employee[] emp = new Employee[3];
-
-            emp[0] = new Employee();
-            emp[1] = new Employee();
-            emp[2] = new Employee();
-
-            emp[0].setId(1);
-            emp[0].setName("Ram");
-
-            emp[1].setId(2);
-            emp[1].setName("Shyam");
-
-            emp[2].setId(3);
-            emp[2].setName("Amit");
-
-            for(int i = 0; i < emp.length; i++)
-            {
-                System.out.println("Id: " + emp[i].getId() +
-                                ", Name: " + emp[i].getName());
-            }
-        }
+    public void setName(String name) {
+        this.name = name;
     }
 
-Output
+    public String getName() {
+        return name;
+    }
+}
+
+public class ArrayOfObjectsApp {
+    public static void main(String[] args) {
+        Employee[] emp = new Employee[3];
+
+        emp[0] = new Employee();
+        emp[1] = new Employee();
+        emp[2] = new Employee();
+
+        emp[0].setId(1);
+        emp[0].setName("Ram");
+
+        emp[1].setId(2);
+        emp[1].setName("Shyam");
+
+        emp[2].setId(3);
+        emp[2].setName("Amit");
+
+        for (int i = 0; i < emp.length; i++) {
+            System.out.println("Id: " + emp[i].getId()
+                    + ", Name: " + emp[i].getName());
+        }
+    }
+}
+```
+
+**Output:**
+
+```text
 Id: 1, Name: Ram
 Id: 2, Name: Shyam
 Id: 3, Name: Amit
+```
 
-One-Line Exam Answer
-Array of objects is an array that stores references of multiple objects of the same class using a single variable name.
+> **One-line answer:** An array of objects stores references to multiple objects of the same class under one variable name.
 
------------------------------------------------------------------------
-Q11. What is Static Variable & Static Method?
------------------------------------------------------------------------
-🔹 Static Variable
+## Q11. What Is a Static Variable?
+
+### Static Variable
 A static variable is also called a class-level variable.
 
 It is:
-    Declared using the static keyword                                                       
-    Common for all objects of the class
-    Created only once
-    Loaded when the class is loaded by the JVM
+
+- Declared using the `static` keyword.
+- Shared by all objects of the class.
+- Created only once.
+- Loaded when the class is loaded by the JVM.
 
 Static variables are allocated memory at class loading time by the Class Loader, before any object is created.
 
-They can be accessed using:
-
-    Class name (recommended)
-    Object reference (allowed but not recommended)
+They can be accessed using the class name (recommended) or an object reference (allowed, but not recommended).
 
 Memory location: Static variables are stored in the Method Area (MetaSpace) of JVM memory.
 
+```java
 class ABC
 {
     static int x;   // static (class-level) variable
@@ -1231,13 +1283,17 @@ public class ABCAPP
         System.out.println("X = "+a1.x);
     }
 }
+```
 
-🖨️ Output
+**Output:**
+
+```text
 X = 100
 Y = 200
 X = 100
+```
 
-## Q12. Difference between Instance Variable and Static Variable
+## Q12. Difference Between Instance and Static Variables
 
 Based on your notes, the main differences are: 
 
@@ -1305,8 +1361,7 @@ Student
 * `boolean` → `false`
 * `char` → blank
 * `byte` → `0` 
-                                                  |
-  ## Q13. What is a Static Method?
+## Q13. What Is a Static Method?
 
 A **static method** is a method that is declared using the `static` keyword. 
 
@@ -1432,6 +1487,35 @@ class Demo {
 
 ```java
 class Parent {
+    static void show() {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    static void show() {
+        System.out.println("Child");
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.show();
+    }
+}
+```
+
+**Output:**
+
+```text
+Parent
+```
+
+**Instance methods → method overriding**
+
+```java
+class Parent {
     void show() {
         System.out.println("Parent");
     }
@@ -1451,38 +1535,12 @@ class Main {
     }
 }
 
-
-Output:
-
-Child
-
 ```
 
-**Instance methods → method overriding**
+**Output:**
 
-```java
-class Parent {
-    static void show() {
-        System.out.println("Parent");
-    }
-}
-
-class Child extends Parent {
-    static void show() {
-        System.out.println("Child");
-    }
-}
-
-class Main {
-    public static void main(String[] args) {
-        Parent p = new Child();
-        p.show();
-    }
-}
-
-Output:
-
-Parent
+```text
+Child
 ```
 
 ### 5. Abstract
@@ -1496,10 +1554,7 @@ abstract class Demo {
 }
 ```
 
-### ⭐ Easy Interview Answer
-
-> **Static method belongs to the class and can be called without creating an object. Instance method belongs to an object and is normally called using an object. Static methods can directly access static members, while instance methods can access both static and instance members. Static methods support method hiding, whereas instance methods support method overriding. A static method cannot be abstract.** 
-  ## Q15. What is a Local Variable?
+## Q15. What Is a Local Variable?
 
 A **local variable** is a variable declared **inside a method or block**. Its scope is limited to that method or block. 
 
@@ -1949,7 +2004,228 @@ public int getFees() {
 **Interview keywords:**
 `private` → **Data Hiding** → `getter/setter` → **Controlled Access** → **Data Security**
 
-Your next topic in the notes is **Q17: Nested Classes**. 
+### Admission Process Example
+
+Consider a college admission project with two user roles:
+
+- Admin
+- Counceller
+
+Candidate records include an ID, name, qualification, branch, fees paid, contact details, email, and status.
+
+```java
+import java.util.Scanner;
+
+class Candidate {
+    private String name;
+    private int id;
+    private int fees;
+    private boolean status;
+    private boolean readyStatus;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setFees(int fees) {
+        this.fees = fees;
+    }
+
+    public int getFees() {
+        return fees;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setReadyStatus(boolean readyStatus) {
+        this.readyStatus = readyStatus;
+    }
+
+    public boolean isReadyStatus() {
+        return readyStatus;
+    }
+}
+
+class AdmissionProcess {
+
+    private Candidate cand[];
+
+    void sendToCounceller(Candidate... cand) {
+        this.cand = cand;
+    }
+
+    void councelling() {
+
+        boolean b = false;
+
+        Scanner xyz = new Scanner(System.in);
+
+        do {
+            System.out.println("\nEnter your choice");
+            System.out.println("1: Follow up");
+            System.out.println("2: Exit");
+
+            int choice = xyz.nextInt();
+            xyz.nextLine();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.println("Enter candidate name:");
+                    String name = xyz.nextLine();
+
+                    System.out.println("Enter candidate id:");
+                    int id = xyz.nextInt();
+
+                    for (int i = 0; i < cand.length; i++) {
+
+                        if (cand[i].getName().equals(name)
+                                && cand[i].getId() == id) {
+
+                            cand[i].setReadyStatus(true);
+
+                            System.out.println(
+                                "Candidate is ready for admission."
+                            );
+
+                            break;
+                        }
+                    }
+
+                    break;
+
+                case 2:
+                    b = true;
+                    break;
+
+                default:
+                    System.out.println("Wrong choice");
+            }
+
+            if (b) {
+                break;
+            }
+
+        } while (true);
+    }
+    void admission() {
+
+        for (int i = 0; i < cand.length; i++) {
+
+            if (cand[i].isReadyStatus()) {
+
+                cand[i].setFees(10000);
+                cand[i].setStatus(true);
+            }
+        }
+    }
+
+    void displayData(String loginType) {
+
+        if (loginType.equals("admin")) {
+
+            System.out.println("\nAdmin Data");
+            System.out.println("ID\tName\tFees");
+
+            for (int i = 0; i < cand.length; i++) {
+
+                if (cand[i].isStatus()) {
+
+                    System.out.println(
+                        cand[i].getId() + "\t"
+                        + cand[i].getName() + "\t"
+                        + cand[i].getFees()
+                    );
+                }
+            }
+        }
+        else if (loginType.equals("counceller")) {
+
+            System.out.println("\nCounceller Data");
+            System.out.println("ID\tName\tFees");
+
+            for (int i = 0; i < cand.length; i++) {
+
+                if (!cand[i].isStatus()) {
+
+                    System.out.println(
+                        cand[i].getId() + "\t"
+                        + cand[i].getName() + "\t"
+                        + cand[i].getFees()
+                    );
+                }
+            }
+        }
+
+        else {
+            System.out.println("Invalid login");
+        }
+    }
+}
+
+public class AdmissionProcessApplication {
+
+    public static void main(String x[]) {
+
+        AdmissionProcess ap = new AdmissionProcess();
+
+        Candidate c[] = new Candidate[5];
+
+        Scanner xyz = new Scanner(System.in);
+
+        for (int i = 0; i < c.length; i++) {
+
+            c[i] = new Candidate();
+
+            System.out.println("\nEnter candidate name:");
+            String name = xyz.nextLine();
+
+            System.out.println("Enter candidate id:");
+            int id = xyz.nextInt();
+            xyz.nextLine();
+
+            c[i].setName(name);
+            c[i].setId(id);
+            c[i].setFees(0);
+            c[i].setReadyStatus(false);
+            c[i].setStatus(false);
+        }
+
+        ap.sendToCounceller(c);
+
+        ap.councelling();
+
+        ap.admission();
+
+        ap.displayData("counceller");
+
+        // To display Admin data:
+        // ap.displayData("admin");
+    }
+}
+```
+
+
+Your next topic is **Q17: Nested Classes**.
+
 ## Q17. What are Nested Classes and why use Nested Classes?
 
 ### Definition

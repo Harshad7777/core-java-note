@@ -2185,17 +2185,17 @@ public class AdmissionProcessApplication {
 
     public static void main(String x[]) {
 
-        AdmissionProcess ap = new AdmissionProcess();
+        AdmissionProcess ap = new AdmissionProcess(); 
 
         Candidate c[] = new Candidate[5];
-
+ 
         Scanner xyz = new Scanner(System.in);
 
         for (int i = 0; i < c.length; i++) {
-
+ 
             c[i] = new Candidate();
 
-            System.out.println("\nEnter candidate name:");
+            System.out.println("\nEnter candidate name:"); 
             String name = xyz.nextLine();
 
             System.out.println("Enter candidate id:");
@@ -2329,7 +2329,7 @@ These are the four types listed in your notes.
 
 ### ⭐ Short Interview Answer
 
-> **A nested class is a class declared inside another class. We use nested classes to organize closely related classes and, as covered in our notes, to use modifiers such as private, protected, and static on the nested class and to establish a relationship between classes without inheritance. There are four types: Simple, Static, Local, and Anonymous nested classes.**
+> **A nested class is a class declared inside another class. We use nested classes to organize closely related classes and, to use modifiers such as private, protected, and static on the nested class and to establish a relationship between classes without inheritance. There are four types: Simple, Static, Local, and Anonymous nested classes.**
 
 ## Q18. What is a Simple Nested Class?
 
@@ -2537,3 +2537,62 @@ Object created inside method
 ### ⭐ Interview Answer
 
 > **A local nested class is a class declared inside a method or function of another class. Its scope is limited to that method, so its object cannot be created outside that method's block.**
+
+
+## Q21. What Is an Anonymous Nested Class?
+
+### Definition
+
+An **anonymous nested class** (also called an **anonymous inner class**) is a class without a name that is declared and instantiated in one expression.
+
+It is commonly used to provide a one-time implementation or override a method without creating a separate named class.
+
+### Example
+
+```java
+class Greeting
+{
+    void sayHello()
+    {
+        System.out.println("Hello");
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Greeting greeting = new Greeting()
+        {
+            @Override
+            void sayHello()
+            {
+                System.out.println("Hello from an anonymous class");
+            }
+        };
+
+        greeting.sayHello();
+    }
+}
+```
+
+**Output:**
+
+```text
+Hello from an anonymous class
+```
+
+Here, the class body after `new Greeting()` has no class name. It creates an anonymous subclass of `Greeting` and overrides `sayHello()`.
+
+### Important Points
+
+- An anonymous class has no name, so it cannot be used to create another instance later.
+- It is declared and instantiated at the same place.
+- It can extend one class or implement one interface. 
+- It is useful when a class implementation is needed only once.
+
+> **Note:** Anonymous classes are often used with abstract classes and interfaces. We will discuss those examples in the inheritance chapter.
+
+### ⭐ Interview Answer
+
+> **An anonymous nested class is a class without a name that is declared and instantiated in a single expression. It is useful for providing a one-time implementation or overriding a method without declaring a separate named class.**

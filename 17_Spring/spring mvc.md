@@ -1,211 +1,177 @@
+﻿# Spring MVC Notes
+
+[Overview](#overview) | [MVC Architecture](#mvc-architecture) | [DispatcherServlet](#dispatcherservlet) | [Controller and Mapping](#controller-and-mapping) | [ViewResolver](#viewresolver) | [Registration Project](#registration-project) | [REST API](#rest-api) | [Interview Questions](#interview-questions)
 
 ---
 
-# Spring MVC
+## Overview
+
+Spring MVC is a web framework based on the Model-View-Controller pattern.
+
+It helps build web applications by separating:
+
+- request handling
+- business logic
+- data model
+- presentation layer
+
+Spring MVC is widely used for web apps, forms, and REST APIs.
 
 ---
 
-## Q. What is the meaning of MVC?
+## MVC Meaning
 
----
+MVC stands for:
 
-**MVC** stands for **Model, View, and Controller**. It is a **design pattern** used in web application development to separate the application's business logic, presentation logic, and request-handling logic.
+- Model
+- View
+- Controller
 
-### M - Model
+### Model
 
-* The **Model** is a Java POJO (Plain Old Java Object) class.
-* It stores the data sent by the user through the View.
-* It contains variables, constructors, getter and setter methods.
-* It represents the application's data and business objects.
+- Represents application data.
+- Usually a Java POJO class.
+- Stores fields and getter/setter methods.
 
-### V - View
+### View
 
-* The **View** is the presentation layer.
-* It is responsible for displaying data to the user and collecting user input.
-* In Spring MVC, views are commonly created using **JSP**, **Thymeleaf**, **FreeMarker**, etc.
+- Displays output to the user.
+- Accepts user input.
+- Commonly used technologies: JSP, Thymeleaf, FreeMarker.
 
-### C - Controller
+### Controller
 
-* The **Controller** is a Spring class annotated with **@Controller**.
-* It receives HTTP requests from the user.
-* It processes the request, communicates with the service/business layer, stores data in the Model, and returns the appropriate View.
+- Receives HTTP request.
+- Calls business logic.
+- Stores data in the model.
+- Returns a view name.
 
-**Flow:**
+### Flow
 
-```
+```text
 Client Request
       ↓
- Controller
+Controller
       ↓
 Business Logic
       ↓
-    Model
+Model
       ↓
-     View
+View
       ↓
 Client Response
 ```
 
 ---
 
-# Q. Why do we use Spring MVC?
+## Why Use Spring MVC?
+
+### Advantages
+
+- Separation of concerns
+- Easy URL mapping
+- Integration with Spring ecosystem
+- Flexible view support
+- Form handling and validation
+- Loose coupling
+- Easy testing and maintenance
 
 ---
 
-Spring MVC provides many advantages:
+## MVC Architecture
 
-### 1. Separation of Concerns
-
-* Separates presentation logic, business logic, and data access logic.
-* Makes the application easier to understand and maintain.
-
-### 2. Easy Request Handling
-
-* Maps URLs to controller methods using annotations such as:
-
-  * `@RequestMapping`
-  * `@GetMapping`
-  * `@PostMapping`
-
-### 3. Integration with Spring Framework
-
-* Integrates easily with:
-
-  * Spring Boot
-  * Spring Data JPA
-  * Spring Security
-  * Spring JDBC
-  * Spring REST
-
-### 4. Flexible View Technologies
-
-Supports multiple view technologies such as:
-
-* JSP
-* Thymeleaf
-* FreeMarker
-* Velocity
-
-### 5. Form Handling and Validation
-
-Supports form submission and validation using:
-
-* `@ModelAttribute`
-* `@Valid`
-* `BindingResult`
-
-### 6. Loose Coupling
-
-Different layers remain independent, making the application easier to test and maintain.
-
----
-
-# Spring MVC Architecture
-
----
-
-```
+```text
 Browser
    │
+   ▼
 HTTP Request
    │
+   ▼
 DispatcherServlet (Front Controller)
    │
+   ▼
 Handler Mapping
    │
+   ▼
 Controller
    │
-Service Layer (Optional)
+   ▼
+Service / Business Layer
    │
+   ▼
 DAO / Repository
    │
+   ▼
 Database
    │
+   ▼
 Model
    │
+   ▼
 ViewResolver
    │
+   ▼
 JSP / Thymeleaf
    │
+   ▼
 HTTP Response
 ```
 
 ---
 
-# HTTP Request
+## HTTP Request
+
+An HTTP request is sent when a user:
+
+- submits a form
+- clicks a link
+- refreshes the page
+- types a URL
+
+The request reaches the `DispatcherServlet`.
 
 ---
 
-An **HTTP Request** is sent by the client whenever the user:
+## DispatcherServlet
 
-* Submits a form
-* Clicks a hyperlink
-* Refreshes the browser
-* Types a URL in the browser
+`DispatcherServlet` is the front controller of Spring MVC.
 
-The request is received by the **DispatcherServlet**.
-
----
-
-# DispatcherServlet
-
----
-
-**DispatcherServlet** is the **Front Controller** of the Spring MVC framework.
-
-Package:
+### Package
 
 ```java
 org.springframework.web.servlet.DispatcherServlet
 ```
 
-Responsibilities:
+### Responsibilities
 
-* Receives every client request.
-* Finds the appropriate controller.
-* Calls the controller method.
-* Receives the returned view name.
-* Sends the view to the ViewResolver.
-* Returns the final response to the client.
+- receives all incoming requests
+- finds the matching controller
+- invokes controller method
+- gets the view name
+- sends it to `ViewResolver`
+- sends response back to the client
 
----
+### Front Controller Meaning
 
-# Q. What is a Front Controller?
+A front controller is a single central component that receives all requests and forwards them to the proper handler.
 
----
+In Spring MVC, `DispatcherServlet` is the front controller.
 
-A **Front Controller** is a single controller that receives **all incoming client requests** and forwards them to the appropriate controller or handler.
+### Why use it?
 
-In Spring MVC, the **DispatcherServlet** acts as the Front Controller.
+- centralized request handling
+- logging
+- validation
+- authentication
+- exception handling
+- URL mapping
 
----
-
-# Why do we use a Front Controller?
-
----
-
-It provides:
-
-* Centralized request handling
-* Authentication and authorization
-* Exception handling
-* Logging
-* Validation
-* Data binding
-* URL mapping
-
----
-
-# DispatcherServlet Configuration
-
-### Traditional (web.xml)
+### Traditional configuration (`web.xml`)
 
 ```xml
 <servlet>
     <servlet-name>dispatcher</servlet-name>
-    <servlet-class>
-        org.springframework.web.servlet.DispatcherServlet
-    </servlet-class>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>
@@ -214,22 +180,25 @@ It provides:
 </servlet-mapping>
 ```
 
-> **Note:** In modern Spring MVC applications, `web.xml` is usually replaced with **Java Configuration** using `WebApplicationInitializer`.
+> In modern Spring MVC, `web.xml` is usually replaced by Java configuration.
 
 ---
 
-# @RequestMapping
+## Controller and Mapping
 
----
+### @Controller
 
-`@RequestMapping` maps an HTTP URL to a controller or controller method.
+`@Controller` marks a class as a web controller.
 
-It can be used:
+```java
+@Controller
+public class HomeController {
+}
+```
 
-* At class level
-* At method level
+### @RequestMapping
 
-Example:
+`@RequestMapping` maps an HTTP URL to a controller or method.
 
 ```java
 @Controller
@@ -245,52 +214,36 @@ public class StudentController {
 
 URL:
 
-```
+```text
 /student/home
 ```
 
+### Common mapping annotations
+
+- `@GetMapping`
+- `@PostMapping`
+- `@PutMapping`
+- `@DeleteMapping`
+
 ---
-
-# @Controller
-
----
-
-`@Controller` is a **class-level annotation**.
-
-It tells Spring that the class is a web controller capable of handling HTTP requests.
-
-Example:
-
-```java
-@Controller
-public class HomeController {
-
-}
-```
 
 ## ViewResolver
 
----
+`ViewResolver` converts the logical view name returned by the controller into the actual page.
 
-**ViewResolver** is a Spring MVC component that converts the **logical view name** returned by the controller into the **actual view page**.
-
-### Example
-
-When a controller returns:
+Example:
 
 ```java
 return "index";
 ```
 
-The `ViewResolver` converts it into:
+may resolve to:
 
-```
+```text
 /WEB-INF/views/index.jsp
 ```
 
----
-
-## Java Configuration
+### Java configuration
 
 ```java
 @Bean
@@ -306,136 +259,73 @@ public InternalResourceViewResolver viewResolver() {
 }
 ```
 
----
-
-## XML Configuration
+### XML configuration
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="
-           http://www.springframework.org/schema/beans
-           https://www.springframework.org/schema/beans/spring-beans.xsd
-           http://www.springframework.org/schema/context
-           https://www.springframework.org/schema/context/spring-context.xsd
-           http://www.springframework.org/schema/mvc
-           https://www.springframework.org/schema/mvc/spring-mvc.xsd">
-
-    <!-- Enable Spring MVC -->
-    <mvc:annotation-driven/>
-
-    <!-- Scan Controller Package -->
-    <context:component-scan base-package="org.techhub.controller"/>
-
-    <!-- View Resolver -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/views/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-
-</beans>
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/views/"/>
+    <property name="suffix" value=".jsp"/>
+</bean>
 ```
 
----
+### Flow
 
-## Controller Example
-
-```java
-package org.techhub.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-@Controller
-public class HomeController {
-
-    @RequestMapping("/")
-    public String home() {
-        return "index";
-    }
-}
-```
-
----
-
-## Flow of ViewResolver
-
-```
+```text
 Browser Request
-       │
-       ▼
+       ↓
 Controller
-       │
-       ▼
+       ↓
 return "index";
-       │
-       ▼
+       ↓
 ViewResolver
-Prefix : /WEB-INF/views/
-Suffix : .jsp
-       │
-       ▼
+       ↓
 /WEB-INF/views/index.jsp
-       │
-       ▼
-Response sent to Browser
+       ↓
+Response to Browser
 ```
----
-
-# View
 
 ---
 
-A **View** is the presentation page displayed to the user.
+## View
+
+A View is the presentation page shown to the user.
 
 Examples:
 
-* JSP
-* Thymeleaf
-* FreeMarker
+- JSP
+- Thymeleaf
+- FreeMarker
 
 The View:
 
-* Accepts user input.
-* Displays output received from the controller.
+- displays data
+- accepts user input
+- shows response from controller
 
 ---
 
-![alt text](image.png)
+## Spring MVC Project Setup Using Annotations
 
----
-# Steps to Configure a Spring MVC Project Using Annotations
+1. Create a Dynamic Web Project
+2. Convert it into a Maven project
+3. Add Maven dependencies
+4. Create Spring MVC configuration class
+5. Create `WebApplicationInitializer`
+6. Create controller
+7. Create JSP files in `/WEB-INF/views/`
+8. Run on Tomcat
 
----
-
-1. Create a Dynamic Web Project.
-2. Convert it into a Maven project.
-3. Add the required Maven dependencies.
-4. Create the Spring MVC Configuration class.
-5. Create the `WebApplicationInitializer`.
-6. Create the Controller.
-7. Create JSP pages under `/WEB-INF/views/`.
-8. Run the project on Tomcat.
-
----
-
-# Maven Dependencies
+### Maven dependencies
 
 ```xml
 <dependencies>
 
-    <!-- Spring MVC -->
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
         <version>6.1.5</version>
     </dependency>
 
-    <!-- Servlet API -->
     <dependency>
         <groupId>jakarta.servlet</groupId>
         <artifactId>jakarta.servlet-api</artifactId>
@@ -443,7 +333,6 @@ The View:
         <scope>provided</scope>
     </dependency>
 
-    <!-- JSTL -->
     <dependency>
         <groupId>jakarta.servlet.jsp.jstl</groupId>
         <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
@@ -455,7 +344,7 @@ The View:
 
 ---
 
-# Spring MVC Configuration Class
+## Spring MVC Configuration Class
 
 ```java
 package org.techhub.config;
@@ -464,7 +353,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
@@ -486,28 +374,23 @@ public class WebMvcConfig {
 }
 ```
 
----
+### @EnableWebMvc
 
-# @EnableWebMvc
-
----
-
-`@EnableWebMvc` enables Spring MVC configuration.
+`@EnableWebMvc` enables MVC configuration.
 
 It activates:
 
-* Request mapping
-* ViewResolver support
-* Data binding
-* Validation
-* Message converters
-* MVC configuration
+- request mapping
+- validation
+- data binding
+- message converters
+- view support
 
 ---
 
-# WebAppInitializer.java
+## WebAppInitializer.java
 
-`WebAppInitializer` replaces the traditional **web.xml** file. It is used to configure the Spring MVC application using Java configuration.
+This replaces `web.xml` in modern Spring MVC applications.
 
 ```java
 package org.techhub.config;
@@ -526,188 +409,109 @@ public class WebAppInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext)
             throws ServletException {
 
-        // Create Spring Application Context
         AnnotationConfigWebApplicationContext context =
                 new AnnotationConfigWebApplicationContext();
 
-        // Register Java Configuration Class
         context.register(WebMvcConfig.class);
 
-        // Create DispatcherServlet
-        DispatcherServlet dispatcher =
-                new DispatcherServlet(context);
+        DispatcherServlet dispatcher = new DispatcherServlet(context);
 
-        // Register DispatcherServlet with Servlet Container
         ServletRegistration.Dynamic servlet =
                 servletContext.addServlet("dispatcher", dispatcher);
 
-        // Load DispatcherServlet when server starts
         servlet.setLoadOnStartup(1);
-
-        // Map DispatcherServlet to all URLs
         servlet.addMapping("/");
     }
 }
 ```
 
----
+### Explanation
 
-# Explanation
-
-## Step 1: Implement `WebApplicationInitializer`
+#### Step 1: implement `WebApplicationInitializer`
 
 ```java
 public class WebAppInitializer implements WebApplicationInitializer
 ```
 
-* `WebApplicationInitializer` is an interface provided by Spring.
-* It replaces the `web.xml` configuration file.
-* The servlet container (Tomcat) automatically detects this class during application startup.
+- This interface is detected by the servlet container.
+- It replaces `web.xml`.
 
----
-
-## Step 2: `onStartup()` Method
+#### Step 2: `onStartup()`
 
 ```java
 public void onStartup(ServletContext servletContext)
 ```
 
-* This method is called automatically when the application starts.
-* It is used to configure the Spring MVC application programmatically.
+- Called automatically when the app starts.
+- Used to configure the application programmatically.
 
----
-
-## Step 3: Create Spring Container
+#### Step 3: create Spring container
 
 ```java
 AnnotationConfigWebApplicationContext context =
         new AnnotationConfigWebApplicationContext();
 ```
 
-* Creates the Spring Application Context.
-* This context manages all Spring beans.
-
----
-
-## Step 4: Register Configuration Class
+#### Step 4: register config class
 
 ```java
 context.register(WebMvcConfig.class);
 ```
 
-* Registers the Java configuration class (`WebMvcConfig`).
-* Spring reads all beans defined in this configuration.
-
----
-
-## Step 5: Create DispatcherServlet
+#### Step 5: create `DispatcherServlet`
 
 ```java
-DispatcherServlet dispatcher =
-        new DispatcherServlet(context);
+DispatcherServlet dispatcher = new DispatcherServlet(context);
 ```
 
-* Creates the `DispatcherServlet`.
-* It acts as the **Front Controller** in Spring MVC.
-* All client requests first reach the `DispatcherServlet`.
-
----
-
-## Step 6: Register DispatcherServlet
+#### Step 6: register the servlet
 
 ```java
 ServletRegistration.Dynamic servlet =
         servletContext.addServlet("dispatcher", dispatcher);
 ```
 
-* Registers the `DispatcherServlet` with the servlet container.
-* `"dispatcher"` is the servlet name.
-* `dispatcher` is the `DispatcherServlet` object.
-
----
-
-## Step 7: Load on Startup
+#### Step 7: load on startup
 
 ```java
 servlet.setLoadOnStartup(1);
 ```
 
-* Loads the `DispatcherServlet` when Tomcat starts.
-* A lower number indicates higher loading priority.
-
----
-
-## Step 8: URL Mapping
+#### Step 8: map the URL
 
 ```java
 servlet.addMapping("/");
 ```
 
-* Maps all incoming requests (`/`) to the `DispatcherServlet`.
-* The `DispatcherServlet` then forwards the request to the appropriate controller.
-
 ---
 
-# Execution Flow
-
-```text
-Tomcat Starts
-      │
-      ▼
-WebAppInitializer
-      │
-      ▼
-Create Spring Context
-      │
-      ▼
-Register WebMvcConfig
-      │
-      ▼
-Create DispatcherServlet
-      │
-      ▼
-Register DispatcherServlet
-      │
-      ▼
-Load DispatcherServlet
-      │
-      ▼
-Map "/"
-      │
-      ▼
-Application Ready
-```
-
----
-
-
----
-
-# Create Controller and call view pages 
+## Controller Example
 
 ```java
 package org.techhub.config;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class TestController {	
-	@GetMapping("/")
-	public String homePage() {
-		return "index";
-	}
-	@RequestMapping("/welcome")
-	public String welcomePage() {
-		return "welcome";
-	}
-}
+public class TestController {
 
+    @GetMapping("/")
+    public String homePage() {
+        return "index";
+    }
+
+    @RequestMapping("/welcome")
+    public String welcomePage() {
+        return "welcome";
+    }
+}
 ```
 
 ---
 
-# JSP Pages
+## JSP Pages
 
 ### index.jsp
 
@@ -724,7 +528,6 @@ public class TestController {
     <a href="${pageContext.request.contextPath}/welcome">Call Welcome page</a>
 </body>
 </html>
-
 ```
 
 ### welcome.jsp
@@ -736,152 +539,105 @@ public class TestController {
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Welcome Page</title>
 </head>
 <body>
-  <h1>This is the welcome page </h1>
+  <h1>This is the welcome page</h1>
 </body>
 </html>
-
 ```
 
 ---
 
-# Request Flow in Spring MVC
+## Request Flow in Spring MVC
 
----
-
-```
+```text
 Browser
    │
+   ▼
 HTTP Request
    │
+   ▼
 DispatcherServlet
    │
+   ▼
 Handler Mapping
    │
+   ▼
 Controller
    │
+   ▼
 Business Logic / Service
    │
+   ▼
 Model
    │
+   ▼
 ViewResolver
    │
+   ▼
 JSP Page
    │
+   ▼
 Browser Response
 ```
 
 ---
 
-# Interview Questions
+## Registration Project
 
-### Q1. What is Spring MVC?
+### Objective
 
-**Answer:** Spring MVC is a web framework based on the Model-View-Controller design pattern. It helps build scalable, maintainable web applications by separating business logic, presentation logic, and request handling.
+Create a registration form with:
 
-### Q2. What is DispatcherServlet?
+- Name
+- Email
+- Contact
 
-**Answer:** DispatcherServlet is the Front Controller in Spring MVC. It receives all client requests, forwards them to the appropriate controller, and returns the appropriate view.
+On submit, the data is stored in the model and displayed on a result page.
 
-### Q3. What is the use of ViewResolver?
-
-**Answer:** ViewResolver maps the logical view name returned by the controller to the actual view file (for example, `index` → `/WEB-INF/views/index.jsp`).
-
-### Q4. What is the difference between `@Controller` and `@RestController`?
-
-| @Controller               | @RestController               |
-| ------------------------- | ----------------------------- |
-| Returns a View            | Returns JSON/XML response     |
-| Used for MVC applications | Used for REST APIs            |
-| Requires ViewResolver     | Does not require ViewResolver |
-
-
-
-
-Your notes cover many topics. Here's a **structured roadmap** for the **Mini Project: Registration Form using Spring MVC + Spring JDBC + MySQL**, which is easier to understand and follow.
-
----
-
----
-
-# Spring MVC Registration Application
-
-## Objective
-
-Create a registration form with **Name, Email, and Contact**. When the user submits the form, Spring MVC receives the data in the controller and displays it on another page.
-
----
-
-# Project Structure
+### Project Structure
 
 ```text
 RegistrationProject
 │
 ├── src/main/java
-│
 │   └── org.techhub
-│       │
 │       ├── config
-│       │      MVCConfig.java
-        |      WebAppInitializer.java   ← Required
-│       │
+│       │   ├── MVCConfig.java
+│       │   └── WebAppInitializer.java
 │       ├── controller
-│       │      RegisterController.java
-│       │
+│       │   └── RegisterController.java
 │       └── model
-│              Register.java
+│           └── Register.java
 │
 └── src/main/webapp
-    │
     └── WEB-INF
-          │
-          └── views
-                │
-                ├── register.jsp
-                └── welcome.jsp
+        └── views
+            ├── register.jsp
+            └── welcome.jsp
 ```
 
----
-
-# Step 1: Create Registration Page (register.jsp)
-
-This page displays a registration form.
+### Step 1: register.jsp
 
 ```jsp
 <form action="${pageContext.request.contextPath}/save" method="POST">
 
-<input type="text" name="name" placeholder="Enter Name"/><br><br>
-
-<input type="text" name="email" placeholder="Enter Email"/><br><br>
-
-<input type="text" name="contact" placeholder="Enter Contact"/><br><br>
-
-<input type="submit" value="Register"/>
+    <input type="text" name="name" placeholder="Enter Name"/><br><br>
+    <input type="text" name="email" placeholder="Enter Email"/><br><br>
+    <input type="text" name="contact" placeholder="Enter Contact"/><br><br>
+    <input type="submit" value="Register"/>
 
 </form>
 ```
 
 ### Explanation
 
-* `action="/save"` → Sends the request to the `/save` URL.
-* `method="POST"` → Sends data securely in the request body.
-* `name` attribute of each textbox must match the POJO property names.
+- `action="/save"` sends the form to `/save`
+- `method="POST"` sends the data in request body
+- input names must match the model properties
 
-```
-name="name"
-name="email"
-name="contact"
-```
-
-Spring automatically maps these values to the `Register` object.
-
----
-
-# Step 2: Create Model Class (Register.java)
-
-The model stores the data submitted by the user.
+### Step 2: Model class `Register.java`
 
 ```java
 package org.techhub.model;
@@ -918,21 +674,7 @@ public class Register {
 }
 ```
 
-### Explanation
-
-The `Register` class is a **POJO (Plain Old Java Object)**.
-
-It contains:
-
-* Private variables
-* Getter methods
-* Setter methods
-
-Spring MVC uses the setter methods to populate the object automatically.
-
----
-
-# Step 3: Create Controller (RegisterController.java)
+### Step 3: Controller `RegisterController.java`
 
 ```java
 package org.techhub.controller;
@@ -957,272 +699,58 @@ public class RegisterController {
     public String saveReg(Register reg, Map<String, Register> map) {
 
         map.put("r", reg);
-
         return "welcome";
     }
 }
 ```
 
----
+### Data Binding
 
-# Explanation of Controller
+Spring automatically matches form field names with object properties.
 
-## `@Controller`
-
-Marks the class as a Spring MVC Controller.
-
-```java
-@Controller
-public class RegisterController
+```text
+name    -> reg.setName()
+email   -> reg.setEmail()
+contact -> reg.setContact()
 ```
 
----
-
-## Display Registration Page
-
-```java
-@RequestMapping(value="/", method=RequestMethod.GET)
-public String regPage() {
-    return "register";
-}
-```
-
-When the user opens:
-
-```
-http://localhost:8080/RegistrationProject/
-```
-
-Spring executes this method.
-
-It returns
-
-```java
-return "register";
-```
-
-The View Resolver converts it to
-
-```
-/WEB-INF/views/register.jsp
-```
-
-and displays the page.
-
----
-
-## Handle Form Submission
-
-```java
-@RequestMapping(value="/save", method=RequestMethod.POST)
-```
-
-When the Register button is clicked,
-
-```
-<form action="/save" method="POST">
-```
-
-the request comes here.
-
----
-
-## Automatic Data Binding
-
-```java
-public String saveReg(Register reg, Map<String, Register> map)
-```
-
-Spring automatically creates an object of the `Register` class.
-
-It matches form field names with object properties.
-
-```
-Textbox          Register Object
-
-name      ---->  reg.setName()
-
-email     ---->  reg.setEmail()
-
-contact   ---->  reg.setContact()
-```
-
-This process is called **Data Binding**.
-
----
-
-## Store Data in Model
-
-```java
-map.put("r", reg);
-```
-
-The `Map` works as the **Model**.
-
-It stores data that needs to be sent to the JSP.
-
-Key:
-
-```
-r
-```
-
-Value:
-
-```
-Register object
-```
-
----
-
-## Return View
-
-```java
-return "welcome";
-```
-
-The View Resolver opens
-
-```
-welcome.jsp
-```
-
----
-
-# Step 4: welcome.jsp
+### Step 4: welcome.jsp
 
 ```jsp
 <h1>Form Submitted Successfully</h1>
 
 <h2>Name : ${r.name}</h2>
-
 <h2>Email : ${r.email}</h2>
-
 <h2>Contact : ${r.contact}</h2>
 ```
 
-### Note
+### Complete flow
 
-Instead of:
-
-```jsp
-${r.getName()}
-${r.getEmail()}
-${r.getContact()}
-```
-
-it is recommended to use JSP Expression Language (EL) property access:
-
-```jsp
-${r.name}
-${r.email}
-${r.contact}
-```
-
-EL automatically calls the getter methods.
-
----
-
-# Complete Flow
-
-```
+```text
 User
-   │
-   ▼
+  ↓
 register.jsp
-   │
-   │ Fill Form
-   ▼
-Click Register
-   │
+  ↓
+Submit form
+  ↓
 POST /save
-   │
-   ▼
+  ↓
 RegisterController
-   │
-   │ Spring creates Register object
-   │
-   ▼
-Register Model Object
-   │
-   ▼
+  ↓
+Spring binds form data into Register object
+  ↓
 map.put("r", reg)
-   │
-   ▼
+  ↓
 welcome.jsp
-   │
-   ▼
-Display Name, Email and Contact
+  ↓
+Show values
 ```
 
 ---
 
-# Important Interview Questions
+## @RequestParam
 
-### Q1. Why do we create a Model (POJO) class?
-
-**Answer:**
-A Model class is used to store data. Spring MVC automatically binds the form data to the model object using setter methods.
-
----
-
-### Q2. What is Data Binding in Spring MVC?
-
-**Answer:**
-Data Binding is the process in which Spring MVC automatically copies request parameter values into the properties of a Java object (POJO).
-
----
- 
-### Q3. Why is `Map<String, Register>` used?
-
-**Answer:**
-It acts as the **Model**. The controller stores data in the map using a key, and the JSP accesses it using that key.
-
-Example:
-
-```java
-map.put("r", reg);
-```
-
-In JSP:
-
-```jsp
-${r.name}
-```
-
----
-
-### Q4. What is the purpose of `@RequestMapping`?
-
-**Answer:**
-`@RequestMapping` maps an HTTP request URL to a controller method.
-
-Example:
-
-```java
-@RequestMapping(value="/save", method=RequestMethod.POST)
-```
-
-This method handles the `POST` request sent to `/save`.
-
----
-
-### Q5. How does Spring MVC know which values to store in the `Register` object?
-
-**Answer:**
-Spring matches the HTML form field names (`name`, `email`, `contact`) with the corresponding properties and setter methods in the `Register` class. This automatic mapping is called **Data Binding**.
-
-
-
----
-
-# Spring MVC - `@RequestParam`
-
-## What is `@RequestParam`?
-
-`@RequestParam` is used to retrieve request parameter values (query parameters or form data) from an HTTP request and bind them to method parameters in a Spring MVC controller.
-
-### Example
+`@RequestParam` is used to read request parameters from the URL or form data.
 
 ```java
 @GetMapping("/search")
@@ -1231,105 +759,43 @@ public String search(@RequestParam("name") String name) {
 }
 ```
 
-**Request**
+Request:
 
-```
+```text
 http://localhost:8080/search?name=Harshad
 ```
 
-Output
+Output:
 
-```
+```text
 Welcome Harshad
 ```
 
 ---
 
-# File Upload in Spring MVC
+## File Upload in Spring MVC
 
-## Steps to Upload a File
-
-### Step 1: Use POST Method
-
-File uploading should always use the **POST** method.
+### HTML form
 
 ```html
-<form action="upload"
-      method="POST"
-      enctype="multipart/form-data">
-
+<form action="upload" method="POST" enctype="multipart/form-data">
     <input type="file" name="file">
     <input type="submit" value="Upload">
-
 </form>
 ```
 
-> **Note:** File upload is not supported with the GET method.
+### Why POST?
 
----
+- GET sends data in URL
+- URL has length limits
+- file data is large
+- GET is not suitable for upload
 
-## Why is GET Method Not Used for File Upload?
+### `multipart/form-data`
 
-### Reasons
+This encoding type is required for file upload because it sends the file along with metadata.
 
-1. **GET sends data in the URL.**
-
-   * URLs have practical length limits that vary by browser and server.
-   * Files are too large to be sent as URL parameters.
-
-2. **Security**
-
-   * URL parameters are visible in the browser address bar.
-   * Sensitive information should not be exposed in URLs.
-
-3. **GET is intended for retrieving data only**
-
-   * According to HTTP semantics, GET should not be used to upload or modify resources.
-
-Therefore, **POST** is used for uploading files.
-
----
-
-# enctype Attribute
-
-## 1. application/x-www-form-urlencoded
-
-* Default encoding type
-* Sends data as **name=value** pairs
-* Suitable for normal form fields
-* Cannot upload files
-
-Example
-
-```
-name=Harshad&city=Pune
-```
-
----
-
-## 2. multipart/form-data
-
-* Required for file uploading
-* Sends files along with other form data
-* Includes file metadata such as
-
-  * File name
-  * File type
-  * File size
-
-Example
-
-```html
-<form enctype="multipart/form-data">
-```
-
----
-
-# MultipartFile
-
-Spring MVC provides the **MultipartFile** interface for uploading files.
-
-Example
+### `MultipartFile`
 
 ```java
 @PostMapping("/upload")
@@ -1342,7 +808,7 @@ public String uploadFile(@RequestParam("file") MultipartFile file) {
 }
 ```
 
-Useful methods
+Useful methods:
 
 ```java
 file.getOriginalFilename();
@@ -1354,115 +820,41 @@ file.transferTo(destinationFile);
 
 ---
 
-# REST API in Spring MVC
+## REST API in Spring MVC
 
-## What is an API?
+### What is API?
 
-API stands for **Application Programming Interface**.
+API stands for Application Programming Interface.
 
-An API allows two different applications to communicate and exchange data.
+It allows two software systems to communicate over a network.
 
-Example
+### What is Web Service?
 
-* Mobile App ↔ Spring Boot Server
-* Website ↔ Spring MVC Server
-* React ↔ Spring Boot
-* Angular ↔ Spring Boot
+A web service is a component that allows communication using HTTP/HTTPS.
 
----
+### Types of web services
 
-# What are Web Services?
+- REST API
+- SOAP
+- GraphQL
+- gRPC
 
-A **Web Service** is a software system that enables applications to communicate over a network using HTTP or HTTPS.
+### What is REST?
 
----
+REST stands for Representational State Transfer.
 
-# Advantages of Web Services
-
-* Interoperability
-* Platform Independent
-* Loose Coupling
-* Reusable
-* Network Accessible
-* Language Independent
+- architectural style
+- works over HTTP
+- commonly uses JSON
+- platform independent
 
 ---
 
-# Types of Web Services
+## JSON
 
-1. REST API
-2. SOAP Web Service
-3. GraphQL API
-4. gRPC
+JSON stands for JavaScript Object Notation.
 
----
-
-# What is REST?
-
-REST stands for **Representational State Transfer**.
-
-* REST is an **architectural style**, not a protocol.
-* It was introduced by **Roy Fielding** in his 2000 doctoral dissertation.
-* REST works over the HTTP protocol.
-
----
-
-# Why REST API is Popular?
-
-Without REST APIs:
-
-* Applications become tightly coupled.
-* Mostly HTML pages are exchanged.
-* Difficult to communicate with mobile apps, IoT devices, or other technologies.
-
-With REST APIs:
-
-* Any client can communicate with the server.
-* Data is usually exchanged in JSON format.
-* Supports multiple client technologies.
-
-Example
-
-```
-React
-Angular
-Flutter
-Android
-iOS
-Java
-Python
-
-        ↓
-
-   REST API
-
-        ↓
-
-Spring MVC / Spring Boot
-```
-
----
-
-# JSON
-
-## What is JSON?
-
-JSON stands for **JavaScript Object Notation**.
-
-It is a lightweight text format used to exchange data between applications.
-
----
-
-## Advantages of JSON
-
-* Lightweight
-* Easy to Read
-* Platform Independent
-* Language Independent
-* Faster than XML
-* Uses Key-Value pairs
-
-Example
+Example:
 
 ```json
 {
@@ -1472,21 +864,23 @@ Example
 }
 ```
 
-Rules
+### Key features
 
-* Keys are always strings.
-* Values can be String, Number, Boolean, Object, Array, or null.
+- lightweight
+- easy to read
+- language independent
+- key-value structure
 
 ---
 
-# Jackson Databind
+## Jackson Databind
 
-Jackson converts
+Jackson is used to convert:
 
-* Java Object → JSON
-* JSON → Java Object
+- Java object to JSON
+- JSON to Java object
 
-Dependency
+### Dependency
 
 ```xml
 <dependency>
@@ -1498,57 +892,34 @@ Dependency
 
 ---
 
-# @RequestBody
+## @RequestBody
 
-## Purpose
-
-`@RequestBody` converts JSON data received in the HTTP request body into a Java object.
-
-Example JSON
-
-```json
-{
-  "id":1,
-  "name":"Laptop",
-  "price":55000
-}
-```
-
-Controller
+`@RequestBody` converts incoming JSON into a Java object.
 
 ```java
 @PostMapping("/save")
 @ResponseBody
 public String save(@RequestBody Product product) {
-
     System.out.println(product.getName());
-
     return "Saved";
 }
 ```
 
-> **Rule:** JSON keys should match the Java object's field names (or corresponding getter/setter names).
-
 ---
 
-# @ResponseBody
+## @ResponseBody
 
-## Purpose
-
-`@ResponseBody` converts a Java object into JSON and sends it as the HTTP response.
-
-Example
+`@ResponseBody` converts a Java object to JSON and sends it in the response.
 
 ```java
 @GetMapping("/product")
 @ResponseBody
 public Product getProduct() {
-
     return new Product(1, "Mobile", 20000);
 }
 ```
 
-Output
+Output:
 
 ```json
 {
@@ -1558,11 +929,9 @@ Output
 }
 ```
 
-> `@ResponseBody` can be applied at the class level or method level.
-
 ---
 
-# Example REST Controller
+## Example REST Controller
 
 ```java
 @Controller
@@ -1578,52 +947,31 @@ public class ProductController {
     public List<Product> getProducts() {
 
         List<Product> list = new ArrayList<>();
-
         list.add(new Product(1, "TV", 40000));
         list.add(new Product(2, "Laptop", 65000));
         list.add(new Product(3, "Mobile", 25000));
 
         return list;
-        /*
-		 * [
-		 *   {
-		 *     "id":1,
-		 *     "name":"TV",
-		 *     "price":40000
-		 *   },
-		 *   { "id":2,
-		 *     "name":"MOBILE",
-		 *     "price":40000
-		 *   },
-		 *   {
-		 *      "id":3,
-		 *     "name":"Laptop",
-		 *     "price":60000
-		 *   }
-		 * ]
-		 */
-
     }
 }
 ```
 
 ---
 
-# @RestController
+## @RestController
 
-Instead of writing
+Instead of writing:
 
 ```java
 @Controller
 @ResponseBody
 ```
 
-you can simply write
+we can write:
 
 ```java
 @RestController
 public class ProductController {
-
 }
 ```
 
@@ -1631,85 +979,88 @@ public class ProductController {
 
 ---
 
-# Postman
+## Postman
 
-## What is Postman?
+Postman is used to test APIs.
 
-Postman is an API development and testing tool used to create, test, document, and manage REST APIs.
+### Features
 
----
+- test GET, POST, PUT, DELETE requests
+- send JSON payloads
+- view responses
+- manage API collections
+- document APIs
 
-## Features
+### Typical process
 
-* Test GET requests
-* Test POST requests
-* Test PUT requests
-* Test DELETE requests
-* Send JSON data
-* View JSON responses
-* Manage API Collections
-* Generate API Documentation
-
----
-
-## Steps to Test an API
-
-1. Install Postman.
-2. Start your Spring MVC or Spring Boot application.
-3. Open Postman.
-4. Select the HTTP method (GET, POST, PUT, DELETE).
-5. Enter the API URL.
-6. For POST/PUT requests, choose **Body → raw → JSON** and provide the request body.
-7. Click **Send**.
-8. View the response.
+1. Start Spring app
+2. Open Postman
+3. Select request type
+4. Enter URL
+5. Send JSON data for POST requests
+6. Click Send
+7. Check response
 
 ---
 
-# Interview Questions
+## Interview Questions
 
-### Q1. What is `@RequestParam`?
+### Q1. What is Spring MVC?
 
-**Answer:** It binds request parameters (query parameters or form fields) to controller method parameters.
+Spring MVC is a web framework based on the Model-View-Controller pattern. It helps build scalable and maintainable web applications.
 
-### Q2. Why is POST used for file uploading?
+### Q2. What is `DispatcherServlet`?
 
-**Answer:** POST sends data in the request body, supports large file uploads, and does not expose file data in the URL.
+It is the front controller in Spring MVC. It receives all incoming requests and forwards them to the appropriate controller.
 
-### Q3. What is the difference between `application/x-www-form-urlencoded` and `multipart/form-data`?
+### Q3. What is `ViewResolver`?
 
-| application/x-www-form-urlencoded | multipart/form-data       |
-| --------------------------------- | ------------------------- |
-| Default encoding                  | Used for file upload      |
-| Cannot upload files               | Can upload files          |
-| Sends name-value pairs            | Sends files with metadata |
+It maps logical view names like `index` to actual files such as `/WEB-INF/views/index.jsp`.
 
-### Q4. What is `MultipartFile`?
+### Q4. What is the difference between `@Controller` and `@RestController`?
 
-**Answer:** It is a Spring interface used to receive uploaded files in a controller.
+| Annotation | Purpose |
+| ---------- | ------- |
+| `@Controller` | Returns a view for MVC apps |
+| `@RestController` | Returns JSON/XML data for REST APIs |
 
-### Q5. What is REST?
+### Q5. What is data binding?
 
-**Answer:** REST (Representational State Transfer) is an architectural style for building web services over HTTP.
+Data binding is the automatic mapping of request parameters to Java object properties using setter methods.
 
-### Q6. What is JSON?
+### Q6. Why is POST used for file upload?
 
-**Answer:** JSON is a lightweight, platform-independent text format for exchanging data between applications.
+Because file data is large and should be sent in the request body instead of the URL.
 
-### Q7. What is the purpose of `@RequestBody`?
+### Q7. What is `@RequestBody`?
 
-**Answer:** It converts JSON from the HTTP request body into a Java object.
+It converts JSON from the request body into a Java object.
 
-### Q8. What is the purpose of `@ResponseBody`?
+### Q8. What is `@ResponseBody`?
 
-**Answer:** It converts a Java object into JSON and sends it in the HTTP response.
+It converts a Java object into JSON and sends it as the response body.
 
-### Q9. What is `@RestController`?
+### Q9. What is REST?
 
-**Answer:** It is a convenience annotation that combines `@Controller` and `@ResponseBody`.
+REST is an architectural style for building web services over HTTP.
 
-### Q10. Why is Postman used?
+### Q10. What is JSON?
 
-**Answer:** Postman is used to create, test, debug, and document REST APIs without building a frontend application.
+JSON is a lightweight, platform-independent format used to exchange data between apps.
 
+---
 
+## Final Revision Points
 
+- Spring MVC follows the Model-View-Controller pattern.
+- `DispatcherServlet` is the front controller.
+- `@Controller` handles web requests.
+- `@RequestMapping` maps URLs to controller methods.
+- `ViewResolver` resolves logical view names into actual JSP pages.
+- `@RequestParam` binds request data to method parameters.
+- `MultipartFile` is used for file uploads.
+- `@RequestBody` and `@ResponseBody` are important for REST APIs.
+- JSON is the standard format for API communication.
+- Postman is used to test REST APIs.
+
+This is the cleaned and structured Spring MVC revision note.

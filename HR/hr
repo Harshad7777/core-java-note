@@ -1,112 +1,157 @@
-Q1.Tell me about yourself?
-so harshad rakshe tell me about your self
- 
-Good morning.  
-My name is Harshad Rakshe. 
-and I am complited my Bachelor of Engineering from Jaihind College of engineering.
-I am skilled in ReactJS and good knowledge of Java.
-last summer , I Intern in skillVERTEX company as a web devloper  , 
-and I really enjoyed my experience there.
-as your company is also hiring for same skills, 
-I believe i am the right fit for this role.  
-I am eager to learn, grow, and contribute to your organization.
+# HR Interview Questions and Answers
 
+[Introduction](#introduction) | [Q1](#q1-tell-me-about-yourself) | [Q2](#q2-why-are-you-leaving-current-company-or-internship) | [Q3](#q3-why-do-you-want-to-join-our-company) | [Q4](#q4-why-should-we-hire-you) | [Q5](#q5-what-are-your-strengths-and-weakness) | [Q6](#q6-where-do-you-see-yourself-in-the-next-five-years) | [Q7](#q7-what-is-your-expected-salary) | [Q8](#q8-what-do-you-know-about-our-company-mundrisoft) | [Q9](#q9-hisanlabs-pvt-ltd)
+
+---
+
+## Introduction
+
+This file contains common HR interview questions and strong sample answers for freshers and Java developers.
+
+The answers are simple, professional, and suitable for interview preparation.
+
+---
+
+## Q1. Tell me about yourself?
+
+### Best answer
 
 Good afternoon, sir.
 
-My name is **Harshad Rakshe**, and I am from **Pune, Maharashtra**. I have completed my **Bachelor’s degree in Computer Engineering**.
+My name is Harshad Rakshe, and I am from Pune, Maharashtra. I have completed my Bachelor’s degree in Computer Engineering.
 
-Recently, I developed a project called **Sankalp – Restaurant Management System**. It is a web-based application designed to manage restaurant operations such as **menu management, customer management, order management, billing, kitchen management, and reports**.
+Recently, I developed a project called Sankalp – Restaurant Management System. It is a web-based application designed to manage restaurant operations including menu management, customer management, order management, billing, kitchen management, and reports.
 
-In this project, I worked with technologies such as **Java, Spring Boot, JDBC, MySQL, JSP, HTML, CSS, and JavaScript**. I also implemented features like **JWT-based authentication, role-based access, validation, file upload, and REST APIs**.
+In this project, I worked with Java, Spring Boot, JDBC, MySQL, JSP, HTML, CSS, and JavaScript. I also implemented features like JWT-based authentication, role-based access, validation, file upload, and REST APIs.
 
-I am a **quick learner** and always eager to learn and explore new technologies. I enjoy solving problems and improving my technical skills through practical projects.
+I am a quick learner and always eager to learn and explore new technologies. I enjoy solving problems and improving my technical skills through practical projects.
 
 That’s all about me. Thank you, sir.
 
+### Short version
 
-Q2.Why are you leaving current company or internship?
-Answer: 
-My internship period is ending, and I am now looking for a full-time role where I can continue learning and take more responsibility.
-There is no full-time opening there, so I am looking for a full-time role.
+My name is Harshad Rakshe. I completed my Bachelor’s in Computer Engineering and have hands-on experience with Java, Spring Boot, JDBC, MySQL, and frontend technologies. I worked on a restaurant management project that included order management, billing, authentication, and REST APIs. I am a quick learner, eager to grow, and interested in joining a company where I can contribute and learn.
 
-Q3.Why do you want to join our company?
-Answer:
-This role fits my skills, and I want to grow with your company.
+---
 
-“Your company provides a good learning environment and works on technologies that match my skills. I believe this is the right place to start my career.”
+## Q2. Why are you leaving current company or internship?
 
-Q4.Why should we hire you?
-Answer:
-You should hire me because I am a quick learner, I work sincerely, and I am ready to learn and contribute to the team.
+### Answer
 
-“I have strong fundamentals in Java, a positive learning attitude, and I am ready to work hard and grow with the company.”
+My internship period is ending, and I am now looking for a full-time role where I can continue learning and take more responsibility. There is no full-time opening there, so I am looking for an opportunity where I can grow professionally and contribute to the organization.
 
-Q5.What are your strengths and weakness?
-Answer:
-Strengths: I am a quick learner, hardworking.
+---
 
-“My strengths are problem-solving, quick learning, and consistency. I have a strong interest in Java and I practice coding regularly.”.
-Weakness: I sometimes take extra time to make sure my work is correct, but I am improving my speed.
+## Q3. Why do you want to join our company?
 
-“I sometimes focus too much on details, but I am learning to manage time better and prioritize tasks.”
+### Answer
 
-Q6.where do you see yourself in next five years?
-Answer: 
-In the next five years, I want to learn continuously and grow along with the company.
+This role fits my skills, and I want to grow with your company. Your company provides a good learning environment and works on technologies that match my interests and abilities. I believe this is the right place to start my career and build my future.
 
-Q7.What is your expected salary?
-Answer:
-As a fresher, I am expecting a salary as per company standard and my skills.
+---
 
+## Q4. Why should we hire you?
 
-Q what you are apart from resume
+### Answer
 
-“Apart from my resume, I am a quick learner and a self-motivated person. I enjoy exploring new technologies and improving my skills continuously. I am a good team player who communicates well and adapts easily to new environments. I also focus on problem-solving and try to give my best in every task I take up.”
+You should hire me because I am a quick learner, hardworking, and ready to learn and contribute to the team. I have a strong foundation in Java and I am passionate about software development. I am sincere, adaptable, and ready to work hard to grow with the company.
 
-Short & Simple Version
+---
 
-“Apart from my resume, I am a dedicated learner, a team player, and someone who is always eager to improve and take new challenges.”
+## Q5. What are your strengths and weakness?
 
-7. Are you comfortable working in a team?
-Answer:
+### Strengths
 
-“Yes, I enjoy working in a team. I believe teamwork helps in better learning and better results.”
+- Quick learner
+- Hardworking
+- Problem-solving mindset
+- Interested in Java and backend development
+- Consistent in learning and practicing coding
 
-8. How do you handle pressure?
-Answer:
+### Weakness
 
-“I stay calm, break the task into smaller parts, and focus on completing it step by step.”
+I sometimes spend extra time to make sure my work is correct and accurate. This helps me avoid mistakes, but I am improving my speed and learning to manage time better while prioritizing tasks.
 
-9. What motivates you?
+### Sample answer
 
-Answer:
+My strengths are problem-solving, quick learning, and consistency. I have a strong interest in Java and practice coding regularly. My weakness is that I sometimes focus too much on details, but I am learning to improve my speed and manage my time better.
 
-“Learning new things, solving problems, and seeing my improvement motivate me.”
+---
 
-10. Do you have any questions for us?
+## Q6. Where do you see yourself in the next five years?
 
-Answer:
+### Answer
 
-“Yes, what technologies will I be working on, and what learning opportunities are provided for freshers?”
+In the next five years, I want to keep learning continuously, improve my technical skills, and grow along with the company. I want to become a valuable contributor and take on more responsibility in a professional environment.
 
--------------------------------------------------------------------------------------------------------------------------
+---
 
-Q8.What do you know about our company? Mundrisoft
-Answer:
--Mundrisoft is an IT company founded in 2012.
--Headquarters St. Petersburg, Florida
-- Industry: IT Services and IT Consulting
--They make software and apps for businesses.
--They help with testing, DevOps and application support
--They use new technologies to solve problems.
+## Q7. What is your expected salary?
 
+### Answer
 
+As a fresher, I am expecting a salary that is in line with company standards and my skills. I am more focused on learning and growth, and I am open to a fair offer based on the role and company policy.
 
-Q9.Hisanlabs Pvt Ltd
-Answer:
--Hisan Labs is an IT company  office is in Wakad, Pimpri‑Chinchwad (near Pune), Maharashtra, India.
--Founded in 1997
--They provide cloud solutions, DevOps, automation, and SRE services.
--They help businesses migrate to cloud, improve infrastructure, and manage deployments.
--The company focuses on modern technologies and learning opportunities.
+---
+
+## Q8. What do you know about our company? Mundrisoft
+
+### Answer
+
+- Mundrisoft is an IT company founded in 2012.
+- It is an IT services and IT consulting company.
+- It develops software and applications for businesses.
+- It works in areas such as testing, DevOps, and application support.
+- The company focuses on modern technologies and practical problem-solving.
+
+---
+
+## Q9. Hisanlabs Pvt Ltd
+
+### Answer
+
+- Hisan Labs is an IT company located in Wakad, Pimpri-Chinchwad, near Pune, Maharashtra.
+- It was founded in 1997.
+- The company provides cloud solutions, DevOps, automation, and SRE services.
+- It helps businesses migrate to the cloud, improve infrastructure, and manage deployments.
+- The company focuses on modern technology and learning opportunities.
+
+---
+
+## Extra HR Questions
+
+### Q. Apart from your resume, what makes you different?
+
+Apart from my resume, I am a quick learner, self-motivated, and a good team player. I enjoy exploring new technologies, improving my skills continuously, and solving real-world problems. I also focus on communication and teamwork, which helps me adapt to new environments and contribute better.
+
+### Short version
+
+Apart from my resume, I am a dedicated learner, a team player, and someone who is always eager to improve and take on new challenges.
+
+### Q. Are you comfortable working in a team?
+
+Yes, I enjoy working in a team. I believe teamwork helps in better learning and produces better results.
+
+### Q. How do you handle pressure?
+
+I stay calm, break the task into smaller parts, and focus on completing it step by step. This helps me stay productive and avoid feeling overwhelmed.
+
+### Q. What motivates you?
+
+Learning new things, solving problems, and seeing my improvement motivate me.
+
+### Q. Do you have any questions for us?
+
+Yes. What technologies will I be working on, and what learning opportunities are provided for freshers?
+
+---
+
+## Final Interview Tips
+
+- Speak clearly and confidently.
+- Keep answers short, honest, and professional.
+- Show confidence with a positive attitude.
+- Mention your skills, projects, and willingness to learn.
+- Always relate your answers to the role and company.
+
+This is a clean HR interview preparation note for freshers and Java candidates.

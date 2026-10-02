@@ -1,25 +1,27 @@
-Spring Framework provides many annotations across different modules. Since you're working on **Spring Boot REST APIs**, here's a categorized list of the most commonly used Spring annotations.
+﻿# Spring Annotations Quick Reference
+
+[Core Spring](#core-spring-annotations) | [Spring Boot](#spring-boot-annotations) | [REST APIs](#rest-controller-annotations) | [Request Parameters](#request-parameter-annotations) | [Validation](#validation-annotations-jakarta-validation) | [Transactions](#transaction-annotation) | [Exceptions](#exception-handling) | [Security](#security) | [JPA / JDBC](#jdbc--jpa-related) | [Testing](#testing)
 
 ---
 
-# 1. Core Spring Annotations
+## Core Spring Annotations
 
-| Annotation        | Purpose                                             |
-| ----------------- | --------------------------------------------------- |
-| `@Component`      | Generic Spring Bean                                 |
-| `@Service`        | Service Layer Bean                                  |
-| `@Repository`     | DAO/Repository Bean                                 |
-| `@Controller`     | Spring MVC Controller                               |
-| `@RestController` | REST API Controller (`@Controller + @ResponseBody`) |
-| `@Configuration`  | Configuration Class                                 |
-| `@Bean`           | Creates a Spring Bean manually                      |
-| `@Autowired`      | Dependency Injection                                |
-| `@Qualifier`      | Select specific bean                                |
-| `@Primary`        | Default bean if multiple exist                      |
-| `@Lazy`           | Lazy initialization                                 |
-| `@Scope`          | Bean scope                                          |
+| Annotation | Purpose |
+| --- | --- |
+| `@Component` | Generic Spring bean |
+| `@Service` | Service-layer bean |
+| `@Repository` | DAO / repository bean |
+| `@Controller` | MVC controller |
+| `@RestController` | REST controller (`@Controller + @ResponseBody`) |
+| `@Configuration` | Marks configuration class |
+| `@Bean` | Creates a bean manually |
+| `@Autowired` | Dependency injection |
+| `@Qualifier` | Select a specific bean |
+| `@Primary` | Default bean when multiple exist |
+| `@Lazy` | Delays initialization |
+| `@Scope` | Controls bean scope |
 
-Example:
+### Example
 
 ```java
 @Service
@@ -27,50 +29,48 @@ public class UserService {
 
     @Autowired
     private UserRepository repository;
-
 }
 ```
 
 ---
 
-# 2. Spring Boot Annotations
+## Spring Boot Annotations
 
-| Annotation                 | Purpose                |
-| -------------------------- | ---------------------- |
-| `@SpringBootApplication`   | Main Spring Boot class |
-| `@EnableAutoConfiguration` | Auto configuration     |
-| `@ComponentScan`           | Scan components        |
-| `@ConfigurationProperties` | Read properties        |
-| `@Value`                   | Inject value           |
+| Annotation | Purpose |
+| --- | --- |
+| `@SpringBootApplication` | Main Spring Boot class |
+| `@EnableAutoConfiguration` | Enables auto configuration |
+| `@ComponentScan` | Scans for components |
+| `@ConfigurationProperties` | Binds properties from config |
+| `@Value` | Injects a property value |
 
-Example
+### Example
 
 ```java
 @SpringBootApplication
 public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class,args);
+        SpringApplication.run(Application.class, args);
     }
-
 }
 ```
 
 ---
 
-# 3. REST Controller Annotations
+## REST Controller Annotations
 
-| Annotation        | Purpose        |
-| ----------------- | -------------- |
-| `@RequestMapping` | Common mapping |
-| `@GetMapping`     | GET API        |
-| `@PostMapping`    | POST API       |
-| `@PutMapping`     | PUT API        |
-| `@DeleteMapping`  | DELETE API     |
-| `@PatchMapping`   | PATCH API      |
-| `@CrossOrigin`    | Enable CORS    |
+| Annotation | Purpose |
+| --- | --- |
+| `@RequestMapping` | Common route mapping |
+| `@GetMapping` | Handles GET requests |
+| `@PostMapping` | Handles POST requests |
+| `@PutMapping` | Handles PUT requests |
+| `@DeleteMapping` | Handles DELETE requests |
+| `@PatchMapping` | Handles PATCH requests |
+| `@CrossOrigin` | Enables CORS |
 
-Example
+### Example
 
 ```java
 @RestController
@@ -78,77 +78,76 @@ Example
 public class UserController {
 
     @GetMapping
-    public List<User> getAll(){
-
+    public List<User> getAll() {
+        return List.of();
     }
-
 }
 ```
 
 ---
 
-# 4. Request Parameter Annotations
+## Request Parameter Annotations
 
-| Annotation          | Purpose           |
-| ------------------- | ----------------- |
-| `@RequestBody`      | Read JSON body    |
-| `@RequestParam`     | URL parameter     |
-| `@PathVariable`     | Path variable     |
-| `@RequestHeader`    | HTTP Header       |
-| `@CookieValue`      | Cookie value      |
-| `@RequestAttribute` | Request attribute |
-| `@ModelAttribute`   | Bind Form Data    |
+| Annotation | Purpose |
+| --- | --- |
+| `@RequestBody` | Reads JSON from request body |
+| `@RequestParam` | Reads URL/form parameter |
+| `@PathVariable` | Reads value from URL path |
+| `@RequestHeader` | Reads HTTP header |
+| `@CookieValue` | Reads cookie value |
+| `@RequestAttribute` | Reads request attribute |
+| `@ModelAttribute` | Binds form data to object |
 
-Example
+### Example
 
 ```java
 @GetMapping("/{id}")
-public User getUser(@PathVariable int id){
-
+public User getUser(@PathVariable int id) {
+    return null;
 }
 ```
 
 ---
 
-# 5. Response Annotations
+## Response Annotations
 
-| Annotation        | Purpose         |
-| ----------------- | --------------- |
-| `@ResponseBody`   | Return JSON     |
-| `@ResponseStatus` | Set HTTP Status |
+| Annotation | Purpose |
+| --- | --- |
+| `@ResponseBody` | Returns JSON/XML directly |
+| `@ResponseStatus` | Sets the HTTP status |
 
-Example
+### Example
 
 ```java
 @ResponseStatus(HttpStatus.CREATED)
 @PostMapping
-public User save(){
-
+public User save() {
+    return null;
 }
 ```
 
 ---
 
-# 6. Validation Annotations (Jakarta Validation)
+## Validation Annotations (Jakarta Validation)
 
-| Annotation   | Purpose                |
-| ------------ | ---------------------- |
-| `@Valid`     | Validate object        |
-| `@Validated` | Class level validation |
-| `@NotNull`   | Cannot be null         |
-| `@NotBlank`  | Cannot be blank        |
-| `@NotEmpty`  | Cannot be empty        |
-| `@Size`      | Size validation        |
-| `@Min`       | Minimum value          |
-| `@Max`       | Maximum value          |
-| `@Email`     | Email validation       |
-| `@Pattern`   | Regex validation       |
-| `@Past`      | Past date              |
-| `@Future`    | Future date            |
-| `@Positive`  | Positive number        |
-| `@Negative`  | Negative number        |
+| Annotation | Purpose |
+| --- | --- |
+| `@Valid` | Validates object |
+| `@Validated` | Validation at class level |
+| `@NotNull` | Must not be null |
+| `@NotBlank` | Must not be blank |
+| `@NotEmpty` | Must not be empty |
+| `@Size` | Checks size |
+| `@Min` | Minimum value |
+| `@Max` | Maximum value |
+| `@Email` | Valid email |
+| `@Pattern` | Regex validation |
+| `@Past` | Date must be in past |
+| `@Future` | Date must be in future |
+| `@Positive` | Positive number |
+| `@Negative` | Negative number |
 
-Example
+### Example
 
 ```java
 public class User {
@@ -158,149 +157,147 @@ public class User {
 
     @Email
     private String email;
-
 }
 ```
 
 ---
 
-# 7. Transaction Annotation
+## Transaction Annotation
 
-| Annotation       | Purpose              |
-| ---------------- | -------------------- |
-| `@Transactional` | Database Transaction |
+| Annotation | Purpose |
+| --- | --- |
+| `@Transactional` | Marks a method or class as transactional |
 
-Example
+### Example
 
 ```java
 @Transactional
-public void saveOrder(){
-
+public void saveOrder() {
+    // database operation
 }
 ```
 
 ---
 
-# 8. Exception Handling
+## Exception Handling
 
-| Annotation              | Purpose               |
-| ----------------------- | --------------------- |
-| `@ExceptionHandler`     | Handle Exception      |
-| `@ControllerAdvice`     | Global Exception      |
-| `@RestControllerAdvice` | Global REST Exception |
+| Annotation | Purpose |
+| --- | --- |
+| `@ExceptionHandler` | Handles a specific exception |
+| `@ControllerAdvice` | Global exception handling for MVC |
+| `@RestControllerAdvice` | Global exception handling for REST |
 
-Example
+### Example
 
 ```java
 @RestControllerAdvice
 public class GlobalException {
 
     @ExceptionHandler(Exception.class)
-    public String error(){
-
+    public String error() {
+        return "Error";
     }
-
 }
 ```
 
 ---
 
-# 9. Scheduling
+## Scheduling
 
-| Annotation          | Purpose          |
-| ------------------- | ---------------- |
-| `@EnableScheduling` | Enable scheduler |
-| `@Scheduled`        | Run periodically |
+| Annotation | Purpose |
+| --- | --- |
+| `@EnableScheduling` | Enables scheduling |
+| `@Scheduled` | Runs a task periodically |
 
-Example
+### Example
 
 ```java
 @Scheduled(cron = "0 0 * * * *")
-public void task(){
-
+public void task() {
+    // scheduled job
 }
 ```
 
 ---
 
-# 10. Async
+## Async
 
-| Annotation     | Purpose           |
-| -------------- | ----------------- |
-| `@EnableAsync` | Enable async      |
-| `@Async`       | Run in background |
+| Annotation | Purpose |
+| --- | --- |
+| `@EnableAsync` | Enables async support |
+| `@Async` | Executes method asynchronously |
 
 ---
 
-# 11. Security
+## Security
 
-| Annotation           | Purpose                       |
-| -------------------- | ----------------------------- |
-| `@EnableWebSecurity` | Enable Spring Security        |
-| `@PreAuthorize`      | Method authorization          |
-| `@PostAuthorize`     | Authorization after execution |
-| `@Secured`           | Role-based security           |
-| `@RolesAllowed`      | JSR role security             |
+| Annotation | Purpose |
+| --- | --- |
+| `@EnableWebSecurity` | Enables Spring Security |
+| `@PreAuthorize` | Checks authorization before method execution |
+| `@PostAuthorize` | Checks authorization after execution |
+| `@Secured` | Role-based security |
+| `@RolesAllowed` | JSR-250 role-based security |
 
-Example
+### Example
 
 ```java
 @PreAuthorize("hasRole('ADMIN')")
 @GetMapping("/admin")
-public String admin(){
-
+public String admin() {
+    return "Admin";
 }
 ```
 
 ---
 
-# 12. JDBC / JPA Related
+## JDBC / JPA Related
 
 ### Spring JDBC
 
-| Annotation       | Purpose     |
-| ---------------- | ----------- |
-| `@Repository`    | DAO class   |
-| `@Transactional` | Transaction |
+| Annotation | Purpose |
+| --- | --- |
+| `@Repository` | Marks DAO/repository class |
+| `@Transactional` | Supports transaction management |
 
 ### Spring Data JPA
 
-| Annotation        | Purpose                                     |
-| ----------------- | ------------------------------------------- |
-| `@Entity`         | Entity class                                |
-| `@Table`          | Database table                              |
-| `@Id`             | Primary key                                 |
-| `@GeneratedValue` | Auto increment                              |
-| `@Column`         | Column mapping                              |
-| `@Transient`      | Ignore field                                |
-| `@OneToOne`       | One-to-one relationship                     |
-| `@OneToMany`      | One-to-many relationship                    |
-| `@ManyToOne`      | Many-to-one relationship                    |
-| `@ManyToMany`     | Many-to-many relationship                   |
-| `@JoinColumn`     | Foreign key                                 |
-| `@JoinTable`      | Join table                                  |
-| `@Enumerated`     | Enum mapping                                |
-| `@Temporal`       | Date/time mapping (legacy `java.util.Date`) |
+| Annotation | Purpose |
+| --- | --- |
+| `@Entity` | Marks entity class |
+| `@Table` | Maps to table |
+| `@Id` | Primary key |
+| `@GeneratedValue` | Auto-generated ID |
+| `@Column` | Maps column |
+| `@Transient` | Ignores field |
+| `@OneToOne` | One-to-one relationship |
+| `@OneToMany` | One-to-many relationship |
+| `@ManyToOne` | Many-to-one relationship |
+| `@ManyToMany` | Many-to-many relationship |
+| `@JoinColumn` | Foreign key mapping |
+| `@JoinTable` | Join table mapping |
+| `@Enumerated` | Enum mapping |
+| `@Temporal` | Date/time mapping |
 
 ---
 
-# 13. Testing
+## Testing
 
-| Annotation        | Purpose               |
-| ----------------- | --------------------- |
-| `@SpringBootTest` | Full application test |
-| `@WebMvcTest`     | Controller test       |
-| `@DataJpaTest`    | JPA test              |
-| `@MockBean`       | Mock Spring Bean      |
-| `@Test`           | JUnit test            |
-| `@BeforeEach`     | Before each test      |
-| `@AfterEach`      | After each test       |
+| Annotation | Purpose |
+| --- | --- |
+| `@SpringBootTest` | Full application context test |
+| `@WebMvcTest` | Controller testing |
+| `@DataJpaTest` | JPA repository testing |
+| `@MockBean` | Mocks Spring bean |
+| `@Test` | JUnit test |
+| `@BeforeEach` | Runs before each test |
+| `@AfterEach` | Runs after each test |
 
 ---
 
-# 14. Commonly Used in Your Restaurant Management System
+## Most Used in a REST Project
 
-Since your project uses **Spring Boot + Spring JDBC + REST API + JWT**, you'll most frequently use:
+These are the most important for a Spring Boot REST API project:
 
 ```java
 @SpringBootApplication
@@ -328,4 +325,4 @@ Since your project uses **Spring Boot + Spring JDBC + REST API + JWT**, you'll m
 @Value
 ```
 
-These annotations cover most of the development needed for a Spring Boot REST application like your Restaurant Management System.
+These annotations cover most of the work for a Spring Boot REST application.

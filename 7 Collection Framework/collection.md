@@ -1,3684 +1,846 @@
-Collection Framework
-Q. What is Collection & Why use Collection Framework ?
+﻿# Collection Framework in Java
 
-Collection:
-Collection is a ready-made implementation of data structures provided by Java. It is used to store and manage a group of objects dynamically.
+[Overview](#collection-framework-overview) | [Iterable & Collection](#iterable-and-collection) | [List](#list-interface) | [Set](#set-interface) | [Map](#map-interface) | [Cursors](#cursors-in-collection-framework) | [Generics](#generics) | [Wrapper Classes](#wrapper-classes) | [Collections Utility](#collections-class)
 
-Important Points / Reasons to Use Collection Framework
+---
 
-    1. Store Different Types of Data
-    Collections allow us to store different types of objects.
+## Collection Framework Overview
 
-    2. Dynamic Size
-    Collections can increase or decrease their size at runtime according to user requirements.
+A collection is a ready-made implementation of a data structure provided by Java. It is used to store and manage a group of objects dynamically.
 
-    3. Ready-made Data Structure Implementation
-    The Collection Framework provides built-in implementations of data structures and algorithms, so developers do not need to implement them manually.
+### Why use Collection Framework?
 
-    4. Thread Safety Support
-    Some collection classes provide thread-safe operations.
+- dynamic storage of objects
+- automatic resizing
+- built-in operations like add, remove, search, sort
+- type safety through generics
+- reduces manual data-structure coding
 
-    5. Generic Support
-    Collections support Generics, which provide type safety and help avoid storing the wrong type of data.
+### Limitations of Object Arrays
 
-Note
-If we use an Object class array in Java, we can store different types of data in it.
+If we use an `Object[]`, we can store different types of data, but it has drawbacks:
 
-Example:
+- fixed size
+- no built-in methods for search, sort, and manipulation
+- type safety is poor
+- code becomes messy and less reusable
 
-public class ObjARRAPP
-{
-    public static void main(String x[])
-    {
-        Object arr[] = new Object[5];
-        //Object → It is the parent class of all classes in Java
+Because of these limitations, Java provides the Collection Framework.
 
-        arr[0] = false;
-        arr[1] = "good";
-        arr[2] = new java.util.Date();
-        arr[3] = 5.4f;
-        arr[4] = 100L;
+### Main hierarchy
 
-        for(int i=0; i<arr.length; i++)
-        {
-            System.out.println(arr[i]);
-        }
-    }
-}
+```java
+java.lang.Iterable
+    |
+java.util.Collection
+    |
+    +-- List
+    +-- Set
+    +-- Queue
+```
 
-But this approach has some limitations:
+`Map` is separate from the Collection hierarchy but is very commonly used with collections.
 
-    The array size cannot expand at runtime.
-    We must write manual logic for operations such as:
-        Searching elements
-        Inserting elements
-        Deleting elements
- 
-Because of these limitations, Java provides built-in data structure implementations called the Collection Framework.
+---
 
-Conclusion
+## Iterable and Collection
 
-If we want to work with the Collection Framework, Java provides a Collection Hierarchy that includes interfaces and classes such as:
-These help developers store, manage, and manipulate data easily.
+### Iterable Interface
 
-java.lang.Iterable(interface)
-        │
-java.util.Collection(i)
-        |
-        ├── List(i)
-        │    ├── ArrayList(class)
-        │    ├── LinkedList(c)
-        │    └── Vector(c) → Stack(c)
-        │
-        ├── Set(i)
-        │    ├── HashSet(c)
-        │    ├── LinkedHashSet(c)
-        |    └── SortedSet(i)  -> TreeSet(c) 
-        │   
-        │
-        └── Queue(i)
-            ├── PriorityQueue (c)
-            └── Deque(i) → LinkedList (c)
+`Iterable` is the root interface of the Java Collection Framework.
 
-------------------------------------------------------
+It is present in `java.lang` and is used to iterate through elements of a collection.
 
-Q4. Explain Iterable Interface in Detail
-
-The Iterable interface is the root interface of the Java Collection Framework. It is present in the java.lang package and is used to traverse (iterate) elements of a collection.
-
-It provides the ability to retrieve or fetch data from collection objects such as List, Set, etc.
-
-All collection classes implement the Iterable interface either directly or indirectly.
-
-Main Method of Iterable Interface
-The Iterable interface contains one important abstract method:
-interface iterable
+```java
+public interface Iterable<T>
 {
     Iterator<T> iterator();
 }
+```
 
-This method returns an object of the Iterator interface, which is used to iterate through the collection elements.
+### Iterator Interface
 
-Iterator Interface
+`Iterator` is present in `java.util` and is used to fetch collection elements one by one.
 
-The Iterator interface is present in the java.util package and is used to retrieve elements one by one from a collection.
-
-Internal structure:
-
-public interface java.util.Iterator<E> 
+```java
+public interface Iterator<E>
 {
-    public abstract boolean hasNext();
-    public abstract E next();
-    public default void remove();
-    public default void forEachRemaining(java.util.function.Consumer<? super E> action);
+    boolean hasNext();
+    E next();
+    default void remove();
 }
+```
 
-Methods of Iterator Interface
+#### Important methods
 
-1. public abstract boolean hasNext()
+- `hasNext()` → checks if more elements exist
+- `next()` → returns the next element
+- `remove()` → removes current element during iteration
 
-Checks whether the next element is available in the collection.
-Returns true if an element exists, otherwise false.
-Example meaning:
-If next element exists → true
-If no more elements → false
+### Example
 
-2. public abstract E next()
-
-Retrieves the next element from the collection.
-After fetching the element, the cursor moves to the next position.
-
-3. public default void remove()
-
-Removes the current element from the collection during iteration.
-It is an optional operation.
-
-4. forEachRemaining(Consumer action)
- public default void forEachRemaining(java.util.function.Consumer<? super E> action);
-
-Introduced in Java 8.
-Used to perform an action on all remaining elements.
-
-Example of Iterable and Iterator
-
+```java
 import java.util.*;
-public class Test 
+
+public class Test
 {
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
         ArrayList<Integer> list = new ArrayList<>();
         list.add(10);
         list.add(20);
         list.add(30);
 
-        Iterator<Integer> it = list.iterator<>();
-
-        while(it.hasNext()) 
-            {
-                System.out.println(it.next());
-            }
-    }
-}
-Output
-10
-20
-30
-<!-- ArrayList → dynamic array class in Java
-<Integer> → Generic type (stores only Integer values)
-list → variable name
-new ArrayList<>() → creates the object -->
-<!-- Iterator is used to traverse (loop through) collection elements
-list.iterator() returns an iterator for the ArrayList
-it is the iterator variable -->
-
-Important Points (Interview)
-    Iterable is the root interface of the Collection framework.
-    It allows traversing elements using Iterator.
-    It provides the iterator() method.
-    The Iterator interface provides methods like hasNext() and next() for fetching data.
----------------------------------------------------------
-
-Q5. Explain the Collection Interface with its Methods
-
-The Collection interface is a part of the java.util package. 
-It is the root interface of the Java Collection Framework (except Map) and it extends the Iterable interface.
-
-The Collection interface provides common methods that are required by all collection classes to perform operations such as adding elements, removing elements, checking size, searching elements, etc.
-
-All major collection interfaces like List, Set, and Queue inherit from the Collection interface.
-
-Hierarchy
-Iterable
-   │
-Collection
- ├── List
- ├── Set
- └── Queue
-
-Important Methods of Collection Interface 
-
-1️⃣ int size()
-        int size = al.size();   // get number of elements
-
-2️⃣ boolean isEmpty()
-        boolean b = al.isEmpty();  // check if list is empty
-
-3️⃣ boolean contains(Object o)
-        boolean b = al.contains(20);   // check if 20 exists in list
-
-4️⃣ Iterator<E> iterator()
-        Iterator i = al.iterator();  // create Iterator object
-
-5️⃣ Object[] toArray()
-        Object[] obj = al.toArray();   // convert ArrayList to array
-
-6️⃣ boolean add(E e)
-        boolean b = al.add(10);   // add element and store result
- 
-7️⃣ boolean remove(Object o)
-    1️⃣ boolean b = al.remove(Integer.valueOf(30)); //value
-	2️⃣ boolean b = al.remove(30); //index
-
-8️⃣ boolean containsAll(Collection<?> c)
-		        boolean b = al.containsAll(c); //all c element prasent in al
-
-9️⃣ boolean addAll(Collection<? extends E> c)
-        boolean b = al.addAll(c);   // collection1.addAll(collection2);
-
-🔟 boolean removeAll(Collection<?> c)
-        Object value = list.remove(1); // remove(1) removes the element at index 1 //Index 1 = 20
-
-    import java.util.*;
-    public class Demo {
-        public static void main(String[] args) {
-
-            ArrayList<Integer> list1 = new ArrayList<>(Arrays.asList(10, 20, 30, 40));
-            ArrayList<Integer> list2 = new ArrayList<>(Arrays.asList(20, 40));
-
-            list1.removeAll(list2);
-
-            System.out.println(list1); // Output: [10, 30]
-        }
-    }
-
-1️⃣1️⃣ indexOf(Object obj)
-        int index = list.indexOf(20); // If the element is found, it returns its index otherwise -1
-
-1️⃣2️⃣ lastIndexOf(Object obj) 
-        System.out.println(list.lastIndexOf(20));   //If element exists multiple times, it returns last index.
-
-1️⃣3️⃣ listIterator(int index)
-        ListIterator it = list.listIterator(1); //starting from the specified index and allows traversal in both forward and backward directions.
-
-1️⃣4️⃣ subList(int fromIndex, int toIndex)
-System.out.println(list.subList(1,3)); //new list containing elements between specified indexes.
-
-1️⃣ int size()
-    Returns the number of elements present in the collection.
-int size = list.size();
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList al = new ArrayList();   // create ArrayList
-
-        al.add(10);   // add element
-        al.add(20);   // add element
-        al.add(30);   // add element
-
-        int size = al.size();   // get number of elements
-
-        System.out.println("Number of element present in al " + size);
-    }
-}
-
-2️⃣ boolean isEmpty()
-    Checks whether the collection is empty or not.
-    Returns true if collection is empty
-    Returns false if elements exist
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList al = new ArrayList();   // create ArrayList
-
-        boolean b = al.isEmpty();         // check if list is empty
-
-        if(b)
-        {
-            System.out.println("Arraylist is empty");
-        }
-        else
-        {
-            System.out.println("Arraylist is not empty");
-        }
-    }
-}
-
-3️⃣ boolean contains(Object o)
-    Checks whether a specified element exists in the collection.
-    Returns true if element is present
-    Otherwise returns false
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList al = new ArrayList();   // create ArrayList
-
-        al.add(10);   // add element
-        al.add(20);   // add element
-        al.add(30);   // add element
-
-        boolean b = al.contains(20);   // check if 20 exists in list
-
-        if(b)
-        {
-            System.out.println("Element found");
-        }
-        else
-        {
-            System.out.println("Element not found");
-        }
-    }
-}
-
-4️⃣ Iterator<E> iterator()
-    Returns an Iterator object used to traverse (retrieve) elements from the collection.
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList al = new ArrayList();   // create ArrayList object
-        al.add(10);                       // add element 10
-        al.add(20);                       // add element 20
-        al.add(30);                       // add element 30
-
-        Iterator i = al.iterator();       // create Iterator object
-
-        while(i.hasNext())                // check if next element exists
-        {
-            Object obj = i.next();        // get next element from list
-            System.out.println(obj);      // print element
-        }
-    }
-}
-
-5️⃣ Object[] toArray()
-    Converts the collection into an array of objects.
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList al = new ArrayList();
-        al.add(10);
-        al.add(20);
-        al.add(30);
-
-        Object[] obj = al.toArray();   // convert ArrayList to array
-
-        for(Object o : obj)            // traverse array
-        {
-            System.out.print(o + "\t");
-        }
-    }
-}
-
-Output
-10
-20
-30
-
-| Feature    | ArrayList                                    | Array                             |
-| ---------- | -------------------------------------------- | --------------------------------- |
-| Size       | Dynamic (can grow or shrink)                 | Fixed size                        |
-| Package    | `java.util` package                          | `java.lang`                       |
-| Data Type  | Stores **objects only**                      | Can store **primitive + objects** |
-| Memory     | Resizable automatically                      | Fixed memory                      |
-| Methods    | Many methods (`add()`, `remove()`, `size()`) | Very few methods                  |
-| Conversion | Can convert to Array using `toArray()`       | No conversion needed              |
-
-6️⃣ boolean add(E e)
-    Adds a new element to the collection.
-    Returns true if element is added successfully.
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList al = new ArrayList();   // create ArrayList
-
-        boolean b = al.add(10);           // add element and store result
-
-        if(b)
-        {
-            System.out.println("Element added in collection");
-        }
-        else
-        {
-            System.out.println("Element not added");
-        }
-    }
-}
-7️⃣ boolean remove(Object o)
-    Removes the specified element from the collection.
-    Returns true if the element is removed.
-
-    1️⃣ boolean b = al.remove(Integer.valueOf(30));
-    Meaning:
-    Removes the element with value 30 from the ArrayList.
-    2️⃣ boolean b = al.remove(30);
-    Meaning:
-    Removes the element at index 30 (not value 30).
-
-import java.util.*;
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList al = new ArrayList();
-
-        al.add(10);
-        al.add(20);
-        al.add(30);
-
-        boolean b = al.remove(Integer.valueOf(30)); // remove element 30
-
-        if(b)
-        {
-            System.out.println("Element removed");
-        }
-        else
-        {
-            System.out.println("Element not removed");
-        }
-    }
-}
-
-
-8️⃣ boolean containsAll(Collection<?> c)
-    Checks whether all elements of another collection exist in this collection.
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList al = new ArrayList();
-        al.add(10);
-        al.add(20);
-        al.add(30);
-        al.add(40);
-
-        Collection c = new ArrayList();
-        c.add(20);
-        c.add(30);
-
-        boolean b = al.containsAll(c); //all c element prasent in al
-
-        if(b)
-        {
-            System.out.println("All elements found");
-        }
-        else
-        {
-            System.out.println("Elements not found");
-        }
-    }
-}
-
-
-9️⃣ boolean addAll(Collection<? extends E> c)
-    Adds all elements of another collection into the current collection.
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList al = new ArrayList();
-        al.add(10);
-        al.add(20);
-        al.add(30);
-        al.add(40);
-
-        Collection c = new ArrayList(); // Create Collection c
-        c.add(50);
-        c.add(60);
-        c.add(70);
-
-        boolean b = al.addAll(c);   // collection1.addAll(collection2);
-
-        if(b)
-        {
-            System.out.println("Elements added");
-        }
-        else
-        {
-            System.out.println("Elements not added");
-        }
-    }
-}
-
-🔟 boolean removeAll(Collection<?> c)
-    Removes all elements from the current collection that are present in another collection.
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList list = new ArrayList();
-        list.add(10);
-        list.add(20);
-        list.add(30);
-        list.add(40);
-        list.add(50);
-
-        Object value = list.remove(1); // remove(1) removes the element at index 1 //Index 1 = 20
-
-       //list.removeAll(c);
-       
-        System.out.println("Removed element: " + value);
-        System.out.println("ArrayList after removal: " + list);
-    }
-}
-
-List → [10, 20, 30]
-remove(1) → [10, 30] //
-remove(Integer.valueOf(20)) → [10, 30]
------------------------------------------------------------
-
-1️⃣1️⃣ indexOf(Object obj)
-
-Definition:
-This method returns the index of the first occurrence of the specified element in the list.
-
-    If the element is found, it returns its index.
-    If the element is not found, it returns -1.
-
-import java.util.*;
-public class Test {
-    public static void main(String x[]){
-
-        ArrayList list = new ArrayList();
-        list.add(10);
-        list.add(20);
-        list.add(30);
-        list.add(40);
-        list.add(50);
-
-        int index = list.indexOf(20);
-
-        if(index!=-1)
-        {
-            System.out.println("element found");
-        }
-        else
-        {
-            System.out.println("element not found");
-        }
-    }
-}
-
-Output
-Element found
-
-
-1️⃣2️⃣ lastIndexOf(Object obj)
-
-Definition:
-This method returns the index of the last occurrence of the specified element in the list.
-    If element exists multiple times, it returns last index.
-    If element not found, it returns -1.
-
-Syntax
-
-int lastIndexOf(Object obj)
-
-Example
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList list = new ArrayList();
-        list.add(10);
-        list.add(20);
-        list.add(30);
-        list.add(20);
-
-        System.out.println(list.lastIndexOf(20));
-    }
-}
-
-Output
-3
-
-Explanation:
-The last occurrence of 20 is at index 3.
-
-1️⃣3️⃣ listIterator(int index)
-
-Definition:
-This method returns a ListIterator object starting from the specified index and allows traversal in both forward and backward directions.
-
-Syntax
-
-ListIterator listIterator(int index)
-
-Example
-
-import java.util.*;
-
-public class Test {
-    public static void main(String[] args) {
-
-        ArrayList list = new ArrayList();
-        list.add(10);
-        list.add(20);
-        list.add(30);
-
-        ListIterator it = list.listIterator(1); //starts from element 20.
-
-        while(it.hasNext())
+        Iterator<Integer> it = list.iterator();
+        while (it.hasNext())
         {
             System.out.println(it.next());
         }
     }
 }
+```
 
-Output
+Output:
+
+```java
+10
 20
 30
+```
 
-Explanation:
-Iteration starts from index 1.
+### Collection Interface
 
-1️⃣4️⃣ subList(int fromIndex, int toIndex)
+`Collection` is a root interface of the framework (except `Map`).
 
-Definition:
-This method returns a new list containing elements between specified indexes.
+It extends `Iterable` and provides common methods like:
 
-fromIndex → starting index (included)
-toIndex → ending index (excluded)
+- `int size()`
+- `boolean isEmpty()`
+- `boolean contains(Object o)`
+- `Iterator<E> iterator()`
+- `Object[] toArray()`
+- `boolean add(E e)`
+- `boolean remove(Object o)`
+- `boolean containsAll(Collection<?> c)`
+- `boolean addAll(Collection<? extends E> c)`
+- `boolean removeAll(Collection<?> c)`
 
-Syntax
+### Example of collection methods
 
-List subList(int fromIndex, int toIndex)
+```java
+import java.util.*;
 
-Example
+public class Test
+{
+    public static void main(String[] args)
+    {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(10);
+        list.add(20);
+        list.add(30);
 
-ArrayList list = new ArrayList();
+        System.out.println(list.size());
+        System.out.println(list.contains(20));
+        System.out.println(list.isEmpty());
+    }
+}
+```
+
+---
+
+## List Interface
+
+`List` is an ordered collection that allows duplicate elements.
+
+### Features
+
+- maintains insertion order
+- allows duplicates
+- supports index-based access
+- supports `ListIterator`
+
+### Common list implementations
+
+- `ArrayList`
+- `LinkedList`
+- `Vector`
+- `Stack`
+
+### Example
+
+```java
+import java.util.*;
+
+public class Test
+{
+    public static void main(String[] args)
+    {
+        List<Integer> list = new ArrayList<>();
+        list.add(10);
+        list.add(20);
+        list.add(30);
+
+        System.out.println(list);
+        System.out.println(list.get(1));
+    }
+}
+```
+
+### Important List Methods
+
+- `indexOf(Object obj)` → first matching index
+- `lastIndexOf(Object obj)` → last matching index
+- `subList(int fromIndex, int toIndex)` → returns a sublist
+- `listIterator()` → traverses in both directions
+
+### Example of `subList()`
+
+```java
+List<Integer> list = new ArrayList<>();
 list.add(10);
 list.add(20);
 list.add(30);
 list.add(40);
 
-System.out.println(list.subList(1,3));
+System.out.println(list.subList(1, 3));
+```
 
-Output
+Output:
 
+```java
 [20, 30]
+```
 
-Explanation:
-Elements from index 1 to 2 are returned.
+---
 
---------------------------------------------------------------------------
+## ArrayList
 
-Q8. Explain Vector Class and Why Vector is Thread Safe and Legacy
-Vector Class
+`ArrayList` is a dynamic array implementation of `List`.
 
-Vector is a dynamic array present in the java.util package.
-It is a legacy collection and also a thread-safe collection.
+### Features
 
-Vector stores elements dynamically and automatically increases its capacity when needed.
+- dynamic size
+- non-legacy collection
+- insertion order is maintained
+- faster for retrieval
+- slower for insertion/deletion in middle
 
-1️⃣ Legacy Collection
+### Constructors
 
-Definition:
-Legacy collections are the collection classes that existed before the Collection Framework (before JDK 1.2) and were later included in the framework.
+```java
+ArrayList<Integer> list1 = new ArrayList<>();
+ArrayList<Integer> list2 = new ArrayList<>(10);
+ArrayList<Integer> list3 = new ArrayList<>(list1);
+```
 
-Examples:
-    Vector
-    Stack
-    Hashtable
-    Enumeration
+### Example
 
-Why Vector is legacy?
-    Vector was introduced in Java 1.0
-    The Collection Framework was introduced in JDK 1.2
-    Later Vector was included in the collection framework
-    Therefore, Vector is called a legacy collection.
-
-2️⃣ Thread Safe Collection
-A collection is thread safe when multiple threads can use the same collection object without data inconsistency.
-    Vector methods are synchronized, so:
-        Only one thread can access the object at a time
-        Threads use the object one by one
-        Because of synchronization, Vector is thread safe.
-
-3️⃣ Constructors of Vector
-1. Vector()
-Creates a vector with default capacity = 10
-    Vector v = new Vector();
-
-Internally it creates:
-    Object[10]
-
-If capacity is exceeded, Vector doubles its size.
-
-Example:
-10 → 20 → 40 → 80
-
-2. Vector(int capacity)
-
-Creates vector with user-defined capacity.
-    Vector v = new Vector(5);
-    Initial capacity = 5
-
-3. Vector(int initialCapacity, int incrementalCapacity)
-
-Allows user to set:
-Initial capacity
-Incremental capacity
-
-Vector v = new Vector(5,2);
-
-Meaning:
-Initial size = 5
-Next increase = +2
-
-Example growth:
-5 → 7 → 9 → 11
-
-4. Vector(Collection c)
-
-Copies data from another collection into the vector.
-
-ArrayList list = new ArrayList();
-list.add(10);
-list.add(20);
-Vector v = new Vector(list);
-
-5. Important Points about Vector
-
-    Vector is a dynamic array
-    It is a legacy collection
-    It is thread safe
-    Default capacity = 10
-    When capacity exceeds → size doubles
-    User can customize capacity using constructors
-    Vector internally uses constructor chaining
-
-6 .Example Program
-
-Write a program to store 5 values in Vector and display them
-
+```java
 import java.util.*;
-public class Test 
-{
-    public static void main(String[] args) 
-    {
 
-        Vector v = new Vector(4,2);
-
-        v.add(10);
-        v.add(20);
-        v.add(30);
-        v.add(40);
-        v.add(50);
-
-        System.out.println("Vector elements:");
-
-        for(Object obj : v)
-        {
-            System.out.println(obj);
-        }
-        System.out.println("Size is "+v.size());
-        System.out.println("Capacity after crossing "+v.capacity());
-    }
-}
-Output
-Vector elements:
-10
-20
-30
-40
-50
-Size is 5
-Capacity after crossing 6
-
-------------------------------------------------------------------------
-
-Q9. Explain Cursors / Iterators in Collection and Why We Use Them
-Cursor in Collection
-
-A Cursor is used to retrieve (fetch) elements from a collection object one by one.
-
-In Java Collection Framework, cursors help us traverse elements of a collection such as:
-    ArrayList
-    Vector
-    LinkedList
-    HashSet
-
-Why We Use Cursor
-    Cursor is used because:
-    Collections store multiple elements
-    To read elements one by one
-    To traverse the collection
-
-Types of Cursor in Java
-
-There are five types of cursors in Java:
-    Iterator
-    Enumeration
-    ListIterator
-    Enhanced For Loop (for-each loop)
-    forEach() method (introduced in JDK 1.8)
--------------------------------------------------------------------------
-Q10. Explain Iterator Interface
-Iterator Interface
-
-Iterator is a cursor interface present in the java.util package.
-It is used to traverse elements of a collection in forward direction only.
-
-Iterator works with all collection classes such as:
-    ArrayList
-    Vector
-    HashSet
-    LinkedList
-
-Syntax
-Iterator i = collection.iterator();
-
-Methods of Iterator Interface
-1. boolean hasNext()
-    This method checks whether the next element is present in the collection.
-    Returns:
-    true → if element exists
-    false → if element does not exist
-
-Example
-while(i.hasNext())
-
-2. Object next()
-This method returns the next element and moves the cursor to the next position.
-
-Example
-Object obj = i.next();
-
-3. void remove()
-This method removes the current element from the collection using iterator.
-Example
-i.remove();
-
-Example 1
-WAP to store values in Vector and calculate sum using Iterator
-
-import java.util.*;
-public class VCAPP
-{
-    public static void main(String x[])
-    {
-        Vector v = new Vector();
-
-        v.add(10);
-        v.add(20);
-        v.add(30);
-        v.add(40);
-
-        Iterator i = v.iterator();
-
-        int sum = 0;
-
-        while(i.hasNext())
-        {
-            Object obj = i.next();
-
-            sum = sum + (int)obj;   // downcasting
-            System.out.println(obj);
-        }
-        System.out.println("Sum is " + sum);
-    }
-}
-Output
-10
-20
-30
-40
-Sum is 100
-
-Note
-Iterator returns Object type.
-To perform operations like addition or comparison, we must convert it to its original type using downcasting.
-
-Example 2
-WAP to find maximum value from Vector
-
-import java.util.*;
-public class MAXVECTAPP
-{
-    public static void main(String x[])
-    {   
-        Vector v = new Vector();
-         
-        v.add(9);
-        v.add(2);
-        v.add(12);
-        v.add(43);
-        v.add(5);
-
-        int max = (int)v.get(0);
-
-        Iterator i = v.iterator();
-
-        while(i.hasNext())
-        {
-            Object obj = i.next();
-
-            if((int)obj > max)
-            {
-                max = (int)obj;
-            }
-        }
-        System.out.println("MAX value is " + max);
-    }
-}
-
-Output
-MAX value is 43
-
-Example 3
-WAP to sort Vector without using built-in sorting method
-
-import java.util.*;
-public class MAXVECTAPP
-{
-    public static void main(String x[])
-    {
-        Vector v = new Vector();
-
-        v.add(9);
-        v.add(2);
-        v.add(12);
-        v.add(43);
-        v.add(5);
-
-        int size = v.size();
-
-        System.out.println("Vector before sort " + v);
-
-        for(int i = 0; i < size; i++)
-        {
-            for(int j = i + 1; j < size; j++)
-            {
-                Object prev = v.get(i); 
-                Object next = v.get(j);
-
-                if((int)prev > (int)next)
-                {
-                    v.set(i, next);
-                    v.set(j, prev);
-                }
-            }
-        }
-        System.out.println("Vector after sort " + v);
-    }
-}
-
-Output
-Vector before sort [9, 2, 12, 43, 5]
-Vector after sort [2, 5, 9, 12, 43]
-
-Important Points
-    Cursor is used to traverse collection elements
-    Iterator is the most commonly used cursor
-    Iterator works only in forward direction
-    Iterator provides hasNext(), next(), remove() methods
-------------------------------------------------------------------------
-
-Q11. Explain Enumeration Interface
-
-Enumeration Interface
-
-Enumeration is a cursor interface present in the java.util package.
-It is used to retrieve (fetch) elements from a collection one by one.
-
-Enumeration works mainly with legacy collection classes such as:
-    Vector
-    Stack
-    Hashtable
-
-Why Enumeration is called Read-Only Cursor
-    Enumeration is called a read-only cursor because:
-    It can only read (fetch) elements
-    It cannot add elements
-    It cannot remove elements
-    So Enumeration is only used for traversal, not modification.
-
-Creating Enumeration Object
-
-To create a reference of Enumeration we use the elements() method available in legacy classes.
-
-Syntax
-    Enumeration ref = collection.elements();
-
-Example                             
-    Vector v = new Vector();
-    Enumeration e = v.elements();
-
-Methods of Enumeration Interface
-
-1️⃣ boolean hasMoreElements()
-This method checks whether more elements are available in the collection.
-Returns:
-true → if element exists
-false → if no more elements exist
-
-Example
-Vector v = new Vector();
-Enumeration e = v.elements();
-while(e.hasMoreElements())
-
-2️⃣ Object nextElement()
-This method returns the next element from the collection and moves the cursor forward.
-
-Example
-Object obj = e.nextElement();
-
-Example Program
-WAP to store values in Vector and display them using Enumeration
-
-import java.util.*;
-public class EnumExample
-{
-    public static void main(String args[])
-    {
-        Vector v = new Vector();
-
-        v.add(10);
-        v.add(20);
-        v.add(30);
-        v.add(40);
-
-        Enumeration e = v.elements();
-
-        while(e.hasMoreElements())
-        {
-            System.out.println(e.nextElement());
-        }
-    }
-}
-Output
-10
-20
-30
-40
-
-------------------------------------------------------------------------
-Q12. Explain ListIterator Interface
-ListIterator Interface
- 
-ListIterator is a cursor interface present in the java.util package.
-It is a child interface of the Iterator interface, so it contains all methods of Iterator along with some additional methods.
-
-ListIterator is used to traverse elements of a List collection in both directions.
-
-It works with List classes only, such as:
-    ArrayList
-    Vector
-    LinkedList
-
-Features of ListIterator
-    Traverse elements forward and backward
-    Add elements during traversal
-    Remove elements
-    Replace elements
-    Works only with List type collections
-
-Creating ListIterator Object
-To create a ListIterator reference we use the listIterator() method.
-
-Syntax
-    ListIterator ref = collection.listIterator();
-or
-    ListIterator ref = collection.listIterator(int index);
-
-Example
-
-ListIterator it = list.listIterator(1);
-
-Methods of ListIterator
-1️⃣ boolean hasNext()
-    Checks if the next element exists when moving forward.
-
-2️⃣ E next()
-    Returns the next element and moves the cursor forward.
-
-3️⃣ boolean hasPrevious()
-Checks if the previous element exists when moving backward.
-
-4️⃣ E previous()
-Returns the previous element and moves the cursor backward.
-
-5️⃣ int nextIndex()
-Returns the index of the next element during forward traversal.
-
-6️⃣ int previousIndex()
-Returns the index of the previous element during backward traversal.
-
-7️⃣ void remove()
-Removes the current element from the collection.
-
-8️⃣ void set(E e)
-Replaces the current element with a new element.
-
-9️⃣ void add(E e)
-Adds a new element into the collection during traversal.
-
-Example
-WAP to traverse Vector in forward direction using ListIterator
-
-import java.util.*;
-public class ListIteratorExample
-{
-    public static void main(String args[])
-    {
-        Vector v = new Vector();
-
-        v.add(10);
-        v.add(20);
-        v.add(30);
-
-        ListIterator it = v.listIterator();
-
-        while(it.hasNext())
-        {
-            System.out.println(it.next());
-        }
-    }
-}
-Output
-10
-20
-30
-
-Example
-WAP to traverse Vector in backward direction
-
-import java.util.*;
-public class ListIteratorExample
-{
-    public static void main(String args[])
-    {
-        Vector v = new Vector();
-
-        v.add(10);
-        v.add(20);
-        v.add(30);
-
-        ListIterator it = v.listIterator(v.size());
-
-        while(it.hasPrevious())
-        {
-            System.out.println(it.previous());
-        }
-    }
-}
-
-Output
-30
-20
-10
-
-Important Points
-    ListIterator is a child interface of Iterator
-    It allows bidirectional traversal
-    It can add, remove, and replace/set  elements
-    Works only with List collections
-    Provides more functionality than Iterator
-
------------------------------------------------------------------------
-Example: WAP to perform the following operation on collection?
-Case 1: Add New Element 
-Case 2: View All Elements 
-Case 3: Search element 
-Case 4: delete element 
-Case 5: return size of collection 
-Case 6: search using index 
-Etc 
-
-import java.util.*;
-public class CollApplication
-{  
-   public static void main(String x[])
-   {  
-      Vector v = new Vector();
-      Scanner xyz  = new Scanner(System.in);
-	  do{
-	    System.out.println("1:Add New Element");
-		System.out.println("2:View All");
-		System.out.println("3:Search using contains");
-		System.out.println("4:Delete ");
-		System.out.println("5:return size");
-		System.out.println("6:Search using index");
-		System.out.println("Enter your choice");
-		int choice = xyz.nextInt();
-		switch(choice)
-		{
-		   case 1:
-		   System.out.println("Enter data");
-		   int data = xyz.nextInt();
-		   boolean b = v.add(data);
-		   if(b)
-		   {
-                System.out.println("data added");
-		   }
-		   else
-            {
-		        System.out.println("Data not added");
-		    }
-		   break;
-		   case 2:
-		   Iterator i = v.iterator();
-		   while(i.hasNext())
-		   { 
-                Object obj = i.next();
-		        System.out.println(obj);
-		   }
-		   break;
-		   case 3:
-		   System.out.println("enter data for search");
-		   data = xyz.nextInt();
-		   b = v.contains(data);
-		   if(b)
-		   { 
-              System.out.println("Data found");
-		   }
-		   else
-           {
-		        System.out.println("data not found");
-		   }
-		   break;
-		   case 4:
-		    System.out.println("enter data for delete");
-		    data = xyz.nextInt();
-		    int index = v.indexOf(data);
-			if(index!=-1)
-			{  
-                v.remove(index);
-			}
-			else
-            {
-			   System.out.println("Value not found");
-			}
-		   break;
-		   case 5: 
-		   System.out.println("Size of vector  "+v.size());
-		   break;
-		   case 6:
-		   System.out.println("Enter data for search");
-		    data = xyz.nextInt();
-	        index = v.indexOf(data);
-			if(index!=-1)
-			{   
-                System.out.println("Value found");
-			}
-			else
-            {
-			   System.out.println("Value not found");
-			}
-		   break;
-		   case 7:
-		   System.exit(0);
-		   break;
-		   default:
-		   System.out.println("Wrong choice");  
-		}
-	  }
-      while(true);//infinite loop 
-   }
-}
-------------------------------------------------------------------------
-How to Store User Defined Objects in Collection (Java)
-
-In Java Collections, we can store user-defined objects (objects of our own class) such as Employee, Player, etc. inside collection classes like Vector, ArrayList, LinkedList, etc.
-
-The collection actually stores objects as Object type, so when we retrieve them we must convert (typecast / downcast) them back to the original class.
-
-Steps to Store User Defined Objects in Collection
-
-    Create a user-defined class (POJO class) with fields, getters, and setters.
-    Create objects of that class.
-    Create a collection object like Vector, ArrayList, etc.
-    Add objects to the collection using add() method.
-    Retrieve objects using Iterator.
-    Downcast the Object into the original class type to use its methods.
-
-Example: Store Employee Objects in Collection
-Step 1: Create Employee Class
-
-class Employee 
-{
-    private int id;
-    private String name;
-    private int sal;
-
-    public Employee(String name, int id, int sal) {
-        this.name = name;
-        this.id = id;
-        this.sal = sal;
-    }
-<!-- 
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-    public void setName()
-    {
-        this.name = name;
-    }
-    public void setSal()
-    {
-        this.sal = sal;
-    } -->
-
-    public int getId() 
-    {
-        return id;
-    }
-
-    public String getName() 
-    {
-        return name;
-    }
-
-    public int getSal()
-    {
-        return sal;
-    }
-}
-
-Step 2: Store Objects in Collection
-
-import java.util.*;
-public class EmployeeApplication 
-{
-    public static void main(String[] args) 
-    {
-        Vector v = new Vector();
-
-<!-- Employee emp1 = new Employee();
-        emp1.setName("ABC");
-        emp1.setId(1);
-        emp1.setSal(10000);
-
-        Employee emp2 = new Employee();
-        emp2.setName("MNO");
-        emp2.setId(2);
-        emp2.setSal(20000);
-
-        Employee emp3 = new Employee();
-        emp3.setName("STV");
-        emp3.setId(3);
-        emp3.setSal(14000);
-
-        v.add(emp1);
-        v.add(emp2);
-        v.add(emp3); -->
-
-<!-- Employee emp1 = new Employee("ABC",1,10000);
-        Employee emp2 = new Employee("MNO",2,20000);
-        Employee emp3 = new Employee("STV",3,3000);
-        v.add(emp1);
-        v.add(emp2);
-        v.add(emp3); -->
-
-        v.add(new Employee("ABC",1,10000));
-        v.add(new Employee("MNO",2,20000));
-        v.add(new Employee("STV",3,144000));
-
-        Iterator i = v.iterator();
-
-        while(i.hasNext()) 
-        {
-            Object obj = i.next();
-            Employee e = (Employee)obj;   // Downcasting
-
-            System.out.println(e.getId()+"\t"+e.getName()+"\t"+e.getSal());
-        }
-    }
-}
-
-Example: Search Player by ID
-
-import java.util.*;
-class Player 
-{
-    private int id;
-    private String name;
-    private int run;
-
-    public Player(String name, int id, int run) 
-    {
-        this.name = name;
-        this.id = id;
-        this.run = run;
-    }
-
-    public int getId() 
-    {
-        return id;
-    }
-
-    public String getName() 
-    {
-        return name;
-    }
-
-    public int getRun() 
-    {
-        return run;
-    }
-}
-public class PlayerApplication 
-{
-    public static void main(String[] args) 
-    {
-        Vector v = new Vector();
-
-        Scanner sc = new Scanner(System.in);
-        for(int i=0; i<3; i++) 
-        {
-            System.out.println("Enter name id and run");
-            String name = sc.next(); // sc.nextLine();
-            int id = sc.nextInt();
-            int run = sc.nextInt();
-
-            v.add(new Player(name, id, run));
-        }
-
-        System.out.println("Enter player id to search");
-        int pid = sc.nextInt();
-
-        Iterator it = v.iterator();
-        boolean flag = false;
-
-        while(it.hasNext()) 
-        {
-            Player p = (Player)it.next();  //downcasting 
-
-            if(pid == p.getId()) 
-            {
-                flag = true;
-                System.out.println("Player Found: "+p.getName()+" "+p.getRun());
-                break;
-            }
-        }
-
-        if(!flag) 
-        {
-            System.out.println("Player Not Found");
-        }
-    }
-}
-<!-- 
-import java.util.*;
-public class PlayerApplication
-{
-    public static void main(String x[])
-    {
-        Vector v = new Vector();
-
-        Scanner sc = new Scanner(System.in);
-
-        Player p[] = new Player[5];
-
-        for(int i=0; i<p.length; i++)
-        {
-            System.out.println("Enter name, id, run");
-
-            String name = sc.next();
-            int id = sc.nextInt();
-            int run = sc.nextInt();
-
-            p[i] = new Player(name,id,run);
-            v.add(p[i]);
-        }
-
-        System.out.println("Display all player records");
-
-        Iterator it = v.iterator();
-
-        while(it.hasNext())
-        {
-            Object obj = it.next();
-            Player p1 = (Player)obj;
-
-            System.out.println(p1.getId()+"\t"+p1.getName()+"\t"+p1.getRun());
-        }
-
-        System.out.println("Enter the player id");
-        int pid = sc.nextInt(); 
-
-        it = v.iterator();
-        boolean flag = false;
-
-        while(it.hasNext())
-        {
-            Object obj = it.next();
-            Player p1 = (Player)obj;
-
-            if(pid == p1.getId())
-            {
-                flag = true;
-                break;
-            }
-        }
-
-        if(flag)
-        {
-            System.out.println("Player found");
-        }
-        else
-        {
-            System.out.println("Player not found");
-        }
-    }
-} -->
-
-----------------------------------------------------------------------------------------------------------------------------------------
-Q13. Difference Between Iterator and Enumeration
-
-| Enumeration                                                                 | Iterator                                               |
-| --------------------------------------------------------------------------- | ------------------------------------------------------ |
-| Works only with **legacy collections** like `Vector`, `Stack`, `Hashtable`. | Works with **both legacy and non-legacy collections**. |
-| It is a **read-only cursor** (cannot modify the collection).                | Can **remove elements** from the collection.           |
-| Created using **elements()** method.                                        | Created using **iterator()** method.                   |
-| Methods: `hasMoreElements()`, `nextElement()`.                              | Methods: `hasNext()`, `next()`, `remove()`.            |
-| It is an **older interface**.                                               | It is a **modern and universal cursor**.               |
-
-
-
-Q14. Difference Between Iterator and ListIterator
-| Iterator                                                      | ListIterator                                                                                 |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| Works with **all collection types** (`Set`, `Queue`, `List`). | Works **only with List collections** like `ArrayList`, `LinkedList`.                         |
-| Traverses **only in forward direction**.                      | Traverses **both forward and backward directions**.                                          |
-| Can **remove elements only**.                                 | Can **add, remove, and replace elements**.                                                   |
-| Created using **iterator()** method.                          | Created using **listIterator()** method.                                                     |
-| Methods: `hasNext()`, `next()`, `remove()`.                   | Methods: `hasNext()`, `next()`, `hasPrevious()`, `previous()`, `add()`, `set()`, `remove()`. |
-| It is the **parent interface**.                               | It is the **child interface of Iterator**.                                                   |
-------------------------------------------------------------------------
-Q15. Explain Enhanced For Loop (For-Each Loop)
-
-Enhanced for loop was introduced in Java JDK 1.5.
-It is used to traverse elements of arrays and collections easily.
-
-Features
-
-    No need for index variable initialization.
-    No need to write condition or increment statement.
-    Automatically fetches elements until all elements are processed.
-    Traverses only in forward direction.
-
-Syntax
-for(datatype variable : collection_or_array)
-{
-    // statements
-}
-Example
-
-import java.util.*;
 public class Test
 {
     public static void main(String[] args)
     {
-        <!-- int arr[] = new int(){10,20,30,40,50};  -->
         ArrayList<Integer> list = new ArrayList<>();
         list.add(10);
         list.add(20);
         list.add(30);
 
-<!-- for(int val:arr) -->
-        for(int num : list)
-        {
-            System.out.println(num);
-        }
+        System.out.println(list);
     }
 }
-Output
-10
-20
-30
+```
 
+### ArrayList vs Array
+
+| Feature | ArrayList | Array |
+| ------- | --------- | ----- |
+| Size | Dynamic | Fixed |
+| Package | java.util | java.lang |
+| Data type | Objects only | Primitive + objects |
+| Memory | Resizable | Fixed |
+| Methods | Many built-in methods | Few methods |
+
+---
+
+## LinkedList
+
+`LinkedList` is a doubly linked list implementation of `List`.
+
+### Features
+
+- each node stores data and pointer to next/previous node
+- fast insertion/deletion
+- slower searching than ArrayList
+
+### Time complexity
+
+- insertion/deletion: O(1) if node position is known
+- searching: O(n)
+
+### Example
+
+```java
 import java.util.*;
-public class VectApp
+
+public class TestLinkedList
 {
-    public static void main(String x[])
+    public static void main(String[] args)
     {
-        Vector v = new Vector();
+        LinkedList<String> list = new LinkedList<>();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        System.out.println(list);
+    }
+}
+```
+
+### ArrayList vs LinkedList
+
+| Feature | ArrayList | LinkedList |
+| ------- | --------- | ---------- |
+| Structure | Dynamic array | Doubly linked list |
+| Memory | Contiguous | Non-contiguous |
+| Insert/Delete | Slow | Fast |
+| Search | Fast | Slow |
+
+---
+
+## Vector
+
+`Vector` is a legacy class and is thread-safe.
+
+### Features
+
+- dynamic array
+- synchronized methods
+- legacy collection
+- introduced before Java 1.2
+
+### Why Vector is thread-safe?
+
+Its methods are synchronized, so multiple threads can use it safely.
+
+### Constructors
+
+```java
+Vector<Integer> v1 = new Vector<>();
+Vector<Integer> v2 = new Vector<>(5);
+Vector<Integer> v3 = new Vector<>(5, 2);
+```
+
+### Example
+
+```java
+import java.util.*;
+
+public class Test
+{
+    public static void main(String[] args)
+    {
+        Vector<Integer> v = new Vector<>();
         v.add(10);
         v.add(20);
         v.add(30);
-        v.add(40);
-        v.add(50);
 
-        for(Object val:v)
-        {
-            System.out.println(val);
-        }
+        System.out.println(v);
     }
 }
-------------------------------------------------------------------------
-Q17. What is FailFast and FailSafe in Collection?
+```
 
-1. Fail-Fast in Collection
-Fail-Fast means when we are reading a collection using Iterator or ListIterator and at the same time we try to modify the collection using the collection object, the program immediately throws a runtime exception called ConcurrentModificationException.
+### Vector vs ArrayList
 
-So the collection fails immediately when modification is detected.
+| Feature | Vector | ArrayList |
+| ------- | ------ | --------- |
+| Thread-safe | Yes | No |
+| Performance | Slower | Faster |
+| Legacy | Yes | No |
+| Capacity growth | Doubles | 1.5x |
 
-Example situation:
-    Iterating a list using Iterator
-    Modifying the list using list.add() or list.remove() simultaneously
+---
 
-Then Java throws ConcurrentModificationException.
+## Stack
 
-Example
+`Stack` is a subclass of `Vector` and follows the LIFO principle.
 
+### Methods
+
+- `push(E item)`
+- `pop()`
+- `peek()`
+- `empty()`
+- `search(Object o)`
+
+### Example
+
+```java
+import java.util.*;
+
+public class StackExample
+{
+    public static void main(String[] args)
+    {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        System.out.println(stack.pop());
+        System.out.println(stack.peek());
+    }
+}
+```
+
+### Stack is thread-safe?
+
+Yes, because it extends `Vector`, and `Vector` methods are synchronized.
+
+---
+
+## Cursors in Collection Framework
+
+A cursor is used to traverse elements of a collection one by one.
+
+### Types of cursors
+
+- `Iterator`
+- `ListIterator`
+- `Enumeration`
+- `for-each` loop
+
+### Iterator
+
+Used for forward traversal only.
+
+```java
+Iterator<Integer> it = list.iterator();
+while (it.hasNext())
+{
+    System.out.println(it.next());
+}
+```
+
+### Enumeration
+
+Read-only cursor; mainly used with legacy classes like `Vector`.
+
+```java
+Enumeration<Integer> e = v.elements();
+while (e.hasMoreElements())
+{
+    System.out.println(e.nextElement());
+}
+```
+
+### ListIterator
+
+Used with `List` implementations and allows both forward and backward traversal.
+
+```java
+ListIterator<Integer> it = list.listIterator();
+while (it.hasNext())
+{
+    System.out.println(it.next());
+}
+```
+
+### Enhanced for loop
+
+```java
+for (int n : list)
+{
+    System.out.println(n);
+}
+```
+
+---
+
+## Iterator vs Enumeration vs ListIterator
+
+| Cursor | Direction | Modification | Works With |
+| ------ | --------- | ------------ | ---------- |
+| Iterator | Forward only | Remove allowed | All collections |
+| Enumeration | Forward only | Read-only | Legacy collections |
+| ListIterator | Forward + backward | Add, remove, set | List only |
+
+---
+
+## Fail-Fast vs Fail-Safe
+
+### Fail-Fast
+
+Fail-fast iterators throw `ConcurrentModificationException` if the collection is modified during iteration.
+
+Example:
+
+```java
 ArrayList<Integer> list = new ArrayList<>();
 list.add(10);
 list.add(20);
 
 Iterator<Integer> it = list.iterator();
-
-while(it.hasNext())
+while (it.hasNext())
 {
     list.add(30);   // modification during iteration
     System.out.println(it.next());
 }
+```
 
-output:
-This will cause ConcurrentModificationException.
+### Fail-Safe
 
-Important Point
-    Most collections like ArrayList, HashMap, Vector use Fail-Fast iterators.
-
-2. Fail-Safe in Collection
-
-Fail-Safe means we can read and modify the collection at the same time without getting an exception.
-Fail-Safe collections work on a copy of the original collection, so modification does not affect the iterator.
-
-Examples of Fail-Safe collections
-CopyOnWriteArrayList
-ConcurrentHashMap
-
-Example
-
-CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
-list.add(10);
-list.add(20);
-
-for(Integer n : list)
-{
-    list.add(30);   // allowed
-    System.out.println(n);
-}
-
-Here no exception occurs.
-
-3. How to achieve safe operation?
-We can achieve safe operation using:
-1) Iterator methods
-    remove()
-    add() (using ListIterator)
-
-example:
-
-import java.util.*;
-
-public class VectApp
-{
-    public static void main(String x[])
-    {
-        Vector v = new Vector();
-        v.add(10);
-        v.add(20);
-        v.add(30);
-        v.add(40);
-        v.add(50);
-
-        ListIterator i = v.listIterator(0);
-        System.out.println(v);
-
-        while(i.hasNext())
-        {
-            Object obj = i.next();
-            if((int)obj == 30)
-            {
-                i.add(100);
-            } 
-        }
-        System.out.println(v);
-    }
-}
-
-output:
-[10, 20, 30, 40, 50]
-[10, 20, 30, 100, 40, 50]
-
-2) Concurrent Collection API
-
-CopyOnWriteArrayList 
-    is a class in which a new copy of the array is created whenever a modification (add, remove, update) occurs.
-ConcurrentHashMap
-    is a thread-safe Map class used when multiple threads access and modify a Map at the same time.
-
-import java.util.*;
-import java.util.concurrent.*;
-
-public class vectApp
-{
-    public static void main(String x[])
-    {
-        CopyOnWriteArrayList v = new CopyOnWriteArrayList();
-
-        v.add(10);
-        v.add(20);
-        v.add(30);
-        v.add(40);
-
-        Iterator i = v.iterator();
-
-        System.out.println(v);
-
-        while(i.hasNext())
-        {
-            Object obj = i.next();
-
-            if((int)obj == 30)
-            {
-                v.add(100);
-            }
-        }
-
-        System.out.println(v);
-    }
-}
-
-Output :
-[10, 20, 30, 40]
-[10, 20, 30, 40, 100]
----------------------------------------------------------------------
-Q18. Explain the ArrayList Class
-
-ArrayList is a class of the Java Collection Framework that implements the List interface.
-It works like a dynamic array, meaning its size can grow automatically.
-
-Important Points
-    ArrayList is a non-legacy collection.
-    It is not thread-safe (methods are not synchronized).
-    It is recommended for non-multithreaded environments.
-    Default capacity = 10
-    When capacity is exceeded, it increases by 50% (1.5 times).
-    It allows duplicate elements.
-    It maintains insertion order.
-
-Constructors of ArrayList
-1. Default Constructor
-    Creates an ArrayList with default capacity 10.
-    ArrayList list = new ArrayList();
-
-2. Parameterized Constructor
-    ArrayList list = new ArrayList(int initialCapacity);
-    Used to set initial capacity manually.
-
-3. Collection Constructor
-    ArrayList list = new ArrayList(Collection c);
-    Creates an ArrayList from another collection.
-    this constructor can accept data from another collection and store in ArrayList.
-
-
-import java.util.*;
-public class VectApp
-{
-    public static void main(String x[])
-    {
-        ArrayList al = new ArrayList(); //default
-        <!-- ArrayList list = new ArrayList(10); --> //parametrized
-
-        al.add(100);
-        al.add(200);
-        al.add(300);
-
-        Iterator i = al.iterator();
-
-        while(i.hasNext())
-        {
-            Object obj = i.next();
-            System.out.println(obj);
-        }
-    }
-}
-
-import java.util.*;
-public class Test 
-{
-    public static void main(String[] args) 
-    {
-        Vector v = new Vector();
-        v.add(10);
-        v.add(20);
-        v.add(30);
-
-        ArrayList list = new ArrayList(v); //collection constructor
-
-        System.out.println(list);
-    }
-}
-
-Q19. Difference between Vector and ArrayList
-
-| Feature           | Vector                                  | ArrayList                                 |
-| ----------------- | --------------------------------------- | ----------------------------------------- |
-| **Type**          | Legacy class                            | Non-legacy class                          |
-| **Package**       | `java.util`                             | `java.util`                               |
-| **Thread Safety** | Synchronized (Thread-safe)              | Not synchronized (Not thread-safe)        |
-| **Performance**   | Slower (due to synchronization)         | Faster                                    |
-| **Memory Growth** | Increases capacity by **double (100%)** | Increases capacity by **50% (1.5 times)** |
-| **Usage**         | Used in multi-threaded environment      | Used in single-threaded environment       |
-| **Iterator**      | Enumeration + Iterator                  | Iterator + ListIterator                   |
-
-
------------------------------------------------------------------------
-
-Payroll Management Mini Project (Collection Framework)
-Objective
-
-To build an application for:
-Managing departments
-Managing employees
-Maintaining attendance
-Calculating salary
-
-Features
-Add Department
-View Department
-Delete Department
-Update Department
-
-Add Employee and assign to department
-View all employees
-View department-wise employees
-Maintain employee attendance
-Calculate employee salary
-Find average salary of company
-Find department-wise salary expenses
-
-Project Code Structure
-1. ClientApplication
-
-Responsible for:
-Accepting input
-Displaying output
-
-Example:
-
-public class ClientApplication
-{
-    public static void main(String args[])
-    {
-
-    }
-}
-
-2. Model Layer
-Model classes store data using getter and setter methods.
-Example classes:
-Employee
-Department
-
-Example:
-
-class Employee
-{
-    private int id;
-    private String name;
-    private double salary;
-
-    // getter and setter
-}
-
-3. Service Layer
-Service layer contains business logic.
+Fail-safe collections work on a copy of the data; modification during iteration does not cause exception.
 
 Examples:
-salary calculation
-attendance management
-average salary
 
-4. Repository Layer
-Repository layer handles data storage.
+- `CopyOnWriteArrayList`
+- `ConcurrentHashMap`
 
-In this project:
-Collections are used as a temporary database.
+---
 
-Example collections:
-ArrayList
-HashMap
+## Set Interface
 
-Relationship Between Department and Employee
-Department HAS-A list of employees.
+`Set` stores unique elements only.
+
+### Features
+
+- no duplicate elements
+- no index-based access
+- some implementations maintain order
+
+### Common implementations
+
+- `HashSet`
+- `LinkedHashSet`
+- `TreeSet`
+
+### Example
+
+```java
+import java.util.*;
+
+public class Test
+{
+    public static void main(String[] args)
+    {
+        Set<Integer> set = new HashSet<>();
+        set.add(10);
+        set.add(20);
+        set.add(20); // duplicate, ignored
+        System.out.println(set);
+    }
+}
+```
+
+---
+
+## HashSet
+
+`HashSet` stores unique elements using hashing.
+
+### Features
+
+- no duplicates
+- no insertion order guarantee
+- allows one null value
+- average O(1) for add/search/remove
+
+```java
+Set<String> set = new HashSet<>();
+set.add("Java");
+set.add("Python");
+set.add("Java");
+System.out.println(set);
+```
+
+---
+
+## LinkedHashSet
+
+`LinkedHashSet` extends `HashSet` and preserves insertion order.
+
+### Features
+
+- unique elements
+- maintains insertion order
+- slightly slower than `HashSet`
+
+---
+
+## TreeSet
+
+`TreeSet` stores unique elements in sorted order.
+
+### Features
+
+- sorted ascending order
+- uses tree structure
+- no null key in most cases
+- O(log n)
+
+```java
+TreeSet<Integer> set = new TreeSet<>();
+set.add(30);
+set.add(10);
+set.add(20);
+System.out.println(set);
+```
+
+### HashSet vs LinkedHashSet vs TreeSet
+
+| Feature | HashSet | LinkedHashSet | TreeSet |
+| ------- | ------- | ------------- | ------- |
+| Order | Random | Insertion order | Sorted order |
+| Null | One null | One null | Usually not allowed |
+| Performance | O(1) average | O(1) average | O(log n) |
+| Data structure | HashMap | LinkedHashMap | TreeMap |
+
+---
+
+## NavigableSet
+
+`NavigableSet` is used for sorted data with extra operations.
+
+### Useful methods
+
+- `descendingSet()`
+- `ceiling(E e)`
+- `floor(E e)`
+- `higher(E e)`
+- `lower(E e)`
 
 Example:
 
-class Department
-{
-    private int deptId;
-    private String deptName;
-    private ArrayList<Employee> employees;
-}
+```java
+NavigableSet<Integer> set = new TreeSet<>();
+set.add(5);
+set.add(10);
+set.add(20);
+set.add(30);
 
-Meaning:
-Department → contains → List of Employees
--------------------------------------------------------------------------
-✅ Combined Payroll Management Code 
+System.out.println(set.higher(10));
+System.out.println(set.lower(20));
+```
 
-import java.util.*;
+---
 
-// -------------------- MODEL CLASSES --------------------
+## Why duplicate user-defined objects are allowed in Set
 
+`Set` does not allow duplicates only when `equals()` and `hashCode()` are properly overridden.
+
+If not overridden, every object may look different even if their fields are same.
+
+```java
 class Employee
 {
-    private int id;
-    private String name;
-    private double perDaySalary;
-    private int attendance;
-    private int deptId;
+    int id;
 
-    public Employee(int id, String name, double perDaySalary, int deptId)
+    Employee(int id)
     {
-        this.id = id;
-        this.name = name;
-        this.perDaySalary = perDaySalary;
-        this.deptId = deptId;
-        this.attendance = 0;
-    }
-
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public double getPerDaySalary() { return perDaySalary; }
-    public int getAttendance() { return attendance; }
-    public int getDeptId() { return deptId; }
-
-    public void setAttendance(int attendance)
-    {
-        this.attendance = attendance;
-    }
-
-    public double calculateSalary()
-    {
-        return perDaySalary * attendance;
-    }
-}
-
-// ------------------------------------------------------
-
-class Department
-{
-    private int deptId;
-    private String deptName;
-    private ArrayList<Employee> empList;
-
-    public Department(int deptId, String deptName)
-    {
-        this.deptId = deptId;
-        this.deptName = deptName;
-        empList = new ArrayList<>();
-    }
-
-    public int getDeptId() { return deptId; }
-    public String getDeptName() { return deptName; }
-    public ArrayList<Employee> getEmpList() { return empList; }
-}
-
-// -------------------- REPOSITORY --------------------
-
-class PayrollRepository
-{
-    private ArrayList<Department> deptList = new ArrayList<>();
-
-    public void addDepartment(Department d)
-    {
-        deptList.add(d);
-    }
-
-    public ArrayList<Department> getDepartments()
-    {
-        return deptList;
-    }
-
-    public Department findDept(int id)
-    {
-        for(Department d : deptList)
-        {
-            if(d.getDeptId() == id)
-                return d;
-        }
-        return null;
-    }
-}
-
-// -------------------- SERVICE --------------------
-
-class PayrollService
-{
-    private PayrollRepository repo = new PayrollRepository();
-
-    public void addDepartment(int id, String name)
-    {
-        repo.addDepartment(new Department(id, name));
-    }
-
-    public void viewDepartments()
-    {
-        for(Department d : repo.getDepartments())
-        {
-            System.out.println(d.getDeptId() + " " + d.getDeptName());
-        }
-    }
-
-    public void addEmployee(int id, String name, double salary, int deptId)
-    {
-        Department d = repo.findDept(deptId);
-        if(d != null)
-        {
-            d.getEmpList().add(new Employee(id, name, salary, deptId));
-        }
-        else
-        {
-            System.out.println("Department not found!");
-        }
-    }
-
-    public void viewEmployees()
-    {
-        for(Department d : repo.getDepartments())
-        {
-            for(Employee e : d.getEmpList())
-            {
-                System.out.println(e.getId() + " " + e.getName());
-            }
-        }
-    }
-
-    public void markAttendance(int empId, int days)
-    {
-        for(Department d : repo.getDepartments())
-        {
-            for(Employee e : d.getEmpList())
-            {
-                if(e.getId() == empId)
-                {
-                    e.setAttendance(days);
-                }
-            }
-        }
-    }
-
-    public void calculateSalary(int empId)
-    {
-        for(Department d : repo.getDepartments())
-        {
-            for(Employee e : d.getEmpList())
-            {
-                if(e.getId() == empId)
-                {
-                    System.out.println("Salary: " + e.calculateSalary());
-                }
-            }
-        }
-    }
-
-    public void avgSalary()
-    {
-        double total = 0;
-        int count = 0;
-
-        for(Department d : repo.getDepartments())
-        {
-            for(Employee e : d.getEmpList())
-            {
-                total += e.calculateSalary();
-                count++;
-            }
-        }
-
-        if(count > 0)
-            System.out.println("Average Salary: " + (total / count));
-    }
-
-    public void deptExpense()
-    {
-        for(Department d : repo.getDepartments())
-        {
-            double sum = 0;
-
-            for(Employee e : d.getEmpList())
-            {
-                sum += e.calculateSalary();
-            }
-
-            System.out.println(d.getDeptName() + " Expense: " + sum);
-        }
-    }
-}
-
-// -------------------- CLIENT APPLICATION --------------------
-
-public class ClientApplication
-{
-    public static void main(String args[])
-    {
-        Scanner sc = new Scanner(System.in);
-        PayrollService service = new PayrollService();
-
-        while(true)
-        {
-            System.out.println("\n1.Add Dept");
-            System.out.println("2.View Dept");
-            System.out.println("3.Add Employee");
-            System.out.println("4.View Employees");
-            System.out.println("5.Mark Attendance");
-            System.out.println("6.Calculate Salary");
-            System.out.println("7.Average Salary");
-            System.out.println("8.Dept Expense");
-            System.out.println("9.Exit");
-
-            int ch = sc.nextInt();
-
-            switch(ch)
-            {
-                case 1:
-                    System.out.println("Enter Dept ID and Name:");
-                    service.addDepartment(sc.nextInt(), sc.next());
-                    break;
-
-                case 2:
-                    service.viewDepartments();
-                    break;
-
-                case 3:
-                    System.out.println("Enter Emp ID, Name, Salary, DeptID:");
-                    service.addEmployee(sc.nextInt(), sc.next(), sc.nextDouble(), sc.nextInt());
-                    break;
-
-                case 4:
-                    service.viewEmployees();
-                    break;
-
-                case 5:
-                    System.out.println("Enter EmpID and Days:");
-                    service.markAttendance(sc.nextInt(), sc.nextInt());
-                    break;
-
-                case 6:
-                    System.out.println("Enter EmpID:");
-                    service.calculateSalary(sc.nextInt());
-                    break;
-
-                case 7:
-                    service.avgSalary();
-                    break;
-
-                case 8:
-                    service.deptExpense();
-                    break;
-
-                case 9:
-                    System.exit(0);
-            }
-        }
-    }
-}
--------------------------------------------------------------------------
-import java.util.*;
-
-// -------------------- MODEL CLASSES --------------------
-
-class Voter
-{
-    private int voterId;
-    private String name;
-    private boolean hasVoted;
-
-    public Voter(int voterId, String name)
-    {
-        this.voterId = voterId;
-        this.name = name;
-        this.hasVoted = false;
-    }
-
-    public int getVoterId() { return voterId; }
-    public String getName() { return name; }
-    public boolean isHasVoted() { return hasVoted; }
-
-    public void setHasVoted(boolean hasVoted)
-    {
-        this.hasVoted = hasVoted;
-    }
-}
-
-// ------------------------------------------------------
-
-class Candidate
-{
-    private int candidateId;
-    private String name;
-    private int votes;
-
-    public Candidate(int candidateId, String name)
-    {
-        this.candidateId = candidateId;
-        this.name = name;
-        this.votes = 0;
-    }
-
-    public int getCandidateId() { return candidateId; }
-    public String getName() { return name; }
-    public int getVotes() { return votes; }
-
-    public void addVote()
-    {
-        votes++;
-    }
-}
-
-// -------------------- REPOSITORY --------------------
-
-class VotingRepository
-{
-    private ArrayList<Voter> voters = new ArrayList<>();
-    private ArrayList<Candidate> candidates = new ArrayList<>();
-
-    public void addVoter(Voter v)
-    {
-        voters.add(v);
-    }
-
-    public void addCandidate(Candidate c)
-    {
-        candidates.add(c);
-    }
-
-    public ArrayList<Voter> getVoters()
-    {
-        return voters;
-    }
-
-    public ArrayList<Candidate> getCandidates()
-    {
-        return candidates;
-    }
-
-    public Voter findVoter(int id)
-    {
-        for(Voter v : voters)
-        {
-            if(v.getVoterId() == id)
-                return v;
-        }
-        return null;
-    }
-
-    public Candidate findCandidate(int id)
-    {
-        for(Candidate c : candidates)
-        {
-            if(c.getCandidateId() == id)
-                return c;
-        }
-        return null;
-    }
-}
-
-// -------------------- SERVICE --------------------
-
-class VotingService
-{
-    private VotingRepository repo = new VotingRepository();
-
-    public void addVoter(int id, String name)
-    {
-        repo.addVoter(new Voter(id, name));
-    }
-
-    public void addCandidate(int id, String name)
-    {
-        repo.addCandidate(new Candidate(id, name));
-    }
-
-    public void viewVoters()
-    {
-        for(Voter v : repo.getVoters())
-        {
-            System.out.println(v.getVoterId() + " " + v.getName() + " Voted: " + v.isHasVoted());
-        }
-    }
-
-    public void viewCandidates()
-    {
-        for(Candidate c : repo.getCandidates())
-        {
-            System.out.println(c.getCandidateId() + " " + c.getName() + " Votes: " + c.getVotes());
-        }
-    }
-
-    public void vote(int voterId, int candidateId)
-    {
-        Voter v = repo.findVoter(voterId);
-        Candidate c = repo.findCandidate(candidateId);
-
-        if(v == null || c == null)
-        {
-            System.out.println("Invalid Voter or Candidate!");
-            return;
-        }
-
-        if(v.isHasVoted())
-        {
-            System.out.println("You have already voted!");
-        }
-        else
-        {
-            c.addVote();
-            v.setHasVoted(true);
-            System.out.println("Vote successful!");
-        }
-    }
-
-    public void showResult()
-    {
-        Candidate winner = null;
-
-        for(Candidate c : repo.getCandidates())
-        {
-            if(winner == null || c.getVotes() > winner.getVotes())
-            {
-                winner = c;
-            }
-        }
-
-        if(winner != null)
-        {
-            System.out.println("Winner: " + winner.getName() + " with votes: " + winner.getVotes());
-        }
-    }
-}
-
-// -------------------- CLIENT APPLICATION --------------------
-
-public class VotingApplication
-{
-    public static void main(String args[])
-    {
-        Scanner sc = new Scanner(System.in);
-        VotingService service = new VotingService();
-
-        while(true)
-        {
-            System.out.println("\n1.Add Voter");
-            System.out.println("2.Add Candidate");
-            System.out.println("3.View Voters");
-            System.out.println("4.View Candidates");
-            System.out.println("5.Vote");
-            System.out.println("6.Show Result");
-            System.out.println("7.Exit");
-
-            int ch = sc.nextInt();
-
-            switch(ch)
-            {
-                case 1:
-                    System.out.println("Enter Voter ID and Name:");
-                    service.addVoter(sc.nextInt(), sc.next());
-                    break;
-
-                case 2:
-                    System.out.println("Enter Candidate ID and Name:");
-                    service.addCandidate(sc.nextInt(), sc.next());
-                    break;
-
-                case 3:
-                    service.viewVoters();
-                    break;
-
-                case 4:
-                    service.viewCandidates();
-                    break;
-
-                case 5:
-                    System.out.println("Enter VoterID and CandidateID:");
-                    service.vote(sc.nextInt(), sc.nextInt());
-                    break;
-
-                case 6:
-                    service.showResult();
-                    break;
-
-                case 7:
-                    System.exit(0);
-            }
-        }
-    }
-}
--------------------------------------------------------------------
-Q20. Explain the LinkedList class of List interface
-
-LinkedList is a class in Java that implements the List interface.
-It is implemented as a doubly linked list.
-Each node stores:
-    Data
-    Address of previous node
-    Address of next node
-
-Key Features
-    Dynamic in size
-    Allows duplicate elements
-    Maintains insertion order
-    Efficient insertion and deletion
-
-Time Complexity
-    Insertion/Deletion → O(1) (if position/node is known)
-    Searching → O(n)
-
-Constructors
-    1. LinkedList()
-    → Creates empty linked list
-    2.LinkedList(Collection c)
-    → Creates list and copies elements from another collection
-
-Q21. Difference between ArrayList and LinkedList
-| Feature            | ArrayList       | LinkedList                |
-| ------------------ | --------------- | ------------------------- |
-| Structure          | Dynamic Array   | Doubly Linked List        |
-| Memory             | Continuous      | Non-contiguous            |
-| Insertion/Deletion | Slow (O(n))     | Fast (O(1) if node known) |
-| Searching          | Fast (O(1))     | Slow (O(n))               |
-| Shifting           | Required        | Not required              |
-| Performance        | Better for read | Better for insert/delete  |
-
-
-ArrayList
-Uses index-based access → faster retrieval
-Needs shifting → slower insert/delete
-
-LinkedList
-No shifting needed
-Must traverse nodes → slower search
-
-Example Code
-import java.util.*;
-
-public class TestLinkedListApplication
-{
-    public static void main(String[] args)
-    {
-        LinkedList list = new LinkedList();
-
-        list.add(10);
-        list.add(20);
-        list.add(30);
-
-        Iterator i = list.iterator();
-
-        while(i.hasNext())
-        {
-            Object obj = i.next();
-            System.out.println(obj);
-        }
-    }
-}
------------------------------------------------------------------------
-Q22. Explain Stack class and relation between Vector and Stack
-
-Stack is a class in Java that follows LIFO (Last In First Out) principle.
-
-It is a child class of Vector
-So it inherits all properties of Vector
-
-Stack Hierarchy
-Object
-   ↓
-Vector
-   ↓
-Stack
-
-Methods of Stack
-    1. void push(E) → Add element
-    2. Object pop() → Remove top element
-    3. Object peek() → View top element
-    4. boolean isEmpty() → Check empty or not
-    5.int search(Object) → Search element
-
-Example Code
-
-import java.util.*;
-public class StackExample
-{
-    public static void main(String[] args)
-    {
-        Stack s = new Stack();
-
-        s.push(10);
-        s.push(20);
-        s.push(30);
-
-        System.out.println("Top: " + s.peek());
-
-        while(!s.isEmpty())
-        {
-            System.out.println("Pop: " + s.pop());
-        }
-    }
-}
------------------------------------------------------------------------
-Example Code
-import java.util.*;
-
-public class TestLinkedListApplication
-{
-    public static void main(String args[])
-    {
-        Stack s = new Stack();
-        Scanner sc = new Scanner(System.in);
-        int choice;
-
-        do
-        {
-            System.out.println("\n1:PUSH");
-            System.out.println("2:POP");
-            System.out.println("3:DISPLAY");
-            System.out.println("4:PEEK");
-            System.out.println("5:SEARCH");
-            System.out.println("6:EXIT");
-
-            System.out.print("Enter your choice: ");
-            choice = sc.nextInt();
-
-            switch(choice)
-            {
-                case 1:
-                    System.out.print("Enter value: ");
-                    int value = sc.nextInt();
-                    s.push(value);
-                    break;
-
-                case 2:
-                    if(s.isEmpty())
-                    {
-                        System.out.println("Stack is empty");
-                    }
-                    else
-                    {
-                        Object obj = s.pop();
-                        System.out.println("Removed: " + obj);
-                    }
-                    break;
-
-                case 3:
-                    if(s.isEmpty())
-                    {
-                        System.out.println("Stack is empty");
-                    }
-                    else
-                    {
-                        ListIterator li = s.listIterator(s.size());
-                        while(li.hasPrevious())
-                        {
-                            System.out.println(li.previous());
-                        }
-                    }
-                    break;
-
-                case 4:
-                    if(s.isEmpty())
-                    {
-                        System.out.println("Stack is empty");
-                    }
-                    else
-                    {
-                        System.out.println("Top element: " + s.peek());
-                    }
-                    break;
-
-                case 5:
-                    System.out.print("Enter value to search: ");
-                    value = sc.nextInt();
-
-                    int index = s.search(value);
-
-                    if(index != -1)
-                    {
-                        System.out.println("Value found at position: " + (s.size() - index));
-                    }
-                    else
-                    {
-                        System.out.println("Value not found");
-                    }
-                    break;
-
-                case 6:
-                    System.exit(0);
-
-                default:
-                    System.out.println("Invalid choice");
-            }
-
-        } while(true);
-    }
-}
-----------------------------------------------------------------------
-
-Q23. Is Stack thread safe or not? Why?
-Yes, Stack is thread-safe.
-Reason:
-    Stack is a child of Vector
-    Vector methods are synchronized
-    Therefore, Stack methods are also synchronized
------------------------------------------------------------------------
-Q24. Explain Set collection and why use Set?
-    Set is a collection that stores unique elements.
-Key Features
-    No duplicate elements allowed
-    No index-based access
-    Uses hashing internally
-    Some implementations maintain order
-Why use Set?
-    To store unique data
-    To remove duplicates
-    To maintain sorted or insertion order (depending on implementation)
-
-Q25. Types of Set collection
-1. HashSet
-    HashSet
-        Stores unique elements
-        Does not maintain order (random order)
-        Uses hashing
-
-2. LinkedHashSet
-    LinkedHashSet
-        Stores unique elements
-        Maintains insertion order
-
-3. sorted set/ TreeSet
-    TreeSet
-        Stores unique elements
-        Maintains sorted order (ascending)
-        Uses tree structure
-
-✅ Final Quick Revision
-LinkedList → Doubly linked, fast insert/delete
-ArrayList → Fast search, slow insert/delete
-Stack → LIFO, child of Vector
-Stack → Thread-safe
-Set → Unique data only
-HashSet → Random
-LinkedHashSet → Ordered
-TreeSet → Sorted
--------------------------------------------------
-Q26. Explain the HashSet in detail
-
-HashSet is a class in Java that implements the Set interface.
-
-Key Features
-Stores unique elements only (no duplicates)
-Does not maintain insertion order (random order)
-Allows one null value
-Uses hashing mechanism internally
-Internally uses HashMap
-
-How HashSet Works
-When you add an element:
-Hash code is generated
-Bucket is selected
-Equals method checks duplication
-
-Constructors
-
-HashSet()
-→ Default capacity = 16, Load factor = 0.75
-
-HashSet(int initialCapacity)
-→ User-defined capacity
-
-HashSet(int initialCapacity, float loadFactor)
-→ Custom capacity + load factor
-
-HashSet(Collection c)
-→ Copy elements from another collection
-
-Example
-import java.util.*;
-
-public class SetApplication
-{
-    public static void main(String[] args)
-    {
-        HashSet hs = new HashSet();
-
-        hs.add(5);
-        hs.add(100);
-        hs.add(55);
-        hs.add(22);
-        hs.add(24);
-        hs.add(24);   // duplicate ignored
-        hs.add(100);  // duplicate ignored
-
-        for(Object obj : hs)
-        {
-            System.out.println(obj);
-        }
-    }
-}
-
--------------------------------------------------
-
-Q27. Explain LinkedHashSet in detail
-
-LinkedHashSet is a class that extends HashSet.
-
-
-Key Features
-    Stores unique elements
-    Maintains insertion order
-    Uses LinkedHashMap internally
-    Slightly slower than HashSet
-
-Constructors
-    LinkedHashSet()
-    LinkedHashSet(int capacity)
-    LinkedHashSet(int capacity, float loadFactor)
-    LinkedHashSet(Collection c)
-
-Example
-
-import java.util.*;
-public class SetApplication
-{
-    public static void main(String[] args)
-    {
-        LinkedHashSet hs = new LinkedHashSet();
-
-        hs.add(5);
-        hs.add(100);
-        hs.add(55);
-        hs.add(22);
-        hs.add(24);
-
-        for(Object obj : hs)
-        {
-            System.out.println(obj); // maintains insertion order
-        }
-    }
-}
-----------------------------------------------------------------
-
-Q28. Explain TreeSet in detail
-
-TreeSet is a class that implements SortedSet.
-
-Key Features
-Stores unique elements
-Maintains sorted order (ascending by default)
-Uses tree structure (Red-Black Tree)
-Does not allow null (in most cases)
-
-Constructors
-TreeSet()
-TreeSet(Comparator c)
-TreeSet(Collection c)
-
-Example
-
-import java.util.*;
-public class SetApplication
-{
-    public static void main(String[] args)
-    {
-        TreeSet ts = new TreeSet();
-
-        ts.add(5);
-        ts.add(100);
-        ts.add(55);
-        ts.add(22);
-        ts.add(24);
-
-        for(Object obj : ts)
-        {
-            System.out.println(obj); // sorted output
-        }
-    }
-}
-
-🔴 Important Concept (Very Important for Exams)
-Why Set Allows Duplicate User-Defined Objects?
-👉 Your statement needs correction:
-Set does NOT allow duplicates
-But duplicates appear when:
-equals() is not overridden
-hashCode() is not overridden
-Default Behavior
-Every object has different hashCode, so Set treats them as different objects.
-
-✅ Solution: Override equals() and hashCode()
-Rules
-If objects are equal → hashCode must be same
-equals() → compare data
-hashCode() → generate same hash for same data
-
-Correct Example
-
-import java.util.*;
-class Employee
-{
-    private int id;
-    private String name;
-
-    public Employee(String name, int id)
-    {
-        this.name = name;
         this.id = id;
     }
 
     public boolean equals(Object obj)
     {
-        Employee e = (Employee)obj;
-        return this.id == e.id && this.name.equals(e.name);
+        if (this == obj) return true;
+        if (!(obj instanceof Employee)) return false;
+        Employee e = (Employee) obj;
+        return this.id == e.id;
     }
 
     public int hashCode()
     {
-        return id * 100;
-    }
-
-    public String toString()
-    {
-        return id + " " + name;
+        return Integer.hashCode(id);
     }
 }
-
-public class SetApplication
-{
-    public static void main(String[] args)
-    {
-        HashSet<Employee> hs = new HashSet<>();
-
-        hs.add(new Employee("ABC",1));
-        hs.add(new Employee("ABC",1)); // duplicate
-
-        for(Employee e : hs)
-        {
-            System.out.println(e);
-        }
-    }
-}
-
-👉 Output will contain only one object ✅
-⚠️ Important Corrections in Your Theory
-❌ Wrong:
-JVM cannot generate same hashcode
-✔ Correct:
-
-JVM can generate same hashcode (collision possible)
-
-But equals() confirms actual equality
-
-✅ Final Quick Revisio
-HashSet → unique + random order
-LinkedHashSet → unique + insertion order
-TreeSet → unique + sorted order
-Duplicate issue → fix using equals() + hashCode()
-
-
-------------------------------------------------
+```
 
 ---
 
-# Q29. Explain the difference between HashSet, LinkedHashSet, and TreeSet ?
- 
-## Correct Answer
+## Map Interface
 
-| Feature                 | HashSet                               | LinkedHashSet                    | TreeSet                                |
-| ----------------------- | ------------------------------------- | -------------------------------- | -------------------------------------- |
-| Internal Data Structure | Uses `HashMap`                        | Uses `LinkedHashMap`             | Uses `TreeMap`                         |
-| Order                   | Does **not maintain insertion order** | Maintains **insertion  **        | Maintains **sorted (ascending) order** |
-| Performance             | O(1) average for add/remove/search    | O(1) average                     | O(log n)                               |
-| Null Values             | Allows one `null`                     | Allows one `null`                | Usually does not allow `null`          | 
-| Comparison              | Uses `hashCode()` and `equals()`      | Uses `hashCode()` and `equals()` | Uses `compareTo()` or `Compa rator`    | 
+`Map` stores data as key-value pairs.
 
+### Features
 
-# Q30. What is NavigableSet and why use it?
+- key must be unique
+- value can be duplicate
+- not part of `Collection`
 
-## Correct Answer
+### Common methods
 
-NavgableSet is interface which is used for arrange TreeSet data in descending order   
-   
-Useful methods:
-
-* `descendingSet()` → Reverse order
-* `ceiling()` → Smallest element ≥ given value
-* `floor()` → Largest element ≤ given value
-* `higher()` → Next greater element
-* `lower()` → Next smaller element 
-
-## Simple Explanation
- 
-`NavigableSet` helps move forward/backward in sorted data.
-
-Example:
-If set = `[5, 10, 20, 30]`
-
-* `higher(10)` → 20
-* `lower(20)` → 10
-* `ceiling(11)` → 20
-* `floor(11)` → 10
-
-## Important Interview Point
-
-Used when you need sorted data + nearest higher/lower searching.
-
-import java.util.*;
-
-public class HashSetApplication {
-
-    public static void main(String[] args) {
-
-        TreeSet<Integer> hs = new TreeSet<>();
-
-        hs.add(100);
-        hs.add(5);
-        hs.add(20);
-        hs.add(22);
-        hs.add(34);
-        hs.add(21);
-        hs.add(5);   // Duplicate
-        hs.add(9);
-        hs.add(3);
-
-        System.out.println("Arrange data by default in ascending order");
-
-        for(Integer obj : hs) {
-            System.out.print(obj + "\t");
-        }
-
-        NavigableSet<Integer> nav = hs.descendingSet();
-
-        System.out.println("\n\nArrange data in descending order");
-
-        for(Integer obj : nav) {
-            System.out.print(obj + "\t");
-        }
-    }
-}---
-
-# Q31. What is Collections class and why use it?
-
-## Correct Answer
-
-`Collections` is a utility class in `java.util` package.
-It contains static methods to perform common operations on collection objects.
-
-Common methods:
-
-* `Collections.sort(List)` → Sort list
-* `Collections.sort(List, Comparator)` → Sort custom objects
-* `Collections.max(Collection)` → Largest value
-* `Collections.min(Collection)` → Smallest value
-* `Collections.reverse(List)` → Reverse list
-* `Collections.shuffle(List)` → Random order
-* `Collections.synchronizedList(List)` → Thread-safe list this method is used for converting Asynchronized list collection into synchronized list collection.
-* `Collections.synchronizedMap(Map)` → Thread-safe map  this method is used for converting Asynchronized map into synchronized map collection 
-* public static Collection synchronizedCollection(Collection): this method is used for convert asynchronized collection to synchronized collection 
-Etc 
-
-
-## Simple Explanation
-
-`Collections` = Helper class for Collection Framework.
-
-It helps in:
-
-* Sorting
-* Reversing
-* Finding min/max
-* Making synchronized collections
-
-## Important Interview Point
-
-`Collections` is a **class**, not an interface.
-
----
-
-# Q32. Explain the difference between Collection and Collections?
-
-## Correct Answer
-
-| Collection                                 | Collections                            |
-| ------------------------------------------ | -------------------------------------- |
-| Interface                                  | Utility class                          |
-| Part of Collection Framework               | Helper class for collection operations |
-| Parent interface of `List`, `Set`, `Queue` | Contains static methods                |
-| Stores groups of objects                   | Performs operations on collections     |
-
-### Example
-
-`Collection`
-
-```java
-List<Integer> list = new ArrayList<>();
-```
-
-`Collections`
-
-```java
-Collections.sort(list);
-```
-
-## Simple Explanation
-
-* **Collection** → Used to store objects.
-* **Collections** → Used to operate on stored objects.
-
-## Important Interview Point
-
-**Collection = Interface**
-**Collections = Utility Class**
-
----
-
-# Q33. Explain 5 methods of Collections class
-
-## Correct Answer
-
-### 1. `sort(List)`
-
-Sorts list in ascending order.
-
-```java
-Collections.sort(list);
-```
-
-### 2. `reverse(List)`
-
-Reverses the list.
-
-```java
-Collections.reverse(list);
-```
-
-### 3. `max(Collection)`
-
-Returns maximum value.
-
-```java
-Collections.max(list);
-```
-
-### 4. `min(Collection)`
-
-Returns minimum value.
-
-```java
-Collections.min(list);
-```
-
-### 5. `shuffle(List)`
-
-Randomly shuffles elements.
-
-```java
-Collections.shuffle(list);
-```
-
-Extra important:
-
-* `binarySearch()`
-* `synchronizedList()`
-* `swap()`
-* `fill()`
-
-## Simple Explanation
-
-These methods help manipulate collections easily.
-
-## Important Interview Point
-
-Almost all methods in `Collections` are static.
-
----
-
-# Q34. Explain the difference between Comparable and Comparator interface?
-
-## Correct Answer
-
-| Comparable                 | Comparator                             |
-| -------------------------- | -------------------------------------- |
-| Package: `java.lang`       | Package: `java.util`                   |
-| Used for natural sorting   | Used for custom sorting                |
-| Single sorting logic       | Multiple sorting logic possible        |
-| Method: `compareTo()`      | Method: `compare()`                    |
-| Class itself implements it | Separate class/lambda can implement it |
-| `Collections.sort(list)`   | `Collections.sort(list, comparator)`   |
-
-### Example
-
-Sort employee by ID → Comparable
-Sort employee by salary/name → Comparator
-
-## Simple Explanation
-
-**Comparable**
-→ Sorting inside the class itself.
-
-**Comparator**
-→ Sorting outside the class.
-
-## Important Interview Point
-
-Use:
-
-* **Comparable** → Default sorting
-* **Comparator** → Flexible/custom sorting
-
----
-
-Great. Continuing with **Q35 → Q40**.
-
----
-
-# Q35. How can we convert an asynchronous collection or map into a synchronized collection?
-
-## Correct Answer
-
-Java provides synchronized wrapper methods in the `Collections` class.
-
-Methods:
-
-* `Collections.synchronizedList(List)`
-* `Collections.synchronizedSet(Set)`
-* `Collections.synchronizedMap(Map)`
-* `Collections.synchronizedCollection(Collection)`
+- `put(K, V)`
+- `get(K)`
+- `remove(K)`
+- `containsKey(K)`
+- `containsValue(V)`
+- `keySet()`
+- `values()`
+- `entrySet()`
 
 ### Example
 
 ```java
-List<Integer> list = new ArrayList<>();
-List<Integer> syncList = Collections.synchronizedList(list);
-
 Map<Integer, String> map = new HashMap<>();
-Map<Integer, String> syncMap = Collections.synchronizedMap(map);
+map.put(1, "Java");
+map.put(2, "Python");
+System.out.println(map.get(1));
 ```
 
-## Simple Explanation
-
-Normal collections like `ArrayList` and `HashMap` are not thread-safe.
-To make them safe for multiple threads, wrap them using `Collections.synchronized...()`.
-
-## Important Interview Point
-
-Synchronized collection = thread-safe, but often slower than non-synchronized collections.
-
 ---
 
-# Q36. Which algorithm is used by Comparable and Comparator for sorting?
-
-## Correct Answer
-
-`Comparable` and `Comparator` do **not perform sorting themselves**.
-They only provide comparison logic.
-
-They are used by:
-
-* `Collections.sort()`
-* `Arrays.sort()`
-
-### Sorting algorithms
-
-* For **Object sorting** → Java uses **TimSort**
-* For primitive arrays → optimized sorting (Dual-Pivot QuickSort in many JDK implementations)
-
-## Simple Explanation
-
-`Comparable` and `Comparator` decide **how to compare**, while Java sorting methods decide **how to sort**.
-
-## Important Interview Point
-
-* `compareTo()` → Comparable
-* `compare()` → Comparator
-
----
-
-# Q37. What is Map interface and why use it?
-
-## Correct Answer
-
-`Map` is an interface in `java.util`.
-It stores data as **key-value pairs**.
-
-Properties:
-
-* Key must be unique
-* Value can be duplicate
-* Not a child of `Collection`
-
-Common methods:
-
-* `put(K,V)`
-* `get(key)`
-* `remove(key)`
-* `containsKey()`
-* `containsValue()`
-* `keySet()`
-* `values()`
-* `entrySet()`
-
-## Simple Explanation
-
-Map is used when data has a relationship like:
-
-* ID → Name
-* Username → Password
-* Country → Capital
-
-Example:
-
-```java
-Map<Integer,String> map = new HashMap<>();
-map.put(1,"Java");
-```
-
-## Important Interview Point
-
-Map stores **unique keys + duplicate values allowed**.
-
----
-
-# Q38. Explain HashMap in detail
-
-## Correct Answer
+## HashMap
 
 `HashMap` is a class that implements `Map`.
-It stores data in key-value pairs.
 
-Features:
+### Features
 
-* Keys are unique
-* Values can be duplicate
-* Unordered (no insertion order guarantee)
-* Allows one `null` key
-* Allows multiple `null` values
-* Not synchronized
-* Average O(1) for insert/search/delete
+- stores key-value pairs
+- unique keys
+- duplicate values allowed
+- no insertion order guarantee
+- one null key allowed
+- average O(1) performance
 
 ### Internal working
 
-Uses:
+- key is passed to `hashCode()`
+- bucket is selected
+- collision is handled using linked list / tree
 
-* Hashing
-* Buckets
-* Hash table
-* Collision handling
-
-Java 8:
-If many collisions happen in one bucket, linked list can convert to **Red-Black Tree** for better performance.
-
-## Constructors
+### Example
 
 ```java
-HashMap()
-HashMap(int initialCapacity)
-HashMap(int initialCapacity, float loadFactor)
-HashMap(Map m)
+Map<Integer, String> map = new HashMap<>();
+map.put(1, "A");
+map.put(2, "B");
+map.put(3, "C");
+System.out.println(map);
 ```
 
-## Simple Explanation
+### Collision in HashMap
 
-HashMap is fast and widely used for storing key-value data.
+Collision happens when different keys generate the same bucket index.
 
-## Important Interview Point
+Java handles collisions with:
 
-Best when order is not important.
-
----
-
-# Q39. Explain LinkedHashMap
-
-## Correct Answer
-
-`LinkedHashMap` is a child class of `HashMap`.
-
-Features:
-
-* Stores key-value pairs
-* Maintains insertion order
-* Unique keys
-* Duplicate values allowed
-* Allows one null key
-* Faster lookup like HashMap (average O(1))
-
-Internally uses:
-
-* Hash table + doubly linked list
-
-## Simple Explanation
-
-It is like HashMap but remembers the order of insertion.
-
-Example:
-Insert:
-`10, 20, 30`
-
-Output:
-`10, 20, 30`
-
-## Important Interview Point
-
-Use when both **fast access + insertion order** are needed.
+- linked list
+- Red-Black Tree in Java 8+
 
 ---
 
-# Q40. Explain TreeMap
+## LinkedHashMap
 
-## Correct Answer
+`LinkedHashMap` is a `HashMap` variant that maintains insertion order.
 
-`TreeMap` is a class that implements `NavigableMap`.
+### Features
 
-Features:
+- unique keys
+- insertion order preserved
+- one null key allowed
+- duplicate values allowed
 
-* Stores key-value pairs
-* Keys are automatically sorted (ascending order)
-* Unique keys
-* Duplicate values allowed
-* Does **not allow null key**
-* Allows multiple null values
-* Time complexity = O(log n)
+---
 
-Internally uses:
+## TreeMap
 
-* **Red-Black Tree** (self-balancing tree)
+`TreeMap` stores keys in sorted order.
 
-### Constructors
+### Features
+
+- sorted ascending order by default
+- unique keys
+- duplicate values allowed
+- null key is not allowed
+- O(log n)
+
+### Example
 
 ```java
-TreeMap()
-TreeMap(Comparator)
-TreeMap(Map)
-TreeMap(SortedMap)
+TreeMap<Integer, String> map = new TreeMap<>();
+map.put(50, "A");
+map.put(10, "B");
+map.put(30, "C");
+System.out.println(map);
 ```
 
-For descending order:
+### HashMap vs LinkedHashMap vs TreeMap
 
-```java
-NavigableMap<Integer,String> map = treeMap.descendingMap();
-```
-
-## Simple Explanation
-
-TreeMap automatically sorts keys.
-
-Example:
-Insert:
-`50, 10, 30`
-
-Output:
-`10, 30, 50`
-
-## Important Interview Point
-
-Use when sorted keys are required.
+| Feature | HashMap | LinkedHashMap | TreeMap |
+| ------- | ------- | ------------- | ------- |
+| Order | No order | Insertion order | Sorted order |
+| Null key | Yes | Yes | No |
+| Null value | Yes | Yes | Yes |
+| Speed | O(1) avg | O(1) avg | O(log n) |
 
 ---
 
-### Quick Comparison
+## Generics
 
-| Feature     | HashMap    | LinkedHashMap    | TreeMap        |
-| ----------- | ---------- | ---------------- | -------------- |
-| Order       | No order   | Insertion order  | Sorted order   |
-| Null Key    | Yes (1)    | Yes (1)          | No             |
-| Null Values | Yes        | Yes              | Yes            |
-| Speed       | O(1)       | O(1)             | O(log n)       |
-| Structure   | Hash Table | Hash Table + DLL | Red-Black Tree |
+Generics allow type-safe code and avoid unnecessary casting.
 
----
-
-Next: **Q41 → Q47** (TreeMap examples, HashMap vs LinkedHashMap vs TreeMap, Internal Working of HashMap, Red-Black Tree, Generics, ClassCastException).
-
------------------------------------------------
-Great. Continuing with **Q41 → Q47** in simple interview-friendly English.
-
----
-
-# Q41. Difference between HashMap, LinkedHashMap, and TreeMap
-
-## Correct Answer
-
-| Feature         | HashMap              | LinkedHashMap                   | TreeMap                             |
-| --------------- | -------------------- | ------------------------------- | ----------------------------------- |
-| Order           | No guaranteed order  | Maintains insertion order       | Sorts by key (ascending by default) |
-| Data Structure  | Hash Table           | Hash Table + Doubly Linked List | Red-Black Tree                      |
-| Null Key        | One null key allowed | One null key allowed            | Null key not allowed                |
-| Null Values     | Multiple allowed     | Multiple allowed                | Multiple allowed                    |
-| Time Complexity | O(1) average         | O(1) average                    | O(log n)                            |
-| Synchronization | Not synchronized     | Not synchronized                | Not synchronized                    |
-
-## Simple Explanation
-
-* **HashMap** → Fast, no order.
-* **LinkedHashMap** → Fast + keeps insertion order.
-* **TreeMap** → Keeps keys sorted.
-
-## Important Interview Point
-
-Choose based on requirement:
-
-* Need speed → `HashMap`
-* Need insertion order → `LinkedHashMap`
-* Need sorted keys → `TreeMap`
-
----
-
-# Q42. How does HashMap work internally?
-
-## Correct Answer
-
-`HashMap` stores data in **key-value pairs** using hashing.
-
-### Steps:
-
-1. Key is passed to `put(key, value)`
-2. Java calculates `hashCode()` of the key
-3. Hash value decides the bucket index
-4. Entry is stored in that bucket
-5. If two keys map to same bucket → collision occurs
-6. Java handles collision using:
-
-   * Linked List (before Java 8)
-   * Linked List → Red-Black Tree if bucket becomes large (Java 8+)
-
-## Simple Explanation
-
-HashMap finds a bucket using the key’s hash and stores data there.
-
-## Important Interview Point
-
-Main concepts:
-
-* `hashCode()`
-* Bucket
-* Collision
-* Equals method
-* Red-Black Tree
-
----
-
-# Q43. What is Collision in HashMap?
-
-## Correct Answer
-
-Collision happens when **two different keys generate the same bucket index**.
-
-Example:
-
-```java
-key1 → bucket 2
-key2 → bucket 2
-```
-
-Both keys go into same bucket.
-
-### Collision Handling
-
-Java uses:
-
-* Linked List
-* Red-Black Tree (Java 8+ if bucket becomes large)
-
-## Simple Explanation
-
-Two different keys trying to store data in same bucket = collision.
-
-## Important Interview Point
-
-Collision affects performance if too many occur.
-
----
-
-# Q44. What is Red-Black Tree?
-
-## Correct Answer
-
-A **Red-Black Tree** is a self-balancing binary search tree.
-
-Properties:
-
-* Every node is Red or Black
-* Root is always Black
-* Keeps tree balanced
-* Search, Insert, Delete → O(log n)
-
-Used in Java:
-
-* `TreeMap`
-* `TreeSet`
-* HashMap bucket optimization (Java 8+)
-
-## Simple Explanation
-
-It is a balanced tree that keeps operations fast.
-
-## Important Interview Point
-
-Why used? → Better performance than long linked lists.
-
----
-
-# Q45. What is Generics in Java?
-
-## Correct Answer
-
-Generics allow classes, interfaces, and methods to work with **type-safe data**.
-
-Syntax:
-
-```java
-ClassName<T>
-```
-
-Example:
+### Syntax
 
 ```java
 List<String> list = new ArrayList<>();
-list.add("Java");
+Map<Integer, String> map = new HashMap<>();
 ```
 
-Benefits:
+### Benefits
 
-* Type safety
-* No explicit casting needed
-* Compile-time error checking
-* Reusable code
+- type safety
+- compile-time checking
+- fewer runtime errors
+- cleaner code
 
-## Simple Explanation
-
-Generics let you specify data type in advance.
-
-Without Generics:
-
-```java
-List list = new ArrayList();
-```
-
-Can store anything.
-
-With Generics:
+### Example
 
 ```java
 List<Integer> list = new ArrayList<>();
+list.add(10);
+// list.add("Java");  // compile-time error
 ```
-
-Only integers allowed.
-
-## Important Interview Point
-
-Generics improve safety and readability.
 
 ---
 
-# Q46. Why do we use Generics?
+## Why use Generics?
 
-## Correct Answer
+Generics help avoid:
 
-We use Generics for:
-
-1. Type safety
-2. Compile-time checking
-3. Avoid ClassCastException
-4. Code reusability
-5. Cleaner code
-
-Example:
-
-```java
-List<String> names = new ArrayList<>();
-```
-
-Only String values allowed.
-
-## Simple Explanation
-
-Generics reduce bugs by restricting wrong data types.
-
-## Important Interview Point
-
-Main advantage = **Type safety at compile time**.
+- `ClassCastException`
+- incorrect data storage
+- manual type casting
 
 ---
 
-# Q47. What is ClassCastException?
+## ClassCastException
 
-## Correct Answer
-
-`ClassCastException` occurs when we try to convert one incompatible object type into another.
-
-Example:
+This happens when wrong object type is cast to another type.
 
 ```java
 Object obj = "Java";
-Integer num = (Integer) obj;   // Exception
+Integer num = (Integer) obj; // ClassCastException
 ```
 
-Output:
-
-```java
-ClassCastException
-```
-
-Why?
-Because String cannot be cast to Integer.
-
-## Simple Explanation
-
-Wrong type casting causes ClassCastException.
-
-## How Generics help
-
-```java
-List<String> list = new ArrayList<>();
-```
-
-Now wrong type insertion/casting is caught earlier.
-
-## Important Interview Point
-
-`ClassCastException` happens at **runtime**, not compile time.
+Generics reduce this risk by making the type explicit.
 
 ---
 
-Next: **Q48 → Q54** (Wrapper Class, Autoboxing, Unboxing, Final keyword, finally, finalize, and common interview differences).
-Great. Continuing with **Q48 → Q54**.
+## Wrapper Classes
 
----
+Wrapper classes convert primitive values into objects.
 
-# Q48. What is a Wrapper Class in Java?
-
-## Correct Answer
-
-A **Wrapper Class** is a class that converts a primitive data type into an object.
-
-Java provides wrapper classes for all primitive types.
-
-| Primitive Type | Wrapper Class |
-| -------------- | ------------- |
-| `byte`         | `Byte`        |
-| `short`        | `Short`       |
-| `int`          | `Integer`     |
-| `long`         | `Long`        |
-| `float`        | `Float`       |
-| `double`       | `Double`      |
-| `char`         | `Character`   |
-| `boolean`      | `Boolean`     |
+| Primitive | Wrapper |
+| --------- | ------- |
+| byte | Byte |
+| short | Short |
+| int | Integer |
+| long | Long |
+| float | Float |
+| double | Double |
+| char | Character |
+| boolean | Boolean |
 
 ### Example
 
@@ -3687,243 +849,119 @@ int num = 10;
 Integer obj = Integer.valueOf(num);
 ```
 
-## Simple Explanation
+### Why use wrapper classes?
 
-Primitive types (`int`, `char`, etc.) are not objects.
-Wrapper classes convert them into objects.
+- collections store objects
+- useful utility methods available
+- supports autoboxing and unboxing
 
-## Important Interview Point
+### Autoboxing
 
-Collections like `ArrayList` store objects, so wrapper classes are often used.
+```java
+Integer i = 10; // primitive int converted to Integer automatically
+```
+
+### Unboxing
+
+```java
+int x = i; // Integer converted to primitive automatically
+```
 
 ---
 
-# Q49. Why do we use Wrapper Classes?
+## Collections Class
 
-## Correct Answer
+`Collections` is a utility class in `java.util`.
 
-Wrapper classes are used because:
+It contains static methods to operate on collections.
 
-1. Collections store objects, not primitives
-2. Utility methods are available (`parseInt()`, `compareTo()`, etc.)
-3. Supports autoboxing and unboxing
-4. Can represent `null` (primitive types cannot)
+### Common methods
+
+- `Collections.sort(List)`
+- `Collections.reverse(List)`
+- `Collections.max(Collection)`
+- `Collections.min(Collection)`
+- `Collections.shuffle(List)`
+- `Collections.synchronizedList(List)`
+- `Collections.synchronizedMap(Map)`
 
 ### Example
 
 ```java
-ArrayList<Integer> list = new ArrayList<>();
-list.add(100);
-```
-
-## Simple Explanation
-
-Wrapper classes help when Java needs an object instead of a primitive value.
-
-## Important Interview Point
-
-Primitive → faster, less memory
-Wrapper → object features + utility methods
-
----
-
-# Q50. What is Autoboxing?
-
-## Correct Answer
-
-Autoboxing is the automatic conversion of a primitive type into its corresponding wrapper object.
-
-### Example
-
-```java
-int a = 10;
-Integer obj = a;   // Autoboxing
-```
-
-Equivalent to:
-
-```java
-Integer obj = Integer.valueOf(a);
-```
-
-## Simple Explanation
-
-Java automatically converts primitive → object.
-
-## Important Interview Point
-
-Autoboxing introduced in **Java 5**.
-
----
-
-# Q51. What is Unboxing?
-
-## Correct Answer
-
-Unboxing is the automatic conversion of a wrapper object into its corresponding primitive type.
-
-### Example
-
-```java
-Integer obj = 50;
-int num = obj;   // Unboxing
-```
-
-Equivalent to:
-
-```java
-int num = obj.intValue();
-```
-
-## Simple Explanation
-
-Java automatically converts object → primitive.
-
-## Important Interview Point
-
-Unboxing can throw `NullPointerException` if wrapper object is `null`.
-
-Example:
-
-```java
-Integer x = null;
-int y = x;   // NullPointerException
-```
-
----
-
-# Q52. What is the `final` keyword in Java?
-
-## Correct Answer
-
-`final` is used to restrict modification.
-
-### 1. Final Variable
-
-Value cannot be changed.
-
-```java
-final int x = 10;
-// x = 20;  // Error
-```
-
-### 2. Final Method
-
-Method cannot be overridden.
-
-```java
-final void show() {}
-```
-
-### 3. Final Class
-
-Class cannot be inherited.
-
-```java
-final class Demo {}
-```
-
-Example:
-`String` is a final class.
-
-## Simple Explanation
-
-`final` = cannot change / extend / override.
-
-## Important Interview Point
-
-* Final variable → constant
-* Final method → no overriding
-* Final class → no inheritance
-
----
-
-# Q53. What is `finally` in Java?
-
-## Correct Answer
-
-`finally` is a block used in exception handling.
-
-It always executes whether exception occurs or not (except special cases like JVM shutdown).
-
-### Example
-
-```java
-try {
-    int a = 10 / 2;
-} catch (Exception e) {
-    System.out.println(e);
-} finally {
-    System.out.println("Always executes");
-}
-```
-
-## Simple Explanation
-
-`finally` is mainly used for cleanup code:
-
-* Closing file
-* Closing database connection
-* Releasing resources
-
-## Important Interview Point
-
-`finally` runs after `try/catch`.
-
----
-
-# Q54. What is `finalize()` in Java?
-
-## Correct Answer
-
-`finalize()` is a method of the `Object` class.
-
-It was called by Garbage Collector before destroying an object.
-
-Example:
-
-```java
-class Demo {
-    protected void finalize() {
-        System.out.println("Object destroyed");
+import java.util.*;
+
+public class Test
+{
+    public static void main(String[] args)
+    {
+        List<Integer> list = new ArrayList<>();
+        list.add(30);
+        list.add(10);
+        list.add(20);
+
+        Collections.sort(list);
+        System.out.println(list);
     }
 }
 ```
 
-## Simple Explanation
+### Collection vs Collections
 
-It was used for cleanup before object removal.
-
-## Important Technical Accuracy
-
-`finalize()` is **deprecated** (Java 9+) and should not be used in modern Java.
-
-Use:
-
-* `try-with-resources`
-* Explicit cleanup methods
-
-## Important Interview Point
-
-Do not confuse:
-
-* `final` → keyword
-* `finally` → exception block
-* `finalize()` → deprecated method
+| Collection | Collections |
+| ---------- | ----------- |
+| Interface | Utility class |
+| Stores objects | Operates on collections |
+| Part of framework | Helper class |
 
 ---
 
-# Quick Difference
+## Comparable vs Comparator
 
-| Feature    | final                     | finally                 | finalize()     |
-| ---------- | ------------------------- | ----------------------- | -------------- |
-| Type       | Keyword                   | Block                   | Method         |
-| Purpose    | Restrict changes          | Cleanup after try/catch | Old GC cleanup |
-| Used In    | Variable / Method / Class | Exception handling      | Object class   |
-| Modern Use | Yes                       | Yes                     | Deprecated     |
+### Comparable
+
+- package: `java.lang`
+- used for natural sorting
+- method: `compareTo()`
+
+### Comparator
+
+- package: `java.util`
+- used for custom sorting
+- method: `compare()`
+
+### Use case
+
+- `Comparable` → default sorting inside the class
+- `Comparator` → custom sorting outside the class
 
 ---
 
-✅ **Q29 → Q54 completed (grammar fixed + technically corrected + interview-friendly explanations).**
+## Final Quick Revision
 
-If you want, I can continue the same style for **OOP, Exception Handling, Multithreading, JDBC, Collections advanced, and Spring interview questions**.
+- `Collection` = interface for storing groups of objects
+- `Collections` = utility class for operations
+- `List` = ordered, duplicates allowed
+- `Set` = unique elements only
+- `Map` = key-value pairs
+- `ArrayList` = dynamic list, fast retrieval
+- `LinkedList` = fast insert/delete
+- `Vector` = legacy, synchronized
+- `HashSet` = unique, unordered
+- `LinkedHashSet` = unique, insertion order
+- `TreeSet` = unique, sorted order
+- `HashMap` = key-value, fast lookup
+- `LinkedHashMap` = insertion order preserved
+- `TreeMap` = keys sorted automatically
+- `Generics` improve type safety
+- `Wrapper classes` allow primitives to be stored in collections
+
+---
+
+## Interview Summary
+
+- Collection Framework helps store and manipulate groups of objects efficiently.
+- `List` allows duplicates and maintains order.
+- `Set` avoids duplicates.
+- `Map` stores key-value pairs.
+- `Collections` class provides helper methods.
+- Generics and wrapper classes are essential for type safety in Java collections.

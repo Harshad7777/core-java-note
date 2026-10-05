@@ -1,8 +1,28 @@
 # Git and GitHub Practical Workflow
 
-This guide covers the complete Git/GitHub flow for a practical development setup: create a repository on GitHub, clone it locally, create branches, add files, commit, push, pull, merge, and delete branches.
+Yes. You want a complete Git/GitHub practical flow: create GitHub repository → create local folder → clone → create branch → create files/content → add → commit → push → pull → merge → delete branch, etc.
 
-Your previous work was successful: the `first-branh` branch was pushed to GitHub. The main issue was running Git commands from the wrong directory.
+Your previous work is already successful: `first-branh` was pushed to GitHub. The main mistake was running Git commands from the wrong directory.
+
+> This guide includes the important Git commands in a clean, practical format for daily use.
+
+## Quick command cheat sheet
+
+```bash
+git --version
+git config --global user.name "Harshad"
+git config --global user.email "harshadrakshe28@gmail.com"
+git clone https://github.com/Harshad7777/demoDevops.git
+git checkout -b first-branch
+git status
+git add .
+git commit -m "Add project files"
+git push -u origin first-branch
+git pull origin main
+git merge feature-login
+git branch -d feature-login
+git log --oneline --graph --all
+```
 
 ---
 

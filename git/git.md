@@ -165,19 +165,66 @@ git branch -a
 
 ---
 
-## 5. Create a new branch
+## 5. Create a new branch from `main`
 
 Your branch name was `first-branh`, which had a spelling mistake.
 
-Create a correctly named branch:
+If your repository does not have a `main` branch yet, this command will fail:
 
 ```bash
+git switch main
+```
+
+This happens when there is no local or remote `main` branch. In your case:
+
+```bash
+git branch -a
+```
+
+shows only:
+
+```bash
+* first-branh
+  remotes/origin/first-branh
+```
+
+So `main` does not exist yet.
+
+If you want to create a new `main` branch from the current branch, use:
+
+```bash
+git branch -M main
+```
+
+Then push it:
+
+```bash
+git push -u origin main
+```
+
+If you want to keep the current branch and create a new branch from it, use:
+
+```bash
+git checkout -b main
+```
+
+Or:
+
+```bash
+git switch -c main
+```
+
+If you want a correctly named branch from `main` after `main` exists, use:
+
+```bash
+git checkout main
 git checkout -b first-branch
 ```
 
-Modern Git equivalent:
+Or:
 
 ```bash
+git switch main
 git switch -c first-branch
 ```
 
@@ -298,17 +345,45 @@ git .add
 git add
 ```
 
+If you type only:
+
+```bash
+git .
+```
+
+this is invalid because Git does not recognize `.` as a command. The correct command is always:
+
+```bash
+git add .
+```
+
 Add a specific file:
 
 ```bash
 git add README.md
 ```
 
+You can also add a file from a parent directory:
+
+```bash
+git add ../index.html
+```
+
+This stages the file `index.html` from the parent folder relative to your current location.
+
 Add multiple files:
 
 ```bash
 git add README.md index.html
 ```
+
+Stage changes to files Git already tracks:
+
+```bash
+git add -u
+```
+
+`-u` means “update.” It stages modifications and deletions to tracked files, but does not stage new, untracked files. To stage new files too, use `git add --all`.
 
 ---
 
@@ -369,6 +444,16 @@ git commit --amend -m "Add project files and setup"
 ```
 
 This will replace the last commit with a new one.
+
+### Add everything to staging
+
+```bash
+git add --all
+```
+
+This stages all tracked and untracked changes in the repository, including file deletions. Unlike `git add -u`, it also stages new files.
+
+By contrast, `git add -u` stages only modifications and deletions to tracked files; it does not stage new, untracked files.
 
 ---
 
@@ -729,6 +814,8 @@ git remote set-url origin https://github.com/Harshad7777/demoDevops.git
 
 ## 26. Fetch remote changes
 
+`git fetch` downloads new changes from the remote repository without merging them into your current branch.
+
 ```bash
 git fetch
 ```
@@ -739,11 +826,23 @@ Fetch a specific remote:
 git fetch origin
 ```
 
+This updates your remote-tracking branches such as `origin/main` and `origin/first-branch`.
+
 Then check branches:
 
 ```bash
 git branch -a
 ```
+
+Example output:
+
+```bash
+* main
+  remotes/origin/main
+  remotes/origin/feature-login
+```
+
+> `git pull` is different from `git fetch`: `fetch` downloads only, while `pull` downloads and merges.
 
 ---
 

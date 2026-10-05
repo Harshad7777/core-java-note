@@ -237,10 +237,23 @@ ls -R
 
 ## 7. Add content to a file
 
-Open the file in Notepad:
+Open the file in VS Code or Notepad:
+
+```bash
+code README.md
+```
+
+If `code` is not available in your terminal, use:
 
 ```bash
 notepad README.md
+```
+
+Example:
+
+```bash
+harsh@harshad UCRT64 /c/dev/demoDevops/src (first-branh)
+$ code README.md
 ```
 
 Add content such as:
@@ -339,6 +352,24 @@ Expected result:
 nothing to commit, working tree clean
 ```
 
+### Fix the last commit
+
+The correct command is:
+
+```bash
+git commit --amend
+```
+
+Use this when you want to modify the most recent commit message or add files to the previous commit.
+
+Example:
+
+```bash
+git commit --amend -m "Add project files and setup"
+```
+
+This will replace the last commit with a new one.
+
 ---
 
 ## 11. Push your branch to GitHub
@@ -354,6 +385,14 @@ After `-u` is configured, you can simply run:
 ```bash
 git push
 ```
+
+You can also push to the current branch using the remote name only:
+
+```bash
+git push origin
+```
+
+This pushes the current branch to the `origin` remote.
 
 ---
 
@@ -508,10 +547,22 @@ git push origin --delete feature-login
 
 ## 19. See commit history
 
+`git log` shows the commit history of the current branch.
+
 Simple history:
 
 ```bash
 git log
+```
+
+Example output:
+
+```bash
+commit a1b2c3d4e5f6g7h8
+Author: Harshad <harshadrakshe28@gmail.com>
+Date:   Mon Oct 5 2026
+
+    Add project files
 ```
 
 One line per commit:
@@ -520,11 +571,21 @@ One line per commit:
 git log --oneline
 ```
 
+Example:
+
+```bash
+a1b2c3d Add project files
+b4c5d6e Fix login page
+f7g8h9i Initial commit
+```
+
 Graph view:
 
 ```bash
 git log --oneline --graph --all
 ```
+
+This is useful to see branch history and merge structure.
 
 ---
 
@@ -582,6 +643,58 @@ Then commit:
 
 ```bash
 git commit -m "Rename file"
+```
+
+---
+
+.gitignore
+
+`.gitignore` is a special file used to tell Git which files or folders should be ignored and not uploaded to GitHub.
+
+Example:
+
+```gitignore
+node_modules/
+.env
+*.log
+.DS_Store
+*.html
+```
+
+This means:
+- `node_modules/` is ignored
+- `.env` is ignored
+- all `.log` files are ignored
+- `.DS_Store` is ignored
+- all `.html` files are ignored
+
+If you want to ignore only HTML files, use:
+
+```gitignore
+*.html
+```
+
+Create it:
+
+```bash
+touch .gitignore
+```
+
+Open it:
+
+```bash
+code .gitignore
+```
+
+Then add patterns to ignore unnecessary files.
+
+Example workflow:
+
+```bash
+git status
+git add .gitignore
+git commit -m "Add gitignore"
+git push origin
 ```
 
 ---

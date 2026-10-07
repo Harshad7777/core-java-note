@@ -349,9 +349,7 @@ class Employee
         return sal;
     }
 }
-```
 
-```java
 class Company
 {
     Employee employee;
@@ -366,9 +364,7 @@ class Company
         System.out.println(employee.getId() + "\t" + employee.getName() + "\t" + employee.getSal());
     }
 }
-```
 
-```java
 public class ConsPOJOAPP
 {
     public static void main(String x[])
@@ -476,23 +472,169 @@ I AM A CONSTRUCTOR
 
 ### Custom stack example
 ```java
+import java.util.Scanner;
+
 class MyStack
 {
     int stack[];
+    int top;
 
+    // Default constructor
     MyStack()
     {
         this(5); // default size = 5
     }
 
+    // Constructor with user-defined size
     MyStack(int userChoice)
     {
-        this(userChoice, 0); // user size, grow = double
+        this(userChoice, 2); // initial size, grow size
     }
 
+    // Constructor with size and increment size
     MyStack(int userChoice, int incSize)
     {
         stack = new int[userChoice];
+        top = -1;
+    }
+
+    // Push element into stack
+    void push(int value)
+    {
+        // Check whether stack is full
+        if (top == stack.length - 1)
+        {
+            int newStack[] = new int[stack.length * 2];
+
+            // Copy old elements
+            for (int i = 0; i < stack.length; i++)
+            {
+                newStack[i] = stack[i];
+            }
+
+            stack = newStack;
+
+            System.out.println("Stack size increased to: " + stack.length);
+        }
+
+        top++;
+        stack[top] = value;
+
+        System.out.println(value + " pushed into stack.");
+    }
+
+    // Remove element from stack
+    int pop()
+    {
+        if (top == -1)
+        {
+            System.out.println("Stack is empty.");
+            return -1;
+        }
+
+        int value = stack[top];
+        top--;
+
+        return value;
+    }
+
+    // Display top element
+    int peek()
+    {
+        if (top == -1)
+        {
+            System.out.println("Stack is empty.");
+            return -1;
+        }
+
+        return stack[top];
+    }
+
+    // Display stack elements
+    void display()
+    {
+        if (top == -1)
+        {
+            System.out.println("Stack is empty.");
+            return;
+        }
+
+        System.out.println("Stack elements:");
+
+        for (int i = top; i >= 0; i--)
+        {
+            System.out.println(stack[i]);
+        }
+    }
+}
+
+public class Main
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter stack size: ");
+        int size = sc.nextInt();
+
+        MyStack s = new MyStack(size);
+
+        int choice;
+
+        do
+        {
+            System.out.println("\n----- STACK MENU -----");
+            System.out.println("1. Push");
+            System.out.println("2. Pop");
+            System.out.println("3. Peek");
+            System.out.println("4. Display");
+            System.out.println("5. Exit");
+
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice)
+            {
+                case 1:
+                    System.out.print("Enter value: ");
+                    int value = sc.nextInt();
+
+                    s.push(value);
+                    break;
+
+                case 2:
+                    int popped = s.pop();
+
+                    if (popped != -1)
+                    {
+                        System.out.println("Popped element: " + popped);
+                    }
+                    break;
+
+                case 3:
+                    int topElement = s.peek();
+
+                    if (topElement != -1)
+                    {
+                        System.out.println("Top element: " + topElement);
+                    }
+                    break;
+
+                case 4:
+                    s.display();
+                    break;
+
+                case 5:
+                    System.out.println("Program terminated.");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice.");
+            }
+
+        } while (choice != 5);
+
+        sc.close();
     }
 }
 ```
@@ -622,24 +764,27 @@ A singleton class allows only one object in the entire application.
 ```java
 class S
 {
+    // Only one object reference
     private static S s1 = null;
 
+    // Private constructor
     private S()
     {
         System.out.println("I am constructor");
     }
 
+    // Factory method to create/get the object
     public static S getInstance()
     {
         if (s1 == null)
+        {
             s1 = new S();
+        }
 
         return s1;
     }
 }
-```
 
-```java
 public class SCAPP
 {
     public static void main(String x[])
@@ -647,6 +792,14 @@ public class SCAPP
         S s1 = S.getInstance();
         S s2 = S.getInstance();
         S s3 = S.getInstance();
+
+        System.out.println(s1);
+        System.out.println(s2);
+        System.out.println(s3);
+
+        System.out.println(s1 == s2);
+        System.out.println(s2 == s3);
+        System.out.println(s1 == s3);
     }
 }
 ```
@@ -654,6 +807,12 @@ public class SCAPP
 ### Output
 ```text
 I am constructor
+S@5acf9800
+S@5acf9800
+S@5acf9800
+true
+true
+true
 ```
 
 ### Memory behavior

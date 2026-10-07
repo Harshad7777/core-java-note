@@ -470,6 +470,59 @@ I am int param constructor 5
 I AM A CONSTRUCTOR
 ```
 
+### Example: Calling a parent constructor with `super()`
+Use `super(arguments)` in a child-class constructor to call a matching
+constructor in its parent class. The `super(...)` call must be the first
+statement in the child constructor.
+
+```java
+class Person
+{
+    String name;
+
+    Person(String name)
+    {
+        this.name = name;
+        System.out.println("Person constructor called");
+    }
+}
+
+class Employee extends Person
+{
+    int employeeId;
+
+    Employee(String name, int employeeId)
+    {
+        super(name); // Calls Person(String name)
+        this.employeeId = employeeId;
+        System.out.println("Employee constructor called");
+    }
+
+    void display()
+    {
+        System.out.println("Name: " + name);
+        System.out.println("Employee ID: " + employeeId);
+    }
+}
+
+public class SuperConstructorApp
+{
+    public static void main(String args[])
+    {
+        Employee employee = new Employee("Asha", 101);
+        employee.display();
+    }
+}
+```
+
+### Output
+```text
+Person constructor called
+Employee constructor called
+Name: Asha
+Employee ID: 101
+```
+
 ### Custom stack example
 ```java
 import java.util.Scanner;

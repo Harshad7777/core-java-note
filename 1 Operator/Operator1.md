@@ -773,7 +773,7 @@ public class BAPP {
 ### OR operation (`|`)
 If any input is 1, output is 1.
 
-| A | B | A | B |
+| A | B | Output |
 | --- | --- | --- |
 | 0 | 0 | 0 |
 | 0 | 1 | 1 |
@@ -857,6 +857,28 @@ Binary:
 ```
 
 Result: `5`
+
+### Unsigned right shift (`>>>`)
+`>>>` is also a right shift, but it always fills the left side with `0`.
+This is different from `>>`, which keeps the sign bit for negative numbers.
+
+Example:
+```java
+public class BAPP {
+    public static void main(String[] args) {
+        int a = -8, b;
+        b = a >>> 2;
+        System.out.printf("B is %d\n", b);
+    }
+}
+```
+
+Output:
+```text
+B is 1073741822
+```
+
+`>>>` is mainly used with negative numbers when you want to shift without preserving the sign.
 
 ---
 

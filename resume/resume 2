@@ -1,0 +1,156 @@
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=0.62in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+
+\definecolor{heading}{HTML}{17365D}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+
+\setlist[itemize]{
+    leftmargin=15pt,
+    itemsep=1pt,
+    topsep=2pt
+}
+
+\titleformat{\section}
+  {\large\bfseries\color{heading}}
+  {}{0em}{}[\titlerule]
+
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+
+\newcommand{\entry}[2]{
+  \begin{tabularx}{\textwidth}{@{}X r@{}}
+    \textbf{#1} & \textbf{#2}
+  \end{tabularx}
+}
+
+\begin{document}
+
+% HEADER
+\begin{center}
+    {\LARGE\bfseries\color{heading} Harshad Rakshe}\\[5pt]
+    +91 8459997443 \quad|\quad
+    \href{mailto:harshadrakshe28@gmail.com}
+    {harshadrakshe28@gmail.com}
+    \quad|\quad
+    \href{https://github.com/Harshad7777}{GitHub}
+    \quad|\quad
+    \href{https://harshad-rakshe.netlify.app/}{Portfolio}
+    \quad|\quad Pune, Maharashtra
+\end{center}
+
+% SUMMARY
+\section*{SUMMARY}
+Computer Science graduate eager to gain practical experience
+and develop my skills. I aim to contribute to the team while
+growing my career and continuously learning, improving, and
+adapting to new challenges.
+
+% EDUCATION
+\section*{EDUCATION}
+
+\entry{Jaihind College of Engineering, Kuran}{2020 -- 2024}
+Bachelor of Engineering (B.E.) in Computer Engineering
+\hfill  CGPA: 7.66/10\\
+Pune, Maharashtra
+
+\vspace{3pt}
+\entry{Hutatma Rajguru Vidyalaya, Rajgurunagar}{2020}
+Higher Secondary Certificate (HSC)
+\hfill Percentage: 60.00\%\\
+Pune, Maharashtra
+
+\vspace{3pt}
+\entry{Hutatma Rajguru Mahavidyalaya, Rajgurunagar}{2018}
+Secondary School Certificate (SSC)
+\hfill Percentage: 80.00\%\\
+Pune, Maharashtra
+
+% SKILLS
+\section*{SKILLS}
+
+\textbf{Programming:}
+Java (OOP, Collections Framework, Multithreading,
+Exception Handling, JDK 1.8)\\
+\textbf{Database:} MySQL, SQL\\
+\textbf{Frontend:} HTML5, CSS3, Bootstrap, JavaScript\\
+\textbf{Backend:} JDBC, Servlets, Spring Boot, REST API\\
+\textbf{Tools:} Git, GitHub, Eclipse, VS Code, Postman
+
+% INTERNSHIP
+\section*{INTERNSHIP}
+
+\entry{G-Soft Solutions Pvt. Ltd.}{Jan 2026 -- June 2026}
+\textit{Java Developer Intern}
+\hfill Pune, India
+
+\begin{itemize}
+    \item Developed web applications using Java, Spring Boot,
+    and REST APIs following MVC architecture.
+
+    \item Built MVC-based backend modules, optimized SQL
+    queries, and implemented efficient CRUD operations.
+
+    \item Used Git, Maven, Postman, and Apache Tomcat for
+    version control, API testing, and deployment.
+\end{itemize}
+
+% PROJECTS
+\section*{PROJECTS}
+
+\textbf{Restaurant Management System}
+\hfill \textcolor{heading}{\textbf{LIVE}}
+
+\textbf{Duration:} 4 Months \hspace{1cm} \textbf{Team Size:} Individual
+
+\begin{itemize}
+    \item Developed a Restaurant Management System for menu, customer, order, billing, and report management.
+
+    \item Built REST APIs and CRUD operations using Spring Boot, Spring JDBC, and MySQL.
+
+    \item Secured APIs with JWT and tested using Swagger and Postman.
+
+    \item \textbf{Tech Stack:} Java, Spring Boot, JDBC, MySQL,
+    JSP, HTML, CSS, Bootstrap, JavaScript, Git, GitHub.
+\end{itemize}
+
+\textbf{To-Do List Web Application}
+\hfill \href{https://github.com/Harshad7777}{GitHub}
+
+\begin{itemize}
+    \item Developed a task management web application using Java Servlets and JSP.
+
+    \item Implemented CRUD operations with JDBC and MySQL.
+
+    \item Deployed the application on Apache Tomcat following MVC architecture.
+
+    \item \textbf{Tech Stack:} Java, Servlet, JDBC, MySQL,
+    HTML5, CSS3, Bootstrap, Apache Tomcat, Git, GitHub.
+\end{itemize}
+
+% COURSE
+\section*{COURSE}
+
+\entry{Java Full Stack Development}{July 2025 -- Dec 2025}
+Giri's Tech Hub Pvt. Ltd.
+\hfill Warje, Pune
+
+% CERTIFICATIONS & PUBLICATIONS
+\section*{CERTIFICATIONS \& PUBLICATIONS}
+
+\begin{itemize}
+    \item \textbf{Web Development Certification} -- Skill Vertex (Feb 2023 -- Mar 2023)
+    \item \textbf{Research Paper:} \textit{Plant Disease Detection Using Drones in Precision Agriculture} -- IJARESM (May 2024)
+\end{itemize}
+
+\end{document}

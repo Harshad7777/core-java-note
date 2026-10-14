@@ -319,7 +319,7 @@ Why do we use it?
 
 | this() | super() |
 | ------ | ------- |
-| Refers to current class constructor | Refers to parent class constructor |
+| Refers to current class constructor |  Refers to parent class constructor |
 | Used for constructor chaining in same class | Used for chaining between parent and child classes |
 | Calls another constructor of same class | Calls constructor of immediate parent class |
 

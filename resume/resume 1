@@ -1,0 +1,315 @@
+\documentclass[10pt, letterpaper]{article}
+\usepackage{adjustbox}
+\usepackage{ragged2e}
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=2 cm, % seperation between body and page edge from the top
+    bottom=2 cm, % seperation between body and page edge from the bottom
+    left=2 cm, % seperation between body and page edge from the left
+    right=2 cm, % seperation between body and page edge from the right
+    footskip=1.0 cm, % seperation between body and footer
+    % showframe % for debugging 
+]{geometry} % for adjusting page geometry
+\usepackage{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed width columns
+\usepackage{array} % tabularx requires this
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 0, 0} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={Harshad Rakshe},
+    pdfauthor={Harshad Rakshe},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page brake right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex or luatex
+
+% Ensure that generate pdf is machine readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+\usepackage{charter}
+
+% Some settings:
+\raggedright
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0.15cm} % set column seperation
+\pagenumbering{gobble} % no page numbering
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+
+\titlespacing{\section}{
+    -1pt % left space
+}{
+    0.25 cm % top space
+}{
+    0.2 cm % bottom space
+} % section title spacing
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$} % custom bullet points
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        % itemsep=0.35em,
+        % leftmargin=0 cm + 10pt
+        leftmargin=0.5cm, itemsep=0.17em
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+        
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0 cm + 0.00001 cm
+    }{
+        0 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two column entries
+
+\newenvironment{threecolentry}[3][]{
+    \onecolentry
+    \def\thirdColumn{#3}
+    \setcolumnwidth{, \fill, 4.5 cm}
+    \begin{paracol}{3}
+    {\raggedright #2} \switchcolumn
+}{
+    \switchcolumn \raggedleft \thirdColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for three column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+\newcommand{\placelastupdatedtext}{%
+    \AddToShipoutPictureFG*{%
+        \put(
+            \LenToUnit{\paperwidth-2 cm-0 cm+0.05cm},
+            \LenToUnit{\paperheight-1.0 cm}
+        ){\vtop{{\null}\makebox[0pt][c]{
+            \small\color{gray}\textit{Last updated in July 2025}\hspace{\widthof{Last updated in July 2025}}
+        }}}%
+    }%
+}%
+
+\let\hrefWithoutArrow\href
+
+\begin{document}
+\newcommand{\AND}{\unskip
+    \cleaders\copy\ANDbox\hskip\wd\ANDbox
+    \ignorespaces
+}
+\newsavebox\ANDbox
+\sbox\ANDbox{$|$}
+
+\begin{header}
+    \fontsize{25 pt}{25 pt}\selectfont Harshad Rakshe
+
+    \vspace{4 pt}
+
+    \normalsize
+    \mbox{Pune, Maharashtra}%
+    \kern 5.0 pt%
+    \AND%
+    \kern 5.0 pt%
+    \mbox{\hrefWithoutArrow{tel:+918459997443}{\textcolor{blue}{+91 8459997443}}}%
+    \kern 5.0 pt%
+    \AND%
+    \kern 5.0 pt%
+    \mbox{\href{mailto:harshadrakshe28@gmail.com}{harshadrakshe28@gmail.com}}%
+    \kern 5.0 pt%
+    \AND%
+    \kern 5.0 pt%
+    \mbox{\hrefWithoutArrow{https://www.linkedin.com/in/harshad-rakshe-019887258/}{\textcolor{blue}{LinkedIn}}}%  
+    \kern 5.0 pt%
+    \AND%
+    \kern 5.0 pt%
+    \mbox{\hrefWithoutArrow{https://github.com/Harshad7777}{\textcolor{blue}{GitHub}}}%
+    \kern 5.0 pt%
+    \AND%
+\end{header}
+
+\vspace{-0.2 cm}
+
+\section{About Me}
+\begin{onecolentry}
+\justifying
+Java Full Stack Developer with expertise in Java, Spring Boot, Spring MVC, Spring JDBC, REST APIs, MySQL, HTML, CSS, Bootstrap, and JavaScript. Skilled in developing responsive web applications, building RESTful APIs, and implementing MVC architecture. Proficient with Git, Maven, Swagger, and Postman.
+\end{onecolentry}
+\section{Education}
+
+\begin{twocolentry}{
+    2020 -- 2024
+}
+    \textbf{Bachelor of Engineering (B.E.) in Computer Engineering} \\
+    Jaihind College of Engineering, Kuran, Junnar, Pune \\
+    \textbf{CGPA:} 7.66/10
+\end{twocolentry}
+
+\section{Technical Skills}
+
+\begin{onecolentry}
+\textbf{Programming Languages:} Java
+\end{onecolentry}
+
+\vspace{0.1cm}
+
+\begin{onecolentry}
+\textbf{Frontend:} HTML5, CSS3, Bootstrap, JavaScript
+\end{onecolentry}
+
+\vspace{0.1cm}
+
+\begin{onecolentry}
+ \textbf{Backend:} JDBC, Servlets, Spring Boot, Spring MVC, Spring JDBC, REST APIs  
+\end{onecolentry}
+
+\vspace{0.1cm}
+
+\begin{onecolentry}
+\textbf{Database:} MySQL
+\end{onecolentry}
+
+
+
+
+\vspace{0.1cm}
+
+\begin{onecolentry}
+\textbf{Tools:} Git, GitHub, Maven, Postman, Swagger, Spring Tool Suite (STS), IntelliJ IDEA, Eclipse, VS Code
+\end{onecolentry}
+
+
+\vspace{0.1cm}
+
+\begin{onecolentry}
+\textbf{Soft Skills:} Problem Solving, Time Management, Adaptability
+\end{onecolentry}
+
+
+
+
+
+
+\section{Projects}
+
+\begin{onecolentry}
+
+
+
+\vspace{0.2cm}
+
+{\textbf{Restaurant Management System}}
+
+\textbf{Technologies:} Java, Spring Boot, Spring JDBC, MySQL, REST APIs, JWT, Swagger, Maven, Postman\\
+\textbf{Duration:} 4 Months \hspace{1cm} \textbf{Team Size:} Individual
+
+\begin{highlights}
+\item Developed a Restaurant Management System for menu, customer, order, billing, and report management.
+\item Built REST APIs and CRUD operations using Spring Boot, Spring JDBC, and MySQL.
+\item Secured APIs with JWT and tested using Swagger and Postman.
+\end{highlights}
+
+\vspace{0.2cm}
+
+{\textbf{To-Do List Web Application}}
+
+\textbf{Technologies:} Java, Servlets, JSP, JDBC, MySQL, Apache Tomcat\\
+\textbf{Duration:} 1 Month \hspace{1cm} \textbf{Team Size:} Individual
+
+\begin{highlights}
+\item Developed a task management web application using Java Servlets and JSP.
+\item Implemented CRUD operations with JDBC and MySQL.
+\item Deployed the application on Apache Tomcat following MVC architecture.
+\end{highlights}
+
+\vspace{0.2cm}
+
+{\textbf{Personal Portfolio Website}}
+
+\textbf{Technologies:} HTML, CSS, Bootstrap, JavaScript, Netlify, Wix\\
+\textbf{Duration:} 2 Weeks \hspace{1cm} \textbf{Team Size:} Individual
+
+\begin{highlights}
+\item Developed responsive portfolio websites showcasing skills, projects, and resume.
+\item Designed a responsive UI and deployed on Netlify and github.io
+\item \textbf{Portfolio:} \href{https://harshad-rakshe.netlify.app/}{Netlify} \,|\, \href{https://harshad7777.github.io/portfolio/}{github.io}
+
+\end{highlights}
+
+\end{onecolentry}
+
+\section{Certifications \& Publications}
+
+\begin{onecolentry}
+\begin{highlights}
+\item \textbf{Web Development Certification} -- Skill Vertex (Feb 2023 -- Mar 2023)
+
+\item \textbf{Research Paper:} \textit{Plant Disease Detection Using Drones in Precision Agriculture} -- IJARESM (May 2024)
+
+\end{highlights}
+\end{onecolentry}
+
+% -------------------- Project 2 --------------------
+
+
+% -------------------- Add more projects similarly --------------------
+
+
+% Allow one more line on this page only
+\enlargethispage{\baselineskip}
+
+
+\end{document}

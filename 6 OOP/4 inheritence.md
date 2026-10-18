@@ -370,6 +370,11 @@ Dynamic polymorphism occurs when the method call is resolved at runtime based on
 
 This is achieved through method overriding and upcasting.
 
+Upcasting in Java
+
+Upcasting in Java means storing a child class object in a reference variable of its parent class.
+
+
 ```java
 class Value
 {
@@ -418,6 +423,7 @@ public class DPAPP
 }
 ```
 
+
 ---
 
 ## Coupling in OOP
@@ -433,6 +439,113 @@ When one class depends directly on a concrete class, it is tightly coupled.
 When code depends on a parent class or interface instead of a concrete class, it is loosely coupled.
 
 Loose coupling is preferred because it is more flexible and reusable.
+
+
+
+## 1. Tight Coupling
+
+When one class directly depends on a specific concrete class, it is called tight coupling.
+
+Example:
+
+```
+class Engine {
+    void start() {
+        System.out.println("Engine started");
+    }
+}
+
+class Car {
+    Engine e = new Engine();  // Tight coupling
+
+    void drive() {
+        e.start();
+        System.out.println("Car is moving");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car c = new Car();
+        c.drive();
+    }
+}
+```
+
+Output:
+
+```
+Engine started
+Car is moving
+```
+
+Explanation: The `Car` class creates an `Engine` object directly using `new Engine()`. It depends on that specific implementation, making it harder to replace the engine with another implementation.
+
+## 2. Loose Coupling
+
+When a class depends on an parent class, interface or abstraction instead of a specific concrete class, it is called loose coupling.
+
+Example:
+
+```
+interface Engine {
+    void start();
+}
+
+class PetrolEngine implements Engine {
+    public void start() {
+        System.out.println("Petrol engine started");
+    }
+}
+
+class Car {
+    Engine e;
+
+    Car(Engine e) {
+        this.e = e;
+    }
+
+    void drive() {
+        e.start();
+        System.out.println("Car is moving");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Engine e = new PetrolEngine();
+        Car c = new Car(e);
+        c.drive();
+    }
+}
+```
+
+Output:
+
+```
+Petrol engine started
+Car is moving
+```
+
+Explanation: The `Car` class depends on the `Engine` interface. We can provide another implementation, such as `DieselEngine`, without changing the `Car` class.
+
+## 3. Difference between tight and loose coupling
+
+| Tight Coupling                       | Loose Coupling                                |
+| ------------------------------------ | --------------------------------------------- |
+| High dependency between classes      | Lower dependency between classes              |
+| Depends directly on a concrete class | Depends on an abstraction                     |
+| Difficult to modify and maintain     | Easier to modify and maintain                 |
+| Less flexible                        | More flexible and reusable                    |
+| Example: `new Engine()` inside `Car` | Example: constructor injection using `Engine` |
+
+## 4. Interview answer
+
+Q. What is coupling in Java?
+
+Coupling is the degree of dependency between classes. Tight coupling occurs when one class depends directly on a specific class, whereas loose coupling occurs when a class depends on an interface or abstraction. Loose coupling is preferred because it improves flexibility, maintainability, and reusability.
+
+Remember: Tight coupling = direct dependency. Loose coupling = dependency through abstraction.
 
 ---
 

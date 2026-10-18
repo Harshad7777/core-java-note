@@ -3,51 +3,52 @@
 ## Code Links
 
 1. [Q1. Write a Java program to input an array & display it.](#q1-write-a-java-program-to-input-an-array-display-it)
-2. [Q2. Write a program in java to delete an element at desired position from an array.](#q2-write-a-program-in-java-to-delete-an-element-at-desired-position-from-an-array)
-3. [Q3. Write a java program to give an array, find the second largest element.](#q3-write-a-java-program-to-give-an-array-find-the-second-largest-element)
-4. [Q4. Write a program in java to insert an element at desired position from an array.](#q4-write-a-program-in-java-to-insert-an-element-at-desired-position-from-an-array)
-5. [Q5. Write a java program to display only non-zero values from an array.](#q5-write-a-java-program-to-display-only-non-zero-values-from-an-array)
-6. [Q6. Write a java program to remove duplicated values from arrays.](#q6-write-a-java-program-to-remove-duplicated-values-from-arrays)
-7. [Q7. Write a java program to find common elements between two arrays.](#q7-write-a-java-program-to-find-common-elements-between-two-arrays)
-8. [Q8. Write a java program to count the frequency of each element in a given array.](#q8-write-a-java-program-to-count-the-frequency-of-each-element-in-a-given-array)
-9. [Q9. Write a program in java to find the majority element of an array ?](#q9-write-a-program-in-java-to-find-the-majority-element-of-an-array)
-10. [Q10. Write a program in java to rotate an array by N positions ?](#q10-write-a-program-in-java-to-rotate-an-array-by-n-positions)
-11. [Q11. Write a program in java to find the smallest missing element from a sorted array?](#q11-write-a-program-in-java-to-find-the-smallest-missing-element-from-a-sorted-array)
-12. [Q12. Write a Java program to sort a given array in ascending & descending order.](#q12-write-a-java-program-to-sort-a-given-array-in-ascending-descending-order)
-13. [Q13. Move all zeros in an array to the end while maintaining the relative order of non-zero elements.](#q13-move-all-zeros-in-an-array-to-the-end-while-maintaining-the-relative-order-of-non-zero-elements)
-14. [Q14. Write a java program count all pairs of elements in an array whose sum is equal to a given number.](#q14-write-a-java-program-count-all-pairs-of-elements-in-an-array-whose-sum-is-equal-to-a-given-number)
-15. [Q15. Write a java program to find union array of two unsorted array.](#q15-write-a-java-program-to-find-union-array-of-two-unsorted-array)
-16. [Q16. Rearrange the array so that even and odd numbers alternate. Assume the number of even and odd elements is equal.](#q16-rearrange-the-array-so-that-even-and-odd-numbers-alternate-assume-the-number-of-even-and-odd-elements-is-equal)
-17. [Q17. Write a java program to replace all negative numbers in an array with 0.](#q17-write-a-java-program-to-replace-all-negative-numbers-in-an-array-with-0)
-18. [Q18. Replace All Elements Divisible by 3 with -1.](#q18-replace-all-elements-divisible-by-3-with-1)
-19. [Q19. Replace First and Last Element with 0.](#q19-replace-first-and-last-element-with-0)
-20. [Q20. Replace all elements in the array that are multiples of 5 with the number 5 itself.](#q20-replace-all-elements-in-the-array-that-are-multiples-of-5-with-the-number-5-itself)
-21. [Q21. Check whether the given array is a palindrome.](#q21-check-whether-the-given-array-is-a-palindrome)
-22. [Q22. Return the first element that repeats in the array.](#q22-return-the-first-element-that-repeats-in-the-array)
-23. [Q23. Create a new array where each element is the square of the original.](#q23-create-a-new-array-where-each-element-is-the-square-of-the-original)
-24. [Q24. Replace each element with its factorial.](#q24-replace-each-element-with-its-factorial)
-25. [Q25. Count the number of prime numbers in an array.](#q25-count-the-number-of-prime-numbers-in-an-array)
-26. [Q26. Count the number of Perfect numbers in an array.](#q26-count-the-number-of-perfect-numbers-in-an-array)
-27. [Q27. Count the number of duck numbers in an array.](#q27-count-the-number-of-duck-numbers-in-an-array)
-28. [Q28. Write a program in java to print next greater elements in a given unsorted array. Elements for which no greater element exists, consider the next greater element as -1.](#q28-write-a-program-in-java-to-print-next-greater-elements-in-a-given-unsorted-array-elements-for-which-no-greater-element-exists-consider-the-next-greater-element-as-1)
-29. [Q29. Write a program in java to find a subarray with given sum from the given array?](#q29-write-a-program-in-java-to-find-a-subarray-with-given-sum-from-the-given-array)
-30. [Q30. Write a program in java to move all zeroes to the end of a given array.](#q30-write-a-program-in-java-to-move-all-zeroes-to-the-end-of-a-given-array)
-31. [Q31. Write a program in java to find out the maximum difference between any two elements such that larger element appears after the smaller number.](#q31-write-a-program-in-java-to-find-out-the-maximum-difference-between-any-two-elements-such-that-larger-element-appears-after-the-smaller-number)
-32. [Q32. Write a Java program to display even & odd index values from an array.](#q32-write-a-java-program-to-display-even-odd-index-values-from-an-array)
-33. [Q33. Write a java program to take input array from user and perform all operations in array.](#q33-write-a-java-program-to-take-input-array-from-user-and-perform-all-operations-in-array)
-34. [Q34. Write a java program to find the unique value from array.](#q34-write-a-java-program-to-find-the-unique-value-from-array)
-35. [Q35. Write a java program to merge two arrays.](#q35-write-a-java-program-to-merge-two-arrays)
-36. [Q36. Write a java program to display top three value from array.](#q36-write-a-java-program-to-display-top-three-value-from-array)
-37. [Q37. You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer.](#q37-you-are-given-a-large-integer-represented-as-an-integer-array-digits-where-each-digitsi-is-the-ith-digit-of-the-integer)
-38. [Q38. Given an array of integers nums and an integer target, return indices of the two numbers](#q38-given-an-array-of-integers-nums-and-an-integer-target-return-indices-of-the-two-numbers)
-39. [Q39. Write a Java program to count even & odd values from an array.](#q39-write-a-java-program-to-count-even-odd-values-from-an-array)
-40. [Q40. Write a java program to search an element in an array , its element found or not.](#q40-write-a-java-program-to-search-an-element-in-an-array-its-element-found-or-not)
-41. [Q41. Write a java program to display the reverse array.](#q41-write-a-java-program-to-display-the-reverse-array)
-42. [Q42. Write a java program to find missing elements in an array.](#q42-write-a-java-program-to-find-missing-elements-in-an-array)
-43. [Q43. Write a java program to copy one array to another array.](#q43-write-a-java-program-to-copy-one-array-to-another-array)
+2. [Q2. Write a Java program to calculate the sum of all elements in an array.](#q2-write-a-java-program-to-calculate-the-sum-of-all-elements-in-an-array)
+3. [Q3. Write a Java program to display even & odd values from an array.](#q3-write-a-java-program-to-display-even-odd-values-from-an-array)
+4. [Q4. Write a Java program to display even & odd index values from an array.](#q4-write-a-java-program-to-display-even-odd-index-values-from-an-array)
+5. [Q5. Write a Java program to count even & odd values from an array.](#q5-write-a-java-program-to-count-even-odd-values-from-an-array)
+6. [Q6. Write a java program to search an element in an array , its element found or not.](#q6-write-a-java-program-to-search-an-element-in-an-array-its-element-found-or-not)
+7. [Q7. Write a java program to display the reverse array.](#q7-write-a-java-program-to-display-the-reverse-array)
+8. [Q8. Write a java program to find missing elements in an array.](#q8-write-a-java-program-to-find-missing-elements-in-an-array)
+9. [Q9. Write a java program to copy one array to another array.](#q9-write-a-java-program-to-copy-one-array-to-another-array)
+10. [Q10. Write a program in java to delete an element at desired position from an array.](#q10-write-a-program-in-java-to-delete-an-element-at-desired-position-from-an-array)
+11. [Q11. Write a java program to give an array, find the second largest element.](#q11-write-a-java-program-to-give-an-array-find-the-second-largest-element)
+12. [Q12. Write a program in java to insert an element at desired position from an array.](#q12-write-a-program-in-java-to-insert-an-element-at-desired-position-from-an-array)
+13. [Q13. Write a java program to display only non-zero values from an array.](#q13-write-a-java-program-to-display-only-non-zero-values-from-an-array)
+14. [Q14. Write a java program to remove duplicated values from arrays.](#q14-write-a-java-program-to-remove-duplicated-values-from-arrays)
+15. [Q15. Write a java program to find common elements between two arrays.](#q15-write-a-java-program-to-find-common-elements-between-two-arrays)
+16. [Q16. Write a java program to count the frequency of each element in a given array.](#q16-write-a-java-program-to-count-the-frequency-of-each-element-in-a-given-array)
+17. [Q17. Write a program in java to find the majority element of an array ?](#q17-write-a-program-in-java-to-find-the-majority-element-of-an-array)
+18. [Q18. Write a program in java to rotate an array by N positions ?](#q18-write-a-program-in-java-to-rotate-an-array-by-n-positions)
+19. [Q19. Write a program in java to find the smallest missing element from a sorted array?](#q19-write-a-program-in-java-to-find-the-smallest-missing-element-from-a-sorted-array)
+20. [Q20. Write a Java program to sort a given array in ascending & descending order.](#q20-write-a-java-program-to-sort-a-given-array-in-ascending-descending-order)
+21. [Q21. Move all zeros in an array to the end while maintaining the relative order of non-zero elements.](#q21-move-all-zeros-in-an-array-to-the-end-while-maintaining-the-relative-order-of-non-zero-elements)
+22. [Q22. Write a java program count all pairs of elements in an array whose sum is equal to a given number.](#q22-write-a-java-program-count-all-pairs-of-elements-in-an-array-whose-sum-is-equal-to-a-given-number)
+23. [Q23. Write a java program to find union array of two unsorted array.](#q23-write-a-java-program-to-find-union-array-of-two-unsorted-array)
+24. [Q24. Rearrange the array so that even and odd numbers alternate. Assume the number of even and odd elements is equal.](#q24-rearrange-the-array-so-that-even-and-odd-numbers-alternate-assume-the-number-of-even-and-odd-elements-is-equal)
+25. [Q25. Write a java program to replace all negative numbers in an array with 0.](#q25-write-a-java-program-to-replace-all-negative-numbers-in-an-array-with-0)
+26. [Q26. Replace All Elements Divisible by 3 with -1.](#q26-replace-all-elements-divisible-by-3-with--1)
+27. [Q27. Replace First and Last Element with 0.](#q27-replace-first-and-last-element-with-0)
+28. [Q28. Replace all elements in the array that are multiples of 5 with the number 5 itself.](#q28-replace-all-elements-in-the-array-that-are-multiples-of-5-with-the-number-5-itself)
+29. [Q29. Check whether the given array is a palindrome.](#q29-check-whether-the-given-array-is-a-palindrome)
+30. [Q30. Return the first element that repeats in the array.](#q30-return-the-first-element-that-repeats-in-the-array)
+31. [Q31. Create a new array where each element is the square of the original.](#q31-create-a-new-array-where-each-element-is-the-square-of-the-original)
+32. [Q32. Replace each element with its factorial.](#q32-replace-each-element-with-its-factorial)
+33. [Q33. Count the number of prime numbers in an array.](#q33-count-the-number-of-prime-numbers-in-an-array)
+34. [Q34. Count the number of Perfect numbers in an array.](#q34-count-the-number-of-perfect-numbers-in-an-array)
+35. [Q35. Count the number of duck numbers in an array.](#q35-count-the-number-of-duck-numbers-in-an-array)
+36. [Q36. Write a program in java to print next greater elements in a given unsorted array. Elements for which no greater element exists, consider the next greater element as -1.](#q36-write-a-program-in-java-to-print-next-greater-elements-in-a-given-unsorted-array-elements-for-which-no-greater-element-exists-consider-the-next-greater-element-as--1)
+37. [Q37. Write a program in java to find a subarray with given sum from the given array?](#q37-write-a-program-in-java-to-find-a-subarray-with-given-sum-from-the-given-array)
+38. [Q38. Write a program in java to move all zeroes to the end of a given array.](#q38-write-a-program-in-java-to-move-all-zeroes-to-the-end-of-a-given-array)
+39. [Q39. Write a program in java to find out the maximum difference between any two elements such that larger element appears after the smaller number.](#q39-write-a-program-in-java-to-find-out-the-maximum-difference-between-any-two-elements-such-that-larger-element-appears-after-the-smaller-number)
+40. [Q40. Write a java program to take input array from user and perform all operations in array.](#q40-write-a-java-program-to-take-input-array-from-user-and-perform-all-operations-in-array)
+41. [Q41. Write a java program to find the unique value from array.](#q41-write-a-java-program-to-find-the-unique-value-from-array)
+42. [Q42. Write a java program to merge two arrays.](#q42-write-a-java-program-to-merge-two-arrays)
+43. [Q43. Write a java program to display top three value from array.](#q43-write-a-java-program-to-display-top-three-value-from-array)
+44. [Q44. You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer.](#q44-you-are-given-a-large-integer-represented-as-an-integer-array-digits-where-each-digitsi-is-the-ith-digit-of-the-integer)
+45. [Q45. Given an array of integers nums and an integer target, return indices of the two numbers](#q45-given-an-array-of-integers-nums-and-an-integer-target-return-indices-of-the-two-numbers)
 
 ## Q1. Write a Java program to input an array & display it.
-
 Input:
 Array Size = 5
 Array Elements = 10 20 30 40 50
@@ -75,8 +76,348 @@ public class Question1
 }
 ```
 
-## Q2. Write a program in java to delete an element at desired position from an array.
+## Q2. Write a Java program to calculate the sum of all elements in an array.
+Input:
+Array Size = 5
+Array Elements = 2 4 6 8 10
 
+Output:
+Sum of array elements = 30
+
+Explanation:
+Initialize a variable sum = 0. Traverse the array and keep adding each element to sum. After the loop ends, sum will hold the total of all array elements.
+
+```java
+import java.util.*;
+
+public class Question2 {
+    public static void main(String x[]) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the size: ");
+        int size = sc.nextInt();
+
+        int a[] = new int[size];
+        int sum = 0;
+
+        System.out.println("Enter " + size + " elements: ");
+        for (int i = 0; i < a.length; i++) {
+            a[i] = sc.nextInt();
+            sum += a[i];
+        }
+
+        System.out.println("Sum of array elements = " + sum);
+        sc.close();
+    }
+}
+```
+
+## Q3. Write a Java program to display even & odd values from an array.
+Input:
+Array Size = 6
+Array Elements = 11 20 33 42 55 60
+
+Output:
+Even Values = 20 42 60
+Odd Values = 11 33 55
+
+Explanation:
+Traverse the array element by element. If an element is divisible by 2, it is even. Otherwise, it is odd. Separate lists are displayed for even and odd values.
+
+```java
+import java.util.*;
+
+public class Question3 {
+    public static void main(String x[]) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the size: ");
+        int size = sc.nextInt();
+
+        int a[] = new int[size];
+
+        System.out.println("Enter " + size + " elements: ");
+        for (int i = 0; i < a.length; i++) {
+            a[i] = sc.nextInt();
+        }
+
+        System.out.print("Even Values: ");
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] % 2 == 0) {
+                System.out.print(a[i] + " ");
+            }
+        }
+        System.out.println();
+
+        System.out.print("Odd Values: ");
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] % 2 != 0) {
+                System.out.print(a[i] + " ");
+            }
+        }
+        System.out.println();
+        sc.close();
+    }
+}
+```
+
+## Q4. Write a Java program to display even & odd index values from an array.
+Input:
+Array Size = 6
+Array Elements = 5 10 15 20 25 30
+Output:
+Values at Even Index = 5 15 25
+Values at Odd Index = 10 20 30
+
+```java
+import java.util.*;
+public class Question4
+{
+	public static void main(String x[])
+	{
+		int a[];
+		a = new int[6];
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the values: ");
+		for(int i=0; i<a.length; i++)
+		{
+			a[i]=sc.nextInt();
+		}
+		System.out.print("Values at Even Index =");
+		for(int i=0; i<a.length; i++)
+		{
+			if(i%2==0)
+			System.out.print(a[i]+" ");
+		}
+		System.out.println();
+				
+		System.out.print("Values at Odd Index =");
+		for(int i=0; i<a.length; i++)
+		{
+			if(i%2!=0)
+			System.out.print(a[i]+" ");
+		}
+	}
+}
+```
+
+## Q5. Write a Java program to count even & odd values from an array.
+Input:
+Array Size = 7
+Array Elements = 12 17 24 39 40 55 70
+Output:
+Count of Even Values = 4
+Count of Odd Values = 3
+
+```java
+import java.util.*;
+public class Question5
+{
+	public static void main(String x[])
+	{
+		int a[];
+		int e_count=0, o_count=0;
+		a = new int[7];
+		Scanner sc = new Scanner(System.in);
+		System.out.print("enter the values: ");
+		for(int i=0; i<a.length; i++)
+		{
+			a[i]=sc.nextInt();
+		}
+		
+		for(int i=0; i<a.length; i++)
+		{
+			if(a[i]%2==0)
+			e_count++;
+			else
+			o_count++;
+			
+		}
+		System.out.println("Count of Even Values = "+e_count);
+		System.out.println("Count of Odd Values = "+o_count);
+	}
+}
+```
+
+## Q6. Write a java program to search an element in an array , its element found or not.
+Input:
+Array = {10, 20, 30, 40, 50}
+Element to search = 30
+Output:
+Element 30 found at index 2
+
+```java
+import java.util.*;
+public class Question6
+{
+	public static void main(String x[])
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("enter the size of an array: ");
+		int size = sc.nextInt();
+		int a[] = new int[size];
+		int i, index=-1;
+		System.out.println("enter the values of array: ");
+		
+		for(i=0; i<a.length; i++)
+		{
+			a[i]=sc.nextInt();
+		}
+		
+		System.out.println("enter the key for search: ");
+		int skey = sc.nextInt();
+		
+		for(i=0; i<a.length; i++)
+		{
+			if(a[i]==skey)
+			{
+				index=i;
+			}
+		}
+		
+		if(index!=-1)
+		{
+			System.out.println("Element "+skey+" found at index "+index);
+		}
+		else
+		{
+			System.out.println("Element "+skey+" not found");
+		}
+	}
+}
+```
+
+## Q7. Write a java program to display the reverse array.
+Input : Array = {1, 2, 3, 4, 5}
+Output : Reverse array = {5, 4, 3, 2, 1}
+Explanation:
+The last element becomes the first, and the first becomes the last by traversing from the end to the start.
+
+```java
+import java.util.*;
+public class Question7
+{
+	public static void main(String x[])
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("enter the size of array");
+		int size = sc.nextInt();
+		int a[] = new int[size];
+		int i;
+		System.out.println("Enter the values of array: ");
+		
+		for(i=0; i<a.length; i++)
+		{
+			a[i]=sc.nextInt();
+		}
+		System.out.println("Original Array:");
+		for(i=0; i<a.length; i++)
+		{
+			System.out.print(a[i]+" ");
+		}
+		
+		System.out.println();
+		
+		System.out.println("Reverse Array:");
+	
+		int start=0, end = a.length-1;
+		for(i=0; i<a.length/2; i++)
+		{
+			int temp = a[start];
+			a[start] = a[end];
+			a[end] = temp;
+			start++;
+			end--;
+		}
+		
+		for(i=0; i<a.length; i++)
+		{
+			System.out.print(a[i]+" ");
+		}
+	}
+}
+```
+
+## Q8. Write a java program to find missing elements in an array.
+Input : Array = {1, 2, 4, 5, 7} (numbers from 1 to 7 should be present)
+Output : Missing elements = {3, 6}
+
+```java
+import java.util.*;
+public class Question8
+{
+	public static void main(String x[])
+	{
+		Scanner sc = new Scanner(System.in);
+
+		int a[] = new int[]{1, 2, 4, 5, 7};
+		int i, j;
+		System.out.print("Missing Elements = ");
+		for(i=a[0]+1; i<a[a.length-1]; i++)
+		{
+			int flag=0;
+			for(j=0; j<a.length; j++)
+			{
+				if(i==a[j])
+				{
+					flag=1;
+					break;
+				}
+			}
+			if(flag==0)
+				System.out.print(i+" ");
+			
+		}
+	
+		
+	}
+}
+```
+
+## Q9. Write a java program to copy one array to another array.
+Input:
+Array1 = {5, 10, 15, 20}
+Output:
+Array2 = {5, 10, 15, 20}
+
+```java
+import java.util.*;
+public class Question9
+{
+	public static void main(String x[])
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("enter the size of array: ");
+		int size = sc.nextInt();
+		int a[] = new int[size];
+		int i;
+		System.out.println("enter the values of array: ");
+		for(i=0; i<a.length; i++)
+		{
+			a[i]=sc.nextInt();
+		}
+		System.out.print("Array1: ");
+		for(i=0; i<a.length; i++)
+		{
+			System.out.print(a[i]+" ");
+		}
+		System.out.println();
+		
+		int b[] = new int[a.length];
+		for(i=0; i<a.length; i++)
+		{
+			b[i]=a[i];
+		}
+		
+		System.out.print("Array2: ");
+		for(i=0; i<b.length; i++)
+		{
+			System.out.print(b[i]+" ");
+		}
+		
+	}
+}
+```
+
+## Q10. Write a program in java to delete an element at desired position from an array.
 Test Data :
 Input the size of array : 5
 Input 5 elements in the array in ascending order :
@@ -86,36 +427,47 @@ Expected Output : The new list is : 1 2 3 5
 
 ```java
 import java.util.*;
-public class Question10
-{public static void main(String x[])
-	{
-		Scanner sc = new Scanner(System.in);
-		System.out.print("enter the size: ");
-		int size = sc.nextInt();
+
+public class Question10 {
+    public static void main(String x[]) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the size: ");
+        int size = sc.nextInt();
+
         int a[] = new int[size];
-		System.out.print("enter the element: ");
-		for(int i=0; i<a.length; i++)
-		{
-		    a[i]=sc.nextInt();
-		}
-	   System.out.print("Input the position where to delete: ");
-	   int index=sc.nextInt();
-	    
-	   for(int i=index; i<size-1; i++)
-	   {
-	       a[i]=a[i+1];
-	   }
-	   size--;
-	   for(int i=0; i<size; i++)
-		{
-		     System.out.print(a[i]+" ");
-		}
-	}
+
+        System.out.println("Enter the elements:");
+        for (int i = 0; i < a.length; i++) {
+            a[i] = sc.nextInt();
+        }
+
+        System.out.print("Enter the position to delete: ");
+        int position = sc.nextInt();
+
+        if (position < 1 || position > size) {
+            System.out.println("Invalid position!"); 
+        } else {
+            int index = position - 1;
+
+            for (int i = index; i < size - 1; i++) {
+                a[i] = a[i + 1];
+            }
+
+            size--;
+
+            System.out.println("Array after deletion:");
+            for (int i = 0; i < size; i++) {
+                System.out.print(a[i] + " ");
+            }
+        }
+
+        sc.close();
+    }
 }
 ```
 
-## Q3. Write a java program to give an array, find the second largest element.
-
+## Q11. Write a java program to give an array, find the second largest element.
 Input : Array = {12, 35, 1, 10, 34, 1}
 Output : Second largest = 34
 
@@ -159,8 +511,7 @@ public class Question11
 }
 ```
 
-## Q4. Write a program in java to insert an element at desired position from an array.
-
+## Q12. Write a program in java to insert an element at desired position from an array.
 Test Data :
 Input the size of array : 6
 Input 5 elements in the array in ascending order :
@@ -213,8 +564,7 @@ public class Question12
 }
 ```
 
-## Q5. Write a java program to display only non-zero values from an array.
-
+## Q13. Write a java program to display only non-zero values from an array.
 Input : Array = {1, 0, 5, 0, 7, 0, 9}
 Output : Non-zero elements = {1, 5, 7, 9}
 
@@ -245,8 +595,7 @@ public class Question13
 }
 ```
 
-## Q6. Write a java program to remove duplicated values from arrays.
-
+## Q14. Write a java program to remove duplicated values from arrays.
 Input : Array = {10, 20, 20, 30, 40, 40, 50}
 Output : Unique elements = {10, 20, 30, 40, 50}
 
@@ -294,8 +643,7 @@ public class  Question14
 }
 ```
 
-## Q7. Write a java program to find common elements between two arrays.
-
+## Q15. Write a java program to find common elements between two arrays.
 Input:
 Array1 = {1, 2, 3, 4, 5}
 Array2 = {3, 4, 5, 6, 7}
@@ -342,8 +690,7 @@ public class Question15
 }
 ```
 
-## Q8. Write a java program to count the frequency of each element in a given array.
-
+## Q16. Write a java program to count the frequency of each element in a given array.
 //for sorted array only && if you work on unsorted array use- Arrays.sort(a);
 Input:
 Array = {1, 2, 2, 3, 3, 3, 4}
@@ -391,8 +738,7 @@ public class Question16
 }
 ```
 
-## Q9. Write a program in java to find the majority element of an array ?
-
+## Q17. Write a program in java to find the majority element of an array ?
 A majority element in an array of size n is an element that appears more than n/2 times (and
 hence there is at most one such element).
 Expected Output:
@@ -456,8 +802,7 @@ public class Question17
 }
 ```
 
-## Q10. Write a program in java to rotate an array by N positions ?
-
+## Q18. Write a program in java to rotate an array by N positions ?
 Expected Output:
 The given array is: 0  3  6  9  12  14  18  20  22  25  27
 From 4th position the values of the array are: 12 14 18 20 22 25 27
@@ -514,8 +859,7 @@ public class Question18
 }
 ```
 
-## Q11. Write a program in java to find the smallest missing element from a sorted array?
-
+## Q19. Write a program in java to find the smallest missing element from a sorted array?
 Expected Output :
 The given array is : 0 1 3 4 5 6 7 9
 The missing smallest element is: 2
@@ -564,8 +908,7 @@ public class Question19
 }
 ```
 
-## Q12. Write a Java program to sort a given array in ascending & descending order.
-
+## Q20. Write a Java program to sort a given array in ascending & descending order.
 Input : 	Array = [12, 5, 9, 34, 1]
 Output : 	Ascending Order: [1, 5, 9, 12, 34]
 Descending Order: [34, 12, 9, 5, 1]
@@ -632,8 +975,7 @@ public class Question20
 }
 ```
 
-## Q13. Move all zeros in an array to the end while maintaining the relative order of non-zero elements.
-
+## Q21. Move all zeros in an array to the end while maintaining the relative order of non-zero elements.
 Input :- arr = [0, 1, 0, 3, 12]
 Output :- arr = [1, 3, 12, 0, 0]
 Explanation:
@@ -665,8 +1007,7 @@ public class Question21
 }
 ```
 
-## Q14. Write a java program count all pairs of elements in an array whose sum is equal to a given number.
-
+## Q22. Write a java program count all pairs of elements in an array whose sum is equal to a given number.
 Input :- arr = [1, 5, 7, -1, 5]        sum = 6
 Output :- 3
 Explanation:
@@ -702,8 +1043,7 @@ public class Question22
 }
 ```
 
-## Q15. Write a java program to find union array of two unsorted array.
-
+## Q23. Write a java program to find union array of two unsorted array.
 Input :-  arr1 = [1, 2, 3]
 arr2 = [2, 3, 4, 5]
 Output :- [1, 2, 3, 4, 5]
@@ -768,8 +1108,7 @@ public class Question23
 }
 ```
 
-## Q16. Rearrange the array so that even and odd numbers alternate. Assume the number of even and odd elements is equal.
-
+## Q24. Rearrange the array so that even and odd numbers alternate. Assume the number of even and odd elements is equal.
 Input :- arr = [1, 2, 3, 4, 5, 6]
 Output :-  [2, 1, 4, 3, 6, 5]
 
@@ -806,8 +1145,7 @@ public class Question24
 }
 ```
 
-## Q17. Write a java program to replace all negative numbers in an array with 0.
-
+## Q25. Write a java program to replace all negative numbers in an array with 0.
 Input :- arr = [2, -3, 4, -1, 5]
 Output :-  [2, 0, 4, 0, 5]
 
@@ -832,8 +1170,7 @@ public class Question25
 }
 ```
 
-## Q18. Replace All Elements Divisible by 3 with -1.
-
+## Q26. Replace All Elements Divisible by 3 with -1.
 Input: [3, 6, 7, 9, 10]
 Output: [-1, -1, 7, -1, 10]
 
@@ -857,8 +1194,7 @@ public class Question26
 }
 ```
 
-## Q19. Replace First and Last Element with 0.
-
+## Q27. Replace First and Last Element with 0.
 Input:[5, 3, 7, 2]
 Output: [0, 3, 7, 0]
 
@@ -879,8 +1215,7 @@ public class Question27
 }
 ```
 
-## Q20. Replace all elements in the array that are multiples of 5 with the number 5 itself.
-
+## Q28. Replace all elements in the array that are multiples of 5 with the number 5 itself.
 Input: [10, 12, 15, 17, 20]
 Output: [5, 12, 5, 17, 5]
 
@@ -903,8 +1238,7 @@ public class Question28
 }
 ```
 
-## Q21. Check whether the given array is a palindrome.
-
+## Q29. Check whether the given array is a palindrome.
 Input: {1, 2, 3, 2, 1}
 Output: true
 
@@ -953,8 +1287,7 @@ public class Question29
 }
 ```
 
-## Q22. Return the first element that repeats in the array.
-
+## Q30. Return the first element that repeats in the array.
 Input: {10, 5, 3, 4, 3, 5, 6}
 Output: First repeating element is 5
 
@@ -988,8 +1321,7 @@ public class Question30
 }
 ```
 
-## Q23. Create a new array where each element is the square of the original.
-
+## Q31. Create a new array where each element is the square of the original.
 Input: arr = [2, 4, 6, 8]
 Output: newArr = [4, 16, 36, 64]
 Explanation: For each index, calculate arr[i] * arr[i] and store it in the new array.
@@ -1016,8 +1348,7 @@ public class Question31
 }
 ```
 
-## Q24. Replace each element with its factorial.
-
+## Q32. Replace each element with its factorial.
 Input: arr = [3, 4, 5]
 Output: arr = [6, 24, 120]
 Explanation: For each element, calculate factorial using repeated multiplication, and update the array element with this value.
@@ -1049,8 +1380,7 @@ public class Question32
 }
 ```
 
-## Q25. Count the number of prime numbers in an array.
-
+## Q33. Count the number of prime numbers in an array.
 Input: arr = [2, 5, 6, 9, 11]
 Output: Count of prime numbers = 3
 Explanation: Check each element if it is prime (only divisible by 1 and itself), and count such elements.
@@ -1086,8 +1416,7 @@ public class Question33
 }
 ```
 
-## Q26. Count the number of Perfect numbers in an array.
-
+## Q34. Count the number of Perfect numbers in an array.
 Input: arr = [6, 28, 10, 12, 496]
 Output: Count of Perfect numbers = 3
 Explanation: A Perfect number is equal to the sum of its proper divisors (excluding itself). For each element, find sum of divisors and compare with the number, then count.
@@ -1124,8 +1453,7 @@ public class Question34
 }
 ```
 
-## Q27. Count the number of duck numbers in an array.
-
+## Q35. Count the number of duck numbers in an array.
 ```java
 public class Question35
 {
@@ -1162,8 +1490,7 @@ public class Question35
 }
 ```
 
-## Q28. Write a program in java to print next greater elements in a given unsorted array. Elements for which no greater element exists, consider the next greater element as -1.
-
+## Q36. Write a program in java to print next greater elements in a given unsorted array. Elements for which no greater element exists, consider the next greater element as -1.
 Expected Output :
 The given array is : 5 3 10 9 6 13
 Next Bigger Elements are:
@@ -1214,8 +1541,7 @@ public class Question36
 }
 ```
 
-## Q29. Write a program in java to find a subarray with given sum from the given array?
-
+## Q37. Write a program in java to find a subarray with given sum from the given array?
 Expected Output :
 The given array is : 3 4 -7 1 3 3 1 -4
 [0..1] -- { 3 4 }
@@ -1254,8 +1580,7 @@ public class Question37
 }
 ```
 
-## Q30. Write a program in java to move all zeroes to the end of a given array.
-
+## Q38. Write a program in java to move all zeroes to the end of a given array.
 Expected Output :
 The given array is : 2 5 7 0 4 0 7 -5 8 0
 The new array is:
@@ -1291,8 +1616,7 @@ public class Question38
 }
 ```
 
-## Q31. Write a program in java to find out the maximum difference between any two elements such that larger element appears after the smaller number.
-
+## Q39. Write a program in java to find out the maximum difference between any two elements such that larger element appears after the smaller number.
 Expected Output :
 The given array is : 7 9 5 6 13 2
 The elements which provide maximum difference is: 5, 13
@@ -1328,49 +1652,7 @@ public class Question39
 }
 ```
 
-## Q32. Write a Java program to display even & odd index values from an array.
-
-Input:
-Array Size = 6
-Array Elements = 5 10 15 20 25 30
-Output:
-Values at Even Index = 5 15 25
-Values at Odd Index = 10 20 30
-
-```java
-import java.util.*;
-public class Question4
-{
-	public static void main(String x[])
-	{
-		int a[];
-		a = new int[6];
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter the values: ");
-		for(int i=0; i<a.length; i++)
-		{
-			a[i]=sc.nextInt();
-		}
-		System.out.print("Values at Even Index =");
-		for(int i=0; i<a.length; i++)
-		{
-			if(i%2==0)
-			System.out.print(a[i]+" ");
-		}
-		System.out.println();
-				
-		System.out.print("Values at Odd Index =");
-		for(int i=0; i<a.length; i++)
-		{
-			if(i%2!=0)
-			System.out.print(a[i]+" ");
-		}
-	}
-}
-```
-
-## Q33. Write a java program to take input array from user and perform all operations in array.
-
+## Q40. Write a java program to take input array from user and perform all operations in array.
 Input Array :  5732  8659  2534  9625  7354  1325
 Case 1 :  Sort Number In Ascending Order.
 Output :- 2357  5689  2345  2569  3457  1235
@@ -1428,8 +1710,7 @@ public class Question40
 }
 ```
 
-## Q34. Write a java program to find the unique value from array.
-
+## Q41. Write a java program to find the unique value from array.
 Input array elements: 1, 2, 3, 5, 1, 5, 20, 2, 12, 10
 All unique elements in the array are: 3, 20, 12, 10
 
@@ -1461,8 +1742,7 @@ public class Question41
 }
 ```
 
-## Q35. Write a java program to merge two arrays.
-
+## Q42. Write a java program to merge two arrays.
 Input - First Array :- 1 2 3 4 5
 Second Array :-  6 7 8 9 10
 Output - 1 10 2 9 3 8 4 7 5 6
@@ -1490,8 +1770,7 @@ public class Question42
 }
 ```
 
-## Q36. Write a java program to display top three value from array.
-
+## Q43. Write a java program to display top three value from array.
 Sample Input: [78, 90, 90, 86, 85, 92, 70, 92]
 Expected Output: 92, 90, 86
 
@@ -1531,8 +1810,7 @@ public class Question43
 }
 ```
 
-## Q37. You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer.
-
+## Q44. You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer.
 The digits are ordered from most significant to least significant in left-to-right order.
 The large integer does not contain any leading 0's.
 Increment the large integer by one and return the resulting array of digits.
@@ -1599,8 +1877,7 @@ public class Question44
 }
 ```
 
-## Q38. Given an array of integers nums and an integer target, return indices of the two numbers
-
+## Q45. Given an array of integers nums and an integer target, return indices of the two numbers
 such that they add up to target.
 You may assume that each input would have exactly one solution, and you may not use the
 same element twice.
@@ -1645,225 +1922,3 @@ public class Question45
 }
 ```
 
-## Q39. Write a Java program to count even & odd values from an array.
-
-Input:
-Array Size = 7
-Array Elements = 12 17 24 39 40 55 70
-Output:
-Count of Even Values = 4
-Count of Odd Values = 3
-
-```java
-import java.util.*;
-public class Question5
-{
-	public static void main(String x[])
-	{
-		int a[];
-		int e_count=0, o_count=0;
-		a = new int[7];
-		Scanner sc = new Scanner(System.in);
-		System.out.print("enter the values: ");
-		for(int i=0; i<a.length; i++)
-		{
-			a[i]=sc.nextInt();
-		}
-		
-		for(int i=0; i<a.length; i++)
-		{
-			if(a[i]%2==0)
-			e_count++;
-			else
-			o_count++;
-			
-		}
-		System.out.println("Count of Even Values = "+e_count);
-		System.out.println("Count of Odd Values = "+o_count);
-	}
-}
-```
-
-## Q40. Write a java program to search an element in an array , its element found or not.
-
-Input:
-Array = {10, 20, 30, 40, 50}
-Element to search = 30
-Output:
-Element 30 found at index 2
-
-```java
-import java.util.*;
-public class Question6
-{
-	public static void main(String x[])
-	{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("enter the size of an array: ");
-		int size = sc.nextInt();
-		int a[] = new int[size];
-		int i, index=-1;
-		System.out.println("enter the values of array: ");
-		
-		for(i=0; i<a.length; i++)
-		{
-			a[i]=sc.nextInt();
-		}
-		
-		System.out.println("enter the key for search: ");
-		int skey = sc.nextInt();
-		
-		for(i=0; i<a.length; i++)
-		{
-			if(a[i]==skey)
-			{
-				index=i;
-			}
-		}
-		
-		if(index!=-1)
-		{
-			System.out.println("Element "+skey+" found at index "+index);
-		}
-		else
-		{
-			System.out.println("Element "+skey+" not found");
-		}
-	}
-}
-```
-
-## Q41. Write a java program to display the reverse array.
-
-Input : Array = {1, 2, 3, 4, 5}
-Output : Reverse array = {5, 4, 3, 2, 1}
-Explanation:
-The last element becomes the first, and the first becomes the last by traversing from the end to the start.
-
-```java
-import java.util.*;
-public class Question7
-{
-	public static void main(String x[])
-	{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("enter the size of array");
-		int size = sc.nextInt();
-		int a[] = new int[size];
-		int i;
-		System.out.println("Enter the values of array: ");
-		
-		for(i=0; i<a.length; i++)
-		{
-			a[i]=sc.nextInt();
-		}
-		System.out.println("Original Array:");
-		for(i=0; i<a.length; i++)
-		{
-			System.out.print(a[i]+" ");
-		}
-		
-		System.out.println();
-		
-		System.out.println("Reverse Array:");
-	
-		int start=0, end = a.length-1;
-		for(i=0; i<a.length/2; i++)
-		{
-			int temp = a[start];
-			a[start] = a[end];
-			a[end] = temp;
-			start++;
-			end--;
-		}
-		
-		for(i=0; i<a.length; i++)
-		{
-			System.out.print(a[i]+" ");
-		}
-	}
-}
-```
-
-## Q42. Write a java program to find missing elements in an array.
-
-Input : Array = {1, 2, 4, 5, 7} (numbers from 1 to 7 should be present)
-Output : Missing elements = {3, 6}
-
-```java
-import java.util.*;
-public class Question8
-{
-	public static void main(String x[])
-	{
-		Scanner sc = new Scanner(System.in);
-
-		int a[] = new int[]{1, 2, 4, 5, 7};
-		int i, j;
-		System.out.print("Missing Elements = ");
-		for(i=a[0]+1; i<a[a.length-1]; i++)
-		{
-			int flag=0;
-			for(j=0; j<a.length; j++)
-			{
-				if(i==a[j])
-				{
-					flag=1;
-					break;
-				}
-			}
-			if(flag==0)
-				System.out.print(i+" ");
-			
-		}
-	
-		
-	}
-}
-```
-
-## Q43. Write a java program to copy one array to another array.
-
-Input:
-Array1 = {5, 10, 15, 20}
-Output:
-Array2 = {5, 10, 15, 20}
-
-```java
-import java.util.*;
-public class Question9
-{
-	public static void main(String x[])
-	{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("enter the size of array: ");
-		int size = sc.nextInt();
-		int a[] = new int[size];
-		int i;
-		System.out.println("enter the values of array: ");
-		for(i=0; i<a.length; i++)
-		{
-			a[i]=sc.nextInt();
-		}
-		System.out.print("Array1: ");
-		for(i=0; i<a.length; i++)
-		{
-			System.out.print(a[i]+" ");
-		}
-		System.out.println();
-		
-		int b[] = new int[a.length];
-		for(i=0; i<a.length; i++)
-		{
-			b[i]=a[i];
-		}
-		
-		System.out.print("Array2: ");
-		for(i=0; i<b.length; i++)
-		{
-			System.out.print(b[i]+" ");
-		}
-		
-	}
-}
-```

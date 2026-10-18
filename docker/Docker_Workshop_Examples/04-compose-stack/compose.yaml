@@ -1,0 +1,44 @@
+services:
+  mysql-db:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: localroot123
+      MYSQL_DATABASE: demo
+      MYSQL_USER: demo
+      MYSQL_PASSWORD: demo123
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - demo-net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  java-query:
+    build: ./java-app
+    environment:
+      DB_HOST: mysql-db
+      MYSQL_DATABASE: demo
+      MYSQL_USER: demo
+      MYSQL_PASSWORD: demo123
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - demo-net
+    restart: "no"
+
+  web:
+    build: ./nginx
+    ports:
+      - "8081:80"
+    networks:
+      - demo-net
+
+networks:
+  demo-net:
+
+volumes:
+  mysql-data:

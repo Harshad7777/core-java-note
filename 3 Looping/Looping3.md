@@ -158,6 +158,7 @@ public class DAPP {
             rem = no % 10;
             if (rem == 0) {
                 flag = true;
+                break;
             }
             no = no / 10;
         }
@@ -189,6 +190,7 @@ public class SearchDigitAPP {
             int rem = no % 10;
             if (rem == skey) {
                 flag = true;
+                break;
             }
             no = no / 10;
         }

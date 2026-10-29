@@ -1,0 +1,419 @@
+# Section 6: Spring Framework Programming Questions
+
+This section contains 2 programming questions. We’ll use beginner-friendly explanations and runnable examples so you can explain the code during your Java Full Stack interview.
+
+## Q1. Create a Student Management program using XML configuration and Setter Injection
+
+### 1. What is the requirement?
+
+Create a `Student` class and inject its details using Spring XML configuration.
+
+We will use:
+
+- XML configuration — defines the Spring bean and its properties.
+- Setter Injection — Spring calls setter methods to provide values to an object.
+- Spring Container — creates and manages the bean.
+
+### 2. What is Setter Injection?
+
+Setter Injection means supplying an object's dependencies or values through setter methods instead of passing them through a constructor.
+
+For example:
+
+```
+student.setStudentId(101);
+student.setStudentName("Rahul");
+```
+
+Spring can perform these calls using XML configuration.
+
+### 3. Project structure
+
+Create a Maven project with this structure:
+
+StudentManagement
+
+`src/main/java`
+
+`com.example.Student`
+
+`com.example.MainApp`
+
+`src/main/resources`
+
+`student.xml`
+
+`pom.xml`
+
+### 4. Add Spring dependency in `pom.xml`
+
+This example uses Spring Framework 6 and Java 17 or later.
+
+```
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>StudentManagement</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.2.8</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+
+Maven downloads Spring and its required libraries when you reload the project.
+
+### 5. Create `Student.java`
+
+File: `src/main/java/com/example/Student.java`
+
+```
+package com.example;
+
+public class Student {
+
+    private int studentId;
+    private String studentName;
+    private String course;
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public void display() {
+        System.out.println("Student ID: " + studentId);
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Course: " + course);
+    }
+}
+```
+
+Explanation:
+
+- The class contains three properties: `studentId`, `studentName` and `course`.
+- The setter methods allow Spring to assign values.
+- The `display()` method prints the student details.
+
+### 6. Create `student.xml`
+
+File: `src/main/resources/student.xml`
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="student" class="com.example.Student">
+        <property name="studentId" value="101"/>
+        <property name="studentName" value="Rahul"/>
+        <property name="course" value="Java Full Stack"/>
+    </bean>
+
+</beans>
+```
+
+Explanation:
+
+- `<bean>` tells Spring to create a `Student` object.
+- `id="student"` gives the bean its name.
+- `class="com.example.Student"` specifies which class to instantiate.
+- Each `<property>` sets a property through its matching setter method.
+
+For example, `name="studentName"` corresponds to `setStudentName()`.
+
+### 7. Create `MainApp.java`
+
+File: `src/main/java/com/example/MainApp.java`
+
+```
+package com.example;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MainApp {
+
+    public static void main(String[] args) {
+
+        ApplicationContext context =
+            new ClassPathXmlApplicationContext("student.xml");
+
+        Student student = context.getBean("student", Student.class);
+
+        student.display();
+
+        ((ClassPathXmlApplicationContext) context).close();
+    }
+}
+```
+
+### 8. Expected output
+
+```
+Student ID: 101
+Student Name: Rahul
+Course: Java Full Stack
+```
+
+### 9. How does the program work?
+
+`student.xml`
+
+Contains bean definition and values
+
+Spring Container
+
+Creates Student object and calls setters
+
+`MainApp.java`
+
+Retrieves bean and calls display()
+
+Interview answer: “I created a Student class with setter methods and configured it in an XML file. The Spring IoC container reads the XML, creates the bean, injects the property values using setter injection, and lets the main class retrieve and use the bean.”
+
+## Q2. Create an Employee Management program using annotations, Prototype Scope and `@PostConstruct`
+
+### 1. What is the requirement?
+
+Create an `Employee` class and configure it using Spring annotations. When an employee bean is created, a method annotated with `@PostConstruct` should execute automatically.
+
+We will use three important concepts:
+
+- Annotations: Configure Spring without an XML bean definition.
+- Prototype scope: Spring creates a new bean instance for each bean retrieval request.
+- `@PostConstruct`: Runs an initialization method after Spring creates the bean and injects its dependencies.
+
+### 2. Important annotations
+
+| Annotation            | Purpose                                            |
+| --------------------- | -------------------------------------------------- |
+| `@Component`          | Marks a class as a Spring-managed bean             |
+| `@Scope("prototype")` | Requests a new instance for each bean retrieval    |
+| `@ComponentScan`      | Tells Spring which package to scan for components  |
+| `@Configuration`      | Marks a class that configures the Spring container |
+| `@PostConstruct`      | Marks a method to run after bean initialization    |
+
+### 3. Project structure
+
+EmployeeManagement
+
+`src/main/java/com/example/Employee.java`
+
+`src/main/java/com/example/AppConfig.java`
+
+`src/main/java/com/example/MainApp.java`
+
+`pom.xml`
+
+Use the same Maven project setup as Q1, adding the dependency needed for `@PostConstruct`.
+
+Add this dependency inside `<dependencies>` in `pom.xml`:
+
+```
+<dependency>
+    <groupId>jakarta.annotation</groupId>
+    <artifactId>jakarta.annotation-api</artifactId>
+    <version>2.1.1</version>
+</dependency>
+```
+
+### 4. Create `Employee.java`
+
+File: `src/main/java/com/example/Employee.java`
+
+```
+package com.example;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import jakarta.annotation.PostConstruct;
+
+@Component
+@Scope("prototype")
+public class Employee {
+
+    private int employeeId = 101;
+    private String employeeName = "Amit";
+    private double salary = 35000;
+
+    public Employee() {
+        System.out.println("Employee object created");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Employee initialization completed");
+    }
+
+    public void display() {
+        System.out.println("Employee ID: " + employeeId);
+        System.out.println("Employee Name: " + employeeName);
+        System.out.println("Salary: " + salary);
+    }
+}
+```
+
+Explanation:
+
+- `@Component` registers `Employee` as a Spring bean.
+- `@Scope("prototype")` requests a fresh instance for each lookup.
+- The constructor prints when the object is created.
+- `@PostConstruct` marks `init()` to run after Spring has initialized the bean.
+- `display()` prints the employee details.
+
+### 5. Create `AppConfig.java`
+
+File: `src/main/java/com/example/AppConfig.java`
+
+```
+package com.example;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan("com.example")
+public class AppConfig {
+}
+```
+
+Explanation:
+
+- `@Configuration` tells Spring this class provides configuration.
+- `@ComponentScan("com.example")` tells Spring to scan the `com.example` package for classes annotated with `@Component`.
+
+Therefore, you don't need an XML file to define the `Employee` bean.
+
+### 6. Create `MainApp.java`
+
+File: `src/main/java/com/example/MainApp.java`
+
+```
+package com.example;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class MainApp {
+
+    public static void main(String[] args) {
+
+        AnnotationConfigApplicationContext context =
+            new AnnotationConfigApplicationContext(AppConfig.class);
+
+        System.out.println("\n--- First Employee ---");
+
+        Employee e1 = context.getBean(Employee.class);
+        e1.display();
+
+        System.out.println("\n--- Second Employee ---");
+
+        Employee e2 = context.getBean(Employee.class);
+        e2.display();
+
+        System.out.println("\nAre both objects same? " + (e1 == e2));
+
+        context.close();
+    }
+}
+```
+
+### 7. Expected output
+
+```
+--- First Employee ---
+Employee object created
+Employee initialization completed
+Employee ID: 101
+Employee Name: Amit
+Salary: 35000.0
+
+--- Second Employee ---
+Employee object created
+Employee initialization completed
+Employee ID: 101
+Employee Name: Amit
+Salary: 35000.0
+
+Are both objects same? false
+```
+
+### 8. Understand the dry run
+
+1
+
+Spring starts
+
+It reads `AppConfig`, scans the package, and discovers `Employee`.
+
+2
+
+First `getBean()` call
+
+Spring creates the first object, then calls `init()` through `@PostConstruct`.
+
+3
+
+Second `getBean()` call
+
+Because the scope is prototype, Spring creates another object and calls its initialization method.
+
+4
+
+Compare the objects
+
+`e1 == e2` is `false` because they refer to two different objects.
+
+### 9. Important interview differences
+
+| Feature               | Singleton scope                                  | Prototype scope                           |
+| --------------------- | ------------------------------------------------ | ----------------------------------------- |
+| Object creation       | Normally one instance per bean per container     | New instance for each bean retrieval      |
+| Two `getBean()` calls | Normally return the same instance                | Return different instances                |
+| Default Spring scope  | Yes                                              | No                                        |
+| `@PostConstruct`      | Runs once when that bean instance is initialized | Runs for each newly created bean instance |
+
+Important: For prototype beans, Spring performs initialization but does not fully manage their destruction lifecycle. Also, `@PostConstruct` runs after dependency injection, not before the object is constructed.
+
+## Quick interview practice
+
+Question: What will `e1 == e2` return when `Employee` uses prototype scope and we call `getBean()` twice?
+
+`true` — both variables refer to the same object
+
+`false` — each lookup creates a new object
+
+Compilation error
+
+## Section 6 revision
+
+- Q1: XML configuration + Setter Injection.
+- Q2: Annotations + Prototype Scope + `@PostConstruct`.
+
+You have now covered the six sections of your study plan. The next step is to practise explaining each program aloud, then run the code yourself and answer the interview questions without looking at the solutions.

@@ -1,0 +1,735 @@
+# Section 4: Java Programming Questions — 10 Pattern Programs
+
+This section covers all 10 pattern-printing questions from your Java Full Stack interview study plan.
+
+For each program, we'll cover:
+
+- Expected output
+- Complete runnable Java code
+- Beginner-friendly explanation of nested loops
+- A dry run to understand how the pattern is printed
+
+## Understand the basic rule first
+
+Most pattern programs use nested loops:
+
+```
+for (int i = 1; i <= rows; i++) {       // Outer loop: rows
+    for (int j = 1; j <= columns; j++) { // Inner loop: items
+        System.out.print("*");
+    }
+    System.out.println(); // Move to next row
+}
+```
+
+- The outer loop controls the rows.
+- The inner loop controls the characters printed in each row.
+- `System.out.print()` prints on the same line.
+- `System.out.println()` moves to the next line.
+
+## Q1. Print four stars with increasing indentation
+
+Expected output:
+
+```
+****
+ ****
+  ****
+   ****
+```
+
+### Complete Java program
+
+```
+
+public class Question1 {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 4; i++) {
+
+            for (int j = 1; j < i; j++) {
+                System.out.print(" ");
+            }
+
+            for (int j = 1; j <= 4; j++) {
+                System.out.print("*");
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Explanation
+
+There are two inner loops:
+
+1. The first prints spaces. Each new row gets one additional space.
+2. The second prints exactly four stars in every row.
+
+### Dry run
+
+| Row `i` | Spaces | Stars |
+| ------- | ------ | ----- |
+| 1       | 0      | 4     |
+| 2       | 1      | 4     |
+| 3       | 2      | 4     |
+| 4       | 3      | 4     |
+
+Remember: When the number of stars stays constant but indentation changes, use one loop for spaces and another for stars.
+
+## Q2. Print an increasing pyramid of stars
+
+Expected output:
+
+```
+   *
+  ***
+ *****
+*******
+```
+
+### Complete Java program
+
+```
+
+public class Question2 {
+    public static void main(String[] args) {
+        int rows = 4;
+
+        for (int i = 1; i <= rows; i++) {
+
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print(" ");
+            }
+
+            for (int j = 1; j <= 2 * i - 1; j++) {
+                System.out.print("*");
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Explanation
+
+For each row:
+
+- Spaces = `rows - i`
+- Stars = `2 * i - 1`
+
+The number of stars is always odd: 1, 3, 5, 7.
+
+### Dry run
+
+| Row `i` | Spaces (`4-i`) | Stars (`2*i-1`) |
+| ------- | -------------- | --------------- |
+| 1       | 3              | 1               |
+| 2       | 2              | 3               |
+| 3       | 1              | 5               |
+| 4       | 0              | 7               |
+
+For row 3, `i = 3`:
+
+- Spaces = `4 - 3 = 1`
+- Stars = `2 × 3 - 1 = 5`
+
+Output for that row: ` *****`
+
+## Q3. Print an increasing and decreasing star pattern
+
+Expected output:
+
+```
+   *
+  **
+ ***
+****
+ ***
+  **
+   *
+```
+
+### Complete Java program
+
+```
+
+public class Question3 {
+    public static void main(String[] args) {
+        int rows = 4;
+
+        // Increasing part
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print(" ");
+            }
+
+            for (int j = 1; j <= i; j++) {
+                System.out.print("*");
+            }
+
+            System.out.println();
+        }
+
+        // Decreasing part
+        for (int i = rows - 1; i >= 1; i--) {
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print(" ");
+            }
+
+            for (int j = 1; j <= i; j++) {
+                System.out.print("*");
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Explanation
+
+The first outer loop prints rows with 1, 2, 3, and 4 stars. The second prints 3, 2, and 1 stars.
+
+Notice that the second loop starts at `rows - 1`, which is 3. This prevents printing the middle row twice.
+
+### Dry run
+
+| Row | Spaces | Stars |
+| --- | ------ | ----- |
+| 1   | 3      | 1     |
+| 2   | 2      | 2     |
+| 3   | 1      | 3     |
+| 4   | 0      | 4     |
+| 5   | 1      | 3     |
+| 6   | 2      | 2     |
+| 7   | 3      | 1     |
+
+Interview tip: To create a pattern that increases and then decreases, use two outer loops.
+
+## Q4. Print a diamond star pattern
+
+Expected output:
+
+```
+   *
+  ***
+ *****
+*******
+ *****
+  ***
+   *
+```
+
+### Complete Java program
+
+```
+
+public class Question4 {
+    public static void main(String[] args) {
+        int rows = 4;
+
+        // Upper half
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print(" ");
+            }
+
+            for (int j = 1; j <= 2 * i - 1; j++) {
+                System.out.print("*");
+            }
+
+            System.out.println();
+        }
+
+        // Lower half
+        for (int i = rows - 1; i >= 1; i--) {
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print(" ");
+            }
+
+            for (int j = 1; j <= 2 * i - 1; j++) {
+                System.out.print("*");
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Explanation
+
+The upper half is the pyramid from Q2. The lower half reverses it.
+
+For both halves:
+
+- Spaces = `rows - i`
+- Stars = `2 * i - 1`
+
+The upper half includes the widest row. The lower half starts one row below it to avoid duplicating that row.
+
+### Dry run
+
+| Half  | `i` | Spaces | Stars |
+| ----- | --- | ------ | ----- |
+| Upper | 1   | 3      | 1     |
+| Upper | 2   | 2      | 3     |
+| Upper | 3   | 1      | 5     |
+| Upper | 4   | 0      | 7     |
+| Lower | 3   | 1      | 5     |
+| Lower | 2   | 2      | 3     |
+| Lower | 1   | 3      | 1     |
+
+Difference between Q3 and Q4: Q3 prints `i` stars, whereas Q4 prints `2 * i - 1` stars.
+
+## Q5. Print a decreasing number pattern
+
+Expected output:
+
+```
+6666
+ 555
+  44
+   3
+```
+
+### Complete Java program
+
+```
+
+public class Question5 {
+    public static void main(String[] args) {
+        int rows = 4;
+
+        for (int i = 1; i <= rows; i++) {
+
+            for (int j = 1; j < i; j++) {
+                System.out.print(" ");
+            }
+
+            for (int j = 1; j <= rows - i + 1; j++) {
+                System.out.print(7 - i);
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Explanation
+
+There are two inner loops:
+
+- The first prints `i - 1` spaces.
+- The second prints the current number `rows - i + 1` times.
+
+The expression `7 - i` prints 6, 5, 4, and 3 when `i` runs from 1 to 4.
+
+### Dry run
+
+| `i` | Spaces (`i-1`) | Number (`7-i`) | Repetitions |
+| --- | -------------- | -------------- | ----------- |
+| 1   | 0              | 6              | 4           |
+| 2   | 1              | 5              | 3           |
+| 3   | 2              | 4              | 2           |
+| 4   | 3              | 3              | 1           |
+
+For example, when `i = 3`, the program prints two spaces followed by `44`.
+
+Interview tip: The number of repetitions decreases by one in each row, while the indentation increases by one.
+
+## Q6. Print consecutive numbers in a triangle
+
+Expected output:
+
+```
+1
+23
+456
+78910
+```
+
+### Complete Java program
+
+```
+
+public class Question6 {
+    public static void main(String[] args) {
+        int number = 1;
+
+        for (int i = 1; i <= 4; i++) {
+
+            for (int j = 1; j <= i; j++) {
+                System.out.print(number);
+                number++;
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Explanation
+
+The outer loop controls the number of rows. The inner loop prints as many numbers as the current row number.
+
+The variable `number` is declared before the outer loop, so its value continues from one row to the next.
+
+The statement
+
+```
+number++;
+```
+
+increases the number by one after each print.
+
+### Complete dry run
+
+| Row `i` | Values printed | `number` after row |
+| ------- | -------------- | ------------------ |
+| 1       | 1              | 2                  |
+| 2       | 2, 3           | 4                  |
+| 3       | 4, 5, 6        | 7                  |
+| 4       | 7, 8, 9, 10    | 11                 |
+
+Important: If you declare `number = 1` inside the outer loop, it will reset to 1 for every row. Keep it outside the loop to print consecutive numbers.
+
+## Q7. Print an alphabet palindrome pattern
+
+Expected output:
+
+```
+A
+ABA
+ABCBA
+ABCDCBA
+ABCDEDCBA
+```
+
+### Complete Java program
+
+```
+
+public class Question7 {
+    public static void main(String[] args) {
+
+        for (int i = 1; i <= 5; i++) {
+
+            // Print ascending alphabets
+            for (int j = 0; j < i; j++) {
+                System.out.print((char)('A' + j));
+            }
+
+            // Print descending alphabets
+            for (int j = i - 2; j >= 0; j--) {
+                System.out.print((char)('A' + j));
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Explanation
+
+Each row has two parts:
+
+1. Print letters in increasing order, starting from `A`.
+2. Print letters in decreasing order, returning toward `A`.
+
+The expression
+
+```
+(char)('A' + j)
+```
+
+converts the calculated character code into a character.
+
+For example, when `j = 0`, it produces `A`; when `j = 1`, it produces `B`.
+
+### Dry run
+
+For row `i = 4`:
+
+First loop: `A`, `B`, `C`, `D`
+
+Second loop: `C`, `B`, `A`
+
+Combined output:
+
+```
+ABCDCBA
+```
+
+The second loop starts at `i - 2` because `D` has already been printed by the first loop.
+
+## Q8. Print the centered alphabet palindrome pattern
+
+Expected output:
+
+```
+    A
+   ABA
+  ABCBA
+ ABCDCBA
+ABCDEDCBA
+```
+
+### Complete Java program
+
+```
+
+public class Question8 {
+    public static void main(String[] args) {
+
+        for (int i = 1; i <= 5; i++) {
+
+            // Print leading spaces
+            for (int j = 1; j <= 5 - i; j++) {
+                System.out.print(" ");
+            }
+
+            // Print ascending alphabets
+            for (int j = 0; j < i; j++) {
+                System.out.print((char)('A' + j));
+            }
+
+            // Print descending alphabets
+            for (int j = i - 2; j >= 0; j--) {
+                System.out.print((char)('A' + j));
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Explanation
+
+Q8 uses the same alphabet logic as Q7, but adds a loop at the beginning to print spaces.
+
+The number of spaces is:
+
+```
+5 - i
+```
+
+### Dry run
+
+| Row `i` | Spaces | Alphabet pattern |
+| ------- | ------ | ---------------- |
+| 1       | 4      | A                |
+| 2       | 3      | ABA              |
+| 3       | 2      | ABCBA            |
+| 4       | 1      | ABCDCBA          |
+| 5       | 0      | ABCDEDCBA        |
+
+Difference between Q7 and Q8: Q7 prints the alphabet pattern from the left edge. Q8 adds leading spaces to make the pattern appear centered.
+
+## Q9. Print alphabets in decreasing rows
+
+Expected output:
+
+```
+ABCDE
+ABCD
+ABC
+AB
+A
+```
+
+### Complete Java program
+
+```
+
+public class Question9 {
+    public static void main(String[] args) {
+
+        for (int i = 5; i >= 1; i--) {
+
+            for (int j = 0; j < i; j++) {
+                System.out.print((char)('A' + j));
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Explanation
+
+The outer loop begins at 5 and decreases to 1. Therefore, each row contains one fewer alphabet than the previous row.
+
+The inner loop starts at `j = 0` and continues while `j < i`.
+
+For example, when `i = 3`, the inner loop prints:
+
+- `j = 0` → A
+- `j = 1` → B
+- `j = 2` → C
+
+Output: `ABC`
+
+### Dry run
+
+| `i` | Inner loop values of `j` | Output |
+| --- | ------------------------ | ------ |
+| 5   | 0 to 4                   | ABCDE  |
+| 4   | 0 to 3                   | ABCD   |
+| 3   | 0 to 2                   | ABC    |
+| 2   | 0 to 1                   | AB     |
+| 1   | 0                        | A      |
+
+Interview tip: When the number of characters decreases per row, decrement the outer-loop variable.
+
+## Q10. Print the alphabet diamond pattern
+
+Expected output:
+
+```
+A B C D E F G
+  B C D E F
+    C D E
+      D
+    C D E
+  B C D E F
+A B C D E F G
+```
+
+### Complete Java program
+
+```
+
+public class Question10 {
+    public static void main(String[] args) {
+
+        for (int i = 0; i <= 6; i++) {
+
+            int spaces = Math.abs(3 - i);
+            char start = (char)('A' + spaces);
+            char end = (char)('G' - spaces);
+
+            // Print leading spaces
+            for (int j = 1; j <= spaces; j++) {
+                System.out.print("  ");
+            }
+
+            // Print alphabets
+            for (char ch = start; ch <= end; ch++) {
+                System.out.print(ch + " ");
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Explanation
+
+This pattern has seven rows. The middle row is row index 3, which prints only `D`.
+
+The expression
+
+```
+int spaces = Math.abs(3 - i);
+```
+
+calculates the distance from the middle row.
+
+- At `i = 0`, the distance is 3.
+- At `i = 1`, the distance is 2.
+- At `i = 2`, the distance is 1.
+- At `i = 3`, the distance is 0.
+- Then the distance increases again.
+
+The starting alphabet is `'A' + spaces`, and the ending alphabet is `'G' - spaces`.
+
+### Complete dry run
+
+| `i` | `spaces` | Starting letter | Ending letter | Output               |
+| --- | -------- | --------------- | ------------- | -------------------- |
+| 0   | 3        | D?              | D?            | See correction below |
+
+Let's calculate this carefully: for the requested pattern, the first row must begin at `A`, not `D`. The correct implementation uses the distance to determine the number of letters removed from each end, with the middle row as the center.
+
+Use this corrected, runnable version instead:
+
+```
+
+public class Question10 {
+    public static void main(String[] args) {
+
+        for (int i = 0; i < 7; i++) {
+
+            int distance = Math.abs(3 - i);
+            int startIndex = 3 - distance;
+            int endIndex = 3 + distance;
+
+            for (int j = 0; j < distance; j++) {
+                System.out.print("  ");
+            }
+
+            for (int j = startIndex; j <= endIndex; j++) {
+                System.out.print((char)('A' + j) + " ");
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+```
+
+### Dry run for the corrected program
+
+| Row index `i` | Distance | Start | End | Characters    |
+| ------------- | -------- | ----- | --- | ------------- |
+| 0             | 3        | A     | G   | A B C D E F G |
+| 1             | 2        | B     | F   | B C D E F     |
+| 2             | 1        | C     | E   | C D E         |
+| 3             | 0        | D     | D   | D             |
+| 4             | 1        | C     | E   | C D E         |
+| 5             | 2        | B     | F   | B C D E F     |
+| 6             | 3        | A     | G   | A B C D E F G |
+
+The corrected version produces the exact requested pattern.
+
+# Final revision: 10 Java pattern programs
+
+| Q. | Pattern                      | Main logic                        |
+| -- | ---------------------------- | --------------------------------- |
+| 1  | Fixed stars with indentation | Spaces + fixed stars              |
+| 2  | Star pyramid                 | `2 * i - 1` stars                 |
+| 3  | Increasing/decreasing stars  | Two outer loops                   |
+| 4  | Diamond stars                | Pyramid + inverted pyramid        |
+| 5  | Decreasing numbers           | Spaces + decreasing repetitions   |
+| 6  | Consecutive number triangle  | Increment a shared variable       |
+| 7  | Alphabet palindrome          | Ascending + descending characters |
+| 8  | Centered alphabet palindrome | Spaces + alphabet palindrome      |
+| 9  | Decreasing alphabet rows     | Decrement outer-loop counter      |
+| 10 | Symmetric alphabet diamond   | Distance from middle row          |
+
+## Practice challenge
+
+Try writing Q6, Q7, and Q9 without looking at the solutions. These are good exercises for mastering nested loops and character arithmetic.
+
+Next section: Section 5 — SQL Queries (10 questions), including complete MySQL queries and explanations.

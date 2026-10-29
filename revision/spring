@@ -1,0 +1,453 @@
+# Section 2: Spring Framework Interview Questions — 10 Questions
+
+We'll now prepare the second section of your Java Full Stack interview study plan, with beginner-friendly answers and examples.
+
+## Q1. What is the Spring Framework?
+
+### Interview answer
+
+The Spring Framework is an open-source Java framework used to develop enterprise applications. It simplifies Java development by providing features such as Inversion of Control (IoC), Dependency Injection (DI), transaction management, and integration with databases and web technologies.
+
+### Example
+
+Suppose we have two classes: `Engine` and `Car`. A car needs an engine to work.
+
+Without Spring, we create the dependency manually:
+
+```
+Engine e = new Engine();
+Car c = new Car(e);
+```
+
+With Spring, the Spring container can create the `Engine` object and inject it into the `Car` object automatically.
+
+This reduces manual object creation and makes applications easier to maintain.
+
+### Important features
+
+- IoC and Dependency Injection
+- Aspect-Oriented Programming (AOP)
+- Transaction management
+- Spring MVC for web applications
+- Integration with JDBC and ORM technologies
+
+Remember: Spring helps manage objects and their dependencies so developers can focus more on application logic.
+
+## Q2. Why do we use the Spring Framework?
+
+### Interview answer
+
+We use Spring because it simplifies Java application development by reducing tight coupling, managing object creation, supporting testing, and providing reusable infrastructure for web applications, database access, and transactions.
+
+### Example without Spring
+
+```
+class Engine {
+    void start() {
+        System.out.println("Engine started");
+    }
+}
+
+class Car {
+    Engine engine = new Engine();
+
+    void drive() {
+        engine.start();
+        System.out.println("Car is moving");
+    }
+}
+```
+
+Here, `Car` creates its own `Engine` object. It is tightly coupled to that particular implementation.
+
+### Example using constructor injection
+
+```
+class Engine {
+    void start() {
+        System.out.println("Engine started");
+    }
+}
+
+class Car {
+    private Engine engine;
+
+    Car(Engine engine) {
+        this.engine = engine;
+    }
+
+    void drive() {
+        engine.start();
+        System.out.println("Car is moving");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Engine engine = new Engine();
+        Car car = new Car(engine);
+        car.drive();
+    }
+}
+```
+
+The second example demonstrates Dependency Injection, which Spring can perform automatically when the classes are configured as Spring beans.
+
+Remember: Spring makes dependencies easier to manage, replace, and test.
+
+## Q3. What are the advantages of the Spring Framework?
+
+### Interview answer
+
+The main advantages of Spring are:
+
+1. Loose coupling: Classes depend less on concrete implementations.
+2. Dependency Injection: Dependencies are supplied rather than created inside dependent classes.
+3. Testability: Dependencies can be replaced with mocks or test implementations.
+4. Transaction management: It simplifies transaction handling.
+5. Modularity: Developers can use the modules they need.
+6. Integration: It supports technologies such as JDBC, JPA, and web frameworks.
+7. Reduced boilerplate: It simplifies common infrastructure tasks.
+
+### Example
+
+Consider a service that needs a payment processor. With Dependency Injection, we can provide a real payment processor in production and a mock payment processor during testing without rewriting the service.
+
+Interview tip: If asked to explain only three advantages, mention loose coupling, Dependency Injection, and easier testing.
+
+## Q4. What are the main modules of the Spring Framework?
+
+### Interview answer
+
+The Spring Framework is organized into modules that provide different capabilities.
+
+| Module/group                | Purpose                                           |
+| --------------------------- | ------------------------------------------------- |
+| Core Container              | IoC, beans, and Dependency Injection              |
+| AOP                         | Separates cross-cutting concerns such as logging  |
+| Data Access and Integration | JDBC, transaction management, and ORM integration |
+| Web                         | Web application infrastructure                    |
+| Spring MVC                  | Model-View-Controller web applications            |
+| Testing                     | Support for unit and integration testing          |
+
+### Example
+
+In a Spring MVC application:
+
+- The Core Container manages beans.
+- Spring MVC handles incoming web requests.
+- The JDBC or transaction modules support database operations.
+- The Testing module helps test application components.
+
+Remember: The Core Container is fundamental because it manages objects and their dependencies.
+
+## Q5. What is the difference between Spring and Spring Boot?
+
+### Interview answer
+
+Spring is the core framework that provides features such as Dependency Injection and web development support. Spring Boot builds on Spring and simplifies application setup through auto-configuration, starter dependencies, and embedded servers.
+
+| Spring Framework                            | Spring Boot                                  |
+| ------------------------------------------- | -------------------------------------------- |
+| Core Java application framework             | Simplifies building Spring applications      |
+| Configuration may require more setup        | Provides convention-based auto-configuration |
+| Web deployment may use an external server   | Commonly supports embedded servers           |
+| Dependencies may be configured individually | Provides starter dependencies                |
+| Offers the core framework features          | Adds tools and conventions around Spring     |
+
+### Example
+
+A basic Spring application may require explicit configuration for components and the web server.
+
+A typical Spring Boot application can start using:
+
+```
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MyApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+    }
+}
+```
+
+This example requires a Spring Boot project with the appropriate dependencies.
+
+Remember: Spring Boot does not replace Spring. It makes Spring applications easier to configure and run.
+
+## Q6. What is Inversion of Control (IoC)?
+
+### Interview answer
+
+Inversion of Control (IoC) is a principle in which control over object creation and dependency management is transferred from application code to a framework or container.
+
+In Spring, the IoC container creates and manages Spring beans and their dependencies.
+
+### Example
+
+Without IoC:
+
+```
+Engine engine = new Engine();
+Car car = new Car(engine);
+```
+
+The application code creates the objects.
+
+With Spring IoC, the container can create the `Engine` and `Car` beans and manage their relationship.
+
+Conceptually:
+
+```
+Spring Container
+      |
+      | creates and manages
+      v
+    Engine
+      |
+      | injects into
+      v
+     Car
+```
+
+Remember: IoC is the principle; the Spring IoC container is the mechanism that manages the objects.
+
+## Q7. What is Dependency Injection (DI)?
+
+### Interview answer
+
+Dependency Injection is a technique in which an object receives the other objects it depends on from an external source instead of creating those dependencies itself.
+
+Spring supports constructor, setter, and field injection, although constructor injection is generally preferred for required dependencies.
+
+### Complete runnable plain Java example
+
+This example demonstrates the DI concept without requiring Spring libraries.
+
+```
+class Engine {
+    void start() {
+        System.out.println("Engine started");
+    }
+}
+
+class Car {
+    private final Engine engine;
+
+    Car(Engine engine) {
+        this.engine = engine;
+    }
+
+    void drive() {
+        engine.start();
+        System.out.println("Car is moving");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Engine engine = new Engine();
+        Car car = new Car(engine);
+
+        car.drive();
+    }
+}
+```
+
+Output:
+
+```
+Engine started
+Car is moving
+```
+
+Here, `Car` receives its `Engine` through its constructor. The example demonstrates DI manually; Spring can automate this process through its container.
+
+Remember: DI reduces tight coupling and makes testing easier.
+
+## Q8. What are the different types of Dependency Injection in Spring?
+
+### Interview answer
+
+Spring supports three commonly discussed types of Dependency Injection:
+
+1. Constructor injection
+2. Setter injection
+3. Field injection
+
+### 1. Constructor injection
+
+The dependency is provided through a constructor.
+
+```
+class Car {
+    private final Engine engine;
+
+    Car(Engine engine) {
+        this.engine = engine;
+    }
+}
+```
+
+Useful for required dependencies. It also supports immutable fields.
+
+### 2. Setter injection
+
+The dependency is provided through a setter method.
+
+```
+class Car {
+    private Engine engine;
+
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+    }
+}
+```
+
+Useful for optional or changeable dependencies.
+
+### 3. Field injection
+
+The dependency is injected directly into a field, typically using `@Autowired`.
+
+```
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+class Car {
+    @Autowired
+    private Engine engine;
+}
+```
+
+This requires Spring dependencies and appropriate bean configuration. Field injection is often discouraged because it makes dependencies less explicit and complicates isolated unit testing.
+
+Interview tip: Prefer constructor injection for required dependencies.
+
+## Q9. What is the difference between IoC and DI?
+
+### Interview answer
+
+IoC is the broader principle of transferring control to a framework or container. DI is one technique used to achieve IoC by supplying an object's dependencies from outside.
+
+| IoC                                           | DI                                     |
+| --------------------------------------------- | -------------------------------------- |
+| A design principle                            | A technique                            |
+| Transfers control to a container or framework | Supplies required dependencies         |
+| Covers a broader concept                      | One way to implement IoC               |
+| Spring's container manages beans              | Spring injects dependencies into beans |
+
+### Example
+
+Imagine a `Car` class depends on an `Engine`.
+
+- IoC: Spring takes responsibility for managing the `Car` and `Engine` beans.
+- DI: Spring supplies the `Engine` dependency to the `Car`.
+
+Easy way to remember: IoC is the principle; DI is a way to implement that principle.
+
+## Q10. What is a Spring Container?
+
+### Interview answer
+
+The Spring Container is the core component responsible for creating, configuring, managing, and wiring Spring beans according to the application's configuration.
+
+It reads configuration metadata from sources such as annotations, Java configuration classes, or XML files.
+
+The two commonly discussed container interfaces are:
+
+- BeanFactory: Provides the basic bean-management functionality.
+- ApplicationContext: Extends `BeanFactory` with additional enterprise-oriented features, such as event publication and message resolution.
+
+### Example using `ApplicationContext`
+
+```
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+class Student {
+    void display() {
+        System.out.println("Student bean created by Spring");
+    }
+}
+
+@Configuration
+class AppConfig {
+    @Bean
+    Student student() {
+        return new Student();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context =
+                new AnnotationConfigApplicationContext(AppConfig.class);
+
+        Student s = context.getBean(Student.class);
+        s.display();
+    }
+}
+```
+
+Output:
+
+```
+Student bean created by Spring
+```
+
+Important: This is a Spring example, not a standalone Java program. Run it in a project with the appropriate Spring Context dependency.
+
+# Quick revision test
+
+Select one answer for each question, then check your score.
+
+1\. What is the main purpose of the Spring Framework?
+
+To replace Java
+
+To simplify application development and manage dependencies
+
+To replace SQL
+
+2\. What does IoC mean?
+
+The application always creates every object
+
+Control is transferred to a framework or container
+
+Objects cannot have dependencies
+
+3\. Which injection type is generally preferred for required dependencies?
+
+Constructor injection
+
+Field injection
+
+Static injection
+
+4\. Is Spring Boot a replacement for Spring?
+
+Yes
+
+No, it builds on Spring
+
+Only for database applications
+
+5\. Which container interface is commonly used to retrieve Spring beans?
+
+Runnable
+
+ApplicationContext
+
+Scanner
+
+Check answers
+
+Next in your study plan: Section 3 — Project-Based Interview Questions (5 questions), including how to explain your project objective, your responsibilities, application architecture, technologies, and frontend-backend communication.

@@ -2,93 +2,114 @@
 
 ## Table of Contents
 
-- [Pattern 1 (Q1): Write a java program to print this pattern.](#pattern-1-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 2 (Q1): Write a java program to print this pattern.](#pattern-2-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 3 (Q2): Write a java program to print this pattern.](#pattern-3-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 4 (Q3): Write a java program to print this pattern.](#pattern-4-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 5 (Q1): Write a java program to print this pattern.](#pattern-5-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 6 (Q2): Write a java program to print this pattern.](#pattern-6-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 7 (Q3): Write a java program to print this pattern.](#pattern-7-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 8 (Q2): Write a java program to print this pattern.](#pattern-8-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 9 (Q3): Write a java program to print this pattern.](#pattern-9-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 10 (Q1): Write a java program to print this pattern.](#pattern-10-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 11 (Q2): Write a java progr6am to print this pattern.](#pattern-11-q2-write-a-java-progr6am-to-print-this-pattern)
-- [Pattern 12 (Q3): Write a java program to print this pattern.](#pattern-12-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 13 (Q1): Write a java program to print this pattern.](#pattern-13-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 14 (Q2): Write a java program to print this pattern.](#pattern-14-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 15 (Q3): Write a java program to print this pattern.](#pattern-15-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 16 (Q1): Write a java program to print this pattern.](#pattern-16-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 17 (Q2): Write a java program to print this pattern.](#pattern-17-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 18 (Q3): Write a java program to print this pattern.](#pattern-18-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 19 (Q4): Write a java program to print this pattern.](#pattern-19-q4-write-a-java-program-to-print-this-pattern)
-- [Pattern 20 (Q5): Write a java program to print this pattern.](#pattern-20-q5-write-a-java-program-to-print-this-pattern)
-- [Pattern 21 (Q1): Write a java program to print this pattern.](#pattern-21-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 22 (Q2): Write a java program to print this pattern.](#pattern-22-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 23 (Q3): Write a java program to print this pattern.](#pattern-23-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 24 (Q4): Write a java program to print this pattern.](#pattern-24-q4-write-a-java-program-to-print-this-pattern)
-- [Pattern 25 (Q5): Write a java program to print this pattern.](#pattern-25-q5-write-a-java-program-to-print-this-pattern)
-- [Pattern 26 (Q1): Write a java program to print this pattern.](#pattern-26-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 27 (Q2): Write a java program to print this pattern.](#pattern-27-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 28 (Q3): Write a java program to print this pattern.](#pattern-28-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 29 (Q4): Write a java program to print this pattern.](#pattern-29-q4-write-a-java-program-to-print-this-pattern)
-- [Pattern 30 (Q5): Write a java program to print this pattern.](#pattern-30-q5-write-a-java-program-to-print-this-pattern)
-- [Pattern 31 (Q5): Write a java program to print this pattern.](#pattern-31-q5-write-a-java-program-to-print-this-pattern)
-- [Pattern 32 (Q1): Write a java program to print this pattern.](#pattern-32-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 33 (Q2): Write a java program to print this pattern.](#pattern-33-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 34 (Q3): Write a java program to print this pattern.](#pattern-34-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 35 (Q4): Write a java program to print this pattern.](#pattern-35-q4-write-a-java-program-to-print-this-pattern)
-- [Pattern 36 (Q5): Write a java program to print this pattern.](#pattern-36-q5-write-a-java-program-to-print-this-pattern)
-- [Pattern 37 (Q1): Write a java program to print this pattern.](#pattern-37-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 38 (Q2): Write a java program to print this pattern.](#pattern-38-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 39 (Q3): Write a java program to print this pattern.](#pattern-39-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 40 (Q4): Write a java program to print this pattern.](#pattern-40-q4-write-a-java-program-to-print-this-pattern)
-- [Pattern 41 (Q5): Write a java program to print this pattern.](#pattern-41-q5-write-a-java-program-to-print-this-pattern)
-- [Pattern 42 (Q1): Write a java program to print this pattern.](#pattern-42-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 43 (Q10): Write a java program to print this pattern.](#pattern-43-q10-write-a-java-program-to-print-this-pattern)
-- [Pattern 44 (Q2): Write a java program to print this pattern.](#pattern-44-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 45 (Q3): Write a java program to print this pattern.](#pattern-45-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 46 (Q4): Write a java program to print this pattern.](#pattern-46-q4-write-a-java-program-to-print-this-pattern)
-- [Pattern 47 (Q5): Write a java program to print this pattern.](#pattern-47-q5-write-a-java-program-to-print-this-pattern)
-- [Pattern 48 (Q6): Write a java program to print this pattern.](#pattern-48-q6-write-a-java-program-to-print-this-pattern)
-- [Pattern 49 (Q7): Write a java program to print this pattern.](#pattern-49-q7-write-a-java-program-to-print-this-pattern)
-- [Pattern 50 (Q8): Write a java program to print this pattern.](#pattern-50-q8-write-a-java-program-to-print-this-pattern)
-- [Pattern 51 (Q9): Write a java program to print this pattern.](#pattern-51-q9-write-a-java-program-to-print-this-pattern)
-- [Pattern 52 (Q1): Write a java program to print this pattern.](#pattern-52-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 53 (Q10): Write a java program to print this pattern.](#pattern-53-q10-write-a-java-program-to-print-this-pattern)
-- [Pattern 54 (Q11): Write a java program to print this pattern.](#pattern-54-q11-write-a-java-program-to-print-this-pattern)
-- [Pattern 55 (Q12): Write a java program to print this pattern.](#pattern-55-q12-write-a-java-program-to-print-this-pattern)
-- [Pattern 56 (Q13): Write a java program to print this pattern.](#pattern-56-q13-write-a-java-program-to-print-this-pattern)
-- [Pattern 57 (Q14): Write a java program to print this pattern.](#pattern-57-q14-write-a-java-program-to-print-this-pattern)
-- [Pattern 58 (Q15): Write a java program to print this pattern.](#pattern-58-q15-write-a-java-program-to-print-this-pattern)
-- [Pattern 59 (Q2): Write a java program to print this pattern.](#pattern-59-q2-write-a-java-program-to-print-this-pattern)
-- [Pattern 60 (Q3): Write a java program to print this pattern.](#pattern-60-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 61 (Q4): Write a java program to print this pattern.](#pattern-61-q4-write-a-java-program-to-print-this-pattern)
-- [Pattern 62 (Q5): Write a java program to print this pattern.](#pattern-62-q5-write-a-java-program-to-print-this-pattern)
-- [Pattern 63 (Q6): Write a java program to print this pattern.](#pattern-63-q6-write-a-java-program-to-print-this-pattern)
-- [Pattern 64 (Q7): Write a java program to print this pattern.](#pattern-64-q7-write-a-java-program-to-print-this-pattern)
-- [Pattern 65 (Q8): Write a java program to print this pattern.](#pattern-65-q8-write-a-java-program-to-print-this-pattern)
-- [Pattern 66 (Q9): Write a java program to print this pattern.](#pattern-66-q9-write-a-java-program-to-print-this-pattern)
-- [Pattern 67 (Q1): Write a java program to print this pattern.](#pattern-67-q1-write-a-java-program-to-print-this-pattern)
-- [Pattern 68 (Q10): Write a java program to print this pattern.](#pattern-68-q10-write-a-java-program-to-print-this-pattern)
-- [Pattern 69 (Q75): Write a java program to print this pattern.](#pattern-69-q75-write-a-java-program-to-print-this-pattern)
-- [Pattern 70 (Q76): Write a java program to print this pattern.](#pattern-70-q76-write-a-java-program-to-print-this-pattern)
-- [Pattern 71 (Q13): Write a java program to print this pattern.](#pattern-71-q13-write-a-java-program-to-print-this-pattern)
-- [Pattern 72 (Q14): Write a java program to print this pattern.](#pattern-72-q14-write-a-java-program-to-print-this-pattern)
-- [Pattern 73 (Q15): Write a java program to print this pattern.](#pattern-73-q15-write-a-java-program-to-print-this-pattern)
-- [Pattern 74 (Q80): Write a java program to print this pattern.](#pattern-74-q80-write-a-java-program-to-print-this-pattern)
-- [Pattern 75 (Q81): Write a java program to print this pattern.](#pattern-75-q81-write-a-java-program-to-print-this-pattern)
-- [Pattern 76 (Q82): Write a java program to print this pattern.](#pattern-76-q82-write-a-java-program-to-print-this-pattern)
-- [Pattern 77 (Q83): Write a java program to print this pattern.](#pattern-77-q83-write-a-java-program-to-print-this-pattern)
-- [Pattern 78 (Q84): Write a java program to print this pattern.](#pattern-78-q84-write-a-java-program-to-print-this-pattern)
-- [Pattern 79 (Q3): Write a java program to print this pattern.](#pattern-79-q3-write-a-java-program-to-print-this-pattern)
-- [Pattern 80 (Q4): Write a java program to print this pattern.](#pattern-80-q4-write-a-java-program-to-print-this-pattern)
-- [Pattern 81 (Q5): Write a java program to print this pattern.](#pattern-81-q5-write-a-java-program-to-print-this-pattern)
-- [Pattern 82 (Q6): Write a java program to print this pattern.](#pattern-82-q6-write-a-java-program-to-print-this-pattern)
-- [Pattern 83 (Q7): Write a java program to print this pattern.](#pattern-83-q7-write-a-java-program-to-print-this-pattern)
-- [Pattern 84 (Q8): Write a java program to print this pattern.](#pattern-84-q8-write-a-java-program-to-print-this-pattern)
-- [Pattern 85 (Q9): Write a java program to print this pattern.](#pattern-85-q9-write-a-java-program-to-print-this-pattern)
+- [Star Patterns (38)](#star-patterns)
+  - [Pattern 1 (Q1): Write a java program to print this pattern.](#pattern-1-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 2 (Q1): Write a java program to print this pattern.](#pattern-2-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 3 (Q2): Write a java program to print this pattern.](#pattern-3-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 4 (Q3): Write a java program to print this pattern.](#pattern-4-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 8 (Q2): Write a java program to print this pattern.](#pattern-8-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 9 (Q3): Write a java program to print this pattern.](#pattern-9-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 10 (Q1): Write a java program to print this pattern.](#pattern-10-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 11 (Q2): Write a java program to print this pattern.](#pattern-11-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 12 (Q3): Write a java program to print this pattern.](#pattern-12-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 13 (Q1): Write a java program to print this pattern.](#pattern-13-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 14 (Q2): Write a java program to print this pattern.](#pattern-14-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 15 (Q3): Write a java program to print this pattern.](#pattern-15-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 16 (Q1): Write a java program to print this pattern.](#pattern-16-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 17 (Q2): Write a java program to print this pattern.](#pattern-17-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 18 (Q3): Write a java program to print this pattern.](#pattern-18-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 19 (Q4): Write a java program to print this pattern.](#pattern-19-q4-write-a-java-program-to-print-this-pattern)
+  - [Pattern 20 (Q5): Write a java program to print this pattern.](#pattern-20-q5-write-a-java-program-to-print-this-pattern)
+  - [Pattern 21 (Q1): Write a java program to print this pattern.](#pattern-21-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 22 (Q2): Write a java program to print this pattern.](#pattern-22-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 23 (Q3): Write a java program to print this pattern.](#pattern-23-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 24 (Q4): Write a java program to print this pattern.](#pattern-24-q4-write-a-java-program-to-print-this-pattern)
+  - [Pattern 25 (Q5): Write a java program to print this pattern.](#pattern-25-q5-write-a-java-program-to-print-this-pattern)
+  - [Pattern 26 (Q1): Write a java program to print this pattern.](#pattern-26-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 27 (Q2): Write a java program to print this pattern.](#pattern-27-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 28 (Q3): Write a java program to print this pattern.](#pattern-28-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 29 (Q4): Write a java program to print this pattern.](#pattern-29-q4-write-a-java-program-to-print-this-pattern)
+  - [Pattern 30 (Q5): Write a java program to print this pattern.](#pattern-30-q5-write-a-java-program-to-print-this-pattern)
+  - [Pattern 31 (Q5): Write a java program to print this pattern.](#pattern-31-q5-write-a-java-program-to-print-this-pattern)
+  - [Pattern 32 (Q1): Write a java program to print this pattern.](#pattern-32-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 33 (Q2): Write a java program to print this pattern.](#pattern-33-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 34 (Q3): Write a java program to print this pattern.](#pattern-34-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 35 (Q4): Write a java program to print this pattern.](#pattern-35-q4-write-a-java-program-to-print-this-pattern)
+  - [Pattern 36 (Q5): Write a java program to print this pattern.](#pattern-36-q5-write-a-java-program-to-print-this-pattern)
+  - [Pattern 86: Write a java program to print this pattern.](#pattern-86-write-a-java-program-to-print-this-pattern)
+  - [Pattern 87: Write a java program to print this pattern.](#pattern-87-write-a-java-program-to-print-this-pattern)
+  - [Pattern 88: Write a java program to print this pattern.](#pattern-88-write-a-java-program-to-print-this-pattern)
+  - [Pattern 89: Write a java program to print this pattern.](#pattern-89-write-a-java-program-to-print-this-pattern)
+  - [Pattern 96: Write a java program to print this pattern.](#pattern-96-write-a-java-program-to-print-this-pattern)
+- [Number Patterns (30)](#number-patterns)
+  - [Pattern 5 (Q1): Write a java program to print this pattern.](#pattern-5-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 6 (Q2): Write a java program to print this pattern.](#pattern-6-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 7 (Q3): Write a java program to print this pattern.](#pattern-7-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 37 (Q1): Write a java program to print this pattern.](#pattern-37-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 38 (Q2): Write a java program to print this pattern.](#pattern-38-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 39 (Q3): Write a java program to print this pattern.](#pattern-39-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 40 (Q4): Write a java program to print this pattern.](#pattern-40-q4-write-a-java-program-to-print-this-pattern)
+  - [Pattern 41 (Q5): Write a java program to print this pattern.](#pattern-41-q5-write-a-java-program-to-print-this-pattern)
+  - [Pattern 42 (Q1): Write a java program to print this pattern.](#pattern-42-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 43 (Q10): Write a java program to print this pattern.](#pattern-43-q10-write-a-java-program-to-print-this-pattern)
+  - [Pattern 44 (Q2): Write a java program to print this pattern.](#pattern-44-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 45 (Q3): Write a java program to print this pattern.](#pattern-45-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 46 (Q4): Write a java program to print this pattern.](#pattern-46-q4-write-a-java-program-to-print-this-pattern)
+  - [Pattern 47 (Q5): Write a java program to print this pattern.](#pattern-47-q5-write-a-java-program-to-print-this-pattern)
+  - [Pattern 48 (Q6): Write a java program to print this pattern.](#pattern-48-q6-write-a-java-program-to-print-this-pattern)
+  - [Pattern 49 (Q7): Write a java program to print this pattern.](#pattern-49-q7-write-a-java-program-to-print-this-pattern)
+  - [Pattern 50 (Q8): Write a java program to print this pattern.](#pattern-50-q8-write-a-java-program-to-print-this-pattern)
+  - [Pattern 51 (Q9): Write a java program to print this pattern.](#pattern-51-q9-write-a-java-program-to-print-this-pattern)
+  - [Pattern 52 (Q1): Write a java program to print this pattern.](#pattern-52-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 53 (Q10): Write a java program to print this pattern.](#pattern-53-q10-write-a-java-program-to-print-this-pattern)
+  - [Pattern 59 (Q2): Write a java program to print this pattern.](#pattern-59-q2-write-a-java-program-to-print-this-pattern)
+  - [Pattern 60 (Q3): Write a java program to print this pattern.](#pattern-60-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 61 (Q4): Write a java program to print this pattern.](#pattern-61-q4-write-a-java-program-to-print-this-pattern)
+  - [Pattern 62 (Q5): Write a java program to print this pattern.](#pattern-62-q5-write-a-java-program-to-print-this-pattern)
+  - [Pattern 63 (Q6): Write a java program to print this pattern.](#pattern-63-q6-write-a-java-program-to-print-this-pattern)
+  - [Pattern 64 (Q7): Write a java program to print this pattern.](#pattern-64-q7-write-a-java-program-to-print-this-pattern)
+  - [Pattern 65 (Q8): Write a java program to print this pattern.](#pattern-65-q8-write-a-java-program-to-print-this-pattern)
+  - [Pattern 66 (Q9): Write a java program to print this pattern.](#pattern-66-q9-write-a-java-program-to-print-this-pattern)
+  - [Pattern 90: Write a java program to print this pattern.](#pattern-90-write-a-java-program-to-print-this-pattern)
+  - [Pattern 91: Write a java program to print this pattern.](#pattern-91-write-a-java-program-to-print-this-pattern)
+- [Character Patterns (20)](#character-patterns)
+  - [Pattern 54 (Q11): Write a java program to print this pattern.](#pattern-54-q11-write-a-java-program-to-print-this-pattern)
+  - [Pattern 55 (Q12): Write a java program to print this pattern.](#pattern-55-q12-write-a-java-program-to-print-this-pattern)
+  - [Pattern 56 (Q13): Write a java program to print this pattern.](#pattern-56-q13-write-a-java-program-to-print-this-pattern)
+  - [Pattern 57 (Q14): Write a java program to print this pattern.](#pattern-57-q14-write-a-java-program-to-print-this-pattern)
+  - [Pattern 58 (Q15): Write a java program to print this pattern.](#pattern-58-q15-write-a-java-program-to-print-this-pattern)
+  - [Pattern 67 (Q1): Write a java program to print this pattern.](#pattern-67-q1-write-a-java-program-to-print-this-pattern)
+  - [Pattern 68 (Q10): Write a java program to print this pattern.](#pattern-68-q10-write-a-java-program-to-print-this-pattern)
+  - [Pattern 70 (Q76): Write a java program to print this pattern.](#pattern-70-q76-write-a-java-program-to-print-this-pattern)
+  - [Pattern 71 (Q13): Write a java program to print this pattern.](#pattern-71-q13-write-a-java-program-to-print-this-pattern)
+  - [Pattern 72 (Q14): Write a java program to print this pattern.](#pattern-72-q14-write-a-java-program-to-print-this-pattern)
+  - [Pattern 73 (Q15): Write a java program to print this pattern.](#pattern-73-q15-write-a-java-program-to-print-this-pattern)
+  - [Pattern 74 (Q80): Write a java program to print this pattern.](#pattern-74-q80-write-a-java-program-to-print-this-pattern)
+  - [Pattern 75 (Q81): Write a java program to print this pattern.](#pattern-75-q81-write-a-java-program-to-print-this-pattern)
+  - [Pattern 78 (Q84): Write a java program to print this pattern.](#pattern-78-q84-write-a-java-program-to-print-this-pattern)
+  - [Pattern 79 (Q3): Write a java program to print this pattern.](#pattern-79-q3-write-a-java-program-to-print-this-pattern)
+  - [Pattern 84 (Q8): Write a java program to print this pattern.](#pattern-84-q8-write-a-java-program-to-print-this-pattern)
+  - [Pattern 92: Write a java program to print this pattern.](#pattern-92-write-a-java-program-to-print-this-pattern)
+  - [Pattern 93: Write a java program to print this pattern.](#pattern-93-write-a-java-program-to-print-this-pattern)
+  - [Pattern 94: Write a java program to print this pattern.](#pattern-94-write-a-java-program-to-print-this-pattern)
+  - [Pattern 95: Write a java program to print this pattern.](#pattern-95-write-a-java-program-to-print-this-pattern)
+- [Mixed Patterns (Numbers and Characters) (8)](#mixed-patterns-numbers-and-characters)
+  - [Pattern 69 (Q75): Write a java program to print this pattern.](#pattern-69-q75-write-a-java-program-to-print-this-pattern)
+  - [Pattern 76 (Q82): Write a java program to print this pattern.](#pattern-76-q82-write-a-java-program-to-print-this-pattern)
+  - [Pattern 77 (Q83): Write a java program to print this pattern.](#pattern-77-q83-write-a-java-program-to-print-this-pattern)
+  - [Pattern 80 (Q4): Write a java program to print this pattern.](#pattern-80-q4-write-a-java-program-to-print-this-pattern)
+  - [Pattern 81 (Q5): Write a java program to print this pattern.](#pattern-81-q5-write-a-java-program-to-print-this-pattern)
+  - [Pattern 82 (Q6): Write a java program to print this pattern.](#pattern-82-q6-write-a-java-program-to-print-this-pattern)
+  - [Pattern 83 (Q7): Write a java program to print this pattern.](#pattern-83-q7-write-a-java-program-to-print-this-pattern)
+  - [Pattern 85 (Q9): Write a java program to print this pattern.](#pattern-85-q9-write-a-java-program-to-print-this-pattern)
 
-## Pattern 1 (Q1): Write a java program to print this pattern.
+---
+
+## Star Patterns
+
+[Back to top](#java-pattern-programs)
+
+### Pattern 1 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -118,7 +139,7 @@ public class Pattern1
 }
 ```
 
-## Pattern 2 (Q1): Write a java program to print this pattern.
+### Pattern 2 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -162,7 +183,7 @@ public class Pattern10
 }
 ```
 
-## Pattern 3 (Q2): Write a java program to print this pattern.
+### Pattern 3 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -209,7 +230,7 @@ public class Pattern11
 }
 ```
 
-## Pattern 4 (Q3): Write a java program to print this pattern.
+### Pattern 4 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -247,101 +268,7 @@ public class Pattern12
 }
 ```
 
-## Pattern 5 (Q1): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-	1	2	3	4	5
-	1	2	3	4	5
-	1	2	3	4	5
-	1	2	3	4	5
-	1	2	3	4	5
-```
-
-```java
-public class Pattern13
-{
-	public static void main(String x[])
-	{	
-	
-		for(int i=1; i<=5; i++)
-		{	
-			for(int j=1; j<=5; j++)
-			{
-				System.out.print(j);
-			}
-			System.out.println();
-		}
-	}
-}
-```
-
-## Pattern 6 (Q2): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-	1	2	3	4	5
-	2	3	4	5	6
-	3	4	5	6	7
-	4	5	6	7	8
-	5	6	7	8	9
-```
-
-```java
-public class Pattern14
-{
-	public static void main(String x[])
-	{	
-	
-		for(int i=0; i<=4; i++)  
-		{	
-			for(int j=1; j<=5; j++)
-			{
-				System.out.print((i+j)+" ");
-			}
-			System.out.println();
-		}
-	}
-}
-```
-
-## Pattern 7 (Q3): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-	1
-	2	3
-	4	5	6
-	7	8	9	10
-	11	12	13	14	15
-```
-
-```java
-public class Pattern15
-{
-	public static void main(String x[])
-	{	
-		int count=1;
-		for(int i=1; i<=5; i++)
-		{	
-			for(int j=1; j<=5; j++)
-			{
-				if(i>=j)
-				{
-					System.out.print(count+" ");
-					count++;
-				}
-			}
-			System.out.println();
-		}
-	}
-}
-```
-
-## Pattern 8 (Q2): Write a java program to print this pattern.
+### Pattern 8 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -378,7 +305,7 @@ public class Pattern2
 }
 ```
 
-## Pattern 9 (Q3): Write a java program to print this pattern.
+### Pattern 9 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -415,7 +342,7 @@ public class Pattern3
 }
 ```
 
-## Pattern 10 (Q1): Write a java program to print this pattern.
+### Pattern 10 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -438,7 +365,7 @@ public class Pattern4
 			{
 				                  
 				//((j>=6-i && j<=5) || (j<=i+4 && j>=6))-another technique				  
-				if(j>=6-i && j<=4+i)
+				if(j>=6-i && j<=4+i) 
 				{
 					System.out.print("*");
 				}
@@ -453,7 +380,32 @@ public class Pattern4
 }
 ```
 
-## Pattern 11 (Q2): Write a java progr6am to print this pattern.
+**Alternative Approach:**
+
+```java
+public class Question2
+{
+	public static void main(String[] args)
+	{
+		int rows = 5;
+
+		for (int i = 1; i <= rows; i++)
+		{
+			for (int j = 1; j <= rows - i; j++)
+			{
+				System.out.print(" ");
+			}
+			for (int j = 1; j <= 2 * i - 1; j++)
+			{
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 11 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -489,7 +441,7 @@ public class Pattern5
 }
 ```
 
-## Pattern 12 (Q3): Write a java program to print this pattern.
+### Pattern 12 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -525,7 +477,7 @@ public class Pattern6
 }
 ```
 
-## Pattern 13 (Q1): Write a java program to print this pattern.
+### Pattern 13 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -562,7 +514,7 @@ public class Pattern7
 }
 ```
 
-## Pattern 14 (Q2): Write a java program to print this pattern.
+### Pattern 14 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -598,7 +550,7 @@ public class Pattern8
 }
 ```
 
-## Pattern 15 (Q3): Write a java program to print this pattern.
+### Pattern 15 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -638,7 +590,7 @@ public class Pattern9
 }
 ```
 
-## Pattern 16 (Q1): Write a java program to print this pattern.
+### Pattern 16 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -674,7 +626,7 @@ public class Question1
 }
 ```
 
-## Pattern 17 (Q2): Write a java program to print this pattern.
+### Pattern 17 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -710,7 +662,7 @@ public class Question2
 }
 ```
 
-## Pattern 18 (Q3): Write a java program to print this pattern.
+### Pattern 18 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -746,7 +698,7 @@ public class Question3
 }
 ```
 
-## Pattern 19 (Q4): Write a java program to print this pattern.
+### Pattern 19 (Q4): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -782,7 +734,7 @@ public class Question4
 }
 ```
 
-## Pattern 20 (Q5): Write a java program to print this pattern.
+### Pattern 20 (Q5): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -822,7 +774,7 @@ public class Question5
 }
 ```
 
-## Pattern 21 (Q1): Write a java program to print this pattern.
+### Pattern 21 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -864,7 +816,7 @@ public class Question1
 }
 ```
 
-## Pattern 22 (Q2): Write a java program to print this pattern.
+### Pattern 22 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -900,7 +852,7 @@ public class Question2
 }
 ```
 
-## Pattern 23 (Q3): Write a java program to print this pattern.
+### Pattern 23 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -945,7 +897,7 @@ public class Question3
 }
 ```
 
-## Pattern 24 (Q4): Write a java program to print this pattern.
+### Pattern 24 (Q4): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -981,7 +933,7 @@ public class Question4
 }
 ```
 
-## Pattern 25 (Q5): Write a java program to print this pattern.
+### Pattern 25 (Q5): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1018,7 +970,7 @@ public class Question5
 }
 ```
 
-## Pattern 26 (Q1): Write a java program to print this pattern.
+### Pattern 26 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1056,7 +1008,7 @@ public class Question1
 }
 ```
 
-## Pattern 27 (Q2): Write a java program to print this pattern.
+### Pattern 27 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1092,7 +1044,7 @@ public class Question2
 }
 ```
 
-## Pattern 28 (Q3): Write a java program to print this pattern.
+### Pattern 28 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1131,7 +1083,7 @@ public class Question3
 }
 ```
 
-## Pattern 29 (Q4): Write a java program to print this pattern.
+### Pattern 29 (Q4): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1170,7 +1122,7 @@ public class Question4
 }
 ```
 
-## Pattern 30 (Q5): Write a java program to print this pattern.
+### Pattern 30 (Q5): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1194,7 +1146,7 @@ public class Question5
 			{
 				if((i<=j && j<=10-i) && flag)
 				{
-					System.out.print("* ");
+					System.out.print("*");
 					flag = false;
 				}
 				else
@@ -1209,7 +1161,7 @@ public class Question5
 }
 ```
 
-## Pattern 31 (Q5): Write a java program to print this pattern.
+### Pattern 31 (Q5): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1254,7 +1206,7 @@ public class Question6
 }
 ```
 
-## Pattern 32 (Q1): Write a java program to print this pattern.
+### Pattern 32 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1291,7 +1243,7 @@ public class Question1
 }
 ```
 
-## Pattern 33 (Q2): Write a java program to print this pattern.
+### Pattern 33 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1339,7 +1291,7 @@ public class Question2
 }
 ```
 
-## Pattern 34 (Q3): Write a java program to print this pattern.
+### Pattern 34 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1375,7 +1327,7 @@ public class Question3
 }
 ```
 
-## Pattern 35 (Q4): Write a java program to print this pattern.
+### Pattern 35 (Q4): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1413,7 +1365,7 @@ public class Question4
 }
 ```
 
-## Pattern 36 (Q5): Write a java program to print this pattern.
+### Pattern 36 (Q5): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1453,7 +1405,291 @@ public class Question5
 }
 ```
 
-## Pattern 37 (Q1): Write a java program to print this pattern.
+### Pattern 86: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+****
+ ****
+  ****
+   ****
+```
+
+```java
+public class Pattern86
+{
+	public static void main(String args[])
+	{
+		for(int i=1; i<=4; i++)
+		{
+			for(int j=1; j<=7; j++)
+			{
+				if(j>=i && j<=i+3)
+				{
+					System.out.print("*");
+				}
+				else
+				{
+					System.out.print(" ");
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 87: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+   *
+  ***
+ *****
+*******
+```
+
+```java
+public class Pattern87
+{
+	public static void main(String args[])
+	{
+		for(int i=1; i<=4; i++)
+		{
+			for(int j=1; j<=7; j++)
+			{
+				if(j>=5-i && j<=3+i)
+				{
+					System.out.print("*");
+				}
+				else
+				{
+					System.out.print(" ");
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 88: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+   *
+  * *
+ * * *
+* * * *
+ * * *
+  * *
+   *
+```
+
+```java
+public class Pattern88
+{
+	public static void main(String[] args)
+	{
+		for(int i=1; i<=7; i++)
+		{
+			for(int j=1; j<=7; j++)
+			{
+				if((i<=4 && j>=5-i && j<=3+i && (i+j)%2==1) || (i>4 && j>=i-3 && j<=11-i && (i+j)%2==1))
+				{
+					System.out.print("*");
+				}
+				else
+				{
+					System.out.print(" ");
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 89: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+   *
+  ***
+ *****
+*******
+ *****
+  ***
+   *
+```
+
+```java
+public class Pattern89
+{
+	public static void main(String[] args)
+	{
+		for(int i=1; i<=7; i++)
+		{
+			for(int j=1; j<=7; j++)
+			{
+				if((i<=4 && j>=5-i && j<=3+i) || (i>4 && j>=i-3 && j<=11-i))
+				{
+					System.out.print("*");
+				}
+				else
+				{
+					System.out.print(" ");
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 96: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+   *
+  **
+ ***
+****
+ ***
+  **
+   *
+```
+
+```java
+public class Pattern96
+{
+	public static void main(String[] args)
+	{
+		for(int i=1; i<=7; i++)
+		{
+			for(int j=1; j<=4; j++)
+			{
+				if((j>=5-i && i<=4) || (j>=i-3 && i>=4))
+				{
+					System.out.print("*");
+				}
+				else
+				{
+					System.out.print(" ");
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+---
+
+## Number Patterns
+
+[Back to top](#java-pattern-programs)
+
+### Pattern 5 (Q1): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+	1	2	3	4	5
+	1	2	3	4	5
+	1	2	3	4	5
+	1	2	3	4	5
+	1	2	3	4	5
+```
+
+```java
+public class Pattern13
+{
+	public static void main(String x[])
+	{	
+	
+		for(int i=1; i<=5; i++)
+		{	
+			for(int j=1; j<=5; j++)
+			{
+				System.out.print(j);
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 6 (Q2): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+	1	2	3	4	5
+	2	3	4	5	6
+	3	4	5	6	7
+	4	5	6	7	8
+	5	6	7	8	9
+```
+
+```java
+public class Pattern14
+{
+	public static void main(String x[])
+	{	
+	
+		for(int i=0; i<=4; i++)  
+		{	
+			for(int j=1; j<=5; j++)
+			{
+				System.out.print((i+j)+" ");
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 7 (Q3): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+	1
+	2	3
+	4	5	6
+	7	8	9	10
+	11	12	13	14	15
+```
+
+```java
+public class Pattern15
+{
+	public static void main(String x[])
+	{	
+		int count=1;
+		for(int i=1; i<=5; i++)
+		{	
+			for(int j=1; j<=5; j++)
+			{
+				if(i>=j)
+				{
+					System.out.print(count+" ");
+					count++;
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 37 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1490,7 +1726,7 @@ public class Question1
 }
 ```
 
-## Pattern 38 (Q2): Write a java program to print this pattern.
+### Pattern 38 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1529,7 +1765,7 @@ public class Question2
 }
 ```
 
-## Pattern 39 (Q3): Write a java program to print this pattern.
+### Pattern 39 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1570,7 +1806,7 @@ public class Question3
 }
 ```
 
-## Pattern 40 (Q4): Write a java program to print this pattern.
+### Pattern 40 (Q4): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1606,7 +1842,7 @@ public class Question4
 }
 ```
 
-## Pattern 41 (Q5): Write a java program to print this pattern.
+### Pattern 41 (Q5): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1646,7 +1882,7 @@ public class Question5
 }
 ```
 
-## Pattern 42 (Q1): Write a java program to print this pattern.
+### Pattern 42 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1693,7 +1929,7 @@ public class Question1
 }
 ```
 
-## Pattern 43 (Q10): Write a java program to print this pattern.
+### Pattern 43 (Q10): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1735,7 +1971,7 @@ public class Question10
 }
 ```
 
-## Pattern 44 (Q2): Write a java program to print this pattern.
+### Pattern 44 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1779,7 +2015,7 @@ public class Question2
 }
 ```
 
-## Pattern 45 (Q3): Write a java program to print this pattern.
+### Pattern 45 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1815,7 +2051,7 @@ public class Question3
 }
 ```
 
-## Pattern 46 (Q4): Write a java program to print this pattern.
+### Pattern 46 (Q4): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1851,7 +2087,7 @@ public class Question4
 }
 ```
 
-## Pattern 47 (Q5): Write a java program to print this pattern.
+### Pattern 47 (Q5): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1889,7 +2125,7 @@ public class Question5
 }
 ```
 
-## Pattern 48 (Q6): Write a java program to print this pattern.
+### Pattern 48 (Q6): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1927,7 +2163,7 @@ public class Question6
 }
 ```
 
-## Pattern 49 (Q7): Write a java program to print this pattern.
+### Pattern 49 (Q7): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -1973,7 +2209,7 @@ public class Question7
 }
 ```
 
-## Pattern 50 (Q8): Write a java program to print this pattern.
+### Pattern 50 (Q8): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2019,7 +2255,7 @@ public class Question8
 }
 ```
 
-## Pattern 51 (Q9): Write a java program to print this pattern.
+### Pattern 51 (Q9): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2067,7 +2303,7 @@ public class Question9
 }
 ```
 
-## Pattern 52 (Q1): Write a java program to print this pattern.
+### Pattern 52 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2109,7 +2345,7 @@ public class Question1
 }
 ```
 
-## Pattern 53 (Q10): Write a java program to print this pattern.
+### Pattern 53 (Q10): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2149,173 +2385,7 @@ public class Question10
 }
 ```
 
-## Pattern 54 (Q11): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-	A	A	A	A	A
-	B	B	B	B	B
-	C	C	C	C	C
-	D	D	D	D	D
-	E	E	E	E	E
-```
-
-```java
-public class Question11
-{
-	
-	public static void main(String x[])
-	{
-		char ch='A';
-		for(int i=1; i<=5; i++)
-		{
-			for(int j=1; j<=5; j++)
-			{
-				System.out.print(ch);
-			}
-			System.out.println("");
-		    ch++;
-		}
-		
-	}
-}
-```
-
-## Pattern 55 (Q12): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-ABCDE
-FGHIJ
-KLMNO
-PQRST
-UVWXY
-```
-
-```java
-public class Question12
-{
-	public static void main(String x[])
-	{
-		char ch='A';
-		for(int i=1; i<=5; i++)
-		{
-			
-			for(int j=1; j<=5; j++)
-			{
-				System.out.print(ch);
-				ch++;
-			}
-			System.out.println();
-		}
-	}
-}
-```
-
-## Pattern 56 (Q13): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-	A	B	C	D	E
-	B	C	D	E	F
-	C	D	E	F	G
-	D	E	F	G	H
-	E	F	G	H	I
-```
-
-```java
-public class Question13
-{	
-	public static void main(String x[])
-	{
-		int count=1;
-		for(int i=65; i<=69; i++)
-		{
-			count=i;
-			for(int j=1; j<=5; j++)
-			{
-				System.out.print((char)count++);
-			}
-			System.out.println("");
-			
-		}
-		
-	}
-}
-```
-
-## Pattern 57 (Q14): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-	A
-	B	B
-	C	C	C	
-	D	D	D	D
-	E	E	E	E	E
-```
-
-```java
-public class Question14
-{
-	public static void main(String x[])
-	{
-		char ch='A';
-		for(int i=1; i<=5; i++)
-		{
-			for(int j=1; j<=5; j++)
-			{
-				if(j<=i)
-				{
-					System.out.print(ch);
-				}
-			}
-			System.out.println();
-			ch++;
-		}
-	}
-}
-```
-
-## Pattern 58 (Q15): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-	E	E	E	E	E
-	D	D	D	D
-	C	C	C
-	B	B
-	A
-```
-
-```java
-public class Question15
-{
-	public static void main(String x[])
-	{
-		char ch='E';
-		for(int i=1; i<=5; i++)
-		{
-			for(int j=1; j<=5; j++)
-			{
-				if(j<=6-i)
-				{
-					System.out.print(ch);
-				}
-			}
-			System.out.println();
-			--ch;
-		}
-	}
-}
-```
-
-## Pattern 59 (Q2): Write a java program to print this pattern.
+### Pattern 59 (Q2): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2351,7 +2421,7 @@ public class Question2
 }
 ```
 
-## Pattern 60 (Q3): Write a java program to print this pattern.
+### Pattern 60 (Q3): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2387,7 +2457,7 @@ public class Question3
 }
 ```
 
-## Pattern 61 (Q4): Write a java program to print this pattern.
+### Pattern 61 (Q4): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2425,7 +2495,7 @@ public class Question4
 }
 ```
 
-## Pattern 62 (Q5): Write a java program to print this pattern.
+### Pattern 62 (Q5): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2466,7 +2536,7 @@ public class Question5
 }
 ```
 
-## Pattern 63 (Q6): Write a java program to print this pattern.
+### Pattern 63 (Q6): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2528,7 +2598,7 @@ public class Question6
 }
 ```
 
-## Pattern 64 (Q7): Write a java program to print this pattern.
+### Pattern 64 (Q7): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2575,7 +2645,7 @@ public class Question7
 }
 ```
 
-## Pattern 65 (Q8): Write a java program to print this pattern.
+### Pattern 65 (Q8): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2621,7 +2691,7 @@ public class Question8
 }
 ```
 
-## Pattern 66 (Q9): Write a java program to print this pattern.
+### Pattern 66 (Q9): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2661,7 +2731,253 @@ public class Question9
 }
 ```
 
-## Pattern 67 (Q1): Write a java program to print this pattern.
+### Pattern 90: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+1
+23
+456
+78910
+```
+
+```java
+public class Pattern90
+{
+	public static void main(String args[])
+	{
+		int num = 1;
+		for(int i=1; i<=4; i++)
+		{
+			for(int j=1; j<=4; j++)
+			{
+				if(i>=j)
+				{
+					System.out.print(num);
+					num++;
+				}
+				else
+				{
+					System.out.print(" ");
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 91: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+6666
+555
+44
+3
+```
+
+```java
+public class Pattern91
+{
+	public static void main(String[] args)
+	{
+		int num = 6;
+		for(int i=1; i<=4; i++)
+		{
+			for(int j=1; j<=4; j++)
+			{
+				if(j<=5-i)
+				{
+					System.out.print(num);
+				}
+				else
+				{
+					System.out.print(" ");
+				}
+			}
+			num--;
+			System.out.println();
+		}
+	}
+}
+```
+
+---
+
+## Character Patterns
+
+[Back to top](#java-pattern-programs)
+
+### Pattern 54 (Q11): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+	A	A	A	A	A
+	B	B	B	B	B
+	C	C	C	C	C
+	D	D	D	D	D
+	E	E	E	E	E
+```
+
+```java
+public class Question11
+{
+	
+	public static void main(String x[])
+	{
+		char ch='A';
+		for(int i=1; i<=5; i++)
+		{
+			for(int j=1; j<=5; j++)
+			{
+				System.out.print(ch);
+			}
+			System.out.println("");
+		    ch++;
+		}
+		
+	}
+}
+```
+
+### Pattern 55 (Q12): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+ABCDE
+FGHIJ
+KLMNO
+PQRST
+UVWXY
+```
+
+```java
+public class Question12
+{
+	public static void main(String x[])
+	{
+		char ch='A';
+		for(int i=1; i<=5; i++)
+		{
+			
+			for(int j=1; j<=5; j++)
+			{
+				System.out.print(ch);
+				ch++;
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 56 (Q13): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+	A	B	C	D	E
+	B	C	D	E	F
+	C	D	E	F	G
+	D	E	F	G	H
+	E	F	G	H	I
+```
+
+```java
+public class Question13
+{	
+	public static void main(String x[])
+	{
+		int count=1;
+		for(int i=65; i<=69; i++)
+		{
+			count=i;
+			for(int j=1; j<=5; j++)
+			{
+				System.out.print((char)count++);
+			}
+			System.out.println("");
+			
+		}
+		
+	}
+}
+```
+
+### Pattern 57 (Q14): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+	A
+	B	B
+	C	C	C	
+	D	D	D	D
+	E	E	E	E	E
+```
+
+```java
+public class Question14
+{
+	public static void main(String x[])
+	{
+		char ch='A';
+		for(int i=1; i<=5; i++)
+		{
+			for(int j=1; j<=5; j++)
+			{
+				if(j<=i)
+				{
+					System.out.print(ch);
+				}
+			}
+			System.out.println();
+			ch++;
+		}
+	}
+}
+```
+
+### Pattern 58 (Q15): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+	E	E	E	E	E
+	D	D	D	D
+	C	C	C
+	B	B
+	A
+```
+
+```java
+public class Question15
+{
+	public static void main(String x[])
+	{
+		char ch='E';
+		for(int i=1; i<=5; i++)
+		{
+			for(int j=1; j<=5; j++)
+			{
+				if(j<=6-i)
+				{
+					System.out.print(ch);
+				}
+			}
+			System.out.println();
+			--ch;
+		}
+	}
+}
+```
+
+### Pattern 67 (Q1): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2702,7 +3018,7 @@ public class Question1
 }
 ```
 
-## Pattern 68 (Q10): Write a java program to print this pattern.
+### Pattern 68 (Q10): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2746,52 +3062,7 @@ public class Question10
 }
 ```
 
-## Pattern 69 (Q75): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-A
-123456789
-ABC
-123456789
-ABCDE
-```
-
-```java
-public class Question11
-{
-	public static void main(String x[])
-	{
-		for(int i=1; i<=5; i++)
-		{
-			char ch='A';
-			int count=1;
-			for(int j=1; j<=9; j++)
-			{
-				if(i%2==1)
-				{
-					if(j>=10-i)
-					{  
-					System.out.print(ch++);
-					}
-					else
-					{
-					System.out.print("");
-					}
-				}
-				else
-				{
-					System.out.print(count++);
-				}
-			}
-			System.out.println();
-		}
-	}
-}
-```
-
-## Pattern 70 (Q76): Write a java program to print this pattern.
+### Pattern 70 (Q76): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2847,7 +3118,7 @@ public class Question12
 }
 ```
 
-## Pattern 71 (Q13): Write a java program to print this pattern.
+### Pattern 71 (Q13): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2885,7 +3156,7 @@ public class Question13
 }
 ```
 
-## Pattern 72 (Q14): Write a java program to print this pattern.
+### Pattern 72 (Q14): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2934,7 +3205,7 @@ public class Question14
 }
 ```
 
-## Pattern 73 (Q15): Write a java program to print this pattern.
+### Pattern 73 (Q15): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -2977,7 +3248,7 @@ public class Question15
 }
 ```
 
-## Pattern 74 (Q80): Write a java program to print this pattern.
+### Pattern 74 (Q80): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -3023,7 +3294,7 @@ public class Question16
 }
 ```
 
-## Pattern 75 (Q81): Write a java program to print this pattern.
+### Pattern 75 (Q81): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -3071,7 +3342,356 @@ public class Question17
 }
 ```
 
-## Pattern 76 (Q82): Write a java program to print this pattern.
+### Pattern 78 (Q84): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+	D
+	D	C
+	D	C	B
+	D	C	B	A
+	D	C	B 
+	D	C
+	D
+```
+
+```java
+public class Question20
+{
+	public static void main(String x[])
+	{
+		for(int i=1; i<=7; i++)
+		{
+			char ch='D';
+			for(int j=1; j<=4; j++)
+			{
+				if(j<=i && j<=4 && i<=4)
+				{
+					System.out.print(ch--);
+				}
+				else if(j<=8-i && i>4)
+				{
+					System.out.print(ch--);
+				}
+				else
+				{
+					System.out.print(" ");
+				}
+			}
+			System.out.println("");
+		}
+	}
+}
+```
+
+### Pattern 79 (Q3): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+	A	B	C	D	E
+	  A	  B	  C   D
+		A	B	C
+		  A	  B
+			A
+```
+
+```java
+public class Question3
+{
+	public static void main(String x[])
+	{
+		boolean flag=true;
+		for(int i=1; i<=5; i++)
+		{
+			char ch='A';
+			for(int j=1; j<=9; j++)
+			{
+				 if((i<=j && j<=5) && flag)
+				{
+					System.out.print(""+ch);
+					ch++;
+					flag=false;
+				}
+				 else if(j<=10-i && j>5 && flag)
+				{
+					System.out.print(""+ch);
+					ch++;
+					flag=false;
+				}
+				else
+				{
+					System.out.print(" ");
+					flag=true;
+				}
+			}
+			System.out.println("");
+		
+		
+		}
+	}
+}
+```
+
+### Pattern 84 (Q8): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+	A								I
+		B						H
+			C				G
+				D		F
+					E
+```
+
+```java
+public class Question8
+{
+	public static void main(String x[])
+	{
+		for(int i=1; i<=5; i++)
+		{
+			char ch='A';
+			for(int j=1; j<=9; j++)
+			{
+				if(i==j && j<=5)	
+				{
+					System.out.print("  "+ch);
+				}
+				else if(j==10-i && j>5)
+				{
+					System.out.print("  "+(++ch));
+				}
+				else
+				{
+					System.out.print("   ");
+					ch++;
+				}
+			}
+			System.out.println();
+			
+		}
+	}
+}
+```
+
+### Pattern 92: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+A
+ABA
+ABCBA
+ABCDCBA
+ABCDEDCBA
+```
+
+```java
+public class Pattern92
+{
+	public static void main(String[] args)
+	{
+		for(int i=1; i<=5; i++)
+		{
+			char ch = 'A';
+			for(int j=1; j<=2*i-1; j++)
+			{
+				System.out.print(ch);
+				if(j<i)
+				{
+					ch++;
+				}
+				else
+				{
+					ch--;
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 93: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+    A
+   ABA
+  ABCBA
+ ABCDCBA
+ABCDEDCBA
+```
+
+```java
+public class Pattern93
+{
+	public static void main(String[] args)
+	{
+		for(int i=1; i<=5; i++)
+		{
+			for(int space=1; space<=5-i; space++)
+			{
+				System.out.print(" ");
+			}
+
+			char ch = 'A';
+			for(int j=1; j<=2*i-1; j++)
+			{
+				System.out.print(ch);
+				if(j<i)
+				{
+					ch++;
+				}
+				else
+				{
+					ch--;
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 94: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+ABCDE
+ABCD
+ABC
+AB
+```
+
+```java
+public class Pattern94
+{
+	public static void main(String args[])
+	{
+		for(int i=5; i>=2; i--)
+		{
+			char ch = 'A';
+			for(int j=1; j<=i; j++)
+			{
+				System.out.print(ch);
+				ch++;
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 95: Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+A B C D E F G 
+  B C D E F   
+    C D E     
+      D       
+    C D E     
+  B C D E F   
+A B C D E F G 
+```
+
+```java
+public class Pattern95
+{
+	public static void main(String[] args)
+	{
+		for(int i=1; i<=7; i++)
+		{
+			for(int j=1; j<=7; j++)
+			{
+				if(i<=4)
+				{
+					if(j>=i && j<=8-i)
+					{
+						System.out.print((char)(64 + j) + " ");
+					}
+					else
+					{
+						System.out.print("  ");
+					}
+				}
+				else
+				{
+					if(j>=8-i && j<=i)
+					{
+						System.out.print((char)(64 + j) + " ");
+					}
+					else
+					{
+						System.out.print("  ");
+					}
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+---
+
+## Mixed Patterns (Numbers and Characters)
+
+[Back to top](#java-pattern-programs)
+
+### Pattern 69 (Q75): Write a java program to print this pattern.
+
+[Back to top](#java-pattern-programs)
+
+```text
+A
+123456789
+ABC
+123456789
+ABCDE
+```
+
+```java
+public class Question11
+{
+	public static void main(String x[])
+	{
+		for(int i=1; i<=5; i++)
+		{
+			char ch='A';
+			int count=1;
+			for(int j=1; j<=9; j++)
+			{
+				if(i%2==1)
+				{
+					if(j>=10-i)
+					{  
+					System.out.print(ch++);
+					}
+					else
+					{
+					System.out.print("");
+					}
+				}
+				else
+				{
+					System.out.print(count++);
+				}
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+### Pattern 76 (Q82): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -3127,7 +3747,7 @@ public class Question18
 }
 ```
 
-## Pattern 77 (Q83): Write a java program to print this pattern.
+### Pattern 77 (Q83): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -3169,99 +3789,7 @@ public class Question19
 }
 ```
 
-## Pattern 78 (Q84): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-	D
-	D	C
-	D	C	B
-	D	C	B	A
-	D	C	B 
-	D	C
-	D
-```
-
-```java
-public class Question20
-{
-	public static void main(String x[])
-	{
-		for(int i=1; i<=7; i++)
-		{
-			char ch='D';
-			for(int j=1; j<=4; j++)
-			{
-				if(j<=i && j<=4 && i<=4)
-				{
-					System.out.print(ch--);
-				}
-				else if(j<=8-i && i>4)
-				{
-					System.out.print(ch--);
-				}
-				else
-				{
-					System.out.print(" ");
-				}
-			}
-			System.out.println("");
-		}
-	}
-}
-```
-
-## Pattern 79 (Q3): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-	A	B	C	D	E
-	  A	  B	  C   D
-		A	B	C
-		  A	  B
-			A
-```
-
-```java
-public class Question3
-{
-	public static void main(String x[])
-	{
-		boolean flag=true;
-		for(int i=1; i<=5; i++)
-		{
-			char ch='A';
-			for(int j=1; j<=9; j++)
-			{
-				 if((i<=j && j<=5) && flag)
-				{
-					System.out.print(""+ch);
-					ch++;
-					flag=false;
-				}
-				 else if(j<=10-i && j>5 && flag)
-				{
-					System.out.print(""+ch);
-					ch++;
-					flag=false;
-				}
-				else
-				{
-					System.out.print(" ");
-					flag=true;
-				}
-			}
-			System.out.println("");
-		
-		
-		}
-	}
-}
-```
-
-## Pattern 80 (Q4): Write a java program to print this pattern.
+### Pattern 80 (Q4): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -3303,7 +3831,7 @@ public class Question4
 }
 ```
 
-## Pattern 81 (Q5): Write a java program to print this pattern.
+### Pattern 81 (Q5): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -3349,7 +3877,7 @@ public class Question5
 }
 ```
 
-## Pattern 82 (Q6): Write a java program to print this pattern.
+### Pattern 82 (Q6): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -3388,7 +3916,7 @@ public class Question6
 }
 ```
 
-## Pattern 83 (Q7): Write a java program to print this pattern.
+### Pattern 83 (Q7): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 
@@ -3441,50 +3969,7 @@ public class Question7
 }
 ```
 
-## Pattern 84 (Q8): Write a java program to print this pattern.
-
-[Back to top](#java-pattern-programs)
-
-```text
-	A								I
-		B						H
-			C				G
-				D		F
-					E
-```
-
-```java
-public class Question8
-{
-	public static void main(String x[])
-	{
-		for(int i=1; i<=5; i++)
-		{
-			char ch='A';
-			for(int j=1; j<=9; j++)
-			{
-				if(i==j && j<=5)	
-				{
-					System.out.print("  "+ch);
-				}
-				else if(j==10-i && j>5)
-				{
-					System.out.print("  "+(++ch));
-				}
-				else
-				{
-					System.out.print("   ");
-					ch++;
-				}
-			}
-			System.out.println();
-			
-		}
-	}
-}
-```
-
-## Pattern 85 (Q9): Write a java program to print this pattern.
+### Pattern 85 (Q9): Write a java program to print this pattern.
 
 [Back to top](#java-pattern-programs)
 

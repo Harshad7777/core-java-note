@@ -2,21 +2,24 @@
 
 ## Quick Navigation
 - [What Is a Constructor?](#what-is-a-constructor)
+- [Syntax of Constructor](#syntax-of-constructor)
 - [Implicit Constructor](#implicit-constructor)
 - [Types of Constructors](#types-of-constructors)
 - [Default Constructor](#default-constructor)
 - [Parameterized Constructor](#parameterized-constructor)
+- [Parameter Passing Through Object](#parameter-passing-through-object)
 - [Constructor Overloading](#constructor-overloading)
 - [Constructor Chaining](#constructor-chaining)
-- [Can a Constructor Have Return Type?](#can-a-constructor-have-return-type)
-- [Can a Constructor Be Static?](#can-a-constructor-be-static)
-- [Can a Constructor Be Private?](#can-a-constructor-be-private)
-- [Utility Class](#utility-class)
-- [Singleton Class](#singleton-class)
-- [Can a Constructor Be Final?](#can-a-constructor-be-final)
-- [Can a Constructor Be Abstract?](#can-a-constructor-be-abstract)
-- [Can a Constructor Be Overridden?](#can-a-constructor-be-overridden)
+- [Can a Constructor Have Return Type?](#can-a-constructor-have-return-type) — **No**
+- [Can a Constructor Be Static?](#can-a-constructor-be-static) — **No**
+- [Can a Constructor Be Private?](#can-a-constructor-be-private) — **Yes**
+- [Utility Class](#utility-class) — *(Private constructor, static methods, obj not created)*
+- [Singleton Class](#singleton-class) — *(Private static object reference, private constructor, public static method ,one object mul ref)*
+- [Can a Constructor Be Final?](#can-a-constructor-be-final) — **No**
+- [Can a Constructor Be Abstract?](#can-a-constructor-be-abstract) — **No**
+- [Can a Constructor Be Overridden?](#can-a-constructor-be-overridden) — **No**
 - [Function vs Constructor](#function-vs-constructor)
+- [Summary](#summary)
 
 ---
 
@@ -806,19 +809,56 @@ A static method:
 ---
 
 ## Singleton Class
-A singleton class allows only one object in the entire application.
+A singleton class allows only one object to be created in the entire application.
 
-### Steps
-1. Private constructor
-2. Private static object reference
-3. Public static method returning that object
+### Steps to Create a Singleton Class
+1. **Private constructor** &mdash; Prevents creating objects directly with `new` from outside the class.
+2. **Private static object reference** &mdash; Holds the single instance of the class.
+3. **Public static factory method** &mdash; Provides a global access point returning the single instance (typically named `getInstance()`).
 
-### Example
+---
+
+### Implementation Approaches
+
+#### 1. Lazy Initialization (Object-based / Non-Thread-Safe)
+The object is created only when `getInstance()` is called for the first time.
+- **Advantage:** Saves memory if the object is never required.
+- **Limitation:** Not thread-safe (concurrent threads may create multiple objects).
+
 ```java
 class S
 {
-    // Only one object reference
-    private static S s1 = null;
+    // Object reference initialized to null (created only on demand)
+    private static S obj = null;
+
+    // Private constructor prevents external instantiation
+    private S()
+    {
+        System.out.println("I am constructor");
+    }
+
+    // Factory method (not thread-safe)
+    public static S getInstance()
+    {
+        if (obj == null)
+        {
+            obj = new S();
+        }
+        return obj;
+    }
+}
+```
+
+#### 2. Eager Initialization (Class-based / Thread-Safe)
+The object is created eagerly at the time of class loading.
+- **Advantage:** Simple and inherently thread-safe without needing `synchronized`.
+- **Limitation:** The object is created even if the application never uses it.
+
+```java
+class S
+{
+    // Object created eagerly during class loading
+    private static S obj = new S();
 
     // Private constructor
     private S()
@@ -826,15 +866,66 @@ class S
         System.out.println("I am constructor");
     }
 
-    // Factory method to create/get the object
+    // Factory method directly returns the instance
     public static S getInstance()
     {
-        if (s1 == null)
-        {
-            s1 = new S();
-        }
+        return obj;
+    }
+}
+```
 
-        return s1;
+#### 3. Thread-Safe Lazy Initialization (`synchronized`)
+Combines lazy initialization with thread safety by adding the `synchronized` keyword to `getInstance()`.
+- **Advantage:** Thread-safe and instance is created only when needed.
+- **Limitation:** Small performance overhead due to method synchronization lock.
+
+```java
+class S
+{
+    private static S obj = null;
+
+    // Private constructor
+    private S()
+    {
+        System.out.println("I am constructor");
+    }
+
+    // Thread-safe factory method
+    public static synchronized S getInstance()
+    {
+        if (obj == null)
+        {
+            obj = new S();
+        }
+        return obj;
+    }
+}
+```
+
+---
+
+### Complete Example Application (Testing Singleton)
+
+```java
+class S
+{
+    // Lazy Initialization
+    private static S obj = null;
+
+    // Private constructor
+    private S()
+    {
+        System.out.println("I am constructor");
+    }
+
+    // Factory method to create/get the single object
+    public static S getInstance()
+    {
+        if (obj == null)
+        {
+            obj = new S();
+        }
+        return obj;
     }
 }
 
@@ -868,10 +959,11 @@ true
 true
 ```
 
-### Memory behavior
-Only one object is created in heap memory. All references point to the same object.
+### Memory Behavior
+Only one object is created in heap memory. All reference variables point to the same object address.
 
 ```text
+Heap Memory:
 new S() -> 10000
 
 Stack:
@@ -879,6 +971,18 @@ s1 -> 10000
 s2 -> 10000
 s3 -> 10000
 ```
+
+---
+
+### Difference for Interview Revision
+
+| Feature | Lazy Initialization | Eager Initialization | Thread-Safe Lazy Initialization |
+| :--- | :--- | :--- | :--- |
+| **Object creation** | When needed (on call) | During class initialization / loading | When needed (on call) |
+| **Initial value** | `null` | `new S()` | `null` |
+| **`if` condition check** | Yes (`if (obj == null)`) | No | Yes (`if (obj == null)`) |
+| **`synchronized`** | No | No | Yes (`public static synchronized S getInstance()`) |
+| **Thread-safe** | No | Yes | Yes |
 
 ---
 

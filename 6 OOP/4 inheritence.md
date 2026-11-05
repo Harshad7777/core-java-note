@@ -342,9 +342,9 @@ Cat meows
 ### 3. When is Method Overriding Beneficial (and When Not)?
 
 #### Beneficial When:
-- Different child classes require specialized implementations of a common contract.
-- Implementing **runtime polymorphism** and flexible business logic.
-- Conforming to the **Open-Closed Principle (OCP)** (open for extension, closed for modification).
+- customize parent logic
+- achieve runtime polymorphism
+- provide child-specific behavior
 
 #### Not Beneficial When:
 - Child classes do not need distinct behavior (adds unnecessary boilerplate).
@@ -354,10 +354,10 @@ Cat meows
 
 ## Coupling in OOP
 
-**Coupling** refers to the degree of knowledge and dependency that one class has on another class.
+Coupling is the degree of dependency between two classes.
 
 - **Tight Coupling:** Classes depend directly on concrete classes. Fragile and hard to maintain.
-- **Loose Coupling:** Classes interact through abstractions (interfaces or abstract classes). Flexible, reusable, and easy to test.
+- **Loose Coupling:** When code depends on a parent class / Classes interact through abstractions (interfaces or abstract classes). Flexible, reusable, and easy to test.
 
 ---
 
@@ -547,16 +547,97 @@ Car is moving
 
 ### 5. Architectural Improvement: Abstract Classes over Dummy Returns
 
-In the `Value` class, returning a dummy value (`return 0;`) is dangerous because a subclass might forget to override it.
+In a base class such as `Value`, returning a dummy default value (`return 0;`) introduces serious design flaws.
+
+#### 1. The Risk with Dummy Default Return (`return 0;`)
+
+Consider a non-abstract `Value` class that provides a default dummy implementation:
 
 ```java
-// Better design: forces every subclass to implement calculation
-abstract class Value {
+class Value {
     int x, y;
-    void setValue(int x, int y) { this.x = x; this.y = y; }
-    abstract int getResult();
+
+    void setValue(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    int getResult() {
+        return 0; // Dummy default return
+    }
+}
+
+class Add extends Value {
+    @Override
+    int getResult() {
+        return x + y;
+    }
+}
+
+class Multiply extends Value {
+    // Developer forgot to override getResult()!
 }
 ```
+
+> [!WARNING]
+> Because `Value` provides a concrete `getResult()` returning `0`, `Multiply` silently inherits it. If a developer forgets to override `getResult()`, the application runs with invalid calculations without any compile-time error.
+
+---
+
+#### 2. The Architectural Solution: Abstract Class & Method
+
+By declaring `Value` as an **`abstract` class** and `getResult()` as an **`abstract` method**, we enforce a strict contract:
+
+```java
+abstract class Value {
+    int x, y;
+
+    void setValue(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    // Forces every subclass to implement its own calculation
+    abstract int getResult();
+}
+
+class Add extends Value {
+    @Override
+    int getResult() {
+        return x + y;
+    }
+}
+
+class Multiply extends Value {
+    @Override
+    int getResult() {
+        return x * y;
+    }
+}
+
+public class AbstractValueApp {
+    public static void main(String[] args) {
+        Add a = new Add();
+        a.setValue(10, 5);
+        System.out.println("Addition: " + a.getResult());
+
+        Multiply m = new Multiply();
+        m.setValue(10, 5);
+        System.out.println("Multiplication: " + m.getResult());
+    }
+}
+```
+
+**Output:**
+```text
+Addition: 15
+Multiplication: 50
+```
+
+> [!TIP]
+> **Key Benefit:** If a developer creates a new subclass and forgets to implement `getResult()`, the Java compiler immediately raises a compile-time error:  
+> *`class Multiply is not abstract and does not override abstract method getResult() in Value`*.  
+> This catches bugs at compile time rather than in production.
 
 ---
 
@@ -616,6 +697,9 @@ class CustomService extends SecurityService {
 
 ### 3. final Class (Preventing Subclassing)
 A `final` class cannot be extended by any other class.
+When we avoid inheritance 
+When developer want to create immutable classes in JAVA
+
 - **Why?** Protects architectural integrity, prevents malicious tampering, and forms the basis for immutable designs.
 - **Real-World Examples:** `java.lang.String`, `java.lang.Integer`, `java.lang.Math`.
 

@@ -8,7 +8,9 @@
 
 ### Q1. What is an Interface?
 
-An **interface** in Java is a reference type that defines a formal contract or blueprint specifying **what** a class must do, without dictating **how** it should do it.
+In Java, an interface is a contract that specifies a set of methods a class must implement
+
+
 
 > [!IMPORTANT]
 > **Key Characteristics of an Interface:**

@@ -29,15 +29,41 @@ Because of these limitations, Java provides the Collection Framework.
 
 ### Main hierarchy
 
-```java
-java.lang.Iterable
-    |
-java.util.Collection
-    |
-    +-- List
-    +-- Set
-    +-- Queue
+
 ```
+                  Iterable (Interface)
+                         |
+                  Collection (Interface)
+                         |
+          +--------------+-----------------------------+
+          |              |                             |
+         List           Set                          Queue
+      (Interface)    (Interface)                 (Interface)
+          |              |                             |
+    +-----+-----+    +---+------+             +--------+---------+
+    |     |     |    |          |             |                  |
+ArrayList |   Vector HashSet  SortedSet  PriorityQueue         Deque
+ (Class)  |  (Class) (Class) (Interface)   (Class)          (Interface)
+          |     |    |          |                               |
+     LinkedList | LinkedHashSet |                       +-------+-------+
+      (Class)   |   (Class)     |                       |               |
+              Stack         NavigableSet            ArrayDeque      LinkedList
+             (Class)         (Interface)             (Class)         (Class)
+                                  |
+                               TreeSet
+                               (Class)
+```
+
+👉 **Map is NOT part of Collection interface**, but it is part of the framework:
+
+```
+                Map (Interface)
+          ┌────────┼────-------────┐
+          │        │               │
+       HashMap  LinkedHashMap  TreeMap
+```
+
+
 
 `Map` is separate from the Collection hierarchy but is very commonly used with collections.
 
@@ -67,7 +93,10 @@ public interface Iterator<E>
 {
     boolean hasNext();
     E next();
-    default void remove();
+     default void remove()
+    {
+        throw new UnsupportedOperationException();
+    }
 }
 ```
 

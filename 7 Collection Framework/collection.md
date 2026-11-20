@@ -1,6 +1,6 @@
 # Collection Framework in Java
 
-[Overview](#1-collection-framework-overview) | [Iterable & Collection](#2-iterable-and-collection) | [List](#3-list-interface) | [Cursors & Fail-Fast/Safe](#4-cursors-in-collection-framework) | [Set](#5-set-interface) | [Map](#6-map-interface) | [Generics](#7-generics) | [Wrapper Classes](#8-wrapper-classes) | [Collections Utility](#9-collections-utility-class) | [Comparable vs Comparator](#10-comparable-vs-comparator) | [Quick Revision](#quick-interview-revision)
+[Overview](#1-collection-framework-overview) | [Iterable & Collection](#2-iterable-and-collection) | [List](#3-list-interface) | [Cursors & Fail-Fast/Safe](#4-cursors-in-collection-framework) | [Set](#5-set-interface) | [Queue & Deque](#6-queue-and-deque-interface) | [Map](#7-map-interface) | [Generics](#8-generics) | [Wrapper Classes](#9-wrapper-classes) | [Collections Utility](#10-collections-utility-class) | [Comparable vs Comparator](#11-comparable-vs-comparator) | [Quick Revision](#quick-interview-revision)
 
 ---
 
@@ -1007,51 +1007,355 @@ Updated Set: [20, 30, 40]
 ---
 
 ### Why Duplicate User-Defined Objects Appear in a `Set`
-A `HashSet` (or `LinkedHashSet`) detects duplicates by calling `hashCode()` and `equals()`. If you do **not** override both methods in your custom class, Java falls back to `Object`'s default memory-address comparison—causing logically identical objects to be treated as distinct.
 
+In Java, hash-based collections such as `HashSet` and `LinkedHashSet` rely on both **`hashCode()`** and **`equals()`** to identify duplicate elements. 
+
+When you insert custom objects without overriding these methods, **duplicate objects with identical field values will appear in the `Set`**.
+
+---
+
+#### 1. Root Cause: Default `Object` Class Behavior
+
+Every user-defined class implicitly inherits from `java.lang.Object`. If `equals()` and `hashCode()` are not overridden:
+- **`Object.equals(Object obj)`** uses **reference equality (`==`)** — it returns `true` only if both references point to the exact same memory address.
+- **`Object.hashCode()`** generates an integer hash value derived from the object's **internal memory address**.
+
+Consequently, two separate instances (e.g., `new Employee(101, "Rahul")` and `new Employee(101, "Rahul")`) reside at different memory addresses, produce different hash codes, and evaluate to `false` during equality checks. As a result, the `Set` treats them as distinct objects.
+
+---
+
+#### 2. How `HashSet.add()` Identifies Duplicates Internally
+
+When you call `set.add(element)`:
+
+```text
+                  set.add(newElement)
+                           │
+                           ▼
+                 Compute hashCode()
+                           │
+                           ▼
+          Does another object exist in bucket?
+                 ├── No  ──► Store element (Unique)
+                 │
+                 └── Yes ──► Check existingObj.equals(newElement)
+                               ├── Returns true  ──► Reject duplicate
+                               └── Returns false ──► Store element (Hash collision)
+```
+
+1. **Step 1 (`hashCode()`):** Java invokes `newElement.hashCode()` to locate the corresponding bucket index.
+2. **Step 2 (`equals()`):**
+   - If the bucket is empty &rarr; the element is added.
+   - If the bucket already contains one or more elements (matching hash code) &rarr; Java compares them using `existingObj.equals(newElement)`.
+   - If `equals()` returns `true` &rarr; duplicate detected; addition is rejected.
+   - If `equals()` returns `false` &rarr; hash collision occurred; the element is appended to the bucket chain/tree.
+
+---
+
+#### 3. Code Demonstration
+
+##### Scenario A: Without Overriding `equals()` & `hashCode()` (Duplicates Allowed)
 ```java
 import java.util.*;
 
-class Employee {
+class Student {
     int id;
+    String name;
 
-    Employee(int id) {
+    Student(int id, String name) {
         this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Employee)) return false;
-        Employee e = (Employee) obj;
-        return this.id == e.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Integer.hashCode(id);
+        this.name = name;
     }
 }
 
-public class CustomSetExample {
+public class DuplicateStudentDemo {
     public static void main(String[] args) {
-        Set<Employee> employees = new HashSet<>();
-        employees.add(new Employee(101));
-        employees.add(new Employee(101)); // Recognized as duplicate
+        Set<Student> set = new HashSet<>();
 
-        System.out.println("Unique Employees: " + employees.size());
+        set.add(new Student(101, "Rahul"));
+        set.add(new Student(101, "Rahul"));
+
+        // Both are added because their memory addresses differ
+        System.out.println("Set Size: " + set.size());
     }
 }
 ```
 
 **Output:**
 ```text
-Unique Employees: 1
+Set Size: 2
 ```
 
 ---
 
-## 6. Map Interface
+##### Scenario B: Properly Overriding `equals()` & `hashCode()` (Duplicates Prevented)
+```java
+import java.util.*;
+
+class Employee {
+    int id;
+    String name;
+
+    Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Employee other = (Employee) obj;
+        return this.id == other.id && Objects.equals(this.name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{id=" + id + ", name='" + name + "'}";
+    }
+}
+
+public class EmployeeApplication {
+    public static void main(String[] args) {
+        HashSet<Employee> set = new HashSet<>();
+
+        Employee e1 = new Employee(101, "Rahul");
+        Employee e2 = new Employee(101, "Rahul");
+
+        set.add(e1);
+        set.add(e2); // Duplicate detected via hashCode() & equals() -> rejected
+
+        System.out.println("Total Employees: " + set.size());
+        System.out.println("Set Elements:    " + set);
+    }
+}
+```
+
+**Output:**
+```text
+Total Employees: 1
+Set Elements:    [Employee{id=101, name='Rahul'}]
+```
+
+---
+
+#### 4. The `equals()` and `hashCode()` Contract
+
+> [!IMPORTANT]
+> **Key Rules for Hash-Based Collections:**
+> 1. **If `a.equals(b)` is `true`**, then `a.hashCode()` **MUST** equal `b.hashCode()`.
+> 2. **If `a.hashCode() == b.hashCode()`**, `a.equals(b)` **MAY or MAY NOT** be `true` (due to hash collisions).
+> 3. **Consistency:** Overriding `equals()` without overriding `hashCode()` (or vice-versa) violates this contract and causes hash-based collections (`HashSet`, `HashMap`) to behave unpredictably.
+
+---
+
+## 6. Queue and Deque Interface
+
+A **Queue** is a collection designed for holding elements prior to processing. Along with basic `Collection` operations, queues provide specialized insertion, extraction, and inspection operations.
+
+### Key Characteristics of `Queue`
+- **FIFO Ordering (Default):** Elements are typically ordered in **First-In, First-Out (FIFO)** order (except priority queues).
+- **Head & Tail:** Elements are inserted at the **tail** (rear) and retrieved from the **head** (front).
+- **Duplicates Allowed:** Allows multiple duplicate elements.
+- **Null Element Restriction:** Most `Queue` implementations (such as `ArrayDeque` and `PriorityQueue`) disallow `null` elements because `null` is used as a sentinel return value by `poll()` and `peek()`.
+
+---
+
+### Core Queue Methods (Interview Essential)
+
+The `Queue` interface defines two distinct forms for each core operation:
+1. One form **throws an exception** if the operation fails.
+2. The other form **returns a special value** (`false` or `null`) if the operation fails.
+
+| Operation | Throws Exception (if operation fails) | Returns Special Value (`false` or `null`) |
+| :--- | :--- | :--- |
+| **Insert (at tail)** | `add(e)` — throws `IllegalStateException` if queue is full | `offer(e)` — returns `false` if queue is full |
+| **Remove (from head)** | `remove()` — throws `NoSuchElementException` if queue is empty | `poll()` — returns `null` if queue is empty |
+| **Examine (head)** | `element()` — throws `NoSuchElementException` if queue is empty | `peek()` — returns `null` if queue is empty |
+
+> [!TIP]
+> **When to use which?**
+> In capacity-restricted queues or robust production code, prefer `offer()`, `poll()`, and `peek()` over `add()`, `remove()`, and `element()` to avoid unexpected runtime exceptions under normal empty/full conditions.
+
+---
+
+### `PriorityQueue`
+
+`PriorityQueue` is an unbounded priority queue based on a **binary heap (min-heap by default)**. Elements are ordered according to their **natural ordering** (`Comparable`) or by a custom **`Comparator`** supplied during construction.
+
+#### Key Features
+- **Min-Heap by Default:** The head of the queue is always the *least* element with respect to the specified ordering.
+- **No Null Elements:** Does **not** permit `null` (`NullPointerException`).
+- **Iteration Order:** An iterator does **not** guarantee traversing elements in sorted order; only `peek()` and `poll()` retrieve elements in strict priority order.
+- **Time Complexity:**
+  - Enqueue (`offer` / `add`) and Dequeue (`poll` / `remove`): `O(log n)`
+  - Retrieval (`peek` / `element`): `O(1)`
+  - Arbitrary element removal (`remove(Object)`): `O(n)`
+
+#### Example: Min-Heap (Natural) vs. Max-Heap (Custom Comparator)
+```java
+import java.util.*;
+
+public class PriorityQueueExample {
+    public static void main(String[] args) {
+        // 1. Default Min-Heap (Ascending Natural Order)
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        minHeap.offer(40);
+        minHeap.offer(10);
+        minHeap.offer(30);
+        minHeap.offer(20);
+
+        System.out.print("Min-Heap Poll Order: ");
+        while (!minHeap.isEmpty()) {
+            System.out.print(minHeap.poll() + " ");
+        }
+        System.out.println();
+
+        // 2. Custom Max-Heap (Descending Order using Collections.reverseOrder())
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        maxHeap.offer(40);
+        maxHeap.offer(10);
+        maxHeap.offer(30);
+        maxHeap.offer(20);
+
+        System.out.print("Max-Heap Poll Order: ");
+        while (!maxHeap.isEmpty()) {
+            System.out.print(maxHeap.poll() + " ");
+        }
+        System.out.println();
+    }
+}
+```
+
+**Output:**
+```text
+Min-Heap Poll Order: 10 20 30 40 
+Max-Heap Poll Order: 40 30 20 10 
+```
+
+---
+
+### `Deque` Interface (Double-Ended Queue)
+
+`Deque` (pronounced *"deck"*, short for **Double-Ended Queue**) extends `Queue` and supports element insertion, removal, and retrieval at **both ends**.
+
+#### Dual Nature of `Deque`
+- **As a FIFO Queue:** Insert at tail (`addLast` / `offerLast`), remove from head (`pollFirst` / `removeFirst`).
+- **As a LIFO Stack:** Insert at head (`push` / `addFirst`), remove from head (`pop` / `pollFirst`).
+
+#### Deque Methods Summary Table
+| Operation | First Element (Head) — Throws / Special | Last Element (Tail) — Throws / Special |
+| :--- | :--- | :--- |
+| **Insert** | `addFirst(e)` / `offerFirst(e)` | `addLast(e)` / `offerLast(e)` |
+| **Remove** | `removeFirst()` / `pollFirst()` | `removeLast()` / `pollLast()` |
+| **Examine** | `getFirst()` / `peekFirst()` | `getLast()` / `peekLast()` |
+
+---
+
+### `ArrayDeque`
+
+`ArrayDeque` is a resizable, circular array implementation of the `Deque` interface. It is the modern standard for stack and queue operations in Java.
+
+#### Key Features
+- **Unbounded Resizable Array:** Grows dynamically as elements are added without capacity limits.
+- **Null Forbidden:** Throws `NullPointerException` if attempting to add `null`.
+- **Not Synchronized:** Not thread-safe (faster than legacy classes).
+- **High Performance:** Faster than `Stack` when used as a stack, and faster than `LinkedList` when used as a queue.
+
+#### Why `ArrayDeque` is Preferred Over `Stack` and `LinkedList`
+1. **Vs. `java.util.Stack`:**
+   - `Stack` is a legacy class that extends `Vector`. Every method in `Stack` is `synchronized`, adding unnecessary locking overhead in single-threaded environments.
+   - `ArrayDeque` provides stack operations (`push`, `pop`, `peek`) with zero synchronization overhead.
+2. **Vs. `LinkedList`:**
+   - `LinkedList` allocates a separate `Node` object for every element inserted, leading to memory overhead and garbage collection pauses.
+   - `ArrayDeque` stores elements in a contiguous circular array, providing superior **CPU cache locality** and lower memory overhead.
+
+#### Example: `ArrayDeque` as a FIFO Queue and a LIFO Stack
+```java
+import java.util.*;
+
+public class ArrayDequeExample {
+    public static void main(String[] args) {
+        // 1. Used as a FIFO Queue
+        Deque<String> queue = new ArrayDeque<>();
+        queue.offer("Task 1");
+        queue.offer("Task 2");
+        queue.offer("Task 3");
+
+        System.out.println("--- FIFO Queue Processing ---");
+        while (!queue.isEmpty()) {
+            System.out.println("Processing: " + queue.poll());
+        }
+
+        // 2. Used as a Modern LIFO Stack (replaces java.util.Stack)
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        System.out.println("\n--- LIFO Stack Processing ---");
+        System.out.println("Top element (peek): " + stack.peek());
+        while (!stack.isEmpty()) {
+            System.out.println("Popped: " + stack.pop());
+        }
+    }
+}
+```
+
+**Output:**
+```text
+--- FIFO Queue Processing ---
+Processing: Task 1
+Processing: Task 2
+Processing: Task 3
+
+--- LIFO Stack Processing ---
+Top element (peek): 30
+Popped: 30
+Popped: 20
+Popped: 10
+```
+
+---
+
+### `LinkedList` as a Queue / Deque
+
+`LinkedList` implements both `List` and `Deque`. It is a doubly-linked list that can act as a list, a queue, or a deque.
+
+#### Features
+- Permits `null` elements (unlike `ArrayDeque` and `PriorityQueue`).
+- Constant-time `O(1)` insertions and removals at both ends.
+- Higher memory overhead per element due to node pointer storage.
+
+---
+
+### Key Comparisons
+
+#### 1. `List` vs. `Set` vs. `Queue`
+| Feature | `List` | `Set` | `Queue` |
+| :--- | :--- | :--- | :--- |
+| **Ordering** | Insertion order maintained | Unordered or sorted | FIFO / Priority order |
+| **Duplicates** | Allowed | ❌ Not allowed | Allowed |
+| **Index Access** | Yes (`get(index)`) | ❌ No | ❌ No |
+| **Null Elements** | Allowed | At most one (`HashSet`) or none (`TreeSet`) | Typically disallowed |
+| **Primary Use** | Storing ordered sequences | Ensuring uniqueness | Holding tasks before processing |
+
+#### 2. `ArrayDeque` vs. `PriorityQueue`
+| Feature | `ArrayDeque` | `PriorityQueue` |
+| :--- | :--- | :--- |
+| **Ordering** | FIFO / LIFO (insertion order) | Priority order (Min-Heap / Custom) |
+| **Data Structure** | Resizable circular array | Binary heap |
+| **Time Complexity** | `O(1)` amortized for insert/remove | `O(log n)` for insert/remove |
+| **Primary Use** | Buffers, stacks, standard queues | Scheduling by priority, Dijkstra, Prim |
+
+---
+
+## 7. Map Interface
 
 `Map` stores data as **key-value pairs** (`<K, V>`).
 
@@ -1197,7 +1501,7 @@ public class TreeMapExample {
 
 ---
 
-## 7. Generics
+## 8. Generics
 
 **Generics** enable parameterized types in Java, providing compile-time type safety and eliminating manual type casting.
 
@@ -1233,7 +1537,7 @@ Integer num = (Integer) obj; // Runtime error: ClassCastException
 
 ---
 
-## 8. Wrapper Classes
+## 9. Wrapper Classes
 
 Java collections can only store **objects**, not primitive types (`int`, `double`, etc.). **Wrapper classes** encapsulate primitive values inside objects.
 
@@ -1268,7 +1572,7 @@ int x = i;
 
 ---
 
-## 9. Collections Utility Class
+## 10. Collections Utility Class
 
 `Collections` (in `java.util`) is a utility class containing static helper methods to operate on or return collections.
 
@@ -1311,7 +1615,7 @@ public class CollectionsUtilityExample {
 
 ---
 
-## 10. Comparable vs. Comparator
+## 11. Comparable vs. Comparator
 
 Both interfaces are used to define sorting logic for objects in Java.
 
@@ -1383,6 +1687,10 @@ By Name: [3:Alice, 2:Bob, 1:Charlie]
 | **`Collections`** | Utility class containing static helper methods (`sort`, `reverse`, `min`, `max`). |
 | **`List`** | Ordered collection; allows duplicates and index-based access. |
 | **`Set`** | Unordered or sorted collection; stores unique elements only. |
+| **`Queue`** | Holds elements for processing; standard methods return special value (`offer`, `poll`, `peek`) or throw exception. |
+| **`PriorityQueue`** | Unbounded min-heap by default; ordered by natural sort or custom `Comparator`; no `null`. |
+| **`Deque`** | Double-ended queue; supports operations at head and tail (e.g. `addFirst`, `addLast`). |
+| **`ArrayDeque`** | Resizable circular array; modern replacement for `Stack` and faster than `LinkedList`. |
 | **`Map`** | Stores key-value pairs (unique keys, duplicate values allowed); not part of `Collection`. |
 | **`ArrayList`** | Dynamic array (`1.5x` growth); fast retrieval (`O(1)`), slow middle insert/delete. |
 | **`LinkedList`** | Doubly linked list; fast insert/delete (`O(1)`), slow random access (`O(n)`). |
@@ -1399,6 +1707,8 @@ By Name: [3:Alice, 2:Bob, 1:Charlie]
 
 ### 2. Key Interview Takeaways
 - Use **`ArrayList`** for frequent lookups and **`LinkedList`** for frequent insertions/deletions at ends or known positions.
+- In **`Queue`**, prefer **`offer()`/`poll()`/`peek()`** over `add()`/`remove()`/`element()` to avoid unexpected runtime exceptions when empty or full.
+- Prefer **`ArrayDeque`** over `java.util.Stack` for LIFO stacks and over `LinkedList` for standard FIFO queues.
 - Always override both **`equals()`** and **`hashCode()`** when storing custom objects in a `HashSet` or using them as keys in a `HashMap`.
 - Prefer **fail-safe** concurrent collections (`ConcurrentHashMap`, `CopyOnWriteArrayList`) over legacy synchronized classes (`Vector`, `Hashtable`) in multithreaded environments.
 - Use **`Comparable`** for a single natural ordering inside the class, and **`Comparator`** for flexible or multiple external sort orders.

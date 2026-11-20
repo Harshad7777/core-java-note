@@ -1,4 +1,4 @@
-﻿# Collection Framework in Java
+# Collection Framework in Java
 
 [Overview](#1-collection-framework-overview) | [Iterable & Collection](#2-iterable-and-collection) | [List](#3-list-interface) | [Cursors & Fail-Fast/Safe](#4-cursors-in-collection-framework) | [Set](#5-set-interface) | [Map](#6-map-interface) | [Generics](#7-generics) | [Wrapper Classes](#8-wrapper-classes) | [Collections Utility](#9-collections-utility-class) | [Comparable vs Comparator](#10-comparable-vs-comparator) | [Quick Revision](#quick-interview-revision)
 
@@ -687,14 +687,13 @@ Fail-safe iterators operate on a clone or snapshot of the underlying collection,
 
 - **Examples:** `CopyOnWriteArrayList`, `ConcurrentHashMap`
 
+```java
 import java.util.*;
 import java.util.concurrent.*;
 
 public class FailSafeExample {
     public static void main(String[] args) {
-
-        CopyOnWriteArrayList<Integer> list =
-                new CopyOnWriteArrayList<>();
+        CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
 
         list.add(10);
         list.add(20);
@@ -703,59 +702,78 @@ public class FailSafeExample {
         Iterator<Integer> itr = list.iterator();
 
         while (itr.hasNext()) {
-
             System.out.println(itr.next());
-
             list.add(40); // Modifying original collection
         }
 
         System.out.println("Updated List: " + list);
     }
 }
+```
 
-Output:
-[10, 30, 40]
+**Output:**
+```text
+10
+20
+30
+Updated List: [10, 20, 30, 40, 40, 40]
+```
 
+> [!NOTE]
+> The iterator traverses the original snapshot `[10, 20, 30]`, so additions (`list.add(40)`) modify a new copy of the array and do not disrupt the active traversal.
 
-2. Use ListIterator
+#### Fail-Fast vs. Fail-Safe Comparison
+| Feature | Fail-Fast Iterators | Fail-Safe Iterators |
+| :--- | :--- | :--- |
+| **Exception** | Throws `ConcurrentModificationException` | Never throws `ConcurrentModificationException` |
+| **Data Source** | Operates directly on the original collection | Operates on a cloned snapshot / copy |
+| **Memory Overhead** | Low (no copying) | Higher (allocates a new array on modification) |
+| **Modification During Traversal** | ❌ Not allowed | ✅ Allowed |
+| **Examples** | `ArrayList`, `Vector`, `HashSet`, `HashMap` | `CopyOnWriteArrayList`, `ConcurrentHashMap` |
 
-For List implementations, we can use ListIterator to add, remove or replace elements while iterating.
+---
+
+### How to Safely Modify Collections During Iteration
+
+#### 1. Use Fail-Safe / Concurrent Collections
+Use fail-safe collections like `CopyOnWriteArrayList` or `ConcurrentHashMap` that operate on a snapshot of the data.
+
+#### 2. Use `ListIterator`
+For `List` implementations, we can use `ListIterator` to add, remove, or replace elements while iterating without throwing an exception.
+
+```java
 import java.util.*;
 
 public class ListIteratorExample {
     public static void main(String[] args) {
-
-        ArrayList<Integer> list =
-                new ArrayList<>(Arrays.asList(10, 20, 30));
+        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(10, 20, 30));
 
         ListIterator<Integer> itr = list.listIterator();
 
         while (itr.hasNext()) {
-
             int value = itr.next();
-
             if (value == 20) {
-                itr.add(25);
+                itr.add(25); // Safely adds element during iteration
             }
         }
 
         System.out.println(list);
     }
 }
+```
 
-
-Output:
+**Output:**
+```text
 [10, 20, 25, 30]
+```
 
-
-3. Use Concurrent Collection API
-
+#### 3. Use Concurrent Collection API
 We can use concurrent collection classes when multiple threads need to access or modify collections.
 
-Examples:
-- CopyOnWriteArrayList
-- ConcurrentHashMap
-- ConcurrentLinkedQueue
+**Examples:**
+- `CopyOnWriteArrayList`
+- `ConcurrentHashMap`
+- `ConcurrentLinkedQueue`
 
 ---
 
@@ -895,38 +913,95 @@ public class TreeSetExample {
 
 ---
 
-### `NavigableSet`
-`NavigableSet` extends `SortedSet` and provides navigation methods for locating closest matches in sorted data.
+### `NavigableSet` Interface
+`NavigableSet` (in `java.util`) is a child interface of `SortedSet` that provides navigation methods for locating closest-matching elements (such as `higher`, `lower`, `ceiling`, and `floor`) and supports bidirectional traversal.
 
-#### Useful Methods
-- `descendingSet()` — returns a reverse-order view of the set
-- `ceiling(E e)` — least element `>= e` (or `null`)
-- `floor(E e)` — greatest element `<= e` (or `null`)
-- `higher(E e)` — least element strictly `> e` (or `null`)
-- `lower(E e)` — greatest element strictly `< e` (or `null`)
+#### Key Features & Characteristics
+- **Extends `SortedSet`:** Inherits all sorted set properties and adds directional search capabilities.
+- **Unique Elements:** Disallows duplicate elements.
+- **Maintains Sorted Order:** Elements are stored in natural ascending order by default (or using a custom `Comparator`).
+- **Descending Views:** Can produce a reverse-order view via `descendingSet()` or `descendingIterator()`.
+- **Primary Implementation:** `TreeSet` is the standard concrete class implementing `NavigableSet`.
 
-#### Example
+#### Useful Navigation Methods
+| Method | Description | Return If Absent |
+| :--- | :--- | :--- |
+| `ceiling(E e)` | Returns the least element greater than or equal to `e` (`>= e`) | `null` |
+| `floor(E e)` | Returns the greatest element less than or equal to `e` (`<= e`) | `null` |
+| `higher(E e)` | Returns the least element strictly greater than `e` (`> e`) | `null` |
+| `lower(E e)` | Returns the greatest element strictly less than `e` (`< e`) | `null` |
+| `pollFirst()` | Retrieves and removes the first (lowest) element | `null` |
+| `pollLast()` | Retrieves and removes the last (highest) element | `null` |
+| `descendingSet()` | Returns a reverse-order view of the elements contained in this set | — |
+
+> [!TIP]
+> **Interview Rule of Thumb:**
+> - `ceiling` & `floor` are **inclusive** (`>=` and `<=`).
+> - `higher` & `lower` are **exclusive** (`>` and `<`).
+
+#### Example: Complete `NavigableSet` Operations
 ```java
 import java.util.*;
 
 public class NavigableSetExample {
     public static void main(String[] args) {
         NavigableSet<Integer> set = new TreeSet<>();
-        set.add(5);
         set.add(10);
         set.add(20);
         set.add(30);
+        set.add(40);
+        set.add(50);
 
-        System.out.println(set.higher(10));
-        System.out.println(set.lower(20));
+        // 1. Ascending order traversal
+        System.out.println("Ascending Order:");
+        for (Integer obj : set) {
+            System.out.println(obj);
+        }
+
+        // 2. Descending order view
+        NavigableSet<Integer> nset = set.descendingSet();
+        System.out.println("Descending Order:");
+        for (Integer obj : nset) {
+            System.out.println(obj);
+        }
+
+        // 3. Navigation queries
+        System.out.println("Ceiling (>= 25): " + set.ceiling(25));
+        System.out.println("Floor   (<= 25): " + set.floor(25));
+        System.out.println("Higher  (> 30):  " + set.higher(30));
+        System.out.println("Lower   (< 30):  " + set.lower(30));
+
+        // 4. Polling first and last elements
+        System.out.println("Poll First: " + set.pollFirst());
+        System.out.println("Poll Last:  " + set.pollLast());
+
+        // 5. Remaining set
+        System.out.println("Updated Set: " + set);
     }
 }
 ```
 
 **Output:**
 ```text
+Ascending Order:
+10
+20
+30
+40
+50
+Descending Order:
+50
+40
+30
 20
 10
+Ceiling (>= 25): 30
+Floor   (<= 25): 20
+Higher  (> 30):  40
+Lower   (< 30):  20
+Poll First: 10
+Poll Last:  50
+Updated Set: [20, 30, 40]
 ```
 
 ---
@@ -1315,6 +1390,7 @@ By Name: [3:Alice, 2:Bob, 1:Charlie]
 | **`HashSet`** | Unique elements, unordered, one `null` allowed, average `O(1)`. |
 | **`LinkedHashSet`** | Unique elements, preserves insertion order, average `O(1)`. |
 | **`TreeSet`** | Unique elements, sorted ascending order, no `null`, `O(log n)`. |
+| **`NavigableSet`** | Sub-interface of `SortedSet`; provides closest-match navigation methods (`ceiling`, `floor`, `higher`, `lower`). |
 | **`HashMap`** | Key-value pairs, unordered, one `null` key, average `O(1)`, Red-Black Tree for collisions (Java 8+). |
 | **`LinkedHashMap`** | Key-value pairs with insertion order preserved. |
 | **`TreeMap`** | Key-value pairs sorted by key, no `null` key, `O(log n)`. |

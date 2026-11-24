@@ -1397,38 +1397,200 @@ Java
 ---
 
 ### `HashMap`
-`HashMap` is the most widely used hash-table implementation of `Map`.
 
-#### Features
-- Stores key-value pairs with unique keys and duplicate values allowed
-- No insertion order guarantee
-- Allows **one `null` key** and multiple `null` values
-- Average `O(1)` performance for `get()` and `put()`
+`HashMap` is the most widely used hash-table-based implementation of the `Map` interface. It stores data as key-value pairs using hashing for high-speed retrieval.
 
-#### Internal Working & Collisions
-1. The key's `hashCode()` is computed and mapped to a bucket index.
-2. If multiple distinct keys map to the same bucket index, a **hash collision** occurs.
-3. Java resolves collisions inside a bucket using a **Linked List**, automatically converting it into a **Red-Black Tree** (Java 8+) once the bucket exceeds the treeify threshold (8 nodes) for faster `O(log n)` lookup.
+#### Key Features
+- **Key-Value Pairs:** Stores associations between unique keys and corresponding values.
+- **Unordered:** Does **not guarantee any specific order** of keys or values (the order can change over time upon rehashing).
+- **Null Handling:** Allows **at most one `null` key** (stored at bucket index 0) and multiple `null` values.
+- **Not Synchronized:** Not thread-safe (for concurrent use, prefer `ConcurrentHashMap`).
+- **Time Complexity:**
+  - Average Case: `O(1)` for `get()` and `put()`.
+  - Worst Case (high collision rate): `O(log n)` with Red-Black Tree (or `O(n)` prior to Java 8).
 
-#### Example
+---
+
+#### Internal Architecture & Data Structure
+
+Internally, `HashMap` is built on an array of buckets:
+
+```text
+Node<K, V>[] table
+```
+
+Each bucket slot contains either `null` or a reference to a `Node<K, V>` (or `TreeNode<K, V>` in Java 8+).
+
+##### Node Structure
+Each entry in a bucket is represented by an internal static class:
+```java
+static class Node<K, V> implements Map.Entry<K, V> {
+    final int hash;    // Cached hash code of the key
+    final K key;       // The key object
+    V value;           // The value object
+    Node<K, V> next;   // Reference to the next node in the bucket
+}
+```
+
+##### Critical Constants & Parameters
+| Parameter | Default Value | Description |
+| :--- | :--- | :--- |
+| **Initial Capacity** | `16` (`1 << 4`) | Default number of bucket slots in the array. Must be a power of 2. |
+| **Maximum Capacity** | `2^30` (`1 << 30`) | Upper bound on array size. |
+| **Load Factor** | `0.75` (`75%`) | Measure of how full the hash table can get before resizing. |
+| **Threshold** | `Capacity * Load Factor` | Capacity limit before resizing (`16 * 0.75 = 12`). |
+| **`TREEIFY_THRESHOLD`** | `8` | Number of nodes in a bucket chain that triggers conversion to a Red-Black Tree. |
+| **`UNTREEIFY_THRESHOLD`** | `6` | Number of nodes in a tree that triggers conversion back to a linked list upon deletion. |
+| **`MIN_TREEIFY_CAPACITY`** | `64` | Minimum total hash table capacity required before treeifying a bucket (otherwise table resizes instead). |
+
+---
+
+#### How `put(K key, V value)` Works Internally
+
+```text
+                           map.put(key, value)
+                                    │
+                                    ▼
+                      Compute Hash of Key
+                      hash = (h = key.hashCode()) ^ (h >>> 16)
+                                    │
+                                    ▼
+                      Calculate Bucket Index
+                      index = (n - 1) & hash
+                                    │
+                                    ▼
+                      Is table[index] empty?
+                         ├── Yes ──► Create Node and store at table[index]
+                         │
+                         └── No  ──► Hash Collision!
+                                       │
+                                       ▼
+                       Does key already exist in bucket?
+                       (p.hash == hash && key.equals(p.key))
+                         ├── Yes ──► Overwrite existing value (oldValue returned)
+                         │
+                         └── No  ──► Traverse Linked List / Red-Black Tree
+                                       │
+                                       ├── If List Length >= 8 and Capacity >= 64:
+                                       │   Convert to Red-Black Tree (TreeNode)
+                                       │
+                                       └── Append new Node at end
+                                    │
+                                    ▼
+                      Is size > threshold?
+                         └── Yes ──► Resize table to 2x capacity (Rehash)
+```
+
+1. **Hash Calculation:** If `key == null`, hash is `0`. Otherwise, computes `(h = key.hashCode()) ^ (h >>> 16)` to spread higher bits into lower bits, minimizing collisions.
+2. **Index Calculation:** Uses bitwise AND operation `index = (n - 1) & hash` (which is functionally equivalent to `hash % n` because capacity `n` is always a power of 2, but bitwise AND is significantly faster).
+3. **Empty Bucket:** If `table[index]` is empty, a new `Node` is directly placed in that bucket slot.
+4. **Collision Handling:** If `table[index]` already contains nodes:
+   - Checks if the new key matches an existing key using `hash` equality and `equals()`.
+   - If a matching key is found &rarr; replaces the existing value with the new value.
+   - If no match is found &rarr; traverses the linked list and appends the new node at the tail.
+5. **Treeification:** If the number of nodes in a single bucket reaches **8** and total capacity is at least **64**, the linked list is converted into a balanced **Red-Black Tree** (`TreeNode`), reducing lookup time from `O(n)` to `O(log n)`.
+6. **Resizing (Rehashing):** If the total number of entries exceeds `threshold` (`capacity * 0.75`), the table array doubles in size (`capacity * 2`), and all existing entries are re-indexed.
+
+---
+
+#### How `get(Object key)` Works Internally
+
+1. Computes the hash and bucket index for the given key: `index = (n - 1) & hash`.
+2. Inspects the first node at `table[index]`:
+   - If its hash and key match (`p.hash == hash && key.equals(p.key)`), returns `p.value`.
+3. If the bucket has multiple nodes:
+   - If it is a **Linked List** &rarr; traverses sequentially checking each node with `equals()`.
+   - If it is a **Red-Black Tree** &rarr; searches in `O(log n)` time.
+4. If no matching key is found, returns `null`.
+
+---
+
+#### Collision Visual Representation
+
+```text
+Table Array (Capacity = 16)
+[0]  ──► null
+[1]  ──► [Hash: 101 | Key: "A" | Value: 10] ──► [Hash: 101 | Key: "B" | Value: 20] ──► null
+[2]  ──► null
+[3]  ──► [Hash: 305 | Key: "C" | Value: 30] ──► null
+...
+[15] ──► null
+```
+
+> [!TIP]
+> **Summary for Interviews:**
+> - **`hashCode()`** determines the bucket index.
+> - **`equals()`** resolves which key inside the bucket matches.
+> - **Hash Collision:** When two distinct keys produce the same bucket index.
+> - **Why Load Factor = 0.75?** Offers an optimal balance between time performance (fewer collisions) and space consumption.
+> - **Why Power of 2?** Allows the fast bitwise index calculation `(n - 1) & hash` instead of slow modulus `%`.
+
+---
+
+#### Example: Comprehensive `HashMap` Operations
 ```java
 import java.util.*;
 
-public class HashMapExample {
+public class HashMapCompleteExample {
     public static void main(String[] args) {
-        Map<Integer, String> map = new HashMap<>();
-        map.put(1, "A");
-        map.put(2, "B");
-        map.put(3, "C");
+        Map<String, Integer> map = new HashMap<>();
 
-        System.out.println(map);
+        // 1. Inserting key-value pairs
+        map.put("Apple", 50);
+        map.put("Banana", 20);
+        map.put("Orange", 30);
+
+        // 2. Overwriting existing key
+        map.put("Apple", 60); // Replaces old value 50
+
+        // 3. Null key and null values
+        map.put(null, 0);
+        map.put("Mango", null);
+
+        System.out.println("Map Contents: " + map);
+
+        // 4. Retrieving values
+        System.out.println("Price of Apple:  " + map.get("Apple"));
+        System.out.println("Price of Banana: " + map.get("Banana"));
+        System.out.println("Price of null:   " + map.get(null));
+        System.out.println("Unknown Key:     " + map.get("Papaya")); // returns null
+
+        // 5. Checking presence
+        System.out.println("Contains 'Orange'? " + map.containsKey("Orange"));
+        System.out.println("Contains value 30? " + map.containsValue(30));
+
+        // 6. Iterating using entrySet() (Recommended)
+        System.out.println("\n--- Iterating via entrySet() ---");
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+
+        // 7. Iterating keys and values separately
+        System.out.println("\nKeys:   " + map.keySet());
+        System.out.println("Values: " + map.values());
     }
 }
 ```
 
 **Output:**
 ```text
-{1=A, 2=B, 3=C}
+Map Contents: {null=0, Apple=60, Mango=null, Orange=30, Banana=20}
+Price of Apple:  60
+Price of Banana: 20
+Price of null:   0
+Unknown Key:     null
+Contains 'Orange'? true
+Contains value 30? true
+
+--- Iterating via entrySet() ---
+null -> 0
+Apple -> 60
+Mango -> null
+Orange -> 30
+Banana -> 20
+
+Keys:   [null, Apple, Mango, Orange, Banana]
+Values: [0, 60, null, 30, 20]
 ```
 
 ---
